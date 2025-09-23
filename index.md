@@ -2018,6 +2018,95 @@ exe = EXE(
 
 ````
 
+# docs
+
+## docs\diag_activity.plantuml
+
+````
+@startuml
+start
+:Init logger;
+:Lister images;
+fork
+  repeat
+    :Soumettre image au pool;
+    :OCR via Tesseract;
+  repeat while (images?)
+end fork
+:Collecter la liste triée images_tags (fichier image + tags image);
+
+:Lire fichier GPS locapo;
+repeat
+  :Récupérer tag image;
+  :Calculer ABD, temps, numéro;
+  :Corrige le nom des images XXX.JGP : YYY.JPG_
+  :Interpolation barycentrique GPS;
+  :Écrire ligne ME0 SES et SAG;
+repeat while (images_tags?)
+
+:Renommer les images YYY.JPG_ en YYY.JPG;
+stop
+@enduml
+
+````
+
+## docs\diag_sequence.plantuml
+
+````
+@startuml
+actor User
+participant "main" as M
+participant "Logger" as L
+participant "ImageProcessor" as I
+participant "ThreadPoolExecutor" as T
+participant "SessionProcessor" as S
+
+User -> M : Lance le script
+activate M
+
+M -> L : init_logger()
+activate L
+L --> M : logger configuré
+deactivate L
+
+M -> I : process_on_images_from_directory_parallel()
+activate I
+
+I -> T : submit(process_one_file) [pour chaque image]
+activate T
+
+loop pour chaque image
+    T -> I : detect_text_from_frame(image)
+    activate I
+    I-> I : cv2.imread()
+    I -> I : pytesseract.image_to_string()
+    I --> T : texte extrait
+    deactivate I
+end
+
+T --> I : (filepath, texte) [résultats parallèles]
+deactivate T
+I --> M : liste fichiers + textes
+deactivate I
+
+M -> S : process_update_me0(resultats,...)
+activate S
+S -> S : parse CSV locapo
+S -> S : interpolate_gps(ABD)\nXDEB YDEB ZDEB
+S --> M : fichiers ME0 (SAG et SES) générés
+deactivate S
+
+M -> I : process_rename_images_from_directory()
+activate I
+I --> M : fichiers renommés
+deactivate I
+
+M --> User : Logs + fichiers générés
+deactivate M
+@enduml
+
+````
+
 # tests
 
 ## tests\rename_token.py
@@ -2429,4 +2518,3 @@ def test_rollback_session():
     assert True
 
 ````
-
