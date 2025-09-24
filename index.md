@@ -62,6 +62,7 @@ from datetime import datetime
 
 import cv2
 import pytesseract
+import shutil
 
 from logs import init_logger, __print_info, __print_erreur
 
@@ -71,9 +72,9 @@ from logs import init_logger, __print_info, __print_erreur
 # Exemple Windows :
 # pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 if hasattr(sys, '_MEIPASS'):
-    tesseract_path = os.path.join(sys._MEIPASS, 'Tesseract-OCR', 'tesseract.exe')
+    tesseract_path = os.path.join(sys._MEIPASS, 'Tesseract-OCR', 'tesseract')
 else:
-    tesseract_path = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    tesseract_path = shutil.which("tesseract") or r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 pytesseract.pytesseract.tesseract_cmd = tesseract_path
 # ──────────────────────────────
 
@@ -1445,17 +1446,17 @@ from logs import init_logger, __print_debug, __print_info, __print_erreur
 def revise_duplicated_lines_me0(fichier: str) -> int:
     __print_info(f"Corrige le fichier {fichier}...")
 
-    # Lecture ANSI (cp1252 pour Windows)
+    # Lecture du fichier ME0
     __print_info('lecture du fichier')
     with open(fichier, "r", errors="replace") as f:
         contenu = f.read()
-
     lignes = contenu.splitlines()
     if not lignes:
         __print_erreur(f"Fichier vide : {fichier}")
         return 0
     __print_info(f'Nombre de ligne du fichier {len(lignes)}')
 
+    # traitement SES/SAG
     header = lignes[0].strip()
     nouvelles_lignes = [header]
 
@@ -1471,7 +1472,7 @@ def revise_duplicated_lines_me0(fichier: str) -> int:
         __print_erreur(f"En-tête inconnu dans {fichier}")
         return 0
 
-    # Sauvegarde .bak et réécriture en ANSI
+    # Sauvegarde .bak et réécriture du ME0
     if not os.path.exists(fichier + ".old"):
         __print_info("Sauvegarde .bak")
         shutil.copy2(fichier, fichier + ".old")
@@ -1479,7 +1480,6 @@ def revise_duplicated_lines_me0(fichier: str) -> int:
         __print_info("Fichier déjà sauvegardé")
 
     __print_info(f"Réécriture dans fichier ME0 {fichier}")
-    # with open(fichier, "w", encoding="cp1252", errors="replace") as f:
     with open(fichier, "w", errors="replace") as f:
         f.write("\n".join(nouvelles_lignes))
 
@@ -2020,7 +2020,7 @@ exe = EXE(
 
 # docs
 
-## docs\diag_activity.plantuml
+## docs\diag_activity.puml
 
 ````
 @startuml
@@ -2050,7 +2050,42 @@ stop
 
 ````
 
-## docs\diag_sequence.plantuml
+## docs\diag_classes.puml
+
+````
+@startuml
+class Logger {
+  +init_logger()
+  +__print_info()
+  +__print_debug()
+  +__print_erreur()
+}
+
+class ImageProcessor {
+  +detect_text_from_frame(img_path): str
+  +process_on_images_from_directory_parallel(dir, ext): List[str]
+  +process_rename_images_from_directory(dir, ext)
+}
+
+class Me0Processor {
+  +process_update_me0(images, pas_acq, f_sag, f_ses, locapo)
+  +extract_tags_from_image_and_update_me0(...)
+  +interpolate_gps(abd, gps_data)
+  +extract_tags_from_image_and_update_me0_sag(...)
+  +extract_tags_from_image_and_update_me0_ses(...)
+  +extract_gps_datas(fichier_locapo:str)
+  +process_me0_ses(lignes, nouvelles_lignes)
+  +process_me0_sag(lignes, nouvelles_lignes)
+}
+
+Logger <-- ImageProcessor
+Logger <-- Me0Processor
+ImageProcessor --> Me0Processor
+@enduml
+
+````
+
+## docs\diag_sequence_image.puml
 
 ````
 @startuml
@@ -2059,7 +2094,7 @@ participant "main" as M
 participant "Logger" as L
 participant "ImageProcessor" as I
 participant "ThreadPoolExecutor" as T
-participant "SessionProcessor" as S
+participant "Me0Processor" as S
 
 User -> M : Lance le script
 activate M
@@ -2080,6 +2115,7 @@ loop pour chaque image
     activate I
     I-> I : cv2.imread()
     I -> I : pytesseract.image_to_string()
+    I -> I : normalize_ocr_line(text)
     I --> T : texte extrait
     deactivate I
 end
@@ -2091,8 +2127,11 @@ deactivate I
 
 M -> S : process_update_me0(resultats,...)
 activate S
-S -> S : parse CSV locapo
-S -> S : interpolate_gps(ABD)\nXDEB YDEB ZDEB
+S -> S : extract_gps_datas(fichier_locapo)
+S -> S : interpolate_gps(ABD)
+S --> S : XDEB YDEB ZDEB
+S -> S: extract_tags_from_image_and_update_me0_sag()
+S -> S: extract_tags_from_image_and_update_me0_ses()
 S --> M : fichiers ME0 (SAG et SES) générés
 deactivate S
 
@@ -2102,6 +2141,41 @@ I --> M : fichiers renommés
 deactivate I
 
 M --> User : Logs + fichiers générés
+deactivate M
+@enduml
+
+````
+
+## docs\diag_sequence_me0.puml
+
+````
+@startuml
+actor User
+participant "main" as M
+participant "Logger" as L
+participant "ME0Processor" as P
+
+User -> M : Lance revise_duplicated_lines_me0.py
+activate M
+
+M -> L : init_logger()
+activate L
+L --> M : logger configuré
+deactivate L
+
+M -> P : load_me0_file(filepath)
+activate P
+P -> P : read filepath
+P -> P : header process
+alt header = "dist"
+P -> P : process_sag()
+else header = "abd"
+P -> P : process_ses()
+end
+P --> P : fichier sauvegardé
+deactivate P
+
+M --> User : Logs + fichier ME0 corrigé
 deactivate M
 @enduml
 
@@ -2518,3 +2592,4 @@ def test_rollback_session():
     assert True
 
 ````
+
