@@ -35,6 +35,7 @@ Your Pages site will use the layout and styles from the Jekyll theme you have se
 ### Support or Contact
 
 Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+
 # pythonProject
 
 # src
@@ -42,7 +43,7 @@ Having trouble with Pages? Check out our [documentation](https://docs.github.com
 ## src\_version.py
 
 ````python
-__version__ = "0.14.0"
+__version__ = "0.18.0"
 
 ````
 
@@ -59,6 +60,7 @@ from logging import Logger
 from typing import Callable, TextIO
 from typing import List
 from datetime import datetime
+from pathlib import Path
 
 import cv2
 import pytesseract
@@ -222,6 +224,7 @@ def process_update_me0(dossier_image: str, list_fic_images: [], pas_acq: int, fi
     """
     tacq: float = -1
     pas_acq_dernier: int = -1
+    dernier_numimage: int = 0
 
     __print_info("Met à jour les fichiers ME0")
 
@@ -248,12 +251,15 @@ def process_update_me0(dossier_image: str, list_fic_images: [], pas_acq: int, fi
 
         lignes: list[str] = []
         for ligne in list_fic_images:
-            tacq, pas_acq_dernier, ligne_formatee = extract_tags_from_image_and_update_me0_sag(
-                f_me0, f_ren, ligne, pas_acq, tacq, pas_acq_dernier
-            )
-            lignes.append(ligne_formatee)
-
+            tacq, pas_acq_dernier, ligne_formatee, dernier_numimage, lignes_images_ratees = \
+                extract_tags_from_image_and_update_me0_sag(f_me0, f_ren, ligne, pas_acq, tacq, pas_acq_dernier,
+                                                           dernier_numimage)
+            if not (lignes_images_ratees == ""):
+                llignes_images_ratees = lignes_images_ratees.splitlines()
+                for ll in llignes_images_ratees:
+                    extract_token_from_line_and_update_me0_ses(f_ses, ll, gps_data)
             extract_token_from_line_and_update_me0_ses(f_ses, ligne_formatee, gps_data)
+            lignes.append(ligne_formatee)
 
 
 def extract_gps_datas(fichier_locapo):
@@ -272,9 +278,11 @@ def extract_gps_datas(fichier_locapo):
 
 
 def extract_tags_from_image_and_update_me0_sag(f_me0: TextIO, f_renommage: TextIO, fic_image_texte: str, pas_acq: int,
-                                               tacq: float, pas_acq_dernier: int) -> tuple[float, int, str]:
+                                               tacq: float, pas_acq_dernier: int, dernier_numimage: int) \
+        -> tuple[float, int, str, int, str]:
     """
     *interne* traite le fichier image, fait correspondre les distances, maj le ME0 SAG
+    :param dernier_numimage:
     :param f_me0: handle de fichier me0
     :param f_renommage: hdndle de fichier pour notifier les fichiers images qui seront renommés
     :param fic_image_texte: <fichier image>tab<texte>
@@ -293,7 +301,7 @@ def extract_tags_from_image_and_update_me0_sag(f_me0: TextIO, f_renommage: TextI
     match_dist = re.search(r"(\d+\.\d{3})km", texte_detecte)
     if not match_dist:
         __print_erreur(f"erreur d'extraction de la distance dans le texte {texte_detecte}")
-        return tacq, pas_acq_dernier, ""
+        return tacq, pas_acq_dernier, "", dernier_numimage, ""
     distance_km = float(match_dist.group(1))
     distance_m = round(distance_km * 1000, 3)
 
@@ -301,7 +309,7 @@ def extract_tags_from_image_and_update_me0_sag(f_me0: TextIO, f_renommage: TextI
     match_time = re.search(r"(\d{2}):(\d{2}):(\d{2})", texte_detecte)
     if not match_time:
         __print_erreur(f"erreur d'extraction de l'heure dans le texte {texte_detecte}")
-        return tacq, pas_acq_dernier, ""
+        return tacq, pas_acq_dernier, "", dernier_numimage, ""
     h, m, s = map(int, match_time.groups())
     temps_sec = h * 3600 + m * 60 + s
     if tacq == -1:
@@ -312,33 +320,43 @@ def extract_tags_from_image_and_update_me0_sag(f_me0: TextIO, f_renommage: TextI
     match_num = re.search(r"\.(\d{6})\.", nom_fichier_complet, re.IGNORECASE)
     if not match_num:
         __print_erreur(f"erreur d'extraction de num dans le texte {nom_fichier_complet}")
-        return tacq, pas_acq_dernier, ""
+        return tacq, pas_acq_dernier, "", dernier_numimage, ""
     numero_image: int = int(match_num.group(1).lstrip('0') or "0")
 
     # --- Recale le nom du fichier avec la distance et renomme l'image en .JPG_---
+    lignes_images_ratees = ""
     if abs(distance_m - numero_image * pas_acq) >= pas_acq:
         if pas_acq_dernier != pas_acq:
             pas_acq_dernier = pas_acq
             __print_info(f"====> renommage des fichiers à partir de {distance_m}")
         numero_image = int(distance_m / pas_acq)
+        # enregistre les images ratées dans ME0
+        nombre_images_ratees = numero_image - dernier_numimage - 1
+        if nombre_images_ratees > 0:
+            for d in range(nombre_images_ratees):
+                num = dernier_numimage + d + 1
+                lignes_images_ratees += f"{num * pas_acq}\t{num:06d}\t{999999}\t{999999}\n"
+            f_me0.write(lignes_images_ratees)
         # APOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.000001.JPG
         #                       0                1         2 3      4
         nouveau_nom_complet = f"{'.'.join(ltoks[:-2])}.{numero_image:06d}.{ltoks[-1]}"
-        f_renommage.write(f"{nom_fichier_complet}\t{nouveau_nom_complet}_\n")
+        f_renommage.write(f"{Path(nom_fichier_complet).name}\t{Path(nouveau_nom_complet).name}_\n")
         os.rename(nom_fichier_complet, nouveau_nom_complet + "_")
+    dernier_numimage = numero_image
 
     # --- Écriture de la ligne dans ME0 SAG ---
-    # "C:\IAE02U150320\APOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.000001.JPG"
     _nomfichier: str = os.path.basename(nouveau_nom_complet)  # 'APOIAE02U1250320.ME0_Image.1.000001.JPG'
     _nomdossier: str = os.path.basename(os.path.dirname(nouveau_nom_complet))  # 'APOIAE02U1250320.ME0_'
-    _cheminrelatif: str = os.path.join(_nomdossier, _nomfichier)
+    _cheminrelatif: str = os.path.join(_nomdossier,
+                                       _nomfichier)  # "C:\IAE02U150320\APOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.000001.JPG"
     line: str = f"{distance_m}\t{numero_image:06d}\t{_cheminrelatif}\t{temps_sec}\n"
     f_me0.write(line)
 
-    return tacq, pas_acq_dernier, line
+    return tacq, pas_acq_dernier, line, dernier_numimage, lignes_images_ratees
 
 
-def extract_token_from_line_and_update_me0_ses(f_ses: TextIO, ligne_formatee: str, gps_data: list[dict[str, float]]):
+def extract_token_from_line_and_update_me0_ses(f_ses: TextIO, ligne_formatee: str,
+                                               gps_data: list[dict[str, float]]):
     """
     *interne* extrait les données SES d'une ligne, fait interpolation barycentrique pour avoir la position GPS
      maj le ME0 SES
@@ -396,7 +414,7 @@ def process_rename_images_from_directory(directory_path: str, type_image: str) -
     """
     Renomme les fichiers se terminant par "_" du précédent traitement
     :param directory_path: le répertoire
-    :param type_image: le format d'image
+    :param type_image: le format d'image,
     """
     __print_info(f"Renomme les fichiers image dans le dossier {directory_path}")
     count: int = 0
@@ -426,7 +444,7 @@ def process_tags_on_image_and_update_me0(directory_path: str, type_image: str, p
     result: list[str] = []
     fic_res_txt = _dossier_image + "/tags.txt"
 
-    # traitement du dossier, écris les résultats dans un fichier txt
+    # traitement des images du dossier, écrit les résultats dans un "tags.txt"
     if not os.path.exists(fic_res_txt):
         __print_info(f"\nTraitement du dossier image : {_dossier_image}.\n")
         result = process_on_images_from_directory_parallel(directory_path=_dossier_image,
@@ -441,7 +459,7 @@ def process_tags_on_image_and_update_me0(directory_path: str, type_image: str, p
         with open(fic_res_txt, "w+", encoding="utf-8") as f_res:
             f_res.writelines(line + "\n" for line in result)
 
-    # dossier déjà traité
+    # dossier déjà traité : "tags.txt" déjà présent
     else:
         __print_info(f"\nImages déjà traitées dans le dossier {_dossier_image} : chargement du fichier...\n")
         with open(fic_res_txt, "r", encoding="utf-8") as f_res:
@@ -467,15 +485,18 @@ def process_tags_on_image_and_update_me0(directory_path: str, type_image: str, p
 
 
 if __name__ == "__main__":
-    dossier_image: str = "D:/tmp/iea02/IAE02U1250320/APOIAE02U1250320.ME0_"
+    cd = os.path.join(os.path.dirname(__file__), "../")
+    dossier_image: str = os.path.join(cd + "tests/.pytest_cache/A3D/20250811_A3D_1_T_G/IAE02U1250310/"
+                                           "APOIAE02U1250310.ME0_")
     extension_image: str = ".jpg"
-    nom_fichier_sortie_me0_sag: str = "d:/tmp/APOIAE02U1250320_SAG.ME0"
-    nom_fichier_sortie_me0_ses: str = "d:/tmp/APOIAE02U1250320_SES.ME0"
-    fichier_entree_locapo: str = "D:/tmp/iea02/APO01U1250320.SES/APOLOC03U1250320.ME0"
+    nom_fichier_sortie_me0_sag: str = os.path.join(cd + "tests/.pytest_cache/APOIAE02U1250310_SAG.ME0")
+    nom_fichier_sortie_me0_ses: str = os.path.join(cd + "tests/.pytest_cache/APOIAE02U1250310_SES.ME0")
+    fichier_entree_locapo: str = os.path.join(cd + "tests/.pytest_cache/A3D/20250811_A3D_1_T_G/APO01U1250310.SES/"
+                                                   "APOLOC03U1250310.ME0")
     pas_acquisition: int = 10
 
     # --- Exemples ---
-    init_logger("d:/tmp/APOIAE02U1250320")
+    init_logger(os.path.join(cd + "tests/.pytest_cache/APOIAE02U1250310"))
     process_tags_on_image_and_update_me0(dossier_image, extension_image, pas_acquisition, nom_fichier_sortie_me0_sag,
                                          nom_fichier_sortie_me0_ses, fichier_entree_locapo, None, os.cpu_count() * 4)
 
@@ -489,7 +510,7 @@ import sys
 from datetime import datetime
 from logging import Logger
 
-# le logger
+# le logger,
 log: logging.Logger = None
 log_filename: str
 
@@ -554,7 +575,7 @@ from detect_text_from_frame import process_tags_on_image_and_update_me0
 from logs import init_logger
 
 # ----------------------------
-# Utilisation: corrige_me0_iae02_v2.22.exe <dossier_image> <extension_image> <pas_acquisition>
+# Utilisation : corrige_me0_iae02_v2.22.exe <dossier_image> <extension_image> <pas_acquisition>
 #                               <nom_fichier_sortie_me0_SAG> <nom_fichier_sortie_me0_SES> <nom_fichier_entree_apoloc>
 #                               <nom_base_log>
 # ----------------------------
@@ -619,7 +640,7 @@ def main():
         print(f"Usage: {sys.argv[0]} rollback <dossier_AAAAMMJJ_A3D_Y_T_G> <session_ssssss>")
         sys.exit(1)
 
-    # Cas 2 : rollback
+    # Cas 2 : rollback,
     if sys.argv[1] == "rollback":
         if len(sys.argv) != 4:
             print(f"Usage: {sys.argv[0]} rollback <dossier_AAAAMMJJ_A3D_Y_T_G> <session_ssssss>")
@@ -652,7 +673,7 @@ from logs import __print_info, __print_erreur, init_logger
 
 
 def process_disk(base_dir: str, cb_avancement: Callable[[str], None] = None, max_workers: int = 4):
-    __print_info("Recherche des disques A3D...")
+    __print_info("Recherche des disques A3D..")
     pattern = re.compile(r"^\d{8}_A3D_\d_[A-Z]_[A-Z]$")
     liste_disque_aigle = [
         os.path.join(base_dir, d)
@@ -738,23 +759,6 @@ from logs import init_logger, get_logfilename
 def traite_image(ficimg):
     tag = detect_text_from_frame(ficimg)
     return tag
-
-
-# def process_on_images_from_directory(directory_path, type_image, fichier_de_sortie_SAG, fichier_de_sortie_SES,
-#                                      pas_acq, cb_avancement, max_workers, fic_locapo):
-#     start_time = time.time()
-#     result = process_on_images_from_directory_parallel(directory_path=directory_path, type_image=type_image,
-#                                                        cb_avancement=cb_avancement, max_workers=max_workers)
-#     end_time = time.time()
-#     elapsed = end_time - start_time
-#     log: Logger = logging.getLogger()
-#     log.info(f"\nTemps total de traitement des images : {elapsed:.2f} secondes pour {len(result)} fichiers.\n")
-#     process_update_me0(list_fic_images=result, pas_acq=pas_acq, fichier_de_sortie_SAG=fichier_de_sortie_SAG,
-#                        fichier_de_sortie_SES=fichier_de_sortie_SES, fichier_locapo=fic_locapo)
-#     process_rename_images_from_directory(directory_path, type_image)
-#     end_time = time.time()
-#     elapsed = end_time - start_time
-#     log.info(f"\nTemps total du traitement : {elapsed:.2f} secondes pour {len(result)} fichiers.\n")
 
 
 def donne_num_session(dossier, sep):
@@ -1147,7 +1151,7 @@ from _version import __version__
 # ----------------------------
 
 if __name__ == "__main__":
-    # Cas 1 : afficher la version
+    # Cas 1 : afficher la version,
     if "--version" in sys.argv:
         print(__version__)
         sys.exit(0)
@@ -1190,12 +1194,11 @@ import shutil
 from typing import Callable, TextIO
 from datetime import datetime
 from pathlib import Path
-
 from process_session import process_session_check, detect_vv_and_session
 from logs import __print_info, __print_erreur, init_logger, reset_logger
 
 
-def process_disk(base_dir_: str, cb_avancement: Callable[[str], None] = None, max_workers: int = 4):
+def process_disk(base_dir_: str, cb_avancement: Callable[[str], None] = None, max_workers: int = 4) -> bool:
     __print_info("Recherche des disques A3D...")
     pattern = re.compile(r"^\d{8}_A3D_\d_[A-Z]_[A-Z]$")
     base_dir = os.path.abspath(base_dir_)
@@ -1223,12 +1226,22 @@ def process_disk(base_dir_: str, cb_avancement: Callable[[str], None] = None, ma
 
         for session in liste_session:
             reset_logger()
-            init_logger(f"{disque}/{session}_")
+            init_logger(f"{disque}/{session}")
+            __print_info(f"\n\n"
+                         f"==========================================================="
+                         f"Traitement de la session {session} dans le dossier {disque}"
+                         f"==========================================================="
+                         f"\n")
             process_session_check(disque, session, cb_avancement, max_workers)
+            __print_info(f"\n\n"
+                         f"-----------------------------------------------------------"
+                         f">>>>>>>>>>>>>>>>>>> fin session {session}"
+                         f"-----------------------------------------------------------"
+                         f"\n")
     return True
 
 
-def list_sessions_from_disk(disque):
+def list_sessions_from_disk(disque: str) -> list[str]:
     liste_session = []
     ldsk = os.listdir(disque)
     for d in ldsk:
@@ -1257,7 +1270,6 @@ import shutil
 from typing import Callable, TextIO
 from datetime import datetime
 from pathlib import Path
-
 from logs import init_logger, __print_info, __print_erreur
 from detect_text_from_frame import process_tags_on_image_and_update_me0
 from revise_duplicated_lines_me0 import revise_duplicated_lines_me0
@@ -1316,7 +1328,9 @@ def process_session(base_dir: str, session: str, cb_avancement: Callable[[str], 
     pour une session donnée
     """
     image_me0_dir, loc_me0, sag_me0, ses_me0, vv = get_me0_and_imagesfolder(base_dir, session)
-    if not image_me0_dir:
+    if not image_me0_dir or not loc_me0 or not sag_me0 or not ses_me0 or not vv:
+        __print_erreur(f"Impossible de traiter la session {session} du dossier {base_dir} il manque des éléments")
+        __print_erreur(f"image_me0_dir={image_me0_dir} loc_me0={loc_me0} sag_me0={sag_me0} ses_me0={ses_me0} vv={vv}")
         return False
 
     # Backup des fichiers
@@ -1347,6 +1361,7 @@ def process_session(base_dir: str, session: str, cb_avancement: Callable[[str], 
     log_sessions = get_log_current_session(base_dir)
     with open(log_sessions, "a", encoding="utf-8") as f:
         f.write(f"\n{datetime.now().strftime('%Y%m%d_%H%M%S')}\t{session}\t{vv}\t{nb_ligne_me0}\t{nb_images_ren}")
+        f.close()
 
     __print_info(f"--- Fin traitement session {session} ---\n")
     return True
@@ -1382,10 +1397,14 @@ def __me0_and_imagesfolder(images_dir: str, sag_dir: str, ses_dir: str, session:
     vv, session_check = __detect_vv_and_session_check(os.path.basename(sag_dir), session)
     __print_info(f"Session {session} détectée avec VV={vv}")
     # Fichiers ME0
-    sag_me0: str = os.path.join(sag_dir, f"APOIAE02{vv}{session}.ME0")
-    ses_me0: str = os.path.join(ses_dir, f"APOIAE02{vv}{session}.ME0")
-    loc_me0: str = os.path.join(ses_dir, f"APOLOC03{vv}{session}.ME0")
-    image_me0_dir: str = os.path.join(images_dir, f"APOIAE02{vv}{session}.ME0_")
+    sag_me0: str = os.path.join(sag_dir, f"APOIAE02{vv}{session}.ME0") \
+        if os.path.exists(os.path.join(sag_dir, f"APOIAE02{vv}{session}.ME0")) else None
+    ses_me0: str = os.path.join(ses_dir, f"APOIAE02{vv}{session}.ME0") \
+        if os.path.exists(os.path.join(sag_dir, f"APOIAE02{vv}{session}.ME0")) else None
+    loc_me0: str = os.path.join(ses_dir, f"APOLOC03{vv}{session}.ME0") \
+        if os.path.exists(os.path.join(sag_dir, f"APOLOC03{vv}{session}.ME0")) else None
+    image_me0_dir: str = os.path.join(images_dir, f"APOIAE02{vv}{session}.ME0_") \
+        if os.path.exists(os.path.join(images_dir, f"APOIAE02{vv}{session}.ME0_")) else None
     return image_me0_dir, loc_me0, sag_me0, ses_me0, vv
 
 
@@ -1426,6 +1445,7 @@ def get_log_current_session(base_dir: str) -> str:
 
 if __name__ == "__main__":
     print(f"Usage: {sys.argv[0]} <dossier_AAAAMMJJ_A3D_Y_T_G> <session>")
+    process_session_check("./", "250320")
     process_session_check("../tests/.pytest_cache/A3D/20250811_A3D_1_T_G", "250320")
     process_session_check("../tests/.pytest_cache/A3D/20250811_A3D_2_T_G", "250310")
 
@@ -1439,7 +1459,6 @@ import sys
 import shutil
 import glob
 from datetime import datetime
-
 from logs import init_logger, __print_debug, __print_info, __print_erreur
 
 
@@ -1570,6 +1589,7 @@ from process_session import __list_session_folders, __me0_and_imagesfolder
 
 def rename_back_images(fic_renommage="./renommage.txt"):
     __print_info(f"ouverture fichier {fic_renommage}")
+    dossier = os.path.dirname(fic_renommage)
     with open(fic_renommage, "r", encoding="utf-8") as f:
         lines = f.read().splitlines()
         __print_info(f"nombre de lignes dans le fichier {len(lines)}")
@@ -1588,8 +1608,6 @@ def rename_back_images(fic_renommage="./renommage.txt"):
             nouveau_nom = os.path.basename(nouveau)
 
             # Extraire le dossier
-            dossier = os.path.dirname(nouveau)
-
             src = os.path.join(dossier, nouveau_nom)
             dst = os.path.join(dossier, ancien_nom)
 
@@ -1668,9 +1686,75 @@ def __rollback_run(disk: str, session: str):
 
 if __name__ == "__main__":
     rep = sys.argv[1] if len(sys.argv) > 1 else "D:\\tmp\\APOIAE02U1250320.ME0_/renommage.txt"
-    __print_info(f"Traitement du dossier {rep}")
+    __print_info(f"Traitement du dossier {rep} ")
+    rollback("./", "250320")
     rollback("../tests/.pytest_cache/A3D/20250811_A3D_1_T_G", "250320")
     rollback("../tests/.pytest_cache/A3D/20250811_A3D_2_T_G", "250310")
+
+````
+
+## src\uml.py
+
+````python
+import sys
+import os
+import inspect
+
+# Filtre : uniquement les fichiers de ton projet (dans src/),
+PROJECT_ROOT = os.path.abspath("./")
+calls = []
+
+
+def trace_calls(frame, event, arg):
+    if event != "call":
+        return trace_calls
+
+    code = frame.f_code
+    filename = os.path.abspath(code.co_filename)
+
+    # Ignorer si le fichier n'est pas dans src/
+    if not filename.startswith(PROJECT_ROOT):
+        return trace_calls
+
+    caller = frame.f_back.f_code.co_name if frame.f_back else "START"
+    callee = code.co_name
+
+    # Évite les appels internes de Python (comme <module>)
+    if caller == "<module>":
+        caller = os.path.basename(frame.f_back.f_code.co_filename).replace(".py", "")
+    if callee == "<module>":
+        callee = os.path.basename(filename).replace(".py", "")
+
+    calls.append((caller, callee))
+    return trace_calls
+
+
+def export_to_puml(output_file="sequence.puml"):
+    with open(output_file, "w", encoding="utf-8") as f:
+        f.write("@startuml\n")
+        seen = set()
+        for caller, callee in calls:
+            edge = f"{caller} -> {callee} : call"
+            if edge not in seen:  # éviter doublons
+                f.write(edge + "\n")
+                seen.add(edge)
+        f.write("@enduml\n")
+    print(f"[OK] Diagramme séquence généré dans {output_file}")
+
+
+def main():
+    # 👉 importe ton module principal ici
+    import process_session  # par ex. src/mon_script.py avec un `def run()`
+
+    sys.settrace(trace_calls)
+    process_session.process_session_check("../tests/.pytest_cache/A3D/20250811_A3D_1_T_G", "250320")
+    sys.settrace(None)
+
+    export_to_puml("sequence.puml")
+
+
+if __name__ == "__main__":
+    main()
 
 ````
 
@@ -1680,7 +1764,6 @@ if __name__ == "__main__":
 
 ````
 # -*- mode: python ; coding: utf-8 -*-
-
 import os
 import sys
 import subprocess
@@ -1785,7 +1868,6 @@ exe2 = EXE(
 
 ````
 # -*- mode: python ; coding: utf-8 -*-
-
 import os
 import sys
 import subprocess
@@ -1853,7 +1935,6 @@ exe = EXE(
 
 ````
 # -*- mode: python ; coding: utf-8 -*-
-
 import os
 
 main_script = '../src/main.py'
@@ -1904,7 +1985,6 @@ exe = EXE(
 
 ````
 # -*- mode: python ; coding: utf-8 -*-
-
 import os
 import sys
 import subprocess
@@ -1971,7 +2051,6 @@ exe = EXE(
 
 ````
 # -*- mode: python ; coding: utf-8 -*-
-
 import os
 
 main_script = '../src/main_gui.py'
@@ -2024,6 +2103,7 @@ exe = EXE(
 
 ````
 @startuml
+
 start
 :Init logger;
 :Lister images;
@@ -2054,8 +2134,11 @@ stop
 
 ````
 @startuml
+
 class Logger {
   +init_logger()
+  +get_logger()
+  +reset_logger()
   +__print_info()
   +__print_debug()
   +__print_erreur()
@@ -2072,7 +2155,7 @@ class Me0Processor {
   +extract_tags_from_image_and_update_me0(...)
   +interpolate_gps(abd, gps_data)
   +extract_tags_from_image_and_update_me0_sag(...)
-  +extract_tags_from_image_and_update_me0_ses(...)
+  +extract_token_from_line_and_update_me0_ses(...)
   +extract_gps_datas(fichier_locapo:str)
   +process_me0_ses(lignes, nouvelles_lignes)
   +process_me0_sag(lignes, nouvelles_lignes)
@@ -2089,6 +2172,7 @@ ImageProcessor --> Me0Processor
 
 ````
 @startuml
+
 actor User
 participant "main" as M
 participant "Logger" as L
@@ -2150,6 +2234,7 @@ deactivate M
 
 ````
 @startuml
+
 actor User
 participant "main" as M
 participant "Logger" as L
@@ -2181,90 +2266,76 @@ deactivate M
 
 ````
 
-# tests
-
-## tests\rename_token.py
-
-````python
-#!/usr/bin/env python3
-import argparse
-import os
-import sys
-
-
-def parse_args():
-    p = argparse.ArgumentParser(description="Renommer OLD -> NEW dans noms de fichiers et dossiers")
-    p.add_argument("old", help="Ancien token (ex: U1250320)")
-    p.add_argument("new", help="Nouveau token (ex: U1250310)")
-    p.add_argument("root", nargs="?", default=".", help="Dossier racine (par défaut: .)")
-    p.add_argument("--dry-run", action="store_true", help="Afficher les changements sans les appliquer")
-    return p.parse_args()
-
-
-def safe_rename(src, dst, dry_run):
-    if os.path.exists(dst):
-        print(f"SKIP (exists): {src} -> {dst}")
-        return False
-    if dry_run:
-        print(f"RENAME: {src} -> {dst}")
-        return True
-    os.rename(src, dst)
-    print(f"OK:     {src} -> {dst}")
-    return True
-
-
-def main():
-    args = parse_args()
-    OLD = args.old
-    NEW = args.new
-    ROOT = os.path.abspath(args.root)
-    dry = args.dry_run
-
-    print(f"Root: {ROOT}")
-    print(f"Replace: '{OLD}' -> '{NEW}'")
-    if dry: print("Mode: dry-run (aucune modification)")
-
-    # 1) fichiers — marcher récursivement
-    for dirpath, dirnames, filenames in os.walk(ROOT):
-        for fname in filenames:
-            if OLD in fname:
-                src = os.path.join(dirpath, fname)
-                newname = fname.replace(OLD, NEW)
-                dst = os.path.join(dirpath, newname)
-                safe_rename(src, dst, dry)
-
-    # 2) dossiers — topdown=False pour renommer enfants avant parents
-    for dirpath, dirnames, filenames in os.walk(ROOT, topdown=False):
-        for dname in dirnames:
-            if OLD in dname:
-                src = os.path.join(dirpath, dname)
-                newname = dname.replace(OLD, NEW)
-                dst = os.path.join(dirpath, newname)
-                safe_rename(src, dst, dry)
-
-    print("Terminé.")
-
-
-if __name__ == "__main__":
-    main()
+## docs\test.puml
 
 ````
+@startuml
+
+class Logger {
+    + init_logger(log_base: str, logging_level: int = INFO, console: bool = True)
+    + reset_logger()
+    + get_logfilename() : str
+    + __print_info(msg: str)
+    + __print_erreur(msg: str)
+    + __print_debug(msg: str)
+}
+
+class DetectText {
+    + detect_text_from_frame(img_path: str) : str
+    + normalize_ocr_line(raw: str) : str
+    + process_on_images_from_directory_parallel(directory_path: str,
+        type_image: str,
+        cb_avancement: Callable[[str], None],
+        max_workers: int) : List[str]
+}
+
+class SessionProcessor {
+    + process_update_me0(dossier_image: str,
+        list_fic_images: List[str],
+        pas_acq: int,
+        fichier_de_sortie_SAG: str,
+        fichier_de_sortie_SES: str,
+        fichier_locapo: str) : None
+    + extract_gps_datas(fichier_locapo: str) : List[Dict[str, float]]
+    + extract_tags_from_image_and_update_me0_sag(...)
+    + extract_token_from_line_and_update_me0_ses(...)
+    + interpolate_gps(abd: float, gps_data: List) : Tuple[float,float,float]
+    + process_rename_images_from_directory(directory_path: str,
+       type_image: str) : int
+    + process_tags_on_image_and_update_me0(...)
+}
+
+class MainSession {
+    + __main__()
+}
+
+MainSession --> Logger
+MainSession --> DetectText
+MainSession --> SessionProcessor
+@enduml
+
+````
+
+# tests
 
 ## tests\test_detect_text_from_frame.py
 
 ````python
 import io
 import os
-import tempfile
+import shutil
 
 import pytest
+import tempfile
 from requests import delete
 
 from src.detect_text_from_frame import normalize_ocr_line, detect_text_from_frame, \
     process_on_images_from_directory_parallel, process_rename_images_from_directory, \
-    extract_tags_from_image_and_update_me0_sag, extract_token_from_line_and_update_me0_ses
+    extract_tags_from_image_and_update_me0_sag, extract_token_from_line_and_update_me0_ses, \
+    process_tags_on_image_and_update_me0
 
 
+@pytest.mark.unit
 def test_normalize_ocr_line():
     textes_in = ["2025-04-01 11:27:36 0027 .363km 081km/h",
                  "2025-04-01 11:56:35 0054.442?km O089km/h",
@@ -2277,6 +2348,7 @@ def test_normalize_ocr_line():
     assert True
 
 
+@pytest.mark.unit
 def test_detect_text_from_frame():
     assert (detect_text_from_frame(
         "A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_/APOIAE02U1250320.ME0_Image.1.000001.JPG")
@@ -2287,6 +2359,7 @@ def test_detect_text_from_frame():
     assert True
 
 
+@pytest.mark.unit
 def test_process_on_images_from_directory_parallel():
     liste_images_tags = [
         "A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_Image.1.000001.JPG	2025-04-01 10:58:08 0000.010km 008km/h",
@@ -2303,6 +2376,7 @@ def test_process_on_images_from_directory_parallel():
     assert True
 
 
+@pytest.mark.unit
 def test_extract_tags_from_image_and_update_me0_sag():
     liste_images = [
         "APOIAE02U1250320.ME0_Image.1.000001.JPG	2025-04-01 10:58:08 0000.010km 008km/h",
@@ -2316,13 +2390,15 @@ def test_extract_tags_from_image_and_update_me0_sag():
     f_renommage = io.StringIO()
     tacq: float = 0
     pas_acq_dernier: int = -1
+    dernier_num: int = 0
     for i in range(len(liste_images)):
-        tacq, pas_acq_dernier, line = extract_tags_from_image_and_update_me0_sag(
-            f_me0, f_renommage, liste_images[i], 10, tacq, pas_acq_dernier)
+        tacq, pas_acq_dernier, line, dernier_num, line_err = extract_tags_from_image_and_update_me0_sag(
+            f_me0, f_renommage, liste_images[i], 10, tacq, pas_acq_dernier, dernier_num)
         assert (not (line == ""))
     assert True
 
 
+@pytest.mark.unit
 def test_extract_token_from_line_and_update_me0_ses():
     ligne_formatees = [
         "010.0\t000001\t.\\APOIAE02U1250320.ME0_Image.1.000001.JPG\t0.0",
@@ -2372,13 +2448,15 @@ def test_extract_token_from_line_and_update_me0_ses():
     assert True
 
 
+@pytest.mark.unit
 def test_process_update_me0():
     assert True
 
 
+@pytest.mark.unit
 def test_process_rename_images_from_directory():
     for i in range(10):
-        open(f".pytest_cache/test{i}.jpg_", "w+")
+        open(os.path.join(".pytest_cache", f"test{i}.jpg_"), "w+")
     process_rename_images_from_directory(".pytest_cache", ".JPG")
     for f in os.listdir(".pytest_cache"):
         assert (not (os.path.isfile(f) and f.lower().endswith(".jpg_")))
@@ -2389,7 +2467,36 @@ def test_process_rename_images_from_directory():
     assert True
 
 
+@pytest.mark.integration
 def test_process_tags_on_image_and_update_me0():
+    cdir = os.path.join("./", ".pytest_cache")
+    shutil.rmtree(os.path.dirname(f"{cdir}/A3D"))
+    os.makedirs(os.path.dirname(f"{cdir}/A3D"), exist_ok=True)
+    shutil.copytree("A3D", f"{cdir}/A3D", dirs_exist_ok=True)
+
+    dossier_image: str = os.path.join(".pytest_cache/A3D/20250811_A3D_1_T_G/IAE02U1250310/"
+                                      "APOIAE02U1250310.ME0_")
+    extension_image: str = ".jpg"
+    nom_fichier_sortie_me0_sag: str = os.path.join(".pytest_cache/APOIAE02U1250310_SAG.ME0")
+    nom_fichier_sortie_me0_ses: str = os.path.join(".pytest_cache/APOIAE02U1250310_SES.ME0")
+    fichier_entree_locapo: str = os.path.join(".pytest_cache/A3D/20250811_A3D_1_T_G/APO01U1250310.SES/"
+                                              "APOLOC03U1250310.ME0")
+    pas_acquisition: int = 10
+
+    res, num = process_tags_on_image_and_update_me0(dossier_image, extension_image, pas_acquisition,
+                                                    nom_fichier_sortie_me0_sag, nom_fichier_sortie_me0_ses,
+                                                    fichier_entree_locapo, None, os.cpu_count() * 4)
+    print(res, num)
+    with open(nom_fichier_sortie_me0_ses, "r") as ff, open(nom_fichier_sortie_me0_sag, "r") as f:
+        lines = f.read().splitlines()
+        liness = ff.read().splitlines()
+        for li in range(8134):
+            if 11 <= li < 8124:
+                assert (lines[li].split("\t")[2] == "999999")
+                assert (liness[li].split("\t")[5] == "999999")
+            else:
+                assert not (lines[li].split("\t")[2] == "999999")
+                assert not (liness[li].split("\t")[5] == "999999")
     assert True
 
 ````
@@ -2397,33 +2504,43 @@ def test_process_tags_on_image_and_update_me0():
 ## tests\test_process_disk.py
 
 ````python
-import pytest
-from src import process_disk
 import os.path
 import shutil
-
 import pytest
-from src import process_session
+from src import logs
+from src import process_disk
 
 
-def test_process_disk():
-    shutil.rmtree(os.path.dirname(".pytest_cache/A3D"))
-    os.makedirs(os.path.dirname(".pytest_cache/A3D"), exist_ok=True)
-    shutil.copytree("A3D", ".pytest_cache/A3D", dirs_exist_ok=True)
-    assert (process_disk.process_disk(".pytest_cache/A3D/20250811_A3D_1_T_G/"))
-    assert (os.path.exists(".pytest_cache/A3D/20250811_A3D_1_T_G/20250811_A3D_1_T_G.txt"))
-    assert (os.path.exists(".pytest_cache/A3D/20250811_A3D_1_T_G/APO01U1250320.SAG/APOIAE02U1250320.ME0.old"))
-    assert (os.path.exists(".pytest_cache/A3D/20250811_A3D_1_T_G/APO01U1250320.SES/APOIAE02U1250320.ME0.old"))
-    assert (os.path.exists(".pytest_cache/A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_/renommage.txt"))
-    assert (os.path.exists(".pytest_cache/A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_/tags.txt"))
-    assert (not os.path.exists(".pytest_cache/A3D/20250811_A3D_2_T_G/20250811_A3D_2_T_G.txt"))
-    assert (not os.path.exists(".pytest_cache/A3D/20250811_A3D_2_T_G/APO01U2250310.SES/APOIAE02U2250310.ME0.old"))
-    assert (not os.path.exists(".pytest_cache/A3D/20250811_A3D_2_T_G/APO01U2250310.SAG/APOIAE02U2250310.ME0.old"))
+@pytest.mark.unit
+def test_list_sessions_from_disk():
+    cdir = os.path.join("./", ".pytest_cache/A3D/20250811_A3D_1_T_G")
+    lfold = process_disk.list_sessions_from_disk(cdir)
+    session_attendues = ["250310", "250320", "250330"]
+    for i in range(len(lfold)):
+        assert (session_attendues[i] == lfold[i])
     assert True
 
 
-def test_list_sessions_from_disk():
-    # TODO: add test for list_sessions_from_disk
+@pytest.mark.integration
+def test_process_disk():
+    cdir = os.path.join("./", ".pytest_cache")
+    shutil.rmtree(os.path.dirname(f"{cdir}/A3D"))
+    os.makedirs(os.path.dirname(f"{cdir}/A3D"), exist_ok=True)
+    shutil.copytree("A3D", f"{cdir}/A3D", dirs_exist_ok=True)
+
+    assert (process_disk.process_disk(f"{cdir}/A3D/20250811_A3D_1_T_G/"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_1_T_G/20250811_A3D_1_T_G.txt"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_1_T_G/APO01U1250320.SAG/APOIAE02U1250320.ME0.old"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_1_T_G/APO01U1250320.SES/APOIAE02U1250320.ME0.old"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_/renommage.txt"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_/tags.txt"))
+    assert (not os.path.exists(f"{cdir}/A3D/20250811_A3D_2_T_G/20250811_A3D_2_T_G.txt"))
+    assert (not os.path.exists(f"{cdir}/A3D/20250811_A3D_2_T_G/APO01U2250310.SES/APOIAE02U2250310.ME0.old"))
+    assert (not os.path.exists(f"{cdir}/A3D/20250811_A3D_2_T_G/APO01U2250310.SAG/APOIAE02U2250310.ME0.old"))
+    os.path.join(".pytest_cache/A3D/20250811_A3D_2_T_G")
+    assert (process_disk.process_disk(f"{cdir}/A3D/20250811_A3D_2_T_G/"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_2_T_G/20250811_A3D_2_T_G.txt"))
+    logs.reset_logger()
     assert True
 
 ````
@@ -2431,17 +2548,20 @@ def test_list_sessions_from_disk():
 ## tests\test_process_session.py
 
 ````python
-import os.path
 import shutil
-
+import os
+import os.path
 import pytest
+from src import process_session, logs
 from src import process_session
 
 
+@pytest.mark.unit
 def test___backup_file():
     assert True
 
 
+@pytest.mark.unit
 def test_detect_vv_and_session():
     vv, ss = process_session.detect_vv_and_session("APO01U1123456")
     assert (vv == "U1")
@@ -2449,61 +2569,73 @@ def test_detect_vv_and_session():
     assert True
 
 
+@pytest.mark.unit
 def test___detect_vv_and_session_check():
     assert True
 
 
-def test_process_session():
-    shutil.rmtree(os.path.dirname(".pytest_cache/A3D"))
-    os.makedirs(os.path.dirname(".pytest_cache/A3D"), exist_ok=True)
-    shutil.copytree("A3D", ".pytest_cache/A3D", dirs_exist_ok=True)
-    assert(process_session.process_session(".pytest_cache/A3D/20250811_A3D_1_T_G", "250320"))
-    assert(os.path.exists(".pytest_cache/A3D/20250811_A3D_1_T_G/20250811_A3D_1_T_G.txt"))
-    assert(os.path.exists(".pytest_cache/A3D/20250811_A3D_1_T_G/APO01U1250320.SAG/APOIAE02U1250320.ME0.old"))
-    assert(os.path.exists(".pytest_cache/A3D/20250811_A3D_1_T_G/APO01U1250320.SES/APOIAE02U1250320.ME0.old"))
-    assert(os.path.exists(".pytest_cache/A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_/renommage.txt"))
-    assert(os.path.exists(".pytest_cache/A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_/tags.txt"))
-    assert(process_session.process_session(".pytest_cache/A3D/20250811_A3D_2_T_G/", "250310"))
-    assert(os.path.exists(".pytest_cache/A3D/20250811_A3D_2_T_G/20250811_A3D_2_T_G.txt"))
-    assert(os.path.exists(".pytest_cache/A3D/20250811_A3D_2_T_G/APO01U2250310.SES/APOIAE02U2250310.ME0.old"))
-    assert(os.path.exists(".pytest_cache/A3D/20250811_A3D_2_T_G/APO01U2250310.SAG/APOIAE02U2250310.ME0.old"))
-    assert True
-
-
+@pytest.mark.unit
 def test_get_me0_and_imagesfolder():
-    image_me0_dir, loc_me0, sag_me0, ses_me0, vv = process_session.get_me0_and_imagesfolder("A3D/20250811_A3D_1_T_G",
-                                                                                            "250320")
-    assert (image_me0_dir == "A3D/20250811_A3D_1_T_G\\IAE02U1250320\\APOIAE02U1250320.ME0_")
-    assert (sag_me0 == "A3D/20250811_A3D_1_T_G\\APO01U1250320.SAG\\APOIAE02U1250320.ME0")
-    assert (ses_me0 == "A3D/20250811_A3D_1_T_G\\APO01U1250320.SES\\APOIAE02U1250320.ME0")
-    assert (loc_me0 == "A3D/20250811_A3D_1_T_G\\APO01U1250320.SES\\APOLOC03U1250320.ME0")
-    assert (vv == "U1")
-    assert True
-
-
-def test___me0_and_imagesfolder():
-    image_me0_dir, loc_me0, sag_me0, ses_me0, vv = process_session.__me0_and_imagesfolder(
-        "A3D/20250811_A3D_1_T_G/IAE02U1250320",
-        "A3D/20250811_A3D_1_T_G/APO01U1250320.SAG",
-        "A3D/20250811_A3D_1_T_G/APO01U1250320.SES",
+    curdir = os.path.join("./", "")
+    image_me0_dir, loc_me0, sag_me0, ses_me0, vv = process_session.get_me0_and_imagesfolder(
+        curdir + "/A3D/20250811_A3D_1_T_G",
         "250320")
-    assert (image_me0_dir == "A3D/20250811_A3D_1_T_G/IAE02U1250320\\APOIAE02U1250320.ME0_")
-    assert (loc_me0 == "A3D/20250811_A3D_1_T_G/APO01U1250320.SES\\APOLOC03U1250320.ME0")
-    assert (sag_me0 == "A3D/20250811_A3D_1_T_G/APO01U1250320.SAG\\APOIAE02U1250320.ME0")
-    assert (ses_me0 == "A3D/20250811_A3D_1_T_G/APO01U1250320.SES\\APOIAE02U1250320.ME0")
+    assert (image_me0_dir == curdir + "/A3D/20250811_A3D_1_T_G\\IAE02U1250320\\APOIAE02U1250320.ME0_")
+    assert (sag_me0 == curdir + "/A3D/20250811_A3D_1_T_G\\APO01U1250320.SAG\\APOIAE02U1250320.ME0")
+    assert (ses_me0 == curdir + "/A3D/20250811_A3D_1_T_G\\APO01U1250320.SES\\APOIAE02U1250320.ME0")
+    assert (loc_me0 == curdir + "/A3D/20250811_A3D_1_T_G\\APO01U1250320.SES\\APOLOC03U1250320.ME0")
     assert (vv == "U1")
     assert True
 
 
-def test___list_session_folders():
-    images_dir, sag_dir, ses_dir = process_session.__list_session_folders("A3D/20250811_A3D_1_T_G", "250320")
-    assert (images_dir == "A3D/20250811_A3D_1_T_G\\IAE02U1250320")
-    assert (sag_dir == "A3D/20250811_A3D_1_T_G\\APO01U1250320.SAG")
-    assert (ses_dir == "A3D/20250811_A3D_1_T_G\\APO01U1250320.SES")
+@pytest.mark.unit
+def test___me0_and_imagesfolder():
+    cdir = os.path.join("./", "")
+    image_me0_dir, loc_me0, sag_me0, ses_me0, vv = process_session.__me0_and_imagesfolder(
+        cdir + "/A3D/20250811_A3D_1_T_G/IAE02U1250320",
+        cdir + "/A3D/20250811_A3D_1_T_G/APO01U1250320.SAG",
+        cdir + "/A3D/20250811_A3D_1_T_G/APO01U1250320.SES",
+        "250320")
+    assert (image_me0_dir == cdir + "/A3D/20250811_A3D_1_T_G/IAE02U1250320\\APOIAE02U1250320.ME0_")
+    assert (loc_me0 == cdir + "/A3D/20250811_A3D_1_T_G/APO01U1250320.SES\\APOLOC03U1250320.ME0")
+    assert (sag_me0 == cdir + "/A3D/20250811_A3D_1_T_G/APO01U1250320.SAG\\APOIAE02U1250320.ME0")
+    assert (ses_me0 == cdir + "/A3D/20250811_A3D_1_T_G/APO01U1250320.SES\\APOIAE02U1250320.ME0")
+    assert (vv == "U1")
     assert True
 
 
+@pytest.mark.unit
+def test___list_session_folders():
+    curdir = os.path.join("./", "")
+    images_dir, sag_dir, ses_dir = process_session.__list_session_folders(curdir + "/A3D/20250811_A3D_1_T_G", "250320")
+    assert (images_dir == curdir + "/A3D/20250811_A3D_1_T_G\\IAE02U1250320")
+    assert (sag_dir == curdir + "/A3D/20250811_A3D_1_T_G\\APO01U1250320.SAG")
+    assert (ses_dir == curdir + "/A3D/20250811_A3D_1_T_G\\APO01U1250320.SES")
+    assert True
+
+
+@pytest.mark.unit
 def test_process_session_check():
+    assert True
+
+
+@pytest.mark.integration
+def test_process_session():
+    cdir = os.path.join("./", ".pytest_cache")
+    shutil.rmtree(os.path.dirname(f"{cdir}/A3D"))
+    os.makedirs(os.path.dirname(f"{cdir}/A3D"), exist_ok=True)
+    shutil.copytree("A3D", f"{cdir}/A3D", dirs_exist_ok=True)
+    assert (process_session.process_session(f"{cdir}/A3D/20250811_A3D_1_T_G", "250320"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_1_T_G/20250811_A3D_1_T_G.txt"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_1_T_G/APO01U1250320.SAG/APOIAE02U1250320.ME0.old"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_1_T_G/APO01U1250320.SES/APOIAE02U1250320.ME0.old"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_/renommage.txt"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_/tags.txt"))
+    assert (process_session.process_session(f"{cdir}/A3D/20250811_A3D_2_T_G/", "250310"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_2_T_G/20250811_A3D_2_T_G.txt"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_2_T_G/APO01U2250310.SES/APOIAE02U2250310.ME0.old"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_2_T_G/APO01U2250310.SAG/APOIAE02U2250310.ME0.old"))
+    logs.reset_logger()
     assert True
 
 ````
@@ -2513,30 +2645,114 @@ def test_process_session_check():
 ````python
 import os
 import shutil
-
 import pytest
 from src import revise_duplicated_lines_me0
 
 
-def test_revise_duplicated_lines_me0():
-    shutil.copy("A3D/20250811_A3D_2_T_G/APO01U2250310.SAG/APOIAE02U2250310.ME0", ".pytest_cache/test_sag.ME0")
-    shutil.copy("A3D/20250811_A3D_2_T_G/APO01U2250310.SES/APOIAE02U2250310.ME0", ".pytest_cache/test_ses.ME0")
-    assert (revise_duplicated_lines_me0.revise_duplicated_lines_me0(".pytest_cache/test_sag.ME0") > 0)
-    assert (revise_duplicated_lines_me0.revise_duplicated_lines_me0(".pytest_cache/test_ses.ME0") > 0)
-    assert(os.path.exists(".pytest_cache/test_sag.ME0.old"))
-    assert(os.path.exists(".pytest_cache/test_ses.ME0.old"))
-    os.remove(".pytest_cache/test_sag.ME0.old")
-    os.remove(".pytest_cache/test_ses.ME0.old")
-    os.remove(".pytest_cache/test_sag.ME0")
-    os.remove(".pytest_cache/test_ses.ME0")
-    assert True
-
-
+@pytest.mark.unit
 def test_process_me0_ses():
+    nouvelles_lignes = []
+    lignes = [
+        "ABD\tXDEB\tYDEB\tZDEB\tN image\tFichier image\tt(s)",
+        "10.41\t342059.973358\t6693004.830148\t  8.58\t000001\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        "0.00\t342066.195769\t6693012.794038\t  8.92\t0",
+        "20.23\t342055.563250\t6692996.123750\t  8.27\t000002\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        "0.00\t342066.195769\t6693012.794038\t  8.92\t2.439999999995",
+        "30.72\t342050.062269\t6692987.396065\t  7.92\t000003\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        "0.00\t342066.195769\t6693012.794038\t  8.92\t4.360000000001",
+        "40.45\t342044.381724\t6692979.234483\t  7.71\t000004\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        "0.00\t342066.195769\t6693012.794038\t  8.92\t5.860000000001",
+        "50.61\t342038.333686\t6692971.035424\t  7.46\t000005\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        "0.00\t342066.195769\t6693012.794038\t  8.92\t7.349999999999",
+        "61.02\t342032.292923\t6692962.514420\t  7.40\t000006\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        "0.00\t342066.195769\t6693012.794038\t  8.92\t8.809999999998",
+        "70.51\t342026.391379\t6692955.075862\t  7.47\t000007\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        "0.00\t342066.195769\t6693012.794038\t  8.92\t10.14",
+        "80.70\t342019.628998\t6692947.222217\t  7.88\t000008\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        "0.00\t342066.195769\t6693012.794038\t  8.92\t11.64",
+        "91.10\t342012.812603\t6692939.281096\t  7.98\t000009\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        "0.00\t342066.195769\t6693012.794038\t  8.92\t13.41",
+        "100.18\t342005.813857\t6692933.946429\t  8.62\t000010\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        "0.00\t342066.195769\t6693012.794038\t  8.92\t15.74",
+        "110.17\t341997.650198\t6692937.200891\t  9.80\t000011\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        "0.00\t342066.195769\t6693012.794038\t  8.92\t21.96999999999"
+    ]
+    lignes_attendues = [
+        '10.41\t342059.973358\t6693004.830148\t  8.58\t000001\tAPOIAE02U1250320.ME0_\\APOIAE02U1250320.ME0_Image.1.000001.JPG\t0',
+        '20.23\t342055.563250\t6692996.123750\t  8.27\t000002\tAPOIAE02U1250320.ME0_\\APOIAE02U1250320.ME0_Image.1.000002.JPG\t2.439999999995',
+        '30.72\t342050.062269\t6692987.396065\t  7.92\t000003\tAPOIAE02U1250320.ME0_\\APOIAE02U1250320.ME0_Image.1.000003.JPG\t4.360000000001',
+        '40.45\t342044.381724\t6692979.234483\t  7.71\t000004\tAPOIAE02U1250320.ME0_\\APOIAE02U1250320.ME0_Image.1.000004.JPG\t5.860000000001',
+        '50.61\t342038.333686\t6692971.035424\t  7.46\t000005\tAPOIAE02U1250320.ME0_\\APOIAE02U1250320.ME0_Image.1.000005.JPG\t7.349999999999',
+        '61.02\t342032.292923\t6692962.514420\t  7.40\t000006\tAPOIAE02U1250320.ME0_\\APOIAE02U1250320.ME0_Image.1.000006.JPG\t8.809999999998',
+        '70.51\t342026.391379\t6692955.075862\t  7.47\t000007\tAPOIAE02U1250320.ME0_\\APOIAE02U1250320.ME0_Image.1.000007.JPG\t10.14',
+        '80.70\t342019.628998\t6692947.222217\t  7.88\t000008\tAPOIAE02U1250320.ME0_\\APOIAE02U1250320.ME0_Image.1.000008.JPG\t11.64',
+        '91.10\t342012.812603\t6692939.281096\t  7.98\t000009\tAPOIAE02U1250320.ME0_\\APOIAE02U1250320.ME0_Image.1.000009.JPG\t13.41',
+        '100.18\t342005.813857\t6692933.946429\t  8.62\t000010\tAPOIAE02U1250320.ME0_\\APOIAE02U1250320.ME0_Image.1.000010.JPG\t15.74',
+        '110.17\t341997.650198\t6692937.200891\t  9.80\t000011\tAPOIAE02U1250320.ME0_\\APOIAE02U1250320.ME0_Image.1.000011.JPG\t21.96999999999',
+    ]
+    revise_duplicated_lines_me0.process_me0_ses(lignes, nouvelles_lignes)
+    for i in range(len(lignes_attendues)):
+        assert (lignes_attendues[i] == nouvelles_lignes[i])
     assert True
 
 
+@pytest.mark.unit
 def test_process_me0_sag():
+    nouvelles_lignes = []
+    lignes = [
+        "DIST(m)\tN°image\tFichier image\tt(s)",
+        "10.41\t000001\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        ".JPG\t0",
+        "20.23\t000002\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        ".JPG\t2.439999999995",
+        "30.72\t000003\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        ".JPG\t4.360000000001",
+        "40.45\t000004\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        ".JPG\t5.860000000001",
+        "50.61\t000005\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        ".JPG\t7.349999999999",
+        "61.02\t000006\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        ".JPG\t8.809999999998",
+        "70.51\t000007\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        ".JPG\t10.14",
+        "80.7\t000008\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        ".JPG\t11.64",
+        "91.1\t000009\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        ".JPG\t13.41",
+        "100.18\t000010\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        ".JPG\t15.74",
+        "110.17\t000011\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.BMP",
+        ".JPG\t21.96999999999"]
+    lignes_attendues = [
+        "10.41\t000001\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.000001.JPG\t0",
+        "20.23\t000002\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.000002.JPG\t2.439999999995",
+        "30.72\t000003\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.000003.JPG\t4.360000000001",
+        "40.45\t000004\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.000004.JPG\t5.860000000001",
+        "50.61\t000005\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.000005.JPG\t7.349999999999",
+        "61.02\t000006\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.000006.JPG\t8.809999999998",
+        "70.51\t000007\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.000007.JPG\t10.14",
+        "80.7\t000008\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.000008.JPG\t11.64",
+        "91.1\t000009\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.000009.JPG\t13.41",
+        "100.18\t000010\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.000010.JPG\t15.74",
+        "110.17\t000011\tAPOIAE02U1250320.ME0_\APOIAE02U1250320.ME0_Image.1.000011.JPG\t21.96999999999"]
+    revise_duplicated_lines_me0.process_me0_sag(lignes, nouvelles_lignes)
+    for i in range(len(lignes_attendues)):
+        assert (lignes_attendues[i] == nouvelles_lignes[i])
+    assert True
+
+
+@pytest.mark.unit
+def test_revise_duplicated_lines_me0():
+    shutil.copy("A3D/20250811_A3D_2_T_G/APO01U2250310.SAG/APOIAE02U2250310.ME0", "../.pytest_cache/test_sag.ME0")
+    shutil.copy("A3D/20250811_A3D_2_T_G/APO01U2250310.SES/APOIAE02U2250310.ME0", "../.pytest_cache/test_ses.ME0")
+    assert (revise_duplicated_lines_me0.revise_duplicated_lines_me0("../.pytest_cache/test_sag.ME0") > 0)
+    assert (revise_duplicated_lines_me0.revise_duplicated_lines_me0("../.pytest_cache/test_ses.ME0") > 0)
+    assert (os.path.exists("../.pytest_cache/test_sag.ME0.old"))
+    assert (os.path.exists("../.pytest_cache/test_ses.ME0.old"))
+    os.remove("../.pytest_cache/test_sag.ME0.old")
+    os.remove("../.pytest_cache/test_ses.ME0.old")
+    os.remove("../.pytest_cache/test_sag.ME0")
+    os.remove("../.pytest_cache/test_ses.ME0")
     assert True
 
 ````
@@ -2547,49 +2763,58 @@ def test_process_me0_sag():
 import os
 import shutil
 from pathlib import Path
-
 import pytest
 from src import rollback_session, process_session
+from src import logs
 
 
+@pytest.mark.unit
 def test_rename_back_images():
-    shutil.rmtree(os.path.dirname(".pytest_cache/A3D"))
-    os.makedirs(os.path.dirname(".pytest_cache/A3D"), exist_ok=True)
-    shutil.copytree("A3D", ".pytest_cache/A3D", dirs_exist_ok=True)
-    assert (process_session.process_session(".pytest_cache/A3D/20250811_A3D_1_T_G", "250320"))
-    assert (os.path.exists(".pytest_cache/A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_/renommage.txt"))
+    cdir = os.path.join("./", ".pytest_cache")
+    shutil.rmtree(os.path.dirname(f"{cdir}/A3D"))
+    os.makedirs(os.path.dirname(f"{cdir}/A3D"), exist_ok=True)
+    shutil.copytree("A3D", f"{cdir}/A3D", dirs_exist_ok=True)
+    assert (process_session.process_session(f"{cdir}/A3D/20250811_A3D_1_T_G", "250320"))
+    assert (os.path.exists(
+        os.path.join(f"{cdir}/A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_", "renommage.txt")))
     rollback_session.rename_back_images(
-        ".pytest_cache/A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_/renommage.txt")
+        os.path.join(f"{cdir}/A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_", "renommage.txt"))
+    logs.reset_logger()
     assert True
 
 
+@pytest.mark.integration
 def test_rollback_session():
-    shutil.rmtree(os.path.dirname(".pytest_cache/A3D"))
-    os.makedirs(os.path.dirname(".pytest_cache/A3D"), exist_ok=True)
-    shutil.copytree("A3D", ".pytest_cache/A3D", dirs_exist_ok=True)
-    assert (process_session.process_session(".pytest_cache/A3D/20250811_A3D_1_T_G", "250320"))
-    assert (process_session.process_session(".pytest_cache/A3D/20250811_A3D_1_T_G", "250310"))
-    assert (process_session.process_session(".pytest_cache/A3D/20250811_A3D_2_T_G", "250310"))
-    assert (os.path.exists(".pytest_cache/A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_/renommage.txt"))
-    assert (os.path.exists(".pytest_cache/A3D/20250811_A3D_1_T_G/APO01U1250320.SES/APOIAE02U1250320.ME0.old"))
-    assert (os.path.exists(".pytest_cache/A3D/20250811_A3D_1_T_G/APO01U1250310.SES/APOIAE02U1250310.ME0.old"))
-    assert (os.path.exists(".pytest_cache/A3D/20250811_A3D_2_T_G/APO01U2250310.SES/APOIAE02U2250310.ME0.old"))
-    lines = Path(".pytest_cache/A3D/20250811_A3D_1_T_G/20250811_A3D_1_T_G.txt").read_text().strip().splitlines()
+    cdir = os.path.join("./", ".pytest_cache")
+    shutil.rmtree(os.path.dirname(f"{cdir}/A3D"))
+    os.makedirs(os.path.dirname(f"{cdir}/A3D"), exist_ok=True)
+    shutil.copytree("A3D", f"{cdir}/A3D", dirs_exist_ok=True)
+    assert (process_session.process_session(f"{cdir}/A3D/20250811_A3D_1_T_G", "250320"))
+    assert (process_session.process_session(f"{cdir}/A3D/20250811_A3D_1_T_G", "250310"))
+    assert (process_session.process_session(f"{cdir}/A3D/20250811_A3D_2_T_G", "250310"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_1_T_G/IAE02U1250320/APOIAE02U1250320.ME0_/renommage.txt"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_1_T_G/APO01U1250320.SES/APOIAE02U1250320.ME0.old"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_1_T_G/APO01U1250310.SES/APOIAE02U1250310.ME0.old"))
+    assert (os.path.exists(f"{cdir}/A3D/20250811_A3D_2_T_G/APO01U2250310.SES/APOIAE02U2250310.ME0.old"))
+    lines = Path(f"{cdir}/A3D/20250811_A3D_1_T_G/20250811_A3D_1_T_G.txt").read_text().strip().splitlines()
     assert (len(lines) == 2)
-    assert (rollback_session.rollback(".pytest_cache/A3D/20250811_A3D_1_T_G", "250320"))
-    lines = Path(".pytest_cache/A3D/20250811_A3D_1_T_G/20250811_A3D_1_T_G.txt").read_text().strip().splitlines()
+    assert (rollback_session.rollback(f"{cdir}/A3D/20250811_A3D_1_T_G", "250320"))
+    lines = Path(f"{cdir}/A3D/20250811_A3D_1_T_G/20250811_A3D_1_T_G.txt").read_text().strip().splitlines()
     assert (len(lines) == 1)
     # cleaned = ("\n".join(line for line in lines.splitlines() if line.strip())).splitlines()
     # assert (cleaned.__len__() == 1 + 1)
-    lines = Path(".pytest_cache/A3D/20250811_A3D_2_T_G/20250811_A3D_2_T_G.txt").read_text().strip().splitlines()
+    lines = Path(f"{cdir}/A3D/20250811_A3D_2_T_G/20250811_A3D_2_T_G.txt").read_text().strip().splitlines()
     assert (len(lines) == 1)
-    assert (rollback_session.rollback(".pytest_cache/A3D/20250811_A3D_1_T_G", "250310"))
-    assert (rollback_session.rollback(".pytest_cache/A3D/20250811_A3D_2_T_G", "250310"))
-    lines = Path(".pytest_cache/A3D/20250811_A3D_1_T_G/20250811_A3D_1_T_G.txt").read_text().strip().splitlines()
+    assert (rollback_session.rollback(f"{cdir}/A3D/20250811_A3D_1_T_G", "250310"))
+    assert (rollback_session.rollback(f"{cdir}/A3D/20250811_A3D_2_T_G", "250310"))
+    lines = Path(f"{cdir}/A3D/20250811_A3D_1_T_G/20250811_A3D_1_T_G.txt").read_text().strip().splitlines()
     assert (len(lines) == 0)
-    lines = Path(".pytest_cache/A3D/20250811_A3D_2_T_G/20250811_A3D_2_T_G.txt").read_text().strip().splitlines()
+    lines = Path(f"{cdir}/A3D/20250811_A3D_2_T_G/20250811_A3D_2_T_G.txt").read_text().strip().splitlines()
     assert (len(lines) == 0)
+    logs.reset_logger()
     assert True
 
 ````
+
+
 
