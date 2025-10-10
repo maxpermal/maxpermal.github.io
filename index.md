@@ -413,7 +413,7 @@ Concevoir un boîtier compact et robuste intégrant les cartes électroniques, l
 
 # UML diagrams
 
-````
+````plantuml
 '
 'Diagrammes pour le projet Comfy'Pack - Raspberry Pi 4
 '
@@ -441,8 +441,8 @@ Smartphone <-- Pi : Transfert données
 Pi --> Sensors : Lit données
 Pi --> Power : Monitoring
 @enduml
-
-
+````
+````plantuml
 ' ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗███████╗███╗   ███╗███████╗███╗   ██╗████████╗
 ' ██╔══██╗██╔════╝██╔══██╗██║     ██╔═══██╗██║██╔════╝████╗ ████║██╔════╝████╗  ██║╚══██╔══╝
 ' ██║  ██║█████╗  ██████╔╝██║     ██║   ██║██║█████╗  ██╔████╔██║█████╗  ██╔██╗ ██║   ██║   
@@ -474,6 +474,8 @@ C_BM --> B_Liion  : Mesure niveau
 C_BLE--> C_App :  Commandes, Envoi/réception de données
 @enduml
 
+````
+````plantuml
 
 ' ██╗   ██╗███████╗███████╗ ██████╗ █████╗ ███████╗███████╗
 ' ██║   ██║██╔════╝██╔════╝██╔════╝██╔══██╗██╔════╝██╔════╝
@@ -522,6 +524,8 @@ note right of UC_Configurer
 end note
 @enduml
 
+````
+````plantuml
 
 '  █████╗  ██████╗████████╗██╗██╗   ██╗██╗████████╗███████╗███████╗
 ' ██╔══██╗██╔════╝╚══██╔══╝██║██║   ██║██║╚══██╔══╝██╔════╝██╔════╝
@@ -611,6 +615,8 @@ end fork
 stop
 @enduml
  
+````
+````plantuml
 
 '  ██████╗██╗      █████╗ ███████╗███████╗███████╗███████╗
 ' ██╔════╝██║     ██╔══██╗██╔════╝██╔════╝██╔════╝██╔════╝
@@ -735,6 +741,8 @@ SystemManager --> StockageSD : ecrireSession()/lireSession() <<use>>
 
 @enduml
 
+````
+````plantuml
 
 ' ███████╗███████╗ ██████╗ ██╗   ██╗███████╗███╗   ██╗████████╗██╗███████╗██╗     
 ' ██╔════╝██╔════╝██╔═══██╗██║   ██║██╔════╝████╗  ██║╚══██╔══╝██║██╔════╝██║     
