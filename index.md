@@ -413,6 +413,7 @@ Concevoir un boîtier compact et robuste intégrant les cartes électroniques, l
 
 # UML diagrams
 
+````
 '
 'Diagrammes pour le projet Comfy'Pack - Raspberry Pi 4
 '
@@ -842,3 +843,4 @@ deactivate BLE
 deactivate SM
 
 @enduml
+````
