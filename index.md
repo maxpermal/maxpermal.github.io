@@ -132,7 +132,260 @@
 
 ---
 
-## UML
+
+# Product Backlog — Comfy’Pack low-cost
+_Système embarqué d'acquisition de capteurs environnementaux piloté par un smartphone_
+
+---
+
+## 1. Projet
+Système portable :
+- mesure, enregistre les données des capteurs climatiques
+- fonctionne sur batterie,
+- est pilotable depuis une application mobile.
+
+---
+
+## 2. Backlog
+4 **EPICs** :
+
+- **EPIC 1 — Système d'acquisition (Raspberry Pi 4, stockage, acquisition)**
+- **EPIC 2 — Application Smartphone (interface utilisateur + visu, communication)**
+- **EPIC 3 — Électronique (schéma, PCB, alimentation, intégration capteurs)**
+- **EPIC 4 — Mécanique (boîtier, fixation, ergonomie, dissipation)**
+
+---
+
+## 3. EPIC 1 — Système d'acquisition
+
+### 3.1 Objectif
+Système d’acquisition, de stockage des données capteurs, gestion de l’énergie et communication Bluetooth.
+
+---
+
+### 3.2 **US1 — Allumer / Éteindre le système**
+**En tant qu’utilisateur**, je veux pouvoir **allumer ou éteindre le système** pour démarrer ou arrêter son fonctionnement, afin de préserver la batterie.
+
+- Détection de l’alimentation ou d’un bouton ON/OFF
+- Initialisation des GPIO, capteurs, Bluetooth
+- Passage en mode IDLE après démarrage
+- **Critère d’acceptation** : le système démarre sans erreur et signale son état (LED, log ou message BLE)
+
+---
+
+### 3.3 **US2 — Sortie du mode veille**
+**En tant qu’utilisateur**, je veux **sortir le système du mode veille** en appuyant sur un bouton.
+
+- Réveil matériel du Raspberry (GPIO interrupt)
+- Réinitialisation de l’état du `SystemManager` à `PRET`
+- Relance du Bluetooth en mode appairage
+
+---
+
+### 3.4 **US3 — Appairage Bluetooth**
+**En tant que smartphone**, je veux pouvoir **m’appairer au système via BLE**, pour les commandes et la transmission des données.
+
+- `BluetoothManager` : annonce, appairage, gestion de session BLE
+- Gestion du timeout d’appairage (30 s)
+- **Critère d’acceptation** : le smartphone reçoit la confirmation d’appairage
+
+---
+
+### 3.5 **US4 — Configuration**
+**En tant qu’utilisateur**, je veux **configurer les coefs des capteurs et la fréquence d’acquisition** avant le démarrage de l'acquisition.
+
+- Paramètres configurables : fréquence, coefficients capteurs, seuils batterie
+- Commandes supportées :
+  - `SETCOEF n a b c` : définit les coefficients de calibration du capteur *n*
+  - `SETFREQ f` : définit la fréquence d’échantillonnage
+  - `SETTHRESH x` : définit les seuils de batterie
+- Lecture/écriture sur carte SD via `Configuration`
+- **Critère d’acceptation** : la configuration est sauvegardée et relue correctement après redémarrage
+
+---
+
+### 3.6 **US5 — Acquisition de données capteurs**
+**En tant qu’utilisateur**, je veux **lancer une acquisition**.
+
+- Lecture continue via les objets `Capteur` (ADC interne Raspberry)
+- Application des coefs de calibration
+- Stockage dans le `Buffer` puis sur la `carte SD`
+- Monitoring batterie pendant l’acquisition
+- Boucle d’acquisition maintenue tant que commande `START` active
+- **Critère d’acceptation** : fichier session valide sur la carte SD
+
+---
+
+### 3.7 **US6 — Gestion de session**
+**En tant qu’utilisateur**, je veux pouvoir **ouvrir une nouvelle session d’acquisition** ou **relire une session existante** depuis la carte SD.
+
+- `SystemManager.demarrerSession()`
+- `SystemManager.terminerSession()`
+- `StockageSD.lireSession(id)`
+- **Critère d’acceptation** : sessions identifiables, horodatées
+
+---
+
+### 3.8 **US7 — Stockage sur carte SD**
+**En tant qu’utilisateur**, je veux que les données soient **stockées sur la carte SD**, pour les transférer en fin de mesure.
+
+- Sauvegarde périodique (si buffer plein)
+- Écriture de blocs atomiques
+- Lecture et export par session
+- **Critère d’acceptation** : aucune perte de données
+
+---
+
+### 3.9 **US8 — Surveillance batterie**
+**En tant qu’utilisateur**, je veux que le système **surveille le niveau de batterie** et alerte en cas de batterie basse.
+
+- `BatteryManager.mesurerNiveau()`
+- Notification via LED, log ou Bluetooth (alerte)
+- Mise en veille automatique si batterie critique
+- **Critère d’acceptation** : alertes
+
+---
+
+### 3.10 **US9 — Transmission des données**
+**En tant que smartphone**, je veux pouvoir **recevoir les données mesurées** par le système via Bluetooth, pour visualiser et stocker localement.
+
+- `TransmissionManager` : envoi bloc ou flux
+- Commande `GETDATA`
+- Transmission session par session
+- **Critère d’acceptation** : transfert complet, vérifié par checksum (?) 
+
+---
+
+### 3.11 **US10 — Arrêt du système**
+**En tant qu’utilisateur**, je veux **stopper l’acquisition et éteindre le système**.
+
+- Commande `STOP`
+- Fermeture de session, flush du buffer
+- Mise en mode IDLE ou extinction complète
+
+---
+
+## 4. EPIC 2 — Application Smartphone
+
+### 4.1 Objectif
+Interface utilisateur pour pilotage, configuration et récupération des données depuis le module embarqué.
+
+---
+
+### 4.2 **US11 — Appairer avec le module**
+**En tant qu’utilisateur**, je veux pouvoir **appairer mon smartphone** avec le système.
+
+- Découverte BLE et sélection du module
+- Authentification simple
+- Sauvegarde du profil d’appairage
+
+---
+
+### 4.3 **US12 — Configurer le module**
+**En tant qu’utilisateur**, je veux pouvoir **envoyer des paramètres de configuration** depuis mon smartphone vers le Raspberry Pi.
+
+- Écran de configuration capteurs (coefficients, fréquence, seuils)
+- Commandes : `CONFIG`, `SETCOEF`, `SETFREQ`, `SETTHRESH`
+- Confirmation de sauvegarde reçue
+
+---
+
+### 4.4 **US13 — Démarrer / arrêter une acquisition**
+**En tant qu’utilisateur**, je veux **piloter à distance** le démarrage et l’arrêt des acquisitions via l’application.
+
+- Commandes `START` et `STOP`
+- Retour d’état en temps réel
+- Affichage du statut courant du système
+
+---
+
+### 4.5 **US14 — Visualiser les données**
+**En tant qu’utilisateur**, je veux **télécharger et visualiser une session**.
+
+- Commande `GETDATA n`
+- Sélection de session depuis une liste (n = id session)
+- Export CSV ou affichage graphique
+
+---
+
+### 4.6 **US15 — Recevoir alertes batterie**
+**En tant qu’utilisateur**, je veux **être alerté en cas de batterie faible**.
+
+- Notification visuelle (popup)
+- Indicateur dans l’interface
+- Enregistrement des alertes dans le log local
+
+---
+
+## 5. EPIC 3 — Électronique
+
+### 5.1 Objectif
+Schéma élec : alimentation+gestion batterie, UART µC<->PI4, capteurs->µC
+
+---
+
+### 5.2 **US16 — Conception des schémas élec**
+**concevoir les schémas élec**
+
+- Dessin du schéma sous KiCad/drawio
+- Intégration des capteurs (GPIO/ADC internes, I²C, SPI)
+
+---
+
+### 5.3 **US17 — Gestion de l’alimentation**
+**concevoir un circuit d’alimentation**.
+
+- Alimentation via batterie Li-ion + module de charge
+- Protection surtension/sous-tension
+- Convertisseurs DC-DC step-up/step-down adaptés
+- Intégration du suivi batterie (mesure tension/courant)
+
+---
+
+### 5.4 **US19 — Intégration et tests électroniques**
+**assembler et tester les cartes**, afin de valider le bon fonctionnement.
+
+- Tests de tension, courant
+- Validation communication GPIO/I2C/SPI/UART
+
+---
+
+## 6. EPIC 4 — Mécanique
+
+### 6.1 Objectif
+Boîtier sur le modèle performant.
+
+---
+
+### 6.2 **US20 — Conception du boîtier**
+**Concevoir le boîtier du système**, afin d'intégrer tous les composants électroniques.
+
+- CAO sous SolidWorks
+- Accès facile aux ports et boutons
+- Emplacement pour LED et connecteurs ?
+
+---
+
+### 6.3 **US21 — Fixation du Raspberry et logique élec**
+**Intégrer support de fixation** pour les cartes et capteurs.
+
+- Supports internes vissés sur plaques
+
+---
+
+## 7. Annexes
+- **Docs :** Diagrammes UML
+- **Phase 1 :** Développement sur Raspberry Pi 4
+- **Phase 2 :** Développement sur Android
+- **Phase 3 :** Etude électronique
+- **Phase 4 :** Etude mécanique
+- **Livrables intermédiaires :**
+  - Code source embarqué (phase 1)
+  - Application mobile BLE (phase 2)
+  - Documentation système et tests unitaires
+
+
+# UML
 
 ````plantuml
 '
