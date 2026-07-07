@@ -1,4 +1,13 @@
-AcquisitionConnexion.wdc
+﻿# Sources du projet
+
+Document généré automatiquement.
+
+
+---
+
+## Mes Projets\repo\avsp_server\src\AcquisitionConnexion.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -28,9 +37,9 @@ class :
      procedure_id : 1623474810141830045
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
-      Logger.Verbose(ChaîneConstruit("construit AcquisitionConnexion, mutex=%1",:mutex))
+      Logger.Verbose(ChaÃ®neConstruit("construit AcquisitionConnexion, mutex=%1",:mutex))
       :nomThread="thAcquisitionConnexion"
      type : 589824
    -
@@ -38,9 +47,9 @@ class :
      procedure_id : 1623474810141895581
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
-      Logger.Verbose(ChaîneConstruit("détruit AcquisitionConnexion, mutex=%1",:mutex))
+      Logger.Verbose(ChaÃ®neConstruit("dÃ©truit AcquisitionConnexion, mutex=%1",:mutex))
      type : 655360
    -
      name : AjouteClient
@@ -48,12 +57,12 @@ class :
      procedure_id : 1625068844508388771
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IConnexionClientSocket.AjouteClient
-      PROCÉDURE AjouteClient(client IClientSocket dynamique):booléen
+      // RedÃ©finition de la mÃ©thode IConnexionClientSocket.AjouteClient
+      PROCÃ‰DURE AjouteClient(client IClientSocket dynamique):boolÃ©en
       
       m est un MutexHelper(:mutex)
-      :clients.Insère(client.id, client)
-      Logger.Verbose(ChaîneConstruit("AcquisitionConnexion[%1%] Insère le client[%2]=%3,%4",:mutex, client.nomThread,client.ip,client.canalSocket))
+      :clients.InsÃ¨re(client.id, client)
+      Logger.Verbose(ChaÃ®neConstruit("AcquisitionConnexion[%1%] InsÃ¨re le client[%2]=%3,%4",:mutex, client.nomThread,client.ip,client.canalSocket))
       RENVOYER Vrai
      type : 458752
    -
@@ -62,12 +71,12 @@ class :
      procedure_id : 1625068853098391195
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IConnexionClientSocket.SupprimeClient
-      PROCÉDURE SupprimeClient(client IClientSocket dynamique):booléen
+      // RedÃ©finition de la mÃ©thode IConnexionClientSocket.SupprimeClient
+      PROCÃ‰DURE SupprimeClient(client IClientSocket dynamique):boolÃ©en
       
       m est un MutexHelper(:mutex)
       SI :clients[client.id]..Existe ALORS
-      	Logger.Verbose(ChaîneConstruit("AcquisitionConnexion[%1%] Supprime le client[%2]=%3,%4",:mutex, client.nomThread, client.ip, client.canalSocket))
+      	Logger.Verbose(ChaÃ®neConstruit("AcquisitionConnexion[%1%] Supprime le client[%2]=%3,%4",:mutex, client.nomThread, client.ip, client.canalSocket))
       	:clients.Supprime(client.id)
       	pour tout c dans server.RecupereClients()
       		d est TreuilClient dynamique <- c
@@ -87,23 +96,23 @@ class :
      procedure_id : 1625068865983361104
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Demarre
-      PROCÉDURE Demarre():booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Demarre
+      PROCÃ‰DURE Demarre():boolÃ©en
       
-      Logger.Debug(ChaîneConstruit("AcquisitionConnexion[%1] Demarre la socket %2, %3, %4",:mutex,:NomSocket,:portSocket,:AdresseSocketServer))
+      Logger.Debug(ChaÃ®neConstruit("AcquisitionConnexion[%1] Demarre la socket %2, %3, %4",:mutex,:NomSocket,:portSocket,:AdresseSocketServer))
       
-      SI SocketCrée(:NomSocket,:portSocket,:AdresseSocketServer) ALORS
-      	SocketChangeModeTransmission(:NomSocket, SocketTailleDébut)
-      	Logger.Debug("Création de la socket "+:NomSocket)
+      SI SocketCrÃ©e(:NomSocket,:portSocket,:AdresseSocketServer) ALORS
+      	SocketChangeModeTransmission(:NomSocket, SocketTailleDÃ©but)
+      	Logger.Debug("CrÃ©ation de la socket "+:NomSocket)
       	:DemarreEcouteSocket()
       	RENVOYER Vrai
       FIN
       
-      LoggerErreur.EcritLigne("Impossible de créer la socket "+ErreurInfo(errMessage))
+      LoggerErreur.EcritLigne("Impossible de crÃ©er la socket "+ErreurInfo(errMessage))
       RENVOYER Faux
       
-      //SI pas SocketCrée(:NomSocket,:portSocket,:AdresseSocketServer) ALORS
-      //	Logger.Log("AcquisitionConnexion a levé une erreur dans la création du socket " + :NomSocket)
+      //SI pas SocketCrÃ©e(:NomSocket,:portSocket,:AdresseSocketServer) ALORS
+      //	Logger.Log("AcquisitionConnexion a levÃ© une erreur dans la crÃ©ation du socket " + :NomSocket)
       //	renvoyer faux
       //FIN
       //
@@ -116,10 +125,10 @@ class :
      procedure_id : 1625068874573363154
      type_code : 12
      code : |1-
-      // Redéfinition de la méthode IClientSocket.Arrete
-      PROCÉDURE Arrete():booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Arrete
+      PROCÃ‰DURE Arrete():boolÃ©en
       
-      Logger.Debug(ChaîneConstruit("AcquisitionConnexion[%1] Arrete la socket %2",:mutex,:NomSocket))
+      Logger.Debug(ChaÃ®neConstruit("AcquisitionConnexion[%1] Arrete la socket %2",:mutex,:NomSocket))
       
       :ArreteEcouteSocket()
       
@@ -139,10 +148,10 @@ class :
      procedure_id : 1625068891753302014
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.EcouteSocket
-      PROCÉDURE EcouteSocket()
+      // RedÃ©finition de la mÃ©thode IClientSocket.EcouteSocket
+      PROCÃ‰DURE EcouteSocket()
       
-      SI PAS :arretDemandé ALORS
+      SI PAS :arretDemandÃ© ALORS
       	SI SocketAttendConnexion(:NomSocket,:portSocket) ALORS
       		canal est chaine
       		si pas accepte_demande() ALORS
@@ -164,7 +173,7 @@ class :
       	FIN
       FIN
       
-      procédure interne accepte_demande():booléen
+      procÃ©dure interne accepte_demande():boolÃ©en
       	t est tableau de IClientSocket dynamique = :server.RecupereClients()
       	POUR TOUT c DANS t
       		d est TreuilClient dynamique <- c
@@ -183,7 +192,7 @@ class :
      procedure_id : 1643972503056403170
      type_code : 12
      code : |1+
-      procédure privée _AjouteAcquisitionTreuil(acq est AcquisitionSignalClient dynamique)
+      procÃ©dure privÃ©e _AjouteAcquisitionTreuil(acq est AcquisitionSignalClient dynamique)
       
       t est tableau de IClientSocket dynamique = :server.RecupereClients()
       
@@ -208,8 +217,8 @@ class :
      procedure_id : 1625399771586939404
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IConnexionClientSocket.RecupereClients
-      PROCÉDURE  RecupereClients() : tableau de IClientSocket dynamique
+      // RedÃ©finition de la mÃ©thode IConnexionClientSocket.RecupereClients
+      PROCÃ‰DURE  RecupereClients() : tableau de IClientSocket dynamique
       
       t est tableau de IClientSocket dynamique
       
@@ -227,7 +236,7 @@ class :
      p_codes :
       -
         code : |1+
-         procédure protégée server() : IConnexionClientSocket
+         procÃ©dure protÃ©gÃ©e server() : IConnexionClientSocket
          
          renvoyer ServeurConnexion.MonInstance
         type : 1966080
@@ -244,8 +253,14 @@ custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
 associated_test :
  name : TEST_AcquisitionConnexion.wxt
+```
 
-AcquisitionSignalClient.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\AcquisitionSignalClient.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -267,7 +282,7 @@ class :
       	herite IAcquisitionSignal
       	CONSTANTE TailleBufferMax = 100
       	bufferLecture est un buffer
-      	acquisitionDemarrée est un booléen=faux
+      	acquisitionDemarrÃ©e est un boolÃ©en=faux
       fin
      type : 131072
   procedures :
@@ -276,7 +291,7 @@ class :
      procedure_id : 1877670499662073119
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
       Logger.Verbose("construit AcquisitionSignal")
       
@@ -287,8 +302,8 @@ class :
      procedure_id : 1877670499662138655
      type_code : 28
      code : |1+
-      procédure Destructeur()
-      Logger.Verbose("détruit AcquisitionSignal")
+      procÃ©dure Destructeur()
+      Logger.Verbose("dÃ©truit AcquisitionSignal")
       
      type : 655360
    -
@@ -296,11 +311,11 @@ class :
      procedure_id : 1877670499662204191
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Demarre
-      PROCÉDURE Demarre():booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Demarre
+      PROCÃ‰DURE Demarre():boolÃ©en
       
       :DemarreEcouteSocket()
-      :acquisitionDemarrée = vrai
+      :acquisitionDemarrÃ©e = vrai
       Logger.Debug("AcquisitionSignal Demarre, thread="+:nomThread)
       RENVOYER Vrai
      type : 458752
@@ -309,11 +324,11 @@ class :
      procedure_id : 1877670499662269727
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Arrete
-      PROCÉDURE Arrete():booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Arrete
+      PROCÃ‰DURE Arrete():boolÃ©en
       
       Logger.Debug("AcquisitionSignal Arrete, thread="+:nomThread)
-      :acquisitionDemarrée = Faux
+      :acquisitionDemarrÃ©e = Faux
       :ArreteEcouteSocket()
       RENVOYER Vrai
      type : 458752
@@ -322,13 +337,13 @@ class :
      procedure_id : 1877670499662335263
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.EcouteSocket
-      PROCÉDURE EcouteSocket()
+      // RedÃ©finition de la mÃ©thode IClientSocket.EcouteSocket
+      PROCÃ‰DURE EcouteSocket()
       
       tmp est un buffer = :Lit()
       SI tmp<>"" ALORS
       	:bufferLecture+=tmp
-      	si :_synchroniseTrameDansBuffer() _et_ :acquisitionDemarrée alors
+      	si :_synchroniseTrameDansBuffer() _et_ :acquisitionDemarrÃ©e alors
       		:_parseBuffer()
       	FIN
       FIN
@@ -338,7 +353,7 @@ class :
      procedure_id : 1877670499662400799
      type_code : 12
      code : |1+
-      procédure privée _parseBuffer()
+      procÃ©dure privÃ©e _parseBuffer()
       
       nbMsg est un entier = Taille(:bufferLecture)/CST_TAILLE_STRUCT
       stRDat est un IAcquisitionSignal.Str_DATA_Acquisition
@@ -348,8 +363,8 @@ class :
       Logger.Verbose("Parse le buffer")
       
       i est un entier
-      POUR i = 1 À nbMsg
-      	bufTemp = :bufferLecture[[nPos+1 À CST_TAILLE_STRUCT+nPos ]]
+      POUR i = 1 Ã€ nbMsg
+      	bufTemp = :bufferLecture[[nPos+1 Ã€ CST_TAILLE_STRUCT+nPos ]]
       	nPos+=CST_TAILLE_STRUCT
       	Transfert(&stRDat,&bufTemp,CST_TAILLE_STRUCT)
       	:EnfileBuffer(stRDat)
@@ -357,7 +372,7 @@ class :
       //	Trace(bufTemp)
       FIN
       SI Taille(:bufferLecture)>nPos ALORS
-      	:bufferLecture = :bufferLecture[[nPos+1 À]]
+      	:bufferLecture = :bufferLecture[[nPos+1 Ã€]]
       SINON
       	:bufferLecture=""
       FIN
@@ -367,18 +382,18 @@ class :
      procedure_id : 1877670499662466335
      type_code : 12
      code : |1+
-      procédure privée _synchroniseTrameDansBuffer() : booléen
+      procÃ©dure privÃ©e _synchroniseTrameDansBuffer() : boolÃ©en
       
       pour i=1 _a_ bufferLecture..Taille
       	si :bufferLecture..Taille>=3 _et_ :bufferLecture[1 a 3]<>"DEB" ALORS
-      		:bufferLecture = :bufferLecture[2 À ]
+      		:bufferLecture = :bufferLecture[2 Ã€ ]
       	sinon
       		SI :bufferLecture..Taille>=CST_TAILLE_STRUCT ALORS
-      			SI :bufferLecture[CST_TAILLE_STRUCT-3 À CST_TAILLE_STRUCT-1] = "FIN" ALORS
+      			SI :bufferLecture[CST_TAILLE_STRUCT-3 Ã€ CST_TAILLE_STRUCT-1] = "FIN" ALORS
       				Logger.Verbose("buffer synchro")
       				RENVOYER Vrai
       			SINON
-      				LoggerErreur.EcritLigne("buffer non synchro pas de fin trouvé, reset buffer")
+      				LoggerErreur.EcritLigne("buffer non synchro pas de fin trouvÃ©, reset buffer")
       				:bufferLecture = :bufferLecture[CST_TAILLE_STRUCT A]
       				renvoyer faux
       			FIN
@@ -394,8 +409,8 @@ class :
      procedure_id : 1877670499662531871
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IAcquisitionSignal.EnfileBuffer
-      PROCÉDURE  EnfileBuffer(buf IAcquisitionSignal.Str_DATA_Acquisition)
+      // RedÃ©finition de la mÃ©thode IAcquisitionSignal.EnfileBuffer
+      PROCÃ‰DURE  EnfileBuffer(buf IAcquisitionSignal.Str_DATA_Acquisition)
       
       Enfile(:fileBuffer,buf)
      type : 458752
@@ -404,11 +419,11 @@ class :
      procedure_id : 1877670499662597407
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IAcquisitionSignal.DefileBuffer
-      PROCÉDURE  DefileBuffer() : IAcquisitionSignal.Str_DATA_Acquisition
+      // RedÃ©finition de la mÃ©thode IAcquisitionSignal.DefileBuffer
+      PROCÃ‰DURE  DefileBuffer() : IAcquisitionSignal.Str_DATA_Acquisition
       
       buf est IAcquisitionSignal.Str_DATA_Acquisition
-      Défile(:fileBuffer,buf)
+      DÃ©file(:fileBuffer,buf)
       renvoyer buf
      type : 458752
    -
@@ -416,8 +431,8 @@ class :
      procedure_id : 1877670499662662943
      type_code : 12
      code : |1-
-      // Redéfinition de la méthode IAcquisitionSignal.TaillefileBuffer
-      PROCÉDURE  TaillefileBuffer() : entier
+      // RedÃ©finition de la mÃ©thode IAcquisitionSignal.TaillefileBuffer
+      PROCÃ‰DURE  TaillefileBuffer() : entier
       
       renvoyer :fileBuffer..Occurrence
      type : 458752
@@ -432,8 +447,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-AppConnexion.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\AppConnexion.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -452,8 +473,8 @@ class :
    -
      code : |1+
       AppConnexion est une Classe
-      	hérite IConnexionClientSocket
-      PRIVÉE
+      	hÃ©rite IConnexionClientSocket
+      PRIVÃ‰E
       	client est un IClientSocket dynamique
       FIN
      type : 131072
@@ -463,9 +484,9 @@ class :
      procedure_id : 1877424251996975816
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
-      Logger.Verbose(ChaîneConstruit("construit AppConnexion, mutex=%1",:mutex))
+      Logger.Verbose(ChaÃ®neConstruit("construit AppConnexion, mutex=%1",:mutex))
       :nomThread="thApplicationConnexion"
      type : 589824
    -
@@ -473,7 +494,7 @@ class :
      procedure_id : 1877424251997041352
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -481,12 +502,12 @@ class :
      procedure_id : 1877424857587571525
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IConnexionClientSocket.AjouteClient
-      PROCÉDURE  AjouteClient(client IClientSocket dynamique):booléen
+      // RedÃ©finition de la mÃ©thode IConnexionClientSocket.AjouteClient
+      PROCÃ‰DURE  AjouteClient(client IClientSocket dynamique):boolÃ©en
       
       m est un MutexHelper(:mutex)
       :client = client
-      Logger.Verbose(ChaîneConstruit("AppConnexion[%1%] Insère le client[%2]=%3,%4",:mutex, client.nomThread,client.ip,client.canalSocket))
+      Logger.Verbose(ChaÃ®neConstruit("AppConnexion[%1%] InsÃ¨re le client[%2]=%3,%4",:mutex, client.nomThread,client.ip,client.canalSocket))
       RENVOYER Vrai
      type : 458752
    -
@@ -494,10 +515,10 @@ class :
      procedure_id : 1877425106695732818
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Arrete
-      PROCÉDURE   Arrete() : booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Arrete
+      PROCÃ‰DURE   Arrete() : boolÃ©en
       
-      Logger.Debug(ChaîneConstruit("AppConnexion[%1] Arrete la socket %2",:mutex,:NomSocket))
+      Logger.Debug(ChaÃ®neConstruit("AppConnexion[%1] Arrete la socket %2",:mutex,:NomSocket))
       
       :ArreteEcouteSocket()
       
@@ -517,19 +538,19 @@ class :
      procedure_id : 1877425884084863104
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Demarre
-      PROCÉDURE   Demarre() : booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Demarre
+      PROCÃ‰DURE   Demarre() : boolÃ©en
       
-      Logger.Debug(ChaîneConstruit("AppConnexion[%1] Demarre la socket %2, %3, %4",:mutex,:NomSocket,:portSocket,:AdresseSocketServer))
+      Logger.Debug(ChaÃ®neConstruit("AppConnexion[%1] Demarre la socket %2, %3, %4",:mutex,:NomSocket,:portSocket,:AdresseSocketServer))
       
-      SI SocketCrée(:NomSocket,:portSocket,:AdresseSocketServer) ALORS
-      	SocketChangeModeTransmission(:NomSocket, SocketTailleDébut)
-      	Logger.Debug("Création de la socket "+:NomSocket)
+      SI SocketCrÃ©e(:NomSocket,:portSocket,:AdresseSocketServer) ALORS
+      	SocketChangeModeTransmission(:NomSocket, SocketTailleDÃ©but)
+      	Logger.Debug("CrÃ©ation de la socket "+:NomSocket)
       	:DemarreEcouteSocket()
       	RENVOYER Vrai
       FIN
       
-      LoggerErreur.EcritLigne("Impossible de créer la socket "+ErreurInfo(errMessage))
+      LoggerErreur.EcritLigne("Impossible de crÃ©er la socket "+ErreurInfo(errMessage))
       RENVOYER Faux
      type : 458752
    -
@@ -537,12 +558,12 @@ class :
      procedure_id : 1877426223387358488
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.EcouteSocket
-      PROCÉDURE   EcouteSocket()
+      // RedÃ©finition de la mÃ©thode IClientSocket.EcouteSocket
+      PROCÃ‰DURE   EcouteSocket()
       
-      SI PAS :arretDemandé ALORS
+      SI PAS :arretDemandÃ© ALORS
       	SI SocketAttendConnexion(:NomSocket,:portSocket) ALORS
-      		canal est chaîne
+      		canal est chaÃ®ne
       		SI PAS accepte_demande() ALORS
       			SocketRefuse(:NomSocket)
       			RETOUR
@@ -557,7 +578,7 @@ class :
       	FIN
       FIN
       
-      	PROCÉDURE INTERNE accepte_demande():booléen
+      	PROCÃ‰DURE INTERNE accepte_demande():boolÃ©en
       		t est tableau de IClientSocket dynamique = :server.RecupereClients()
       		si t..Vide alors renvoyer Vrai
       		POUR TOUT c DANS t
@@ -577,8 +598,8 @@ class :
      procedure_id : 1877427103856056182
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IConnexionClientSocket.RecupereClients
-      PROCÉDURE  RecupereClients() : tableau de IClientSocket dynamique
+      // RedÃ©finition de la mÃ©thode IConnexionClientSocket.RecupereClients
+      PROCÃ‰DURE  RecupereClients() : tableau de IClientSocket dynamique
       t est tableau de IClientSocket dynamique
       
       t.Ajoute(:client)
@@ -590,12 +611,12 @@ class :
      procedure_id : 1877427198345620150
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IConnexionClientSocket.SupprimeClient
-      PROCÉDURE  SupprimeClient(client IClientSocket dynamique):booléen
+      // RedÃ©finition de la mÃ©thode IConnexionClientSocket.SupprimeClient
+      PROCÃ‰DURE  SupprimeClient(client IClientSocket dynamique):boolÃ©en
       
       m est un MutexHelper(:mutex)
       SI :client = client ALORS
-      	Logger.Verbose(ChaîneConstruit("AppConnexion[%1%] Supprime le client[%2]=%3,%4",:mutex, client.nomThread, client.ip, client.canalSocket))
+      	Logger.Verbose(ChaÃ®neConstruit("AppConnexion[%1%] Supprime le client[%2]=%3,%4",:mutex, client.nomThread, client.ip, client.canalSocket))
       	:client.Arrete()
       	:client = null
       	RENVOYER Vrai
@@ -610,7 +631,7 @@ class :
      p_codes :
       -
         code : |1+
-         procédure privée  server() : IConnexionClientSocket
+         procÃ©dure privÃ©e  server() : IConnexionClientSocket
          
          RENVOYER ServeurConnexion.MonInstance
         type : 1966080
@@ -626,8 +647,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-ApplicationClient.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\ApplicationClient.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -657,7 +684,7 @@ class :
      procedure_id : 1877469963335441202
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
       Logger.Verbose("construit ApplicationClient")
       
@@ -669,17 +696,17 @@ class :
      procedure_id : 1877469963335506738
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
-      Logger.Verbose("détruit ApplicationClient")
+      Logger.Verbose("dÃ©truit ApplicationClient")
      type : 655360
    -
      name : Demarre
      procedure_id : 1877470354177621409
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Demarre
-      PROCÉDURE   Demarre() : booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Demarre
+      PROCÃ‰DURE   Demarre() : boolÃ©en
       
       :DemarreEcouteSocket()
       Logger.Debug("ApplicationClient Demarre, thread="+:nomThread)
@@ -690,8 +717,8 @@ class :
      procedure_id : 1877470474436799623
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.EcouteSocket
-      PROCÉDURE   EcouteSocket()
+      // RedÃ©finition de la mÃ©thode IClientSocket.EcouteSocket
+      PROCÃ‰DURE   EcouteSocket()
       
       tmp est un Buffer = :Lit()
       SI tmp<>"" ALORS
@@ -706,20 +733,20 @@ class :
      procedure_id : 1877471157336627428
      type_code : 12
      code : |1-
-      procédure protégée _ParseDonnees(_buffer est buffer)
+      procÃ©dure protÃ©gÃ©e _ParseDonnees(_buffer est buffer)
       
       
       QUAND EXCEPTION DANS
       	nbMsg				est un entier	= Taille(_buffer)/1000
-      	sVariable_Message	est une chaîne
-      	sContenu_Message	est une chaîne
-      	sVariable_AR		est une chaîne
-      	sContenu_AR			est une chaîne
+      	sVariable_Message	est une chaÃ®ne
+      	sContenu_Message	est une chaÃ®ne
+      	sVariable_AR		est une chaÃ®ne
+      	sContenu_AR			est une chaÃ®ne
       	
-      	POUR i = 1 À nbMsg
+      	POUR i = 1 Ã€ nbMsg
       		
-      //		sVariable_Message	= ExtraitChaîne(_buffer[[((1+(i-1)*::Size_MSG_Socket_RX)) À (i*::Size_MSG_Socket_RX)]],1,::CST_SOCKMSG_SEP)
-      //		sContenu_Message	= ExtraitChaîne(_buffer[[((1+(i-1)*::Size_MSG_Socket_RX)) À (i*::Size_MSG_Socket_RX)]],2,::CST_SOCKMSG_SEP)	
+      //		sVariable_Message	= ExtraitChaÃ®ne(_buffer[[((1+(i-1)*::Size_MSG_Socket_RX)) Ã€ (i*::Size_MSG_Socket_RX)]],1,::CST_SOCKMSG_SEP)
+      //		sContenu_Message	= ExtraitChaÃ®ne(_buffer[[((1+(i-1)*::Size_MSG_Socket_RX)) Ã€ (i*::Size_MSG_Socket_RX)]],2,::CST_SOCKMSG_SEP)	
       		
       		SELON sVariable_Message
       			CAS "STATUS","TEMP"
@@ -728,25 +755,25 @@ class :
       			CAS "DECO"
       				//				SELON sContenu_Message					
       				//					CAS "exit.From.PC"
-      				//						Logger.Debug(nIndiceListeClient+"Sortie de l’application suite à la demande provenant du PC Serveur")	
+      				//						Logger.Debug(nIndiceListeClient+"Sortie de lâ€™application suite Ã  la demande provenant du PC Serveur")	
       				//					CAS "exit.From.PEGASE"
-      				//						Logger.Debug(nIndiceListeClient+"Sortie de l'application suite à la demande provenant de l’application Cliente Pegase")	
+      				//						Logger.Debug(nIndiceListeClient+"Sortie de l'application suite Ã  la demande provenant de lâ€™application Cliente Pegase")	
       				//					CAS "exit.From.REBOOT"
-      				//						Logger.Debug(nIndiceListeClient+"Sortie de l'application suite à la demande provenant d'un Reboot de la plateforme Pegase")	
+      				//						Logger.Debug(nIndiceListeClient+"Sortie de l'application suite Ã  la demande provenant d'un Reboot de la plateforme Pegase")	
       				//					AUTRE CAS
-      				//						LoggerErreur.EcritLigne(nIndiceListeClient+"Sortie de l'application suite à la demande provenant de source inconnue")	
+      				//						LoggerErreur.EcritLigne(nIndiceListeClient+"Sortie de l'application suite Ã  la demande provenant de source inconnue")	
       				//				FIN			
       				//				TableauSupprime(GG_sendMessage,sVariable_AR)
       			//					
       			CAS "ERR"
-      //				sVariable_AR	= ExtraitChaîne(sContenu_Message[[1 À (::Size_MSG_Socket_RX-5)]],1,"=")
-      //				sContenu_AR		= ExtraitChaîne(sContenu_Message[[1 À (::Size_MSG_Socket_RX-5)]],2,"=")	
+      //				sVariable_AR	= ExtraitChaÃ®ne(sContenu_Message[[1 Ã€ (::Size_MSG_Socket_RX-5)]],1,"=")
+      //				sContenu_AR		= ExtraitChaÃ®ne(sContenu_Message[[1 Ã€ (::Size_MSG_Socket_RX-5)]],2,"=")	
       				SELON sVariable_AR
       					CAS "ARRT"
       						SI sContenu_AR = "PILE---WIFI" ALORS
       							//ERREUR WIFI - Goulot d'etranglement							
       							LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"]+ERREUR de transmission WIFI")
-      							LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"]+Erreur de transmission du buffer d’acquisition par la socket, le treuil arrête l’acquisition pour éviter un plantage")
+      							LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"]+Erreur de transmission du buffer dâ€™acquisition par la socket, le treuil arrÃªte lâ€™acquisition pour Ã©viter un plantage")
       						FIN
       					//						
       					CAS "IDENT"
@@ -754,15 +781,15 @@ class :
       							LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"]+Communication 1-Wire ne voit aucun composant compatible")
       						FIN	
       						SI sContenu_AR = "COMPNonAdresse" ALORS
-      							LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"]+Communication 1-Wire ne reconnaît pas le composant")
+      							LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"]+Communication 1-Wire ne reconnaÃ®t pas le composant")
       						FIN	
       						//					CAS "COMM"
       						//						SI sContenu_AR = "----Arduino" ALORS
-      						//							Logger.Debug(nIndiceListeClient+"Communication série Pegase/Arduino inopérante")
+      						//							Logger.Debug(nIndiceListeClient+"Communication sÃ©rie Pegase/Arduino inopÃ©rante")
       						//							LoggerErreur.EcritLigne("Gain _: Erreur"+sContenu_AR)
       						//						FIN	
       						//						SI sContenu_AR = "----OneWire" ALORS
-      						//							Logger.Debug(nIndiceListeClient+"Communication 1-Wire Arduino/Sonde inopérante")
+      						//							Logger.Debug(nIndiceListeClient+"Communication 1-Wire Arduino/Sonde inopÃ©rante")
       						//							LoggerErreur.EcritLigne("Gain _: Erreur"+sContenu_AR)
       						//						FIN
       						//					CAS "MESURE"
@@ -771,30 +798,30 @@ class :
       						//						FIN	
       						//					CAS "VITESSE"
       						//						SI sContenu_AR = "NONSPECIF" ALORS
-      						//							Logger.Debug(nIndiceListeClient+"Pas de vitesse configurée")
+      						//							Logger.Debug(nIndiceListeClient+"Pas de vitesse configurÃ©e")
       						//						FIN	
       						//					CAS "MOTEUR"
       						//						SI sContenu_AR = "BLOQ--MOT" ALORS							
-      						//							Logger.Debug(nIndiceListeClient+"Blocage moteur, aucune rotation détectée")
+      						//							Logger.Debug(nIndiceListeClient+"Blocage moteur, aucune rotation dÃ©tectÃ©e")
       						//							Gb_AnnuleMesureERR = Vrai
-      						//							LoggerErreur.EcritLigne( "Blocage moteur, aucune rotation détectée")
+      						//							LoggerErreur.EcritLigne( "Blocage moteur, aucune rotation dÃ©tectÃ©e")
       						//						FIN	
       						//						SI sContenu_AR = "DATA--COD" ALORS							
-      						//							Logger.Debug(nIndiceListeClient+"Réception données Codeur alors que le moteur est censé être à l'arrêt")
+      						//							Logger.Debug(nIndiceListeClient+"RÃ©ception donnÃ©es Codeur alors que le moteur est censÃ© Ãªtre Ã  l'arrÃªt")
       						//						FIN
       						//					CAS "GOTO"
       						//						SI sContenu_AR = "NON-ATTEINT" ALORS
-      						//							MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Arrêt moteur alors que la destination du GOTO n’a pas été atteinte")
+      						//							MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"ArrÃªt moteur alors que la destination du GOTO nâ€™a pas Ã©tÃ© atteinte")
       						//							Gn_FinGOTO++	
       						//							SI Gn_FinGOTO > 1 ALORS
       						//								SI FenEtat(FEN_trptfixe)<>Inexistant ALORS 
-      						//									FEN_trptfixe.BTNACTION..Grisé = Faux
-      						//									FEN_trptfixe.BTNENVOYER..Grisé = Faux
+      						//									FEN_trptfixe.BTNACTION..GrisÃ© = Faux
+      						//									FEN_trptfixe.BTNENVOYER..GrisÃ© = Faux
       						//								FIN
       						//								SI FenEtat(FEN_trdepla)<>Inexistant ALORS
-      						//									FEN_trdepla.BTNACTION..Grisé = Faux
-      						//									FEN_trdepla.BTN_RazTreuil..Grisé = Faux
-      						//									FEN_trdepla.FORCEPOS..Grisé = Faux	
+      						//									FEN_trdepla.BTNACTION..GrisÃ© = Faux
+      						//									FEN_trdepla.BTN_RazTreuil..GrisÃ© = Faux
+      						//									FEN_trdepla.FORCEPOS..GrisÃ© = Faux	
       						//								FIN
       						//							FIN
       						//						FIN
@@ -821,24 +848,24 @@ class :
       //				FIN
       			//			
       			CAS "RAVS"
-      //				sVariable_AR	= ExtraitChaîne(sContenu_Message[[1 À (::Size_MSG_Socket_RX-5)]],1,"=")
-      //				sContenu_AR		= ExtraitChaîne(sContenu_Message[[1 À (::Size_MSG_Socket_RX-5)]],2,"=")
+      //				sVariable_AR	= ExtraitChaÃ®ne(sContenu_Message[[1 Ã€ (::Size_MSG_Socket_RX-5)]],1,"=")
+      //				sContenu_AR		= ExtraitChaÃ®ne(sContenu_Message[[1 Ã€ (::Size_MSG_Socket_RX-5)]],2,"=")
       				//				SELON sVariable_AR								
       				//					CAS "1"
       				//						si Gtab_Liste_Client[nIndiceListeClient].NumeroTreuil = 1 ALORS
       				//							Param_Interne_Treuils.mTreuilIP=Gtab_Liste_Client[nIndiceListeClient].IP_Client
       				//							Param_Interne_Treuils.mTreuilType=Gtab_Liste_Client[nIndiceListeClient].Type_Client
       				//							
-      				//							Param_Interne_Treuils.mTreuilVersion=ExtraitChaîne(sContenu_AR,1,"-")
+      				//							Param_Interne_Treuils.mTreuilVersion=ExtraitChaÃ®ne(sContenu_AR,1,"-")
       				//							GG_AVS.iVersionT1 = val(Param_Interne_Treuils.mTreuilVersion)*100
-      				//							Param_Interne_Treuils.mTreuilFreq=Val(ExtraitChaîne(sContenu_AR,2,"-"))
+      				//							Param_Interne_Treuils.mTreuilFreq=Val(ExtraitChaÃ®ne(sContenu_AR,2,"-"))
       				//							SI GG_treuilss[CST_SOCK_TREUIL_EMETEUR].NumeroTreuil = 1 ALORS
-      				//								Param_Interne_Treuils.Energie=Val(ExtraitChaîne(sContenu_AR,3,"-"))
+      				//								Param_Interne_Treuils.Energie=Val(ExtraitChaÃ®ne(sContenu_AR,3,"-"))
       				//							SINON
-      				//								Param_Interne_Treuils.Gain=Val(ExtraitChaîne(sContenu_AR,3,"-"))
+      				//								Param_Interne_Treuils.Gain=Val(ExtraitChaÃ®ne(sContenu_AR,3,"-"))
       				//							FIN							
-      				//							si Val(ExtraitChaîne(sContenu_AR,4,"-")) = 0 alors 
-      				//								Param_Interne_Treuils.mTreuilSens="Montée"
+      				//							si Val(ExtraitChaÃ®ne(sContenu_AR,4,"-")) = 0 alors 
+      				//								Param_Interne_Treuils.mTreuilSens="MontÃ©e"
       				//							sinon
       				//								Param_Interne_Treuils.mTreuilSens="Descente"
       				//							FIN
@@ -846,16 +873,16 @@ class :
       				//							Param_Interne_Treuils.T2_IP=Gtab_Liste_Client[nIndiceListeClient].IP_Client
       				//							Param_Interne_Treuils.T2_Type=Gtab_Liste_Client[nIndiceListeClient].Type_Client
       				//							
-      				//							Param_Interne_Treuils.T2_Version=ExtraitChaîne(sContenu_AR,1,"-")
+      				//							Param_Interne_Treuils.T2_Version=ExtraitChaÃ®ne(sContenu_AR,1,"-")
       				//							GG_AVS.iVersionT2 = Val(Param_Interne_Treuils.T2_Version)*100
-      				//							Param_Interne_Treuils.T2_Freq=Val(ExtraitChaîne(sContenu_AR,2,"-"))
+      				//							Param_Interne_Treuils.T2_Freq=Val(ExtraitChaÃ®ne(sContenu_AR,2,"-"))
       				//							SI GG_treuilss[CST_SOCK_TREUIL_EMETEUR].NumeroTreuil = 2 ALORS
-      				//								Param_Interne_Treuils.Energie=Val(ExtraitChaîne(sContenu_AR,3,"-"))
+      				//								Param_Interne_Treuils.Energie=Val(ExtraitChaÃ®ne(sContenu_AR,3,"-"))
       				//							SINON
-      				//								Param_Interne_Treuils.Gain=Val(ExtraitChaîne(sContenu_AR,3,"-"))
+      				//								Param_Interne_Treuils.Gain=Val(ExtraitChaÃ®ne(sContenu_AR,3,"-"))
       				//							FIN
-      				//							SI Val(ExtraitChaîne(sContenu_AR,4,"-")) = 0 ALORS 
-      				//								Param_Interne_Treuils.T2_Sens="Montée"
+      				//							SI Val(ExtraitChaÃ®ne(sContenu_AR,4,"-")) = 0 ALORS 
+      				//								Param_Interne_Treuils.T2_Sens="MontÃ©e"
       				//							SINON
       				//								Param_Interne_Treuils.T2_Sens="Descente"
       				//							FIN
@@ -864,15 +891,15 @@ class :
       				//					CAS "2"
       				//						Gn_REP_QAVS++			
       				//						SI Gtab_Liste_Client[nIndiceListeClient].NumeroTreuil = 1 ALORS
-      				//							Param_Interne_Treuils.mTreuilProfondeur=Val(ExtraitChaîne(sContenu_AR,1,"*"))/2
-      				//							Param_Interne_Treuils.mTreuilVitesseUp=Val(Gauche(ExtraitChaîne(sContenu_AR,2,"*"),2))
-      				//							Param_Interne_Treuils.mTreuilVitesseDown=Val(Droite(Gauche(ExtraitChaîne(sContenu_AR,2,"*"),4),2))
-      				//							Param_Interne_Treuils.mTreuilMesure=Val(Droite(Gauche(ExtraitChaîne(sContenu_AR,2,"*"),6),2))	
+      				//							Param_Interne_Treuils.mTreuilProfondeur=Val(ExtraitChaÃ®ne(sContenu_AR,1,"*"))/2
+      				//							Param_Interne_Treuils.mTreuilVitesseUp=Val(Gauche(ExtraitChaÃ®ne(sContenu_AR,2,"*"),2))
+      				//							Param_Interne_Treuils.mTreuilVitesseDown=Val(Droite(Gauche(ExtraitChaÃ®ne(sContenu_AR,2,"*"),4),2))
+      				//							Param_Interne_Treuils.mTreuilMesure=Val(Droite(Gauche(ExtraitChaÃ®ne(sContenu_AR,2,"*"),6),2))	
       				//						SINON
-      				//							Param_Interne_Treuils.T2_Profondeur=Val(ExtraitChaîne(sContenu_AR,1,"*"))/2
-      				//							Param_Interne_Treuils.T2_VitesseUp=Val(Gauche(ExtraitChaîne(sContenu_AR,2,"*"),2))
-      				//							Param_Interne_Treuils.T2_VitesseDown=Val(Droite(Gauche(ExtraitChaîne(sContenu_AR,2,"*"),4),2))
-      				//							Param_Interne_Treuils.T2_Mesure=Val(Droite(Gauche(ExtraitChaîne(sContenu_AR,2,"*"),6),2))				
+      				//							Param_Interne_Treuils.T2_Profondeur=Val(ExtraitChaÃ®ne(sContenu_AR,1,"*"))/2
+      				//							Param_Interne_Treuils.T2_VitesseUp=Val(Gauche(ExtraitChaÃ®ne(sContenu_AR,2,"*"),2))
+      				//							Param_Interne_Treuils.T2_VitesseDown=Val(Droite(Gauche(ExtraitChaÃ®ne(sContenu_AR,2,"*"),4),2))
+      				//							Param_Interne_Treuils.T2_Mesure=Val(Droite(Gauche(ExtraitChaÃ®ne(sContenu_AR,2,"*"),6),2))				
       				//						FIN	
       				//						Param_Interne_Treuils.ValT0 = G_AVST0
       				//					CAS "3"
@@ -913,8 +940,8 @@ class :
       				Logger.Log("Client["+:canalSocket+","+:ip+"]+_RAVS:_ "+sVariable_AR+"_:_"+sContenu_AR)
       				
       			CAS "RPAR"
-      //				sVariable_AR	= ExtraitChaîne(sContenu_Message[[1 À (::Size_MSG_Socket_RX-5)]],1,"=")
-      //				sContenu_AR		= ExtraitChaîne(sContenu_Message[[1 À (::Size_MSG_Socket_RX-5)]],2,"=")
+      //				sVariable_AR	= ExtraitChaÃ®ne(sContenu_Message[[1 Ã€ (::Size_MSG_Socket_RX-5)]],1,"=")
+      //				sContenu_AR		= ExtraitChaÃ®ne(sContenu_Message[[1 Ã€ (::Size_MSG_Socket_RX-5)]],2,"=")
       //				SELON sVariable_AR
       //				//CAS "ARRT"
       //					//MAJ_AFF_TRAME_SOCKET(0,"Energie _:"+Gauche(sContenu_AR,2))				 											
@@ -943,8 +970,8 @@ class :
       				//				
       				//				
       				//			CAS "MSG"
-      				//				sVariable_AR = ExtraitChaîne(sContenu_Message[[1 A (:Size_MSG_Socket_RX-5)]],1,"=")
-      				//				sContenu_AR  = ExtraitChaîne(sContenu_Message[[1 A (:Size_MSG_Socket_RX-5)]],2,"=")
+      				//				sVariable_AR = ExtraitChaÃ®ne(sContenu_Message[[1 A (:Size_MSG_Socket_RX-5)]],1,"=")
+      				//				sContenu_AR  = ExtraitChaÃ®ne(sContenu_Message[[1 A (:Size_MSG_Socket_RX-5)]],2,"=")
       				//				//Trace(Gtab_Liste_Client[nIndiceListeClient].Nom_Client+"_MSG:_ "+sVariable_AR+"_:_"+sContenu_AR)
       				//				SELON sVariable_AR
       				//					CAS "MESURE"					
@@ -953,13 +980,13 @@ class :
       				//							MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"----==FIN GOTO MESURE==----")	
       				//							SI Gn_FinGOTO > 1 ALORS
       				//								 SI FenEtat(FEN_trptfixe)<>Inexistant ALORS 
-      				//								 	FEN_trptfixe.BTNACTION..Grisé = Faux
-      				//								 	FEN_trptfixe.BTNENVOYER..Grisé = Faux
+      				//								 	FEN_trptfixe.BTNACTION..GrisÃ© = Faux
+      				//								 	FEN_trptfixe.BTNENVOYER..GrisÃ© = Faux
       				//								 FIN
       				//								 SI FenEtat(FEN_trdepla)<>Inexistant ALORS
-      				//									FEN_trdepla.BTNACTION..Grisé = Faux
-      				//									FEN_trdepla.BTN_RazTreuil..Grisé = Faux
-      				//									FEN_trdepla.FORCEPOS..Grisé = Faux	
+      				//									FEN_trdepla.BTNACTION..GrisÃ© = Faux
+      				//									FEN_trdepla.BTN_RazTreuil..GrisÃ© = Faux
+      				//									FEN_trdepla.FORCEPOS..GrisÃ© = Faux	
       				//								 FIN
       				//							FIN
       				//						FIN
@@ -972,64 +999,64 @@ class :
       				//				TableauSupprime(GG_sendMessage,sVariable_AR)
       				//				
       				//			CAS "EVT"
-      				//				sVariable_AR = ExtraitChaîne(sContenu_Message[[1 A (:Size_MSG_Socket_RX-5)]],1,"=")
-      				//				sContenu_AR  = ExtraitChaîne(sContenu_Message[[1 A (:Size_MSG_Socket_RX-5)]],2,"=")
+      				//				sVariable_AR = ExtraitChaÃ®ne(sContenu_Message[[1 A (:Size_MSG_Socket_RX-5)]],1,"=")
+      				//				sContenu_AR  = ExtraitChaÃ®ne(sContenu_Message[[1 A (:Size_MSG_Socket_RX-5)]],2,"=")
       				//				SELON sVariable_AR
       				//					CAS "STOP"
       				//						Gn_StopFROM = Val(Droite(sContenu_AR,2))
       				//						SELON Gn_StopFROM							
       				//							CAS CST_STOPFROM_ARRIVEAFTERGOTO
       				//								//Trace("Gn_StopFROM _:_CST_STOPFROM_ARRIVEAFTERGOTO")
-      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrêt moteur : ARRIVED_AFTER_GOTO")
+      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrÃªt moteur : ARRIVED_AFTER_GOTO")
       				//							CAS	CST_STOPFROM_FINCALIB
-      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrêt moteur : FIN_CALIBRATION")
+      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrÃªt moteur : FIN_CALIBRATION")
       				//							CAS	CST_STOPFROM_PWMNULLE
-      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrêt moteur : PWM_NULLE")
+      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrÃªt moteur : PWM_NULLE")
       				//							CAS CST_STOPFROM_CONFIGSENS
-      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrêt moteur : CONFIG_SENS")
+      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrÃªt moteur : CONFIG_SENS")
       				//							CAS CST_STOPFROM_ERRSENS
-      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrêt moteur : Erreur SENS")
+      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrÃªt moteur : Erreur SENS")
       				//							CAS CST_STOPFROM_BP
-      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrêt moteur : Bouton Poussoir")
+      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrÃªt moteur : Bouton Poussoir")
       				//							CAS CST_STOPFROM_CLOSEPWM
-      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrêt moteur : Fin PWM")
+      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrÃªt moteur : Fin PWM")
       				//							CAS CST_STOPFROM_AU
-      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrêt moteur : Arret d'Urgence")
+      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrÃªt moteur : Arret d'Urgence")
       				//							CAS CST_STOPFROM_ERRCALIB
-      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrêt moteur : Erreur CALIBRATION")	
+      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrÃªt moteur : Erreur CALIBRATION")	
       				//							CAS CST_STOPFROM_ERRGOTO
-      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrêt moteur : Erreur GOTO")
+      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrÃªt moteur : Erreur GOTO")
       				//							CAS CST_STOPFROM_CMDSOCKET
-      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrêt moteur : Depuis PC")
+      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrÃªt moteur : Depuis PC")
       				//							CAS CST_STOPFROM_BLOCAGEMOTEUR
-      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrêt moteur : Blocage Moteur")		
+      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrÃªt moteur : Blocage Moteur")		
       				//							AUTRE CAS
-      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrêt moteur inconnu")
+      				//								MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Source de l'arrÃªt moteur inconnu")
       				//								Gn_StopFROM = CST_STOPFROM_BLOCAGEMOTEUR+1
       				//						FIN
       				//						//[TEST]
       				//						enfile(fileDemandePostionTreuils,vrai)
       				//					CAS "BTNP"
       				//						SI sContenu_AR = "FROM-----UP" ALORS
-      				//							MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Appui sur le bouton de montée")
+      				//							MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Appui sur le bouton de montÃ©e")
       				//						FIN	
       				//						SI sContenu_AR = "FROM---DOWN" ALORS
       				//							MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Appui sur le bouton de descente")
       				//						FIN	
       				//						SI sContenu_AR = "FROM-----AU" ALORS							
-      				//							MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Appui sur le bouton d’arrêt d’urgence")
+      				//							MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Appui sur le bouton dâ€™arrÃªt dâ€™urgence")
       				//							Gb_AnnuleMesureERR = Vrai
-      				//							Enfile(fileErreurMessage, "Appui sur le bouton d’arrêt d’urgence")
+      				//							Enfile(fileErreurMessage, "Appui sur le bouton dâ€™arrÃªt dâ€™urgence")
       				//						FIN	
       				//					CAS "BTNR"
       				//						SI sContenu_AR = "FROM-----UP" ALORS
-      				//							MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Relâche du bouton de montée")
+      				//							MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"RelÃ¢che du bouton de montÃ©e")
       				//						FIN	
       				//						SI sContenu_AR = "FROM---DOWN" ALORS
-      				//							MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Relâche du bouton de descente")
+      				//							MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"RelÃ¢che du bouton de descente")
       				//						FIN	
       				//						SI sContenu_AR = "FROM-----AU" ALORS
-      				//							MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"Relâche du bouton d’arrêt d’urgence")
+      				//							MAJ_AFF_TRAME_SOCKET(nIndiceListeClient,"RelÃ¢che du bouton dâ€™arrÃªt dâ€™urgence")
       				//						FIN							
       				//					AUTRE CAS
       				//						//Trace(Gtab_Liste_Client[nIndiceListeClient].Nom_Client+"_AR:_ "+sVariable_AR+"_:_"+sContenu_AR)
@@ -1040,13 +1067,13 @@ class :
       				////				SI (Taille(sContenu_Message) = 16) ALORS
       				////					Trace(Gtab_Liste_Client[nIndiceListeClient].Nom_Client+"_:_ "+sVariable_Message+"_:_"+sContenu_Message)
       				////				SINON
-      				////					Trace(Gtab_Liste_Client[nIndiceListeClient].Nom_Client+"_:_ "+"Erreur Réception Contenu_Message")
+      				////					Trace(Gtab_Liste_Client[nIndiceListeClient].Nom_Client+"_:_ "+"Erreur RÃ©ception Contenu_Message")
       				////				FIN
       			//				
       			AUTRE CAS
       				LoggerErreur.EcritLigne("Variable :"+sVariable_Message)
       				LoggerErreur.EcritLigne("Contenu :"+sContenu_Message)
-      				//LoggerErreur.EcritLigne(ChaîneConstruit("[%1%][%2][%3]_:_Erreur Réception Contenu_Message",:ip,:id,:type))
+      				//LoggerErreur.EcritLigne(ChaÃ®neConstruit("[%1%][%2][%3]_:_Erreur RÃ©ception Contenu_Message",:ip,:id,:type))
       		FIN	
       		//			
       		//		TableauSupprime(GG_sendMessage,sVariable_Message)
@@ -1062,8 +1089,8 @@ class :
      procedure_id : 1877472012035186932
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Arrete
-      PROCÉDURE   Arrete() : booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Arrete
+      PROCÃ‰DURE   Arrete() : boolÃ©en
       
       Logger.Debug("Arrete ApplicationClient["+:mutex+"]")
       :ArreteEcouteSocket()
@@ -1080,2694 +1107,2914 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-AcquisitionConnexion.wdc
-PCS                     B      9       j                  01F280051n                 fYҦ8cw 1 j]X   Ȅ	 R  į     "      B      A c q u i s i t i o n C o n n e x i o n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   PCS          b                   9                         01F280051n     v       :      >        
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\AcquisitionConnexion.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 fYÒ¦8cwŠ1Çj]X³×ïÈ„	ÖRô¾âŒÄ¯     "      B      A c q u i s i t i o n C o n n e x i o n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   PCS          b                  9                €    ¼   01F280051n     v       :      >        
    
-c                                                                 Έ !   AcquisitionConnexion                                    / ?a?t  H   qM( # @qT  +     a   q=	 ]x  R    +   D    
-dP  @Ol   
-х  b 
-)*8`1 ƈ"  ,     cG
-5u  yC  3yf 	a N vp   F:f s I G I   "  4f  4B  78u ,  ̛:T ac  ҦO z z B 8[ Q   \ %O. J  Y tz ʳ  1m̈  (  j  < Lׯ Ϧ] h=oĸQӲo\  ʋ 7p Ɩ   o ?D	2x    Z{    H  z  =ʸ  ;p  =V hAq Ƨ N@   ы _  E  k   yT R >-
-/  8#"    # x  *   	  a`  [*  `   Jj   Ȑ N 
-  u H@:  (" h8
-H  C   O (   Q ;  
- : DCɮNL1B  +  ک   b˭sѷ f   7 C B B    2  ^p &%  I 7 xm7  ,    Ct9    @  ; "
-0 %  @  <  @      . P 4 ! O  ; =N    u Y    |  cw `),6"  vX f   Lo 6 2 ۵ׁB # 1 
-w r7v 0      }W _ 
-  : _}ف  7݀  w e i *{3   j_
-  m  `ē4   氃 : hrE!\L 	  @  c #62  lc    Hr &   Ay, D  È 	8 @C   j8 J  4    ~ 8 F    ]j  ^  ˛𤩅ܰ# <|0A Z An UP  BLi ހÍ* pR 2|  4 v	&  j{ 7F <6C+N %" ٢ ʈ t #J  @  YA Nߤ[v D
- UE	|  Ii
- ? )   \  w ] 
- `6 7 d>   ] +/L   zy '   `  y | Jx    ]#N}  ?      " h
- Ȣ  {l$!NH C ÿ 	    G G ٘ g;c  B  	 IE      0, iO CԦV53\-k[    AI7<K& 6˅ mo  rb7  ͈y     9 Et O PgE  n  {]Db  /" 
-  t 3 w    b-  *  #   ū   p  @   O    H$h Gx " 4 "  r#1 #ۇ ( Q aP %    9 "  he    = j  " 5 anf ZV ё {h     y R    ň TD J" `
-fС*n    3!0J v 8l +   h "&Ӽ   Y- RB45     @b( V  B  Y 3 APBSPt  3 YMk ` jph r B! *    	  C І8h%{#  0 9 Ed 
-^ ':#N 9  5 n4E KaO tB N    @5 aMk\  
- V  INm  	9i   
-^ N=(  `   F   yc)݆  q   P 
- 8  d  ڐ :4 Ol "  '\
-Z0 Bp 9 A
-N 
-U   M@uBhCV-    H r 41  b 
-d چ  +(p
-B 0q8JPdr    /Ȑ  *   "     }1VT  V 0 x '   B  `  @_J^j;   =i, < JJb #TR Y)؎ߊH  / k]	 0    T  #  `<^A Ƅ  C 	F ) 0f Zq @Ly-9 ;  J @; !/jp-}  *h ' C  `      Y (S;   3 9 j^3   J7   p  N s'b_ co    lTf      g?   ٧=-( | ؅  5   D+ ܋5 ' hD<*ܐ  n&E J  
- T   % ҁ
+c                                                                ÿÎˆñ!   AcquisitionConnexion þí˜á                                /ÿ?a?t”ÌH²¥†qM(ä#Š@qT©¾+±÷­–Ía¸™â®q=	î]xÂâR    +  ðD    
+dP«È@Ol˜ðå
+Ñ…‘b 
+)*8`1ÀÆˆ" ø,‘¼…‘cG
+5uÔÀyC„æ3yf¾	a†Nvp† ÒF:füs—IœG¨Iš”Ç"¢‚4fæÄ4B‰Í78uÒ,ªÆÌ›:Tàac¦ÎÒ¦O£zœz’BÄ8[ï˜QÊÔé\º%O.¹J¦Y´tzþÊ³Ž˜1mÌˆ±â(µjÄÈ<¢L×¯‡Ï¦]Ûh=oÄ¸QÓ²o\ÀëÊ‹ñŒš7pÿÆ–ÊÛ÷oà?D	2xÄá•Z{ ÈØÐH§Òzì×=Ê¸ÊÜ;péß=V¬hAqôÆ§N@ü÷äÑ‹_ü½Eçë£kŸ›ýyTîRà>-
+/ª‰8#"Áä± ¢#¬x‚ˆ*”€â	ÝÄa`•€[*éÐ`ª»JjŽ½æÈNÜ
+ ‡uöH@:¢("—h8
+H®C‹âûOª(¯µˆQ¥;æè
+É:”DCÉ®NL1BØÁ+°ÄÚ©¬ÑÔbË­sÑ·ÙfˆÈÉ7î€C­B B«½šì2§^p‚&%ÞøIŒ7Èxm7ÞÎ,¾ùäCt9õÄËï@µ«;þ"
+0€%Òà@Àè<ðÔ@öÌÔô·úõ.ÕP­4Ò!óO¿íº;õ=N ¾Ûu×Yû  |ýõcw…`),6"¿ÄvXßfåôÒLoÕ6 2ŒÛµ×Bð#˜1º
+wÜr7vÖ0ð ×Ü Ú}WÝ_Ÿ
+ ”:æ_}ÙÂÉ7Ý€ †wØeÿi–*{3œö×j_
+ Ûm·å`Ä“4ˆ¬Ÿæ°ƒŒ:ÌhrE!\L¨	†º@º‹c£#62À£lcí¼æHrÉ&»â¸Ay,ËD³½Ãˆ¨	8Ð@C«®Ðj8’Jˆ4Ä æœ~ö8¦F ƒ¦Ž]j¥–^ŠéË›ð¤©…Ü°#ä<|0A†ZØAnºUPÁèBLi Þ€Ã*ÒpRŒ2|¡Ž4Ðv	&™Èj{¬7F <6C+N %"šÙ¢ŠÊˆÈt—#J ¢@ú¤YA’Nß¤[vÇD
+ŽUE	|”·Ii
+¾?‰)öü¸\¿ƒw ]³
+Ã`67Œd>‘žÞ]œ+/LÉâàzy‹'ïÁß`Àây¢|ìJxá“Žöá]#N} ã?´ŒåÉ ¢"øh
+ÙÈ¢Å {l$!NHÙC¤Ã¿Ô	Äûø‘G´G«Ù˜ g;c’“BÀ²	­IE‹–©ÌÔ 0,­iO›CÔ¦V53\-k[ëÙ¶”AI7<K&·6Ë…Åmo€ßrb7¼éÍˆyðÛæ Ó9ýEt¢O PgE‰­n ­{]Db§Ú/"·
+ ït 3êwû‰Õð¢b- Ù*Šµ#ÐòüÅ«ˆ„€p¸Þ@‚° OôñŽÀŠH$hÀGxÅ"4±" r#1È#Û‡¾(ìQaP„%™÷«÷9Ë"ó£Ÿýhe‘üÍñ=³jÆ"„5Àanf ZVä‚Ñ‘Â{h€ Ðàˆ•y±RÀÈ€¤Åˆ“TD¢J"„`
+fÐ¡*nó òä3!0JÜv˜8ló+—û’hÐ"&Ó¼ –²Y-ßRB45ˆ‰Â @b(¢V˜‚B°ÎYº3†APBSPtºÅ3©YMkì`ì€jph•rÏB!*ˆ¡„À	³ÌCÌÐ†8h%{#éß0Ê9ÁEd 
+^Ð':#N¨9ëð5”n4E‹KaOªtB…NƒšÔæ@5«aMk\£¥
+¿V‡°INm•«	9iÂ…»™À
+^ñ“N=(™µ`ìFƒ˜ yc)Ý†êÓqŠ›ŒPÕ
+Ô8´à¯d ”ÚÐ:4ñ¥OlÐ"ÒÏ'\
+Z0ÂBp…9ˆA
+Nœ
+Uù¹þM@uBhCV- à¥òHƒr°41„àbØ
+dÐÚ†µ¶+(p
+Bð0q8JPdr˜œªÂ/ÈŸÃ*’‹¹"§ÉÅÞ}1VTèúVà0ªx¼'ïü¨BÆÐ`¼ò@_J^j;ääî=i,Ð<üJJb#TRùY)ØŽßŠHèÐ/÷k]	Ç0Þ È T£¤# `<^A Æ„‰¾CÃ	F‡)Œ0f‰Zq¡@Ly-9Ø;¬¤JË@;Ä!/jp-}º¢*h‘'àCñË`¤¿ÉÄÈ”Y(S;³™Â3£9Íj^3›žéJ7ÝðÍp‚æN˜s'b_€co¥ÇîälTf…ˆÔóžùÜg?å”ã¯Ù§=-(—|ŠØ…ª†5®‰èD+ªÜ‹5£'ÜhD<*ÜŽ”n&E©Jëš£
+¦T¹” %µÒ
 
- ^ #  ']B 0 .  
- U   : 1 *
-  'fՇ[e 1 V   i q   V   p +] xׂ  p [ PӊW5   & j[ (Vћ> w4S   y ! ːi  *8 Jd9 ԁ i  c% M 9֊ 
-J    T P    
-NrI 膺&=pAZ  ٌ  0 L~ ;       C	H
-`y^  aSn'.C  0   yг	T  `ܣ   _k Ϛ*   } 	 &! : Kks 4W 9  0   H nnP ,  #(CsGy D   = t J1x   A6V   '  !     O  k&  'q @  8  2y | <+c {G:~miO Ԯ 7Pq-leK[ D ˹E+o}
-\ W1sSr   h9w:    s  F庮 n   ] 7" 5/y      I/ #  u w   | _  1 ~    #KFe S     l	   
-+ k   A
-Ȇ i{	   -
-l  O:  ] x  l Pb Qb R 
-   > # [ S  'p  & ˟ ?ԣ      7 -'YȔ(  >h C@2 xAb  ZP   )  + &jR- *.   2U  0 3 B  2B$ |c7yp   3| '~ '8  *48 ( *   ;    b  1 4    !` *a
- l  @   ó -  0   i#ŹR" қ'8    V !('A
-3@ 9A P7M{" :    OC," *Y Ut X|E  E   ZL
-\  ]       
- b̚7x =   38 @  @FVtC A *Ь 2 "P FL,Bl     Ftİ)F%ٌ ( n D  ` HF  7F;    D30   %Ċ ^Ժ `<Ȓ,ʲ, Ҭz   @<ld-}; /HD 0?T#    &P4   Q7 7sԽ2 I*  tC d  9 3  Њ9p  1x^ É  2 Ț  
- #=B Ey +  *.b4F BGeT ` X ƨ E7  ɒV   <	8 2 5E  J !  ı -ɸ%i  pʡ)8?1ôRK ;&	 T  #-QH7dH :	  σ =;    <y    & <C<	2     `  np q r 	 ` V   48' - h # 
- LIy ׄ  4 #|I d' E  J    Ύ J    @  )j *  ,b 니   #      ?     ? ? P  A 
-  IOmP  
- Q     y   9
-O  B #   t      O}   Ј  B  ğ}P        љ H)   Bn   Bj! B,C زm 20 2sCu Q9lHy ;  < 3 Q'	,  @<  8 Д 7`   G 5   Lb
-"/   +2u . D EkKńLGP JjS ! ?
-  H7  E N  '( '   *  " ' P    BL! ,- zN:,I cS   Rn +  *h6vJ,  #    ,   U aիd  XM k 250NPL  0 Cm D F  H ;	 T  :  1    tU   ٔ  
-     2Og   Y  p  pO   .R          \  }     %P ]   щ  ԓX{ X  U s  P  X{Byp   ԐA y p  $  h ! ԩ T  2    @'
-Ck R2  3 R1 3,U  4 ۼ / 3= 3  He , L  0 (Q݁8 8| j   4L1K  : 5 78Wg|˷kF  K  V  VyP  +7  82    6u c9 2 80  #$ U5[g 
-  :Ě 3   օ    2   t͝ Mv < `; =: [  5 Ǎ! E  m`; |]     k M U  L   *  *c ă  <` + sܐ ̱yޱ  B   LH  j     ; .  &* Is 8 4  
-   1 
- p (F (  Eu$_s; v   i 0   i_  8 ) H, % l<   :  X
- =  ܥ  l;xC CJm   : 0 D[    k  z U M/5  5   \ L ۴  SݽmW ŻW 0<%^ #f]u U:܁
-"%頮       ^څ\   8SCD&  *  e   = (Ã
-  ߐ{(   k! c8'q' 3` 
-    L  * TOUQ}'V< c; .	 8 e A c 3 4 [q  2p9 ;:  [.ž  MP~ :Ѓ  %    _3P 0~L# ԯs:  Q ֶ ͊k;Uf: #̝ e 杻  0 x ʐ  Gf Ne0b.MbmnS 
- Ic +   4 <ܠ ]gv 
-| W      :   b E 3b   χ膅X & M . > y XeP mg ֟         G  F  pH  N i
- 3     @ @ 8P  Hx 
-K  YA mAJѿ  Bx  H- h2   "Rj   1       坐 6XP qXP $   a ^%  ! +  .   s`3   8
-   k xߛ4 K _BS  hc xcɈc+UZP L _= F>6  K ?  ^ 6U9k  82 L pd d  
- C p c  
-^m   8 . ; M  NN i
- [ R M v  feW6X m  e;e V ]  ^.: + `Nc~ ` ܁=V' v  H  ۫3  W nd;    䶋   4 P f | #g CMլ g%  o:  %6  pb_ )N w  4g    }  <  ܢ $R١ |. }    g  ?dhWh  ? njLqЉ  ߸興 ) /  P l Y  	 @x @
-l${	f -  ! i 	 Q   )    	e 
-uA 	 X1     A }h<  3   c 6  X 3  X 8  >  GH  =k
-` h  Y֖ T &0 2 
-H   4'+     t   ۄ3zS:      t Β-q ɨ  n ɶ  Fl E `쀳 V  + uL _ZoW 5dMMd+     PՇ M =a  ΁    ҵ  `    .y .   A g s Uq ew   _h |j7'Y qU  y _ `8   `	 ai ? dq . 鏕           w    l 
-     n   g0x     G          W      iY  Ј    2 U (Q5 hA z    x    Q pM|g#  P               (  A        2   
-     E +f |'<f~&7	#Xj {  R   O  (r  = L  s  t                                     R   R    Έ N   C:\Mes Projets\repo\avsp_server\src\TEST_AcquisitionConnexion.wxt    
+ª^ð#èä']B 0î.¶³
+ÅU˜ÆÔ:ª1”*
+«ê'fÕ‡[e›1 VˆõÎiæq—»¢V¶ºÕp•+]—x×‚æõp‰[œPÓŠW5öÛÙ&¬j[·(VÑ›>Éw4SŸÚÍyŽ!©Ëi¹Ž*8¸Jd9‡Ôiõ c%¨M“9ÖŠ
+J ®›±T¦P†† 
+NrIÜè†º&=pAZÛ•ÙŒÊâ0ñL~ð;”öŸ®†õÉC	H
+`y^ †aSn'.CÌÛ0¸žùyÐ³	TŒû`Ü£úÌ_k‰Ïš*ÔùÎ}ô´	&!:ÌKksÙ4WÙ9Ïá0 ™¨HÖnnP‰,®€#(CsGyƒD«ó¼ï=ët§J1x´¤A6V ›Ü'€ß!³›åûÍO’Ÿk&ž™'qì@ÿ¦82yÐ| <+cÔ{G:~miO—Ô®¶7Pq-leK[ÍD¦Ë¹E+o}
+\áW1sSr©ÄÜh9w:ÐÈèÐsÅêFåº®Ën¢¤Ã]æ…7"ß5/y·¿Þò²ø¼I/ø#âÞuÃwŒš¯|ë»_ý¶1þÂ›~åúßÏ#KFeŒSÿÿ‹¢ˆl	„ˆž
++ kŸ‰°A
+È†ïi{	ƒ¤-
+l¨ÀO:Ÿˆ]è—xÀ†l¤Pb˜Qb±Râ
+þ‹ˆ>#Ã[¦Sò•ñ'p¦ä&ýËŸœ?Ô£±“€² 7 -'YÈ”(ˆ>h€C@2éxAb² ZP¦ÿ±)³™+“&jR-ã*.ã¦Øú2U€œ0ó3„B·Ÿ2B$”|c7yp· 3|Ò'~ò'8œž*48 (‹*½Óë;ªÀ„¥b¡ 1°4¡©ª!`»*a
+»l³@¶±êÃ³Š-Ì 0€›i#Å¹R"’Ò›'8ÄÒƒ»VÜ!('A
+3@¬9A­P7M{":‰œ»±OC,"˜*Y©UtƒX|EÒ E½™ÅZL
+\¤“]´ºš«¼´£
+ÂbÌš7xš=ùŒ38Ö@Š@FVtC¸A¬*Ð¬Ò2ƒ"P’FL,Bl °µ‚FtÄ°)F%ÙŒ(ÃnúDÓ`HFÄÂ7F;‰¸ŠàD30‚±™%ÄŠ¸^Ôº“`<È’,Ê²,ÌÒ¬z¤Šü@<ld-};‰/HD­0?T#ƒ­¨ƒ&P4À‰°Q7ð7sÔ½2”I*¸tCƒd—ä¸9è“3€ƒÐŠ9pŸ 1x^œÃ‰ã¼Ç2‚Èš¬Ê
+#=BüEy¨+ó´á*.b4FåBGeTÇ`ÆX„Æ¨¼E7ÌÅÉ’V»º‘<	8°2¸5E¼µJü!®ÂÄ±‹-É¸%iŒ®pÊ¡)8?1Ã´RK€;&	‚T¨Ð#-QH7dH¤:	ðËÏƒ¼=; ½“Ü<yø» €&“<C<	2‚¦½”‡`„¦np³qô“r„	š`ËV”“º48' -×h’#À
+ÐLIyàº×„ˆ4ƒ#|IŠd'ºEŒ´J” šÎŽäJœ¼°@ôœ£)j¾*‚¾,bêƒë‹ˆ° #ú‚÷ó Ì?ÿ´¿ÿ¬?Å? PâéAÿ
+ÀäIOmP 
+…Q± ¥‡y±¨ø9
+O‹ BÓ#áÐt€è ø‘O}™ÐÐˆàÐBüŽÄŸ}Pþê»‚—™¹†Ñ™ðƒH)äÁ¬Bn ’ÜBj!øB,CÜØ²mò20§2sCuÊQ9lHyà¨;´§<¬3ÂQ'	,‘¨@<´³8ÏÐ” 7`ÉÚÇGì5ªò³Lb
+"/ùª»+2u‹.óD¢EkKÅ„LGP¬JjSÍ!œ?
+™ì´H7ìÎE…Nœ¡'(à'ËÔ* ¸"‚' P‹·ÛÌBL!ƒ,-ÓzN:,I½cSè•ÐRnë+›ƒ*h6vJ,ñØ#ø‰•à,Ñ½ªUÆaÕ«d¯îXMÓkæ250NPLµ—0ÓCmËDµF¬ËHÂ;	éT Ä:­è1âüÌÛtUÁóÖÙ”‡Î
+€ñüÈË2Og¥ÑãYÏ p¾‹pOý›¾.R²ùˆú„• ÀÏý\•ƒ}ûš‹Ð %P‡]Ð ˆÑ‰™ÑÔ“X{ÍXåUÁsŠ³Pÿ²X{Byp¥ ˆÔA¬y pù $øƒh„!ØÔ©ÂT˜ˆ2ŽÙ@'
+CkŠR2œÒ3¬R1û3,UÙí4Û¼Ô/3=´3¦½Heí,±Lˆ0Ë(QÝ8¬8|ƒjâÖÛ4L1KÄ‚:²5Ì78Wg|Ë·kFÓÀKšëVïüVyP¹+7ÃÊ82ÈÜØÒ6u¶c9á³2”80øŒ#$ÛU5[g
+­í:Äš¦3°«ÉÖ…¼Í¹»2ý·ÛtÍ‹Mvµ<”`;À=:©[ÛÆ5ƒÇ!ÐE×Ëm`;³|]—ÍÌËk”MÖUŠ®L¨ÌÐ*±ë*cËÄƒ¼´<`+ sÜ‘Ì±yÞ±ÌB‹®ØLH«Âjƒ«åÛ¹; .æÍ&*°Isû8Ô4‡ê
+©ûÊ1Ø
+×p§(F¾(º…Eu$_s;ßvµ¶ã¹iÝ0 ¨i_®Ú8‘)¾H,Ë%Þl<‰Ýí:ÅX
+¨=£ÇÜ¥Šðl;xCëŒCJmÓ é:˜0œD[Ý– Æk»ŸzÔU½M/5áÍ5ƒÎý\ÏLÔÛ´»¶SÝ½mWÔÅ»Wá“0<%^×#f]u…U:Ü
+"%é ®À™ƒ¡¸^Ú…\É”Ï8SCD&–‡*õeŒÇÐ=Ê(Ãƒ
+¢œß{(²Ó„k!…c8'q'ˆ3`Ö
+«ˆ‚Lµ¬*àTOUQ}'V<Šc;Œ.	î8ùe¨AÃc’3¹4ö[qý´2p9³;:áÕ[.Å¾»ÓMP~:Ðƒ”ò%¨äâã_3P¸0~L#èÔ¯s:®òQæÖ¶»ÍŠk;Uf:°#Ìðe£æ»Íø0áxíÊ¤¼GfÍNe0b.MbmnSÔ
+¼IcÆ+ÍÐË4Æ<Ü â]gvþ
+|ÕWùà×­¾å˜:ºÏøb¿Eé3bŽ…µÏ‡è†…Xƒ&èˆMèƒ.è>Ðy®XePŒmgŠÖŸ— ˆ…ÐÀ ˆ G°žFš•pHŽ N i
+Œ3àèð”þ@€@Ÿ8PŽŽHxé
+KÁøYAmAJÑ¿ŒèBx£ˆH-ñh2ÊÁæ"Rj¢£–1“•Îþà æåå6XP¦qXP€$ˆ™ÂaÂ^%õÙ!ƒ+Îâž.½ ¤s`3€à¬æ8
+»ŒÓkšxß›4¬K¦_BSçï”‚ˆhc xcÉˆc+UZP¹L¶_=¦F>6ƒ…K©?Ž·^´6U9k’€82€LÅpd†d‡¼
+–CÕpËc°¬
+^mÖæ‹Ë8­.ì;îŠM†ëNNÜi
+å—[æR¾MÅvááfeW6XÞm¼ªeÍ¾eÒV¨]¶Ä^.:™+å`Nc~ã`³Ü=V'«v¸ÑH°ÃÛ«3áÛW¾nd;©»Ûôä¶‹æòÉ4æPîfè|æ¶#g€CMÕ¬æg%‘öo:äæ%6ðÙpb_Ö)NãwðÓ4g ¯è }çö<÷Ü¢ø$RÙ¡Ï|.Ø}öçöãgþÔ?dhWh„Æ?‡njLqÐ‰Öðß¸èˆˆ‡)ð‡/€—Pè†lŸY‰‡	€@x‘@
+l${	f±-š‡!‡iô	ƒQè—ø†)ÏéóØ	eÁ
+uA‰	êX1º¤Ž¥ÞA›}h<óÔ3ÙðìcÎ6ïÄX‘3 ’X†8  >¨„GH²‰=k
+`Áh¶îYÖ– T†&0Ì2¢
+H£õ¦4'+õªšìt¢ó†äÛ„3zS:ÛÃ ÃÍîtÏÎ’-qìÉ¨ŒÈnÃÉ¶ãÊFl¾Eà`ì€³­V—ã+uL®_ZoW¨5dMMd+èÔÓþÔPÕ‡»M”=aòÖÎäžðçÒµü¸`Çñö”.y¶.øü×A¿g‡sƒUq„ew…íÏ_h |j7'Y»qUÒñ€y‚_¤`8†„é`	Žai‚?–dqŸ.ßé•Ÿ–•â±÷ Õ÷ ˆw€ò ‚lø
+›•À Œnàø‚g0xÀø è’Gøˆ„ àè ð†•W–…— ùóiYÀÐˆ†¨Øà2Uó(Q5ÑhAÑzïùŸ—xæ Øÿ¢QépM|g#àPŠ•¾¨–€         (àA„       2   
+   …þE„+fÿ|'<f~&7	#XjÞ{ÑÊRº±÷OÉÝ(r¢¦=ŒL¥þsþ‡t                                     R   R   ÿÎˆñN   C:\Mes Projets\repo\avsp_server\src\TEST_AcquisitionConnexion.wxt þí˜á
+```
 
-AcquisitionSignalClient.wdc
-PCS                     B      9       j                  01F280051n                 BP`@^  ~Y s     msƊʭ0 
- !}     "      \      A c q u i s i t i o n S i g n a l C l i e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             PCS          i                   9                         01F280051n     y              >        
-                                                                        Έ $   AcquisitionSignalClient                                    /} @H  F  6em  g    pM + 1 Z´   S{ 4=eH  
-        h6    
-d   @ ,	 C     b 
-r*@`1 ƈ"  , <   cG
-5u  yCE
- 7b i  ̛:!  	j獙< Сc& ?w  y :  Iy("*HcfNL JV |sf͛9 < :  ǫ']l% 	 *B T1  5mژb   N  	 #  1 J}
-  I[ F<  2u  A:   { 춲   pl  %L 4  q#f b J
-a458m   qF  < _  ! 5o O@  w  =~     / GO  @     _? }    (ck{   /  *  } S < F ; S # м#z A  {k    o 241   .  ,  +   
-% j  { ;c:2     G l  Q !   " g l    (   ¸& %x K-   @   !    ز*  |  "  h  J< Ϸ8`+
-"" &  #43F    ! 6 OPIĨ    O  焈 2 +c4 }# E ht 2 ӵ   N "j4   +   R D P4 ƺ , l I lm ;]   ހÍ*  M 2
-ai  
- k    (c;oT %"2    H`=J  ~ H  @   L B
--    7ԓ* P  =  ?}   0 2 P f 0[~9 ' A  7 9 2  e u  !   .x>:  tN  l  ! y ?H n  ū.       OP   뒫 `Г2 h7Xu V8  L(}h  3
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\AcquisitionSignalClient.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 BP`@^À~YˆsØñ’«ä êmsÆŠÊ­0ä
+ !}     "      \      A c q u i s i t i o n S i g n a l C l i e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             PCS          i                  9                €    ¼   01F280051n     y       ´      >        
+                                                                       ÿÎˆñ$   AcquisitionSignalClient þí˜á                                /}õ@HÅëFä£ˆ6emÂÑgƒ—ŒpM†+µ1åZÂ´ç×ÓS{ë4=eHÏÀ
+í    ¥  h6    
+d áÆ@Ž,	 CíÁ†‘b 
+r*@`1ÀÆˆ" ø,‘<…‘cG
+5uÔÀyCE
+š7bÚi£ÆÌ›:!ÌÐ	jç™<ÅÐ¡c&À?w™Äy¤:¤Iy("*HcfNL¤JV¶|sfÍ›9Û<:µªÇ«']l%å	•*BžT1¢Š5mÚ˜bçÌ¯NÄä	á#„Œ1ØJ}
+·äI[ÇF<§‰2uìÌA:´è››{ì¶²ÕËòplÃÒ%L™4‹˜q#fÎbªJ
+a458m‚ÿôqFŒ<­_Œ!â5o¤O@€ûwðá=~ˆ¤øä/®GOÕú@‘¯ã ˜_?ä}øÓà÷(ck{ ¹›/À·*ªÈ}ÊSð<úFÏ;ÑSï#œÐ¼#z¯Aùø{k¿ü¨òo 241ÄÊ¸.¢Ø,ˆè+ž ¢
+%ìj{Â;c:2Î  úñG‚l²èQÈ!‹  "Šg„l”ÜèÉ(™üñˆÂ¸&É%x’K-‚ ¢@‚óÊ!Ïü ‚Ø²*©ž|’»" ŒhÄ J<ñÏ·8`+
+""‚&¢æ°#43F»‘º„!‡6˜OPIÄ¨‡ðÈOþâ’ç„ˆâ˜2‚+c4¤}#ÑEëhtŽ2£Óµ× äNÔ"j4Ððê…+¼Ž¦RDëP4¦ÆºÍ,šlÂI§lmë;]§•ÏÞ€Ã*Ò MŒ2
+aiËÊ
+­kÛ…Ô(c;oT %"2À£ŠîH`=J Í~©Hæ“@ÀˆÎL¯B
+-¤˜Á 7Ô“*ûPì¸à=Üó?}ÜøÄ0™2€P¶fŒ0[~9Ì'‹A‹™7º9ç2åÁe˜ušæ!É œ.x>:é ËtN¬älÍÎ!ñy ?Hînº“Å«.¢€ø¡µùò¬ŠOP»­ªë’«ê`Ð“2ˆh7XuôV8ˆÔL(}h¾·3
 @ 
-     &
-56J=5UUV%-   u Z  56|V 9 5Y3 -#8ˡm   U+[ +S[     _    (  + a  : .  = ًP  =  # EԺ    ~{ 	|3N n  G  Zk =     
-{ [˞    2'  `n |# F! . 	Ʉ ,  E #  F| @ Q +C ` )  t      2  
-b P 8 0J O BT  ux nz  ܊[ YAD 0(  (     t*       pW 
-	"  $  ̲  `H !sR Vl23 Ԇ,  M ~ u a   [D  kX      N' s#iZ :       5 r  ڢ̮b   	W   0 \a j cUfw?  k   H "» <x
-C    H,   .v" uHz ,  Bf     Ce    Dc  B ⡀* H   56 @0  l   H on$Mk*        |揞   o| YD   U  ^ ʆ G Z"S `e z    *   n &D   x z #    P 
-fp  `T8  0 ai O   0 @  ,  3 Ab - ֪  Q p   | +    :>   첍 Z  A 4 :d"% Hz  \ D%q%;3^Q  zW #u 9 !  2 + u f " h  p P  I0 Mrғ % J ef vm  ^9=Yoa     ] 2} Q-0 GR |L  Mh?    
-    E:_   E  Τ  RF  v E
-S8     )L  Cr   e|      ' q   i_  ڞl 
-  C Qyj  =lb p jd   hzE G@he Ⰲ bP  a \*B P   
-k      b  {Y;ƆT  hľp ^l%  ӓhe upC B㨦3  Ab ⷆ+       #A    )P  T   D x 3 a
-|@ 8L 2X  V`   zx E    
-st    Wf5 RA 0C0 y ^m 
-   at ED5!(  q MS   K $ U   FK $ 4 Al  ro    @ 0Z.  1me  _Z = O0m[`s        " *΄ne   T4 -  H0>! 0w#a   "ݍ օ I  O u *    >   m m  5w   o  @ E& s  | N W  3<  Y  ( 
- *U * R    J
-|ϙ        aN n|   'sP _3 `y [
-iT " yQB `0 e
-V Q a3  e
-w i   t   R 
-  ,0Ay      &)  ^s xE] 95 c؁  
-   Սsi  .TĊ  bUЉn J   &5   M  . jx ql:s  j $  C y    DT r4 >6('    ck4=7   Ӂ g}R Nt #] L 
-  v/xA Xi  /| 
-CBя  *,   <x  9   	 N    5n    }凟 n5 I #x      : ?   
-  bY< Q < 7! ؁&c  !% @3 ,#  
-R  # ҙ 8 ƒ R   ;	>12   (   c   s2( 2 {     =  = s  =.#
-߻  [ @    	( O  "L;   +S $ F / 45  ,e{CTZ5  WC Њ bc [b&\ 5i-  b 7B<DCLDa < 7܂Cx CIt&t".  xІj 6[ D^
- :  M `O 
-  8  nh 0	 `8E      j   _   2 쪓}ҏ a   ( " x+(  Z8G ct({C% J  P36s S H :  < ن J NP Fԓ   KE  FQI    A
-  8   6{3n 3: 3 + ZA  x" 
-=̓ (â95  142dB x     )03 { % B3 H    3@C  I.P= /P (# & '  ,       =  2     4  hT    r <)Q ɢ$I4  ;  K>  *B \J     # J  = C  [ q  ,   ʸԿ  /P (   I"lC!   T   d  % 5  S < 4 ؀ HS   O
- Q B J |/ L  
-08  4 
-#   É |L   l|  [  
- B S |<$ h  PBʔJ  
-#8L ɡܹ 䂻Ŀ d hQJ     H# 7 8  s  ¦  R  -   4˓ >qJE 	  Oy   NG+ BH {, O 9  + tI\P  V ,; 5 !  AD   C]^
-A -D\D- 
-Q c  D g     B N   O z "   	 I   &(ѭ !%R  P	 BHRr2  (7y87 
-  H   Ɓ  
- ycF rF  FfJ5~   @  ф  t R   )؈9    &H0 b  h   0 R  [ @ 6 0 6
- 5By H"3   5uT T 2    ; #;P 	tC< P FŹ` l HU;jQ   9t  y    j   % J \@̐= 5 lKQ bP f ѷx6R 6k 
-jn 6ꉈW m 6q݈p rç9  tFd  ^ҷ 	S  7  Mgͬ4 ݐUqěЯO S Y n = Ӓ  >
-R  
-T Ԙ 02 S :  !3 = B) !K-*
-BYL  T KTQ  9     ٳKÄl  3  ;T 
-ծ Y 5U = ,   (@ U  
-Z5[ LB  O S
-  U       U< Ђ P  C  c}F4QB< gTQI     r  L  H Y|
-P 0	 A Ew Ul 0  D ۈx Z   5^ R+ w  a  F  
-{m t<  7 /"  YNض` 7 P@X   ؈ %0x  2 ؔZ0 س M  0
- ؤ E ȭd]t] ,Ly  % ;  9 }T># σ  E5      E  
-  2    OD; q ΪC{  	   @[fU[   UַUDU c{ ϥ
-= Q ]   2)  S    X   y {®|rW;Q7  W~e d e W   2 W  Z  ^  _  a  W  / Ȑ     h
- ~ ά h iD   2  T   ص  |+           (  A        2   
-     x   s   (JZj 
-/ݭ 12 >   C  \      1r  `                         
+ª‰¯ &
+56J=5UUV%-ºuÖZñÍ56|VØ9ˆ5Y3”-#8Ë¡m·³¬U+[Í+S[ö¶Åã×_€ ˜à“(„+€aþæ:âˆ.¤¸=åÙ‹Pãã=¾Ú#³EÔºöðØÆ~{î	|3N‹n¥úG«ÇZkŒ=Òþ»¯ 
+{ì[Ëžíå×î¾2'±ª`nÞ|#íF! . 	É„ß,‘êE¤#ØÇF|§@õQ +Cˆ`‚)˜átªÀÎ¨…š2 ¥
+bP—8„0Jà‰O€BT±ÁuxÁnzó§ÜŠ[±YAD¢0(Š(‚¦Ðú¯t*ØÁ±’³íèpWŠ
+	"²ƒ$âÐÌ²ƒ¬`HÖ!sRôVl23Ô†,¬ÓMÿ~³uÝa€‰Ý[DµÏkX»Ù”µººN'”s#iZ‚:˜ËèòÁ¼Â5®r«Ú¢Ì®b‘ñ	W€‚Œ0…\aŽj¨cUfw?“õk ÿ²HÀ"Â»ª<x
+C Å±H, Íó.v"èuHzÃ,ØÇBf¾ Ð•ÑCeÊÄ¤ˆDcþøB˜â¡€*H¥‚56¦@0 ›lú‘ÔHñ†on$Mk*“ÑÂ ¥ÅÀì|æž¾ˆˆo|åYD²¦©UÚ™^ÃÊ†ÞG¶Z"S™`e z¿ü„*Á¡¬nä&D”Ÿàx z¤#™¨„PÁ
+fpƒü`T8Âž0…aiáOêðÅ0¾@Íá¶,‰•3à‡Ab-žÖª‰ÈQŽp¢èÓ|í+ªÀ¯ô:>ÚÁì²»Z—–Aî”4²:d"%ÙHz‰‹\ŠD%q%;3^QÓzW#uá9Ñ!ãæ°2‚+Šu†fØ"ºhœÎpŒPõëI0 MrÒ“ %ûJ»efèvm¥î^9=Yoa¶Œˆñ„ ]ò2}àQ-0§GRþ|L¶¯Mh? ²ÐÌ
+´™çñE:_£¸”E¡·Î¤ÊÊRF…á®v E
+S8˜Ü×È)LÁ Cr¿µðµe| áçÉþÙ'ÜqŒ¶ài_ ¿Úžl¡
+…íC»Qyj …=lbëp£jdÔ›àhzEŠG@heéâ°‚”bPƒÁaé»\*BšP‰œé
+kúÂÎðôõb†ï{Y;Æ†Tª‰hÄ¾p±^l%£úÓ“he upC„Bã¨¦3êÚAbÒâ·†+ˆ”€È÷à #A´š …)P¡”T•¶ÒDÎxå3¡a
+|@ã8LÙ2X‰ÂV`‚€zxÌE“—˜¡
+stƒŠ †Wf5´RAÀ0C0 y®^mã
+ïŠÀat³ED5!( ÍqðMSôÜ Kõ$¦UÀ”ð„FKð$ò4¨AlÊÜro³ÍÝî@‹0Z.—´1meæ“Ú_ZŒ=ÊO0m[`s¶îÞü®—êö"»*Î„ne€«³T4û-ÆÝH0>!íª0w#a°¶©"ÝáÖ…ÚI¤¦Oªu·*ßÕ“½>î”÷¼mé¨m“©5w Ùð•o À@éE&Ës¸Ñ|—NôWÖÅ3< ¹Y¤À(Õ
+‡*U±*¦RÃàøïJ
+|Ï™ž¢¦åÁ„ˆ¼aN n|¡ Å'sP×_3˜`yÏ[
+iT "àyQBš`0àe
+V˜Q¨a3Áˆe
+wŠiŠƒ±t•ðRË
+¨à,0Ay ßåôîÄ&)²^s™xE]’95•cØ¨¦
+¼±±ÕsiÖÔ.TÄŠÅ bUÐ‰nÇJÖ¢ò&5‡àMø“. jx»ql:s´‹jí$†‚CÀyÇÈ ÄDTÎr4„>6('‘ÞùÎck4=7¸ð†¶Óªg}R„Nt£#]éL¯
+€ïv/xAöXi‰ž/|½
+CBÑžô*,½é–µ<x°•9ã™ã	¤NõœÀö5nö¹ï}å‡Ÿùn5¹I´#xìÀ£•÷ƒ:à?“‡Ø
+Ä–bY<ÒQ–<½7!ÆØ&c¤!%¸@3È,#¬˜
+R€ô#ƒÒ™¿8ÁÆ’ Rû´é;	>12¿ Á(ëžcøës2(“2ò{º“è•ÿË=ÏØ=sŒÔ=.#
+ß»¾á[½@ˆ¾”‡	(²O³‘"L;¬ +SÂ$F¬/•45ÆÂ,e{CTZ5ö¢WC¦ÐŠµbc[b&\Û5i-ñµ·¶bÒ7B<DCLDa¯<´7Ü‚CxƒCIt&t".ÈxÐ†jÚ6[¨D^
+„:øƒMˆ`Oˆ
+¨Š8¨…nh‚0	‚`8Eƒ‰ˆ €jÅ †_ðÄë2·ìª“}Òéa·ˆ˜(ñ"¶x+(°„Z8GÔct({C%øJˆP36s³Sñ ¦H¿:»³<¸Ù†‘JˆNP¸FÔ“¢„‡KE‰“FQI‚‹ƒÉA
+Žó8¼ÂÆ6{3n”3:³3õ+ÀZA³ãx"§
+=Ì“ (Ã¢95ðÕ142dBÒx°¹ÌÂ)03Î{Â%ŒB3ÀHŒðð3@C³ŠI.P=¢/P²(#‚&‚'‹²,´­´–ä=Ü¸2ì½°Â¾4ŒhT ˜—§r±<)Q É¢$I4Éì;¾îK>ð¿*Bž\J¬à‚Ÿ´Ê#ÃJ‹ì=ûC¾ï[¾q”,¾·üÊ¸Ô¿¹”/P—(µœÜI"lC!£Á´T€ d¼Ò%5ÛÇS©<Â4¥Ø€´HS€Èê¤O
+¥QÊB©Jµ|/¬L»Ã
+08ÌÄ4
+#ƒ¯¨Ã‰Æ|L¨„Ìl|³[Š 
+B¤S±|<$ÒhŠ PBÊ”J¸Â
+#8L¶É¡Ü¹¶ä‚»Ä¿°d¾hQJÓ³“ÀÌH#7¸8Ð¹sèÈÂ¦Œ´RËÂ-¬Êõ4Ë“Í>qJE“	‚ƒOyà´÷ÜNG+¯BH“{,ðOò¤9óä+þtI\P‘ÃVû,;„5á!©µADž‰ñC]^
+AÔ-D\D-Ä
+QÅc¨Dågú‘•‰ƒBàN“ ‡Oð­zˆ"±ˆ•	…Iø†Ð&(Ñ­¸!%R£±P	ƒBHRr2“§(7y87í
+Æ×H ‹ ÆˆÆ
+ycFôrFõ‚FfJ5~‹ˆ @‘ëŒÑ„½ñtÔRŽÀˆ)Øˆ9œ¸‚•&H0•b°ìh©—Š0™R¡¬[£@«6Ø0Œ6
+¼5ByèH"3ª¾5uTT2»¯Š¯;±#;P¥	tC<‰PÓFÅ¹`ÓlÕHU;jQú ª9t¥yµß­Új˜ÒÂ%ÔJž\@Ì=Æ5¦lKQðbPýfÓÑ·x6R¼6k­
+jnó6ê‰ˆW·mý6qÝˆpˆrÃ§9¹ÒtFdâÒ^Ò· 	Sø¡7ÿ²MgÍ¬4ˆÝUqÄ›Ð¯O˜S‘Y nØ=ÕÓ’Š>
+R°•
+T Ô˜š02ÔSå:¨!3Ø=ËB)ð!K-*
+BYLë³øT­KTQýº9»±‚²‹Ù³KÃ„lÀ¼3Œ·;Tº
+Õ®£Y›5U=‹,¬¾ (@…U–õ
+Z5[µLB‰ˆO¹S
+ ÅUŽÑÕ íÕýU<¤Ð‚±PÝêCýÃc}F4QB<¦gTQIœÖ ¡Är½ÄLÄÅH Y|
+PÅ0	ƒAEwôˆUlÅ0‰ DøÛˆx Z¼ÅÁ5^¤R+ÆwÍÒaÔ’F»­
+{mÆt<ÎÑ7„/"ˆ’YNØ¶` 7ØP@X†³€ØˆÎ%0xŒ2“Ø”Z0²Ø³èM˜’0
+ãØ¤­EÍÈ­d]t]å,Ly¨“%ª;ª¼9ç}T>#ÈÏƒÔèE5“›‹ÈÚE³¨
+€2 ƒÑ OD;ìqÐÎªC{»Ã	µ @[fU[ÙÐÿUÖ·UDU¨c{ÃÏ¥
+=…QÒ] ®Ó2)’ÓSªÀ’ˆXÒé y’{Â®|rW;Q7ªW~eÄdµe¼W©¨·2ÝWÓõZ–Ä^¬Ò_‡íaWÚû/‚ÈÐÓÑÕ×h
+€~ÇÎ¬ùhÏiD“Ù2ÍàT‰äõØµ¢|+“€         (àA„       2   
+   ©ê¡x‘¿úsø»ž(JZjÃ
+/Ý­Ü12¢>–•óCÅÑ\ŽŽ’ÁžÀ1r’›`                         
+```
 
-AppConnexion.wdc
-PCS                     B      9       j                  01F280051n                  ? "  F R 9  F &\ "  > Ν #     "             A p p C o n n e x i o n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   PCS          a                   9                         01F280051n     n       C      >        
-                                                                        Έ    AppConnexion                                    /
-@[   [
-" ^     & |  C A     53  %    |    4  &8    
-d 
-  d  PC     b 
-*8`1 ƈ"  ,   ĉCΛ7f y  :!  A  :t   . 8 I  4) EDi       J\I O5f ԡ 3u E  #ӓ"F   
-1EF u   IPɴ	; &N o  K ,ڜe  F ;C   ;  (y  m  P f  ㇈ A    m JCٹw   C ܀ GPs/o   Ǌ- ]}6 U?_n c   es     n  V |   -:W
-   -   H% (m3qƀ  K 74 k      3 0 
-   {  A   Qz  "  [ !" c  *Î9  Q ;  *	) #B a  b  %  *무Lcm   g   0 +  )B  B
-q JI ^p %%  I 7 Ќ ) O< óD ̣o  +.   
- >;   50   F ˮ DW     9?Q    CN J [ -2f "
-Gc Hu Wc 5 UW
-5dl݈W_    "
-Ø`86 ap WY7
-  [   (>+6" v P  TL :յ  ȉ(X   ~0
- p #wS  e ޤE T   - 
-V  Vڂ  `   v  
-AO  H,` b  ɶ m    U %t q  S  ҍ ]wᕗ@zO ߕ  w9~GU9` 9p $
-" 
- 9   */,d   aȡ
-~ E , a      d  q   : ^    J > " & @ 
-_   1 *"   WbB;i R     êVj)ɮ^j!7 *L a v |sTx5+c h 7 p  4r F #
- 	#C : :  7F8 3*  M %"   2"jk  ( ~   $X    cK5  S  t -    +m  
- <H Y  0   a "
-e  *  ߦ~ Kp#axE   0B 	B  TyL[ L   \  Y˚ =v  7 + = > t`h  @D p  ) i"     cj  A(
- 7$  q d  H7 Qn踵  t  `   A:xm&  P z	H    t {ܙ | g @   Y Ḝ   ~  U " A *      C  U(Aɍ4+"  &  Jx    ^8! p   B    f"   XF Ϡ0
-*d       /T ) @  8h MRKo "#p    VH(`$ AcD ) 5e  B03 a*gP    +?  Tn  y" +K 
-a $ȼ ɼ
-3  + f t  R+h) C 2    &'Z   xN 2 Ɍ
-v 78  Go8 [H  Ϙn n8LNv'(3I0C P  N [ S >  e 1! A :  * J     6    of   g   0q#     ϙ 
-Yq1RQ 6` u@   9  5  P7w    u   fׂ  !  h^ ;ʴ i)]T b% DK\  Bp 9 A
- }  <危 e\T7 X 6G{/ ŗ)܀ 5w   ΗG&e 7 i{ ǆ  U 	 @ G 
-5 h s K    Y9 xp d0  Ф r = HD0  kak  z%,?h  ky  N._ K]3 ĭ ~ g\  BƜC  r t$ S @ z   ̦Ʊ 	x N  "R s s  |gM IO7 3
-  
-G5:Y 
-  i gP  e
 
-}hD 0    *D2RP RU   y K?3    ny  쀆  p + ꠸ R[  <O1  91  ::   	  qe  E 6Exف yl ) n 3     j0 \{ 7ء
-m  g      ^2Q}L Ϙ  ,m4 }  D f    @UA
-n0AS@$ ` F     3)t   a ` ӸzJ yAD  1  3 	Ww g7 9rM     p     * 렂   NM ECzc6K[ җ Z    j h     ӫl  F      m   X   o7 q &x }$x Jn  
-5 P   p  )%]H #3	I t-
-Fx  ݾD  =  Xy      iy  D  K1 It K   \R  J>̦ + 7t v| =H8   92\ 
-  5 X 2     D :U  +  q  * O s /   s oj
- Ȋ  D'  3 HO^    HTu X    U2 I g&+K    `   k  0   r& k  :< A | s    98Ju ʐ    c P  \TG $
+---
 
-    |"  G &  | C  Ͽ P O&돻  n5L    8pp ۚ Y  r 
-   p+ * M3 " 
-/ h >y в b<3 20  
-ށ     
- ` o+?Ș @;    =3@4   9c4 C    C٬~ ,      0   D W  /  2 Ñ@    &P4 	 Q78>   '  (     +     698H 
- 'h?1   ;5 ; ̚0~ 091  < ;D   د s  K    r   ڰ    > p⸏ 8P  A  : `B  H9D  :p K P h1 Ui h@WD   Z    \|   ś     E ō 0FZĮ      o  Ey:Di N<   u0   #0    +G ;  T 9 X     : a 1 K7y@  K1   q18 'Û1 c&  D 
-   H  2  <#C w  d  kA  6l ! #q  h 7 ; 37 < " ?l 1!      {	ı K>qr  !    P   6 )  1 Iy  P  SI  2 8 
-0    I *  ?   CQ   3t:;  <  #I< 
-hJВ*       # J  ʧ ʦ ɯKo  9  =  hJ K K  I KB"<	/ K -C3 S3 ;A  	   J9q 3 3  'xj   
-p*8 J  LyͬT     h,
-)ʰ     1   d ?3X  
-  #JL  Tʦ`  ,  *  @  A 4N
-,  
-     l  L  l  :   L <	# 7  :   `    ## *  '82 K $K8 '"9)8H  P*  s   D :04,;  1ܓ  $) 4   t";  a&: A=N l I
-  5 ' D>: y ; =   
--!   <    (  0 K+   "!x l&)     , @ Q 6`&    p  J lK Ķ2  'д LK  m
-) K(' +  = )P5} 6m 0  P 1C# RE J P I[ 7 > 4δ j+ C  D}O} P 
-R  S PO;	PkO '
-8[%ȽT r   OyX0<% h Ldu #  _   0   U
-A$D  OP .BEp
-  RDF4  `- p H ;7   ģںD írѭ  8@EO W   P   W}XPѺZBEoW  !U $G`ƅ p  Q &
- G    Z  ^  x Xa e  c P	 I  X    b  j /j r FkS P 2    H    E    =Dv  j     (: X ;   { 0~ ; `  覻Hi=  E  [1wU 1 1}B&Q  cZ} ƈ h (     Ѻ Q R  AD   dQ8     ќ =܈   ) tܼ]B ȱ    O     } k b    rU-G0u]  mׁx ޚ z  y 8NX  r$9DLX   U 驁% ^8 gM  30 C@ h 8   @ F #x 8  9 {  IH VȽI؆      
- D E q8  Z  z   YW:   F  فX E^  Y G   Z  nD  A\c   5  J  [X    }  'X   ;Q  )8ȳ ;S , ë   ']    Ʋ q
- -2 3  ۱   JQ   }N  (c5A : =	 
-  BΛʩ  )     ԓ   >Q ⦚ Z b ̄
-   ٛ9蛿 ? ;  a 4 ͗ =  = y  ƪ   =   6,Je  :,  T  d z ߔ  | [  P  Q&   Jj
-5<n L۴  
-kB(   E  %S>L  A,  }];1 E  s} a\ ە ? D Dڨ#  
-   W 0 sW	6   E @ Pp :٘K  Zg ͮU:     FD9 A    l$  D  Y
-ǣ ǡh   k[$  5 Aʀo  N A  [Ƀu h  h ވ        lH  Π}  ~ g r ; c  q 
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\AppConnexion.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 Ù?Ï"í½¯F€R×9 ¥Fó&\¿"»Æ>æÎë#     "      à      A p p C o n n e x i o n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   PCS          a                  9                €    ¼   01F280051n     n       C      >        
+                                                                       ÿÎˆñ   AppConnexion þí˜á                                /
+@[Šéú[
+"Ä^—÷¬œè&Ù|Š‰Cá¡Aè¼ŒŠÂ53¡ç%ãÒö­|    4  &8    
+d€
+ÇÀd³öPCÏÁ†‘b 
+*8`1ÀÆˆ" ø,‘¼…Ä‰CÎ›7fò¨yÂ:!ìÄA¤:tÌøç.“8I ’4)¯EDiˆ©š£¦Ž™J\Â”IóO5fÞÔ¡‡3uˆEªÔ#Ó“"F™¢ä
+1EFÖuû¶äIPÉ´	;Ö&No²‚KÖ,Úœeô¼ãF;C‹òí;ò¯¼(y²·mç P¯fÝÚã‡ˆ AºŽûâmÚJCÙ¹w€ßÁCïÜ€¸GPs/oý›¹ÇŠ-è‹]}6ð‘­U?_nûcõçÞes·¸»ïãnóVš| òñ-:W
+à™ˆŸ-ˆ¶ò„H% (m3qÆ€ÖðKê74òkŠ‚ˆ„šã3æ0
+¨˜€{²¨AÜ‚ÍQzÓÐ"ïØ[ê³!"Šc³¦*ÃŽ9°šQ;¦Â*	)œ#BØa±—bšé%ÆÆ*ë¬´Lcm»Õà’g†ˆ¦0â‰+ ÐÂˆ)B ¢B
+qÜJI¯^pâ%%ÞÀIŒ7ÈÐŒ­)å‹O<ð˜Ã³DîÌ£oÁã„+.½ˆÜ
+À>;ÉûÓ50¢ŽÏFçË®ÎDWÛó»ðò¼î9?Q´¯õÎCN¹J¹[Ô-2f "
+Gc¾Hu Wc5€UW
+5dlÝˆW_ Ê  "
+Ã˜`86ÙapµWY7
+ Ú[‡…€(>+6"‡vµPý…TLû:ÕµÏäÈ‰(X   ~0
+¤pÛ#wSÎe®Þ¤E´T€Ýú-ˆ
+VÈâVÚ‚áÀ`„•ºv  
+AOÆµH,`øb·þÉ¶©m êÖÛUÁ%t qßËSàøÒˆ]wá•—@zOÀß••Òw9~GU9`€9pð$
+"Ú
+§9ì ã*/,d»„øaÈ¡
+~ÚEå,øa£ˆÉÅÚÊd¤‘qÄêè:’^Ú‰”²Jí>Ë"¢&à@
+_¸¢Â1à*"Òƒ˜WbB;i«RŒ—¶ÃªVj)É®^j!7ì¸*La„vÈ|sTx5+cˆh‡7àp£Š4r£F¨#
+É	#CŒ:¼:³ò7F8½3*¦M %"êú¢2"jk‹ˆ(~ª·ß$Xí·‡¸”cK5µ³Sô°þtçž-ÂÙøã+m‹ 
+µ<H¾YáÖ0”¿a‚"
+eûÝ*­Øß¦~ƒKp#axE“‚¨0B	B±‰TyL[ÉL½ˆô\ÅÓYËšÒ=v™æ7é+Ô=Å>Ôt`hòÈ@DŠp“´)i"±‘„ôcjùA(
+¢7$œÈq¬d±ÕH7ÊQnè¸µµÍt¢Ü`¨³äA:xm&½PÏz	H²·½ˆtï{Ü™£|Èg®@¡†…Yßá¸œ†© ~¸ÊU¨" AÞ*‘Æª•«C¼U(AÉ4+"Ñø& ŒJx’«ê^8!Êp“ ÙB²’éÑf"ü™¨XFžÏ 0
+*d£Íú¸³±/TŸ)Ú@„°8hÎMRKo±"#pã¸ ÕVH(`$ÛAcD²)©5e—B03”a*gPÃ¬â•”+?ÁÜTn  y"‰+Kú
+aó$È¼à˜É¼
+3‡×+•f tðR+h)‘C¦2™™‚Á&'Zñ§““–xN¦2—ÉŒ
+vÐ78´ÁGo8¨[HˆÐÏ˜n n8LNv'(3I0CâP¡ˆN§[¤S•>ãÕe´1!ðA”:––*ÅJ• ›Ýð6 ½ñÍof œàg¸Æå0q#ÜïøÉÏ™À
+Yq1RQÅ6`å©u@ë¼Ð9´À5 P7w¹¹¾ u¯‹f×‚Àª!ˆíh^°;Ê´ i)]T“b%ˆDK\ò˜Bp…9ˆA
+–}‹…<å±Œe\T7ÕX®6G{/ˆÅ—)Ü€Ï5w¼¥¨Î—G&e7óši{ëÇ†­ªU	ä@†Gê
+5¡hÃs£K¬üäÊY9ÁxpŽd0ÀÖÐ¤°rÕ=ÊHD0„‘kakƒÜz%,?hË’kyÀåN._¶K]3¸Ä­å~Íg\áÎBÆœCŽ®r¡t$ Sø@ƒz±— Ì¦Æ±¢	xä›NüŒ"RÎs¦sí|gMòIO7Ø3
+øÄ
+G5:YÇ
+¡Ái™gP÷Ìe
+
+}hD0ÑÈíø*D2RPªRUˆ…´y©K?3”Ôíny»áì€†®®pË+âê ¸²Rî¬ž[«Ž<O1 é£91Áú::™„î	®Ãqe¹èE£6ExÙ›ylÆ)Çnû3êâÖ¤„j0Ò\{ðƒ7Ø¡
+m˜²gšâì °†^2Q}L¼Ï˜‡,m4ñ} ¨DÉf€ìÊ@UA
+n0AS@$ü` FÀ‰–¦†3)tƒ­µaË`êÓ¸zJŸyAD¨ 1ÍÙ3Á	Ww°g7ô9rM€Â¨ÐépžŠïÁñ*Äë ‚»ÏèNMªECzc6K[êÒ—ÂZÑæÁjÅh‘Š¬öŒÓ«lóôFÚÀ¶¹¥ãmãÃÛXã¾åïo7îqü&xÀ}$x¾JnÚä²
+5P„ ÀpÝù)%]H„#3	I¥t-
+Fx®»Ý¾Dá =¿îµXy’™––å€iy¨ˆDª´K1áItÉKùù’\R§ò¤J>Ì¦¨+ 7tƒv|¡=H8 Ž92\µ
+ã·Ã5ˆX÷2â¯ÁèÄæD§:U±ê+æÅqŽ±*î™OÿsÎ/ »Ùs”oj
+™ÈŠ€¨D'Úø3ùHO^©À§ÝHTuËXíò—ÃüU2»I¬g&+KÌê´Ê`­˜‡kœé0çÔùr&Èkîù:<çAÏ|žsèâ ‡98JuÊ£ ˜ÇcšP…ü\TGþ$
+
+Àµ³½|"ÌÁGñ&þò|åC¦ùÏ¿‰P¦O&ë»Üçn5L›²¨à8ppÂÛšäY…ÐrË
+¯ ¿p+¾ïƒŒ*­M3ƒ"˜
+/«hÓ>y¨Ð²«b<3ð20ð›
+Þ§Á“³å
+`o+?È˜À@;‰€Š =3@4‚’¾9c4ìCµ¦¸šCÙ¬~ó,€­ú³²¦0ÑD¨W“‡/½«2‚Ã‘@´ª¨ƒ&P4ˆ	ÅQ78>ƒ¸Š'¹¿(›ƒ §Û+Á„ÂÁ‘698H
+™'h?1À›ë;5û;‰Ìš0~ë¬091°ƒ<ð¼“;Dà£ Ø¯„sž…K£†»žr¸ò‘¸Ú°¸îÀÄ>±pâ¸ë8PüÄA¹â:Ä`BÄÎH9D‰ :p›K£P†h1¯Ui¢h@WDÅëZ® ˆ \|Å àÅ›“®ˆƒEÈÅ„0FZÄ®£“‡¤ë o¹¯Ey:Di¢N<ÅÎð¯u0¶°#0¨“ˆŒ+GÓ;¢‰T´9»X®°€¸Ë:Ãa°1“K7y@‚½K1¿¼Þq18«'Ã›1Äc&›ÂD»
+ƒ¼¦H‰…2‡¢<#C²w´ÈdÁìkA”°6l‹! #q¼´h¼7ð;ù37Œ<‰"È?lÃ1!¨ƒ«ˆÉ×{	Ä±óK>qr£É!”ªÏ¨P Èƒ6¨)§òª1«Iy²÷P ïSI–è2ƒ8¸
+0§²‹I®*£œ?«ÔÈCQ ­œ3t:;ø›<Àå#I<‰
+hJÐ’*€‚ˆ²ÊËÊ#´JÕÉÊ§ŒÊ¦ÒÉ¯Ko“·9ÃË=” hJïKÌK˜IúKB"<	/àKÌ-C3×S3Ø;A¿’	µòJ9qÌ3Œ3ÆÙ'xjŒ ¼
+p*8JÉüLyÍ¬T€œÀ¡Åh,
+)Ê°ÌÀŠ¦Ä1¨Šçd¦?3X¦Æ
+ªã#JLÌàTÊ¦`Êâ,´Š*¨í”@«äA·4N
+,»Ì
+ÏËúŒÁlËÂLÊùlŠÙ:”ûôLñ<	#Ä7üœ:“ä¨`¨Ž¬¼##* “'82ØK±$K8‘'"9)8H©ÎP*ûŒsËÊãDŒ:04,;Ãä¼1Ü“Œæ$)è4’ Ét";ø©a&:ÀA=N¬lËI
+ÇÒ5È'¨D>:yƒ;€=¨Ï
+-!ôÏü<‰ÊÌÊ( Ì0ùK+¨§²"!x–l&)õ‹¦ð·,©@¶Qƒ6`&æ©çp§²JòlK­Ä¶2¸´'Ð´¨LK¤Óm
+)àK('ï+ƒ¨=ø)P5}œ6m¬0ƒ•P¶1C#àREõJÌPƒI[È7ð>Ý4Î´Êj+ÎC…D}O}œPõ
+RõÓSåPO;	PkOÄ'
+8[%È½TÕrêÏýOyX0<%Öh›LduË#„_­·¦0¢¶ÜU
+A$D«ÜOPÖ.BEp
+×ÓRDF4£`-¥p­HŒ;7ŠˆýÄ£ÚºDŠÃ­rÑ­ÖÀ8@EOÜWë×Pä×õW}XPÑºZBEoW……!UÜ$G`Æ…Šp˜ÅQˆ&
+†G€Ø Z˜Ø^ŒˆxÈXaŒeðØcˆP	‡IÐØXˆ“Æb™Æj¬/jºrÔFkSŠP©2Ú Ç H¡ ‹»Eé£õˆ=Dv” jÑ­íÔ(:¸X‘;À¸Ç{Ð0~”;Œ`‡è¦»Hi=‰¢E±¾[1wU…1£1}B&QÎÅcZ}ÚÆˆÚhµ(¼ýÈ£ÑºÅQÍR«ADÑÄó¨dQ8Í«´ˆÑœÑ=Üˆ”ÛÅ)çtÜ¼]BïÈ±óô¶¹’Oý±¦À€}ã¬kÓb½¬…õrU-G0u]£­m×x×Þš¸z­¸y½8NXáÅr$9DLXù€°U®é©%à„^8ƒgM ‡30…C@…h•8¨ à†@‚F#xƒ8†Á9†{–IH‚VÈ½IØ†îú®ð¯ò
+€DEÈq8ƒôZ¯öz¯ø’YW:Š¥ÃF¥ÀÙX±E^¥ðY G¡µ—Z‚ànDÚâA\c‰ªà5ƒê¡Jˆ˜[X ÈÚ} ê°'X‘˜Ã;Q±’)8È³ý;SÛ,¼Ã«±Ÿì']¾øàáÆ²Êq
+ -2Ë3â¶Û±À¨ÆJQÅËÜ}N“â¼(c5Aõ:Ó=	™
+ šBÎ›Ê©Íá)ŸªÕÌÒÔ“›ð>Q«â¦š«Zýb‚Ì„
+´ª¼Ù›9è›¿Ù?Ô;œÇa½4³Í—ˆ=µ“=ây’«Æª«»â=½ú½6,Je¶Â:,§¢TÅÒdz¬ß”¬È|ã[• P«ãQ&µ³´Jj
+5<nªLÛ´õ„
+kB(µÊ EÂÖ%S>LÝÄA,ÄÎ}];1¸E”Ýs}Äa\×Û•­?²DÑDÚ¨#à°
+ØáÝWõ0ØsW	6®”óE‹@”Ppë:Ù˜KŠÏZg˜Í®U:·ÈßøŠFD9àAº‡¶Ùl$—úD¸œY
+Ç£ Ç¡h¥“k[$·È5ð‚AÊ€o¨‰N×A°è[ÉƒuÐhþñˆhÞˆÐ ‘Ÿƒ“ˆlH€ˆÎ }¦Æ~þgâr¥;»c—™q—
 >
-I\    # N
-  ߨ qNG  ᲈ    
- H ?[y           (  A        2   
-      	   J 01u?  ʁ      f  1y  : % 6i  ij                          
+I\èƒ¸áê#žN
+Ÿ¸ß¨ÏqNG‹»á²ˆ  Ÿ 
+¡HŽ?[yˆ€         (àA„       2   
+   øÒ	ˆ€÷J 01u?  Êà÷ð„ðêŽf¢ô1y™©:ƒ%¹6i› ij‘                         
+```
 
-ApplicationClient.wdc
-PCS                     B      9       j                  01F280051n                  S n' JEdDam簜.^   LQ  SS8 P      "      w*      A p p l i c a t i o n C l i e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         PCS          	                   9                         01F280051n     s        (      >        
-                                                                        Έ    ApplicationClient                                    / p; q7i{  Ei=ۍG  9Bc   e 9` ## D}1T$ _> Q     (       
-dP   &       b 
- <`1@E    , < ĉ F
-1u  yCĥ 7uB     3!l  C L  2   tdɓ#"*Hcf  :A  T  8dؘ  T)S I   b ;g Xmb L;s    &Đ s ] V a P E xF  h  0  e ?D 1s  Ev x HèUG\}zr NeL%]3j +V     ήGb   vhϣ  Vn t  N[ -   
- oo )  [ x  "U @y    g ϧ_  ? XL      : d  >- @< 4   z Î    =O K       #,@ " B h  N ( 9 "F 2 
 
- 7$ 0  Rp ? + 2  ! & @
- ^ ª1 0* Ȉ  	 
-a  ^ i  n i Ϻl Ɋ . ހÍ*  K 2B !  t	& h ʫX A 2";  @   - B      ( ~   P  2    ΂# T { ;  s56 "  5SL 4Vo%-0V  S=J _ (b
-ֲLzU  
-)vY  ck   0 a   ) ,  u '   Y
-q8   5 <)    k 
-/  
-4䠂B  X   
- h"o 4  ɘ F B W ~   P" SL $ dr'   *˘K;    >  j 2
+---
 
-y^P Q * tRV-SM#   OǍ   Pm 3  S ۴^   v      {l rAcZ 2    ӏ    ۭ  ]    ܈ ]Wi # z Vɖ ^y*  7ĘC/ p8 Q  @ ,<0 X   =:1bņ B   Uq 
-      #7^N C J̯    m  <S " b
-(  F "   7 q |a     q9M  "!  G +  
-,   Xy"[  %  .4Pif|ӟr 1 q -A d:  PmzS  T   0E  @   +@A
-F B 0 1  |B2\nըG
--p1Z  f  Y i zڨRE  T
-  Y Ӭ 5J%1-] N Z(  b}a[Z  4 	H    a #  b   A$ 
-@    9 "n   #7  M  [ l5    3|C   Į`p   96) A  g 
- =ǘ" q As  =  0@t   b p ԭ u  MfW   N V      $YV AŤ yГ     
-s~³_ <   "upCvғ  /         L c  "B%4  =  F  &@a
-T8fZ $    .r  ]    q S Ă  !
- 3Jh  @  C] b#k  ESA]PH m  5(H   4) `<zP3HP*0 b s%   |" ^  F hN  
-7 *O    q : "   BbW_  E  b L 46~ 2  HeԸ    Q *EǓ 12x  W  G[ .h $[  C  V ,T  H    (E ` 7`     ʑ`  @ 8 Ic n  " b2   B #8 aFh(_*;  ^ CM ɗ q4 軦H 1  H 
-BxBB` , QP{4F]~՟   T 0' 
-`  +N te
- SR؆6   ʅ b ߆6 H0 
-  85 a  xB 10ɽ  IPȐ1 @	pb Ҽ  GYy    a } 0 5 a :T1
-񁯢`
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\ApplicationClient.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 ŸSí­n'©JEdDamç°œ.^˜ çLQöëSS8ÖPž     "      w*      A p p l i c a t i o n C l i e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         PCS          	                  9                €    ¼   01F280051n     s       Õ(      >        
+                                                                       ÿÎˆñ   ApplicationClient þí˜á                                /Úp;Õq7i{‹Ei=ÛG ì”9Bcõe9`Ú##™D}1T$¬_>îQ    Æ(  –    
+dPÌÒÀ&è×áÁ†‘b 
+ê<`1@E‹  ø,‘<…Ä‰ÓF
+1uÔÀyCÄ¥™7uB˜¡£ÓÎ3!lŠ¡CÇL€î2‰óØtdÉ“#"*HcfŽš:A•ØTƒ³8dØ˜©ƒT)S§Iš”§bê;gÎXmb†L;s‚òôù&Ä¸sç˜]šV­aµPåEˆxFÍÂh  0ÙòeÌ?Dù1sÓÍEvÊx HÃ¨UG\}zrÖNeL%]3jÛ+V´ óïÎ®Gb®œ»vhÏ£ÿVnÜt ÜN[†-Üãì
+Œoo½)‚Æ[ˆxÄÊ"U”@y™Á½Ìg¸Ï§_ßö?ŠXLºà ÿ³¬:èd£Í>-â@<¶4ˆˆšzšÃŽ»ÌÈË=OŠKˆ†Ú µ­Ë#,@Ï"íBŠh­“Nˆ(Ž9Â"F•2ò
+
+Â7$¤0«¼Rp«?É+Î2åÙ!¢&à@
+«^¸Âª1à0*…Èˆ°Ž	±
+a¥–^Ši¦šnÊi„ÏºlÈÉŠÄ.€Þ€Ã*ÒÐKŒ2Bð!„¸t	&™hâÊ«XØA2";“¸@‰ˆÐ-€B Š´À¦ˆ(~êŒÀÎP“À2Ô ˆ¹Î‚#Tæ¸{Î;¦s56"Õ5SL”4Vo%-0V ƒS=J‡_(b
+Ö²LzU¶¶
+)vY¤òck¿ˆ€0Àaõ¨)›,×Ìu '¢ˆµY
+q8ÄÈÕ5¢<)ƒˆŠàkÂ
+/’
+4ä ‚B­ÞX² ‘
+ðh"o‹4áÅÉ˜±F½BÐWÇ~çðÑP"‰SL $•dr'¡”Ò*Ë˜K;´ÔÓË>ÃìjÌ2
+
+y^PÈQ‹*štRV-SM#âÔÛOÇèÜ Pmî3©“SÕÛ´^µ©v›ª•çÌä{lÄrAcZÄ2¹íÌðÓ¿³¶°Û­ ÷]«³æÎÜˆÒ]Wi¬#úzêVÉ–Õ^y*È×7Ä˜C/÷p8 Qü°@ ,<0ðXÁ³€=:1bÅ†ˆB˜Â—Uqì
+¬À¡Œ Ú#7^NÚCØJÌ¯Â«Žômüñ£€<S±"Šb
+(ˆ F‘"¬˜Âˆ²7Þq½|a‡¢„£q9M‘Ù"!¢¶GÞ+íÈ
+,±ÈúXy"[¢ä%›Ô.4Pif|ÓŸr¢1ÆqÏ-Aäd:ù PmzSœæT†œÉ0E‚È@®÷„+@A
+F˜B®0 1¨á|B2\nÕ¨G
+-p1Z fµ¥Y§iñzÚ¨RE­ËT
+ˆŸY•Ó¬£5J%1-]»N¸Z(°¥b}a[ZÀñƒ4 	H®À¶ aË#ÿ bô€ÉÔA$Æ
+@€ –‡9¬"n»Üü#7€ÐM‰¹[ l5¹ÂÕí3|C—º€Ä®`p ¤Š96)ÆAägú
+Ï=Ç˜"ÚqÐAsâÜ=ˆâ0@t¤ŒbpºÔ­®u¯‹MfW»ÛåNäV¼ú¯’—Ì$YV¸AÅ¤ÀyÐ“õ¬‡½ì
+s~Â³_µ<¶  "upCvÒ“üä/±Š¾×¬ÜÏLùc‹ "B%4°›=øÁF°¥&@a
+T8fZŠ$‚©ì .r¡‹]ð¢ø€›qè§SŠÄ‚©€!
+Ž3Jhž¤@ äœC]îb#k²³ESA]PH–m” 5(Hµƒ¿4)¨`<zP3HP*0’bžs%´‡§|"Ï^ø³F„hN©á
+7•*Oª‡¢qª:Ÿ"òðˆÞBbW_“ÈE••bµLÒ46~¦2•ÙHeÔ¸µ óQ¥*EÇ“ˆ12xÌãWëÖG[.h‰$[ æ·C–’Vá,TÉ€H²¥ƒ(EÍ`Ñ7`”îÁÀÝÊ‘`ØÜ@˜8ÏIcùn‹š"b2¢‘B #8ÔaFh(_*;‡Š^ÔCMËÉ—ðq4¤è»¦Hå1× HÁ
+BxBB`„,ÁQP{4F]~ÕŸŠáÁTÞ0'Ð
+`¯+N¯te
+¸SRØ†6°¬¸Ê…bðß†6¥H0˜
+®à85ˆaùƒxB 10É½àüIPÈ1ã@	pbØÒ¼ìÐGYyƒüà›aÂ}±0†5Ìañ:T1
+ñ¯¢`
 a
- }/PBp o8y )[h Gӄ & q{{   Ø =e
-Gc+ 
-  5 S! F Bp    ) ػ )& d   c3  ()  u ց.r
-  R.p!) 
-R  @+     =  	T@ Y 0L!
-*P   hJ[Ӛ洧 	jQ  
-^h ZPi"P 
-  6 i*lw T>ɜ   : '&v %|'#  Xt  k 9$zэ~t '] Kg    t G] 2    ^    js˚ 3  r k*  מ K  L N  :+ H   `  	!   i3	 OQ  @!PO B @  `U0B v   e  goIO 2$ A `@gO  K. A	o( K P   
-/x  K  ;  X  ?\ fRҗ @%9'˞z  
- p   n  [)Y c\ #(         @v &ܻZ_r % ށk0 'Y    ^   y  
- #7  
-D   e̖A go      ! : ρn   ,s IPz׆qBb`ɞ dK: ,+dElw   <(  N p  ` !  U  2 '  {  g\ '   $y# ! F    Q	 s^ ?Y       (=} W  [   q       = 	  !> C ډ ٫=   _
- (04 
-3 > +  < K X   Ȼ ! (   s KH? c? y?ы     S  ?8`  ȿ6 ?  ?  =    <    {  Ӊ2@qZ qB\ - Ɋ3 A7 @
- @ 2; -   <!  *  ȸ 3< #@  x   :@'4 
-,=        |=  
-B  = 3   R  B   9@)0{+ ,; @ > r'   2d/ z  C6S"xC   ; ;`    @ N3
- k6 [   30б <y   þ6l  Ӿ  )H    : RT `  & 6i
- j{1  ;   K 1K7 R5q۷r5 y 5   b   X:k/q, aܱ> 6@ 6B  }d  3s45uc u$7xsGx     GP  )   3 c8    e<	  H sF Iy  ˻x* ~4  %h#p  %  { | '   l9 F# 2  p @Kj ܚ 
-z4ȯ- 	  ȹc  \?   9ԋ: C  C>    ` 6   9AQ 8H:/`     q  YJ%  \   ò  A <T =d .p    |      K   9 ?   ,
- I>l 2   ̚ - i J&ʯ2K5h  bX ݃= cM״ Z 8 D2S ;    h 3LU 3 ; 4Šb   <  J   Q NT  {   N ;  E d8e G ɢ{;  '}
-/  Gy@  K9M;$<TK lKAyK̔ː ̻   7p  x@[  5  8 Y$q  n  &  7  /y8   ,c
-dtO8E 4 # Qx O%      t) 7 2Ћ  @ J <        <KMK \K   ` ̺| }
-   P
-  D& 0 PQ: =
-KQ     Ѡ Q ,   @g O' ƹ >        I!  y8 ɠ O 
-OȐ    s?  ? D D  
-S:     
+ì}/PBpáo8yëŒ)[hìGÓ„Ä&Öq{{Üâ Ã˜È=e
+Gc+º
+ˆ¬5˜S! F BpÞô¢¡Ã)ÔØ»æ)&°d¯Œc3œ¸()¦ïuó€¥Ö.r
+ö»R.p!)
+R È@+ØÁ¨ †=äÙ	T@ŠY 0L!
+*P™ÍühJ[Óšæ´§©	jQ«À
+^hZPi"P¡
+žŽ6Ýi*lw¹T>Éœ ‚º:'&vðž%|'#ü…Xt”õkÜ9$zÑ~t¤']éKgºÁ­þt¨G]ê2‡ Õà^õ¸ýjsËšÖ3¸õr½k*ôú×žöK§ŒLÃNÅß:+òH³£€`çó	!°ó¬i3	ÎOQŸÀ@!POºB¬@…´`U0Bºvúïñ²eµ goIOÊ2$ÔAÁ`@gOòüK.¼A	o(ÃKÌPó¬üÒ
+/xÂ›ÀðKŒ ; žXÐð?\ÏfRÒ—†@%9'ËžzŠ‡
+ð“p‘åÈnïÄ[)Y‹c\ã#(‚ˆ …“œØò˜Å@vö&Ü»Z_r×%ÜÞk0å'YÝñÎ^µãÉyÀÊ
+Ž#7¼ 
+Dˆ»àeÌ–A€go’ú‡²ÿÙ!€:ç¹Ïn¤ ,sIPz×†qBb`Éž¾dK:Ä,+dElwËÆñ<(¸½NÄpÀ…`ò! ‚UŠŸ2›'±Û{ø‹g\ñŒ'Þãß$y# !ãF¨üôåQ	Ís^ž?YñÌ À¾ç(=}êWßú[ú´ïq¯û  †Þû=Ú	¾Þ!>ãC¾Ú‰½Ù«=š‘_
+Š(04 
+3ˆ>³+’ê<ìK¼X¼Æó¾È»ž!€(¨‚òs®KH?Îc?ÿy?Ñ‹¿›¿ŸS›³?8`½®È¿6Ø? ô?¿È=¬À¼<¾Œ‘â{ƒãÓ‰2@qZñqB\º-ÛÉŠ3ÈA7@
+´@Ä2;‰-»¾Í<!°‚*¸¡È¸”3<œ#@ž¼xø¹Š:@'4 
+,=ú³Á ž¤»¿|=ì¿Û
+B ä=ß3Â¾ÛRÂ¤B†³¤9@)0{+É,;¸@>çr'–»»2d/ z‚²C6S"xC°¯‡; ;`‰«ØÂ@‚N3
+žk6ª[ ¨Ã30Ð±¯<yÀ ‹Ã¾6l´Ó¾ ¡)HÁ‚“ :¶RT€`”º&ƒ6i
+´j{1–á;®óÅK´1K7R5qÛ·r5°y«5‘“ b¼¼“X:k/q,±aÜ±>‹6@£6BãÃ}d¶ˆ3s45uc·u$7xsGxœµ · GPœÆ)²¾¼3…c8‹º›‚e<	„ÑHÄsF›IyÀ»Ë»x*È~4§ˆ%h#pÄ% ª{‚|Ú'–‚—l9€F#ø2žªp@KjƒÜš 
+z4È¯-Ì	õ»È¹cƒ¢\?“±Š9Ô‹:¼C¬ÐC>œ› ˜`Â6ø´¤9AQƒ8H:/`¤ü²Þ´q¤ÙYJ% –\†°ŒÃ²´”AË<Tƒ=d¶.pËãƒ¸|µ¹œ »ÄK½¤Ã9È?¿¤À,
+ÙI>l›2ƒ˜Ìš¹-ÇiÄJ&Ê¯2K5hƒàbX…Ýƒ=ÙcM×´ÁZò‹8°D2S…;ÂÐ§–hÂ3LUŒ3¶;“4Å bÉÉâ<ìóJ°“ QÌNT‚¶{‚•¬NŠ;‰ºE˜d8eãG£É¢{;“Ã'}
+/”³Gy@„ÄK9M;$<TKÉlKAyKÌ”ËãÌ»¼„7pƒŸx@[’À5È»8ÐY$q²’n’’&ü±7‰ƒ/y8êÜÏ,c
+dtO8Eð4Æ#‘Qx‚O%ãºù¼¶„‚t)º7‚2Ð‹¢¸@üJõ<»“ „ÿü¼Å<KMKÈ\KÝÍÌ`ÚÌº|Ð}
+… ÕP
+½ØD&Ô0PQ:ð=
+KQÅ–ŒÑìœÑ ªQþ,¢ì@g´O'Æ¹‚>½Æ÷”ÉÅÔI!˜ƒy8øÉ ÔO¹
+OÈÑïËÏs?ø“?ÓDÔD¶Ó
+S:˜‘«àÂ
 4
-h Gu L  8@ & D   B J P 4P*A 򋥻. ̺ d )  =   TC STdIBuV  QD-!]T  0S$  dI7 U  CN AO  U	
+hÔGu“L„ƒ8@Õ&ôD–”‚BíJÅPÇ4P*A‚ò‹¥».ÐÌºød²)¨Ç=‰™ÂTCÅSTdIBuVõËQD-!]T€ 0S$ÊüdI7ÈUõ‹CNAOýÃU	
 S
-  2 Рp՘q 
-H  YU  ̊ Tc Uj-W   Ɯ ǌ _
-V  5   deI P  <E t  m/t#  g   r<k=֙  `{* ɷ+I
- %- I  g   
- ћ O]כ    
-  - l K 28 7  Ʊ ;H 7 E: W [Vyh ;  <eIm ؓ\ +P   `Yc$Y =T M x   (p   Y%u 0  -(Y8 s Y? A      7  ̊#E 7p4ȋ Z  Z U? X ; s L hdI J[  ɵ V< |   \LR* J  Ƭ Ys  >    ! J `   9`        Ɋ x\e [ \ B 1FN̯f h4 J!   Y  U       ] ^
-^ M  y R^  \ | ʝY   حVэXd  " 8!pY( Y u] e E  مA  ]PM )   㽨 yS    M  p  	
-7  
-F. ʑ!3   ? N u   _   >	>M[D  ;iuޓ ߔ  } 8 
-  ׺X |  u!X a< #  4  5"`#     @ Y k 9 M a   |S M   `    *  3[M |ӗI Ȋ    ]E p
- U $x08 ǰc(` S      D^ F   2e] L  
- 8 0  M #0 ' , `  3Pz 9 eb c V<dSTeV WVX~ !  '  X 'x @  8UU0 #  <  P Q_n :xe3 fcV  )`fg    i  j ay P Xv> P QR~S 	T fG5    eƳ  e 4^  U ډNo> dfr~ sejfIy> TN }f b^ ) =0)
- ͈6 hF fg  ߮D _^h q<}Ү.    fi fI [w ex [Bf   i'   @  a  Γ   5C4TC c 2]s  \   =    t 1   +:7 Ꟶ:c:  Ɛ :  ح  Afjy  ] N Yu
- x  Fsk { ѝ  <F   7c ]6 Ã   EZ E5 E]^,rd ` <# :uE ė {V lƵ - [   i
-    (о     ^ <	2 dvVk <   |l  m  m  m ^  (   6, + I0( /  R#hv   n  =       6  0#  : ]   f p t̷. 7Վۣ; N  * 9   T\       "f xB Pn!f ﱴ  .   4LJ  & d mgRyh    .         ^ 	 ov&    F  ַV o & 5  .7l $ 6Tg ́ V 7osJ ~ mo!U  	5p !+ M o v  n54 *0 " S #ꪽ[ <<87? (  󠖇  Z< !  {    ~  nHk  6HgCH.8 ScHV{ `2 w G[   F = ke/nHA p\ LHt tws K  x Hzd Z!C  Ƚ km G  _W \<  ֶ , ul   9 ƹ  ݟk;  i  3 s  ]  ʉB  ޹    b     V ( d jP5k  9  P} Pwx 	q5v.s1    <  60wt  *Pqv j {wf wg Hx    ` >7J "	~   p  q'x ' '.0    R_ k  p N ;.   t V  L   1   m  y   / sGy   7 4     x?z x ?x<3 80 oyo4uF ; H  yRc b L  NÒ*/
-. 7.f    & n qh v8 xk n W0  ~ v    {; 9@   z L Wtp,{     '6 )~_r *|   7  Gz w|`}  D ̏yϟy g v Ul f  p  L  ˧ B   |R3 `c  ԯ տzrw|     	r%{\_  L7 v~%  v y  ~?y  ~:   9ae    .}l? &E C hK:
-  >     ě"oݵ  gs,   [/'| K <  X   )p y5      !  q <  ꃁ   >   ̝=o  o  F  S{,	
- N  ^  kz`Bb  w   c = 	   `ؙ    / %@     z`  ; H   ER{  - = ו  / {t  隻     p   Y       v2   .  ^   F  I  b  ٳ}  
- .H X
-   O  X Y  }g ԥ S'    k     9  :!  Q 
-R !  p_    3 6 >   ; ʿ   T 
-  d& ؄ $ T  "C   3dg    ? T     ɍ  ~     n2g  tR@ A t \  :|O&   
-    v P ݉1C    G]P
-2¬G @  B '/  I  [  v&   0āT0   +0     XQ  `
-]* |
-퍀  &  cg~`$RÒ [JD\   RXb  E!*&f ڷENNl5@'   h N    P   X  BR\ Y ) D   * | *ހ Hjvڞ  I 3   _5Tz<p"     F   -ʼ  > Ӌ$q
-  H ` . )    [$;      ct|<P2) r  2 /  ` S 
-7 T V 3  j& b <P,F ʧY#̹ 2q  F׏n [  n iE d  t   !~EQ    IP m f =
-p {Nc CD61 =t   ;K  N Ϣ ,p]@ S   D    pB~h bP ~LO  0P  FD@
-   h >cCD    A 9  "S  ^A*   k  1.v  X + u    @ !  Xw" 5F ! t"
-  u Y E     1F 
-  d | $2& U   ,  HZ  !  t! ,G X U
-8 <  v 
-  ! tzJ A H/9  k  QG H   R[ EB~i<  j@y k 1@^2z   {dgBP>ç$ !}lvQ D w; B4      4 "   ̒n    !ä dIS2@ZHPh
-d   /+N Hy  g vC VI59*_d   H 'X  b# $  yw L 3    &D  2 I0a*      Y g	     I  Z9 n \ CpWn@*   4  rIKȗ,  , 9rG:ǹH ġ  N  S  ?	  3   J   \tS  2H  x %  
-      X ߤbIb Z  9,  L   !@ e <  O* ^ (   'FjI	 G  rY L(   %^< r L{    pF _>I    e ĘӒ y  i$ 幤 , e L  $ d <  e^ɟi* f  u j M /[e؜   lfK95     kSk  <    ,    >]   E FT6   p f;H Mׅ ϨfF UST Je)E   b F穵  9? lp-k~  8 c  @S` u.v 鮑  F~&6"Ǿ  TݤSG   
-L hͦ u  Ѝ.Qg<g lL  3 )   n  C  N"ɺ  &Ƙ ;
- x $v    @))=A O    bB  U7-F  c1@ 8B  	V   kP.      4B~
-l=   `    %  g f̊7 - 9    c5TP9L 6h    )  \ 4o#;C   q 9`7     % P 
- h  +1  ?? w >c5m<    ʱ   i0 H  $ A   < 102 R(E M XԂ 	)  	=	H4   %  N Q e M 	3(EY uв y )P K # I  LQ /`  `EJ >
- ha   cx ~ p  E(J0  ?0 GxS0   nX  І[C  ` ;  \k 9 rcD   >& 1:   N vgv] $ll 3"9:   #   
-NN f9oQ  l      h  ah  qHv,N EX  Ӝ E58 R  
-) 8 vT>  ̫ Б : k =F  D  h &D{*>ҫӧ n Oc  .E)YM M xW)= X+        L);   }z$e XRI%  c ,JM K
-$~ G "    -5? q CL  Ť & 
-  *vŲ  _,  z  ޢ > =%M @      
-A Z SE %cdBU q  H2  sp       ˂, g 
-ݲI  J{ 
-   Um  2 .ˬ I  F  Y L U   n    !!7m   uf   p  J  *>  v U  d @S Б(%B    YL h U Y ĊY l- 0M4 P n i     
-  4 o iS  A vXMZq  m֛ Y  -U P z  8&9ܮ ǩL   PRC@  >` (j/    R   JL˚1 5 Uv # Z X 9  ,i1 Y*  ;[9 q ZTwg_3*~ u zԴ tbgJ  ֙ B9 ! Ħ   Y6 ً:'8%  М>Jd   l២Cw:P  f  uK$Ԇd '  H    + ;͌k  >  TO5 =mu  |Λ  Y  <  %I t
-   $cwɨ@ UG z8M g Ê 1  W    e q    GMoT L<vo F ?   PW  O 3٭B|v  6 f     6 . F h @ թ  ,$B  ? * c  ƩjTa*r B^ D 腥1  GJ
- E  EZ0PjY% j  t ; h  "
-* 	 W $Q K    v WKa jN     ֎  8И  `   : ]a=    [C l?  $ M '  $+V@   KU  Z0k m趴    [Knu  `   v˼ -mC d Ӿ ' T     e\M   oY ŶW    {  
-  I ~  4. aYwϵ'BKq ] Ј 2   oWm  {ٶc Z  mWnJ j h9,  |T   b. j xkq -    O Z[ K@ * C I   p{ \  -    Y ,IQ Ps   5b{u B U @   `#8 e_     ܣ;pS e j׮1s n      O{  .ȭ    " ` xͮ E M7  \3F   |8   Öw_e ż=w
-8 t˒ ץ   ޱk	  e L  >ާK  Rhr  u *  JMq  չ    ]h4i   
-  W   |-% % K7 [  p
-V c  ā b[}= %N |^| {C н bW  YKzm  }  C_M |( gtr    \  wMW H  l.        _  xͯ酼 | . 绢 u%q U &X 1 ؙ        
-<Dp %  7 ); ~ hM    j ; u       .  f  ܓ  X<k   ت`      C~Ic  <" !w   +w- L  f   he % - Ē&MJ   X 2  
- w w  L  K g  (!?lI a9~  8 ) z8k  7     O`    1    a  ޲ %q 	M   N K    U       M
-     @[cO(Ĭ  D,U1vĵ8(Db    .(/0	Md ؙ U  Kz       ^Ӧd ;Gh   nro   M Y    - 
- x;^m 	     ѻfah    Ψ O ȉ# ' | H a@|  ٸ    B㓫 G     5 ;> q  ĺe  v  p0  x  Q\ 52t$ G { 
-  .I&& * d ,  q. ş  k h  $ O   ";?|  4 T 'b 1Q6ʮ'%c I    7n  &75_\H # >0        
-0 G f     *   L  SvE":ZS_Yb'  D  T >: i A;#m   j  B  eghV Ŷx   n"ø         P ^
-a#`_昰x W   5l2u8& y '    i F@  2 }psE  7     ka   q: ( F0U0   <}toY W M  s N r Z ,  #( 
-| *% d  ذ  <  x LҮZ 
-?+ Q    bN    i͘4 RX G t2  	 & 
-l  M 
- Wg  g lKP]y 5v E  [C  [	U  M\     ;  G !ɬM1g.J  3 ܆; x5FVƏ  	P    1ڤ !u @ Q'  g  -  ZZ<Xzv(- b 2I 3
-           u N i<      } O i@   &ԅ PjD   J   A ԍ  )p c;$5L   C    *   |    WդzT  S] Q  fի U jX  eu  մzV  [] q   ջ W j`   u   zX  c]    f   Y+kh   u    zZ? k]        [kkp   u   z\ s] ѵ ^"`ŉ i          ^ k|         _ k   e  1X
-K   C  kd    ^  zE[ = * KD  !   mI @,g ԍEұ#  &d#   =RoVp  8ԃ0  6 - Ĵ 
-B Ex-t 4'9  :f-1^UH    ;~֧y3   h  A I PC  j{ !>  24/} Y     A g $ +E  B K Y   -M0ɫ  5z | pFBL ; Y~zQ7   
-       bD Ը*  ro  r  u F    lQE d8 !  ,&   1 l @ڀ N   n  
-Z    ;n`l    F h$ :7 쒽N  ^$ [T i  h    [u  \pp     z; Px   +vD  ~A `(M   r   @  8      fޞ p       f -5D G XŎ MA1  p   :   @        (  A        2   
-   b  w         kՇO ^h     [ m9 & 
-Y F  J  #                          
+õ‹2ÝÐ pÕ˜q 
+H„ÔYU…«ÌŠ­TcÄUj-W ÒÆœÒÇŒÌ_
+Vßƒ5Ö•ÏdeIäP¿ï<E–t‘m/t# ‚gÔðôr<k=Ö™ôÑ`{*ÐÉ·+I
+×%-’I±ØgÕÔö
+½Ñ›ÁO]×›©ƒ¤«
+ÜÉ-Æl Kô±28¾7ÅÍÆ±ƒ;H¡7åE:øWË[VyhÖ;½Ø<eImÚØ“\»+P’£‚`Yc$Y¯=T”MÔxö ‚(p»žŒY%uÑ0” -(Y8ÐsÝY?¬AŸõŠ¤›¨7íæÌŠ#EÑ7p4È‹ò¡ZóÃZ›U?ÍX½Í¾µs‚LÊhdIÙJ[„‹ÉµÅV<‚|’Ô\LR*èJ–¬Æ¬½YsÕÙ>¤ÁúÕ!J˜`’¡å‘9` ­°ˆ™‹ÍÖÉŠ»x\e½[¸\öB‚1FNÌ¯f³h4§J!–çÅY²äU„õÕÒÕÝë]Æ^
+^âMÄÙyƒR^–”\ï|ÖÊYÅøÜØ­VÑXd¥É"è8!pY(€YÖu]ûe‹EèÞÙ…A¿µ]PM½)˜”Šã½¨òyS¡¼èM©®pÍÚ	
+7 Ú
+F.”Ê‘!3àÌÔ?ßNÈu®Š_ÊÝÎ>	>M[D‚„;iuÞ“åß”Å·}è8’
+ªÕ×ºXþ|„îu!X‚a<‚# ƒ4å5"`#¨‚ÚíÙ@üY‘kÔ9øMaßåà|S¦MÚé‰Ç`ßäãá*€‚3[MÙ|Ó—Iá˜ÈŠÇð×å]E¶p
+ÐU $x08‚Ç°c(`ÐS«¥îÍÑD^äFîáø2e]–L‚î
+Ý8œ0‚âM#0‚' ,¡`ÇÈ3PzÚ9ì‰ebcÉV<dSTeVžWVX~!¨‚'‚ôX'x@‚«8UU0§#Å<ðÜPžQ_nå:xe3 fcVå¡)`fg¶Á¾“i¶ƒj¾ayPÆXv>‚PÎQR~SŽ	TÎfG5ƒè”å eÆ³åÂe–4^ÆæUÆÚ‰No>ædfr~æsejfIy>èTNè}fèb^å)ƒ=0)
+ÙÍˆ6çhFçŠfgƒÎß®Dè_^hÛq<}Ò®.£‚’†fi¦fI¾[wæex¶[BfÖîýi'¶Úæ@úµa ¶Î“ÈÈÉ5C4TCµcÉ2]sõ¼\”¹è=½££ÌtÜ1öŠ¡+:7èêŸµ:c:§ËÆ´:¦ƒØ­“ØAfjyØç]àNåYu
+ëœxºFsk¬{ºÑëõ<F»£Ñ7cç]6ÉÃƒÅü’EZ´E5ÀE]^,rd’`ë<#Æ:uE–Ä—±{VîlÆµ«-ˆ[³åÏi
+€ÃËÑ(Ð¾ûÙÉÍ^ <	2ñdvVkä<–¼‚|l¯­m¯¸m”Ím·^»ž(ÀâÕ6,¾+¸I0(¹/æÜR#hv®ân¯¨=ˆƒ ¸±ÕÍ6ø¥0#ØÂ:ð]–ìðf¯pÌtÌ·.Þ7ÕŽÛ£;‚NÓî* 9ëùÄT\êÃþ‚ú†§"f¾xBîœPn!fîï±´çÞ.éöï4LJì¾š&ðdõmgRyhÞàæ¼ñ.ïóö‘Ž™õžö^	–ov&™ ¼ûFØüÖ·Vëoê& 5·Û.7lŸ$Ø6Tg–ÌúV€7osJï‘~ñŸmo!UÚÉ	5pŒ!+ê»M‰oüvîýn54Á*0ò"±Sì#êª½[ì<<87?ò(í ó –‡îüZ<™!¸{Ýðöì~üÇnHk“ð¸6HgCH.8ÇScHV{·`2·wŒG[«ÈžFØ=¼ke/nHAÈp\îƒLHt¤twsµK‡Èx¤HzdÉZ!C“åÈ½ûkmôGõ‹_WÄ\<‘Ö¶Ú,øul³˜›9®Æ¹¯¾ÝŸk;ØÂiñÝ3×sº†]¤îÊ‰B¡²Þ¹¬˜ Àbõ¦ƒ€õV‚(ðdßjP5k¯È9½ëP}öPwxÏ	q5v.s1øö­÷<£ö60wt¯ò*Pqv×jš{wfŸwgëHxóÎ÷²`ç>7Jñ"	~ïö p·Šq'xƒ'ø'.0ñ€œ¶R_ôk•ÇpNŸ;.à÷Ët›Vƒ”Lš¨‚1»“§mƒ y€÷’/÷sGy«ðù7˜4ÿŠíýx?z’x¥?x<380¢oyo4uFï;›H‘£yRcÉbÅLµäNÃ’*/
+.¸7.f‚êæð&Ènqh—v8 xk÷nŽW0à÷~÷v‘ø¤Ÿ{;Š9@ƒ®øzÌL±Wtp,{‚ ´'6—)~_r¡*|¶èÄ7úÅGz¬w|`}ÊûDùÌyÏŸyÐgÉvì›Uláfçöpû›LªüË§ýB‹ùø|R3§`c¶èÔ¯úÕ¿zrw|­ßÍæË	r%{\_þ®L7v~%ñçvêy¿~?yõÞ~: 9aeÉñÜö.}l?ì£&EõCþhK:
+éó¨>ö×øÞßÄ›"oÝµ»†gs,ž¼û[/'|÷K<ñµ¾X ÅË)pÙy5ˆ÷À€ÇÐ!ï´qÀ<çöêƒìÅ²>÷·›Ì=oå¿o”üF—ÌS{,	
+à¼N£ó^ Ïkz`Bb¯Êw­ŸÉc€=°	Ò¨ `Ø™‚«‰/ä%@¨« ×óz`ÏòÍ¾ H† ER{¡-´=Þ×•àÞ/›{t îéš»—÷®ÛÞpœëïY…À§ÞÌÉ¸v2®¾.è­^û£‚F òI¾œb Ù³}ÌÏ
+µ.HúX
+ŒƒêOñÁXðšY°Š}gÔ¥ÁS'ÄÎÞíkƒøßÕ9çü:!çÉQ’
+RÂ!¸üp_ó»Ï—¹3•6ý>á …;°Ê¿î÷ýTÁ
+³Ðd&ÇØ„á$†T "C¶Ãì3dgùÏÖí?–T’ôà…ÓÉÃ¹~ šÃîn2gø¼tR@çA²tè\à :|O&Ðá¡À
+¨íÝˆv€PðÝ‰1Cøú‰ÃG]P
+2Â¬Gð¢@ŒÈBÂ'/”ÂIó†à¦[ Ôv& ¨Þ0ÄT0ûµ+0„Ž”ˆ¥XQˆª`
+]*Ô|
+í€Ž¨&ÒÚcg~`$RÃ’Õ[JD\Á¼RXbÄÊE!*&fÄÚ·ENNl5@'Î žhúN‚ø‰‹PŠÁ“X½ôBR\ŠY¡)ÂD–… *ä|‰*Þ€«HjvÚžûßI²3ùà×_5Tz<p"ÂŠ¨Áæ F¼…‘-Ê¼œ¨>â¾Ó‹$q
+öÅHŒ`‰.Ñ)¦ÅÂ£[$;ñÊ®Øâct|<P2)‹rÉâ‡2‹/ñÂ`ÆSˆ
+7ãTìŒVÑ3²¤j&½b…<P,FÂÊ§Y#Ì¹Œ2qìÆF×nâ[Œ‹n±iEñdìêtüÆî!~EQöªÀó»IPÐmÇfÈ=
+p‡{NcÅCD61œ=tŒí;KÆðNàÏ¢€,p]@¢S§ Dˆ…ÐüpB~h÷bPÄ~LOåÑ0P¦ÀFD@
+°»âhû>cCDŠ°úAÄ9¯ "S’^A* ™¢kŒ‰1.v¾ÏX +äuäð¯Êù@Ù!ÁÀXw"²5FÈ!¨t"
+øŒuñYÝEè¸¿á¤1FÆ
+™ dƒ|$2&ÇUøóâŠ,’òHZÁÉ!—ä‡t!²,G´X‘U
+8‘<’ vÅ
+‰!–tzJ’AÒH/9Ïâk“ÊQG¢HÀ¥£R[ˆEB~i<Àãj@y¤kç1@^2zÈ©€{dgBP>Ã§$ÿ!}lvQâDÀw;™B4„‡ÍãéÆ4Ù"—ž†Ì’nòèÐœ!Ã¤„dIS2@ZHPh
+d›”‘/+NŽHyËägÔvC²VI59*_d’”‘H 'X…œb#Á$ŒywÒL²3©¿ŠØ&D“±2²I0a*‰ ª´ª’YÁg	¹¨´–¥I–ÊZ9Ànå\•CpWn@*é­¤4ÄrIKÈ—,¿äœ,‘9rG:Ç¹H×Ä¡¯ÔNü¯S’¸?	 ¥3²„ò°J‚™…\tS”Œ2HÂÇxâ%àÃ
+ˆ÷±üÁýXåß¤bIb ZòÅ9,Ñå’LŒÉ!@¼e¿<Œá²O*†^ù(¥¼–'FjI	äGërYÒL(ÉùÞ%^<™rúL{É £ pF“_>I³ÇùœeÄ˜Ó’y¦i$éå¹¤•,ÓeÂL™é$ëd”<“äe^ÉŸi*…f šuÀjªMù/[eØœ—½‘lfK95«¦²¼škSkþË<ÉÎ¦Î,˜ë×ù>]æŠ ™EµFT6˜³‹p‚f;HM×…¤Ï¨fFÑUSTâJe)E—…—b¡Fç©µ¬ó9?Ûlp-k~Æ’8¡cÆó@S`¶u.vöé®‘¡ÛF~&6"Ç¾“ÛTÝ¤SG•ÎÕ
+L‘hÍ¦›uÁ³Ð.Qg<g¢lLŽÊ3Ò)¤üÖnØÑCÊ™N"Éºšž&Æ˜Ó;
+‡xŠ$v†µêð@))=AÇO™äæ—£bBÀŠU7-FÝô›c1@ä8B« 	V À›kP.¶—ÐÒòá4B~
+l=üžÜ`‘Åðñ%ÐÉgèfÌŠ7“-Ü9ýùû c5TP9LÇ6h ¥‚¯)ŠÐ\™4o#;C¡ßÉqŽ9`7¤À°Š%ÉP 
+åh¨Ò+1™’??¢w­>c5m<ôÉýÐÊ±œ‘¨i0´H¨‹$ÊA¥¨<‰102¦R(E£M¢XÔ‚â	)¶î§	=	H4‹Š·%êøN£QøeíMÝ	3(EYíuÐ²¾y )PæKê#ßIŒòLQ©/`‚í`EJ§>
+£haûˆ¨cxÙ~›pŠªE(J0†€?0âGxS0€Œ«nXßÎÐ†[C”ê`‰;ðä\k‚9’rcDûÈ×>&Ñ1:©§ÁN¿vgv]í$llñ3"9:—§ž#• 
+NNÉf9oQæÄl›“¹½ÏÏh§Ðahã€áqHv,NãEXâ€ïÓœ¨E58áRÝ÷
+)Ü8ÏvT>¥§Ì«žÐ‘:Ãk•=FÝöDžãhž&D{*>Ò«Ó§±n¥Ocá.E)YMÙMÊxW)=æX+¦¢ÊÝ Ó÷ÉL);ƒ‡è°}z$e’XRI%˜ëc…,JMËK
+$~ÕG"äÈè–-5?“qÊCLö™Å¤¦&³
+òÏ*vÅ²Ø _,ŒíµzçÒÞ¢ò>à=%Mæ±@Öõ¨ªÚê
+AÇZ÷SEÙ%cdBU“q²„H2Ïâsp£¬”²ŒöË‚,óg 
+Ý²I¡ãJ{•
+ ‚ÆUmÆÍ2ë.Ë¬™I´“FÑÔYäL„UŸÍÕnÖÑÀ™!!7m¢¥³uf¦ò«åpî¶JÏÞ*>¬ÍvÔU ÐdÎ@S«Ð‘(%B—¦ÐøYLëh„U™YÖÄŠY­l-­0M4´PÒnÍi‹•½Ö
+ÙË4šo•iS€¦A›vXMZqÍó°mÖ›ÕYùä-UÞP¬zÖð´8&9Ü®æÇ©L˜ð¦ØPRC@²>`ì(j/½¨¿”R¦ÀJLËš1ý5 Uvö#‘ZØXÒ9Œ˜,i1ÎY*ÕØ;[9èq¾ZTwg_3*~¦u¿zÔ´ÖtbgJÖ™ºB9¥! Ä¦•“²Y6ÍÙ‹:'8%§ÎÐœ>Jd®Àå®láŸ¢Cw:P£fìž uK$Ô†dé '¬“HÔ¢ò§ë+ê;ÍŒk±Ç>º„TO5Ê=muùÔ|Î›‡úYªÎ<©ï“%Ièt
+ˆïõ$cwÉ¨@UG z8MšgÌÃŠŸ1¬ŽWã†ëŽše³qÀÍ©GMoT…L<voÌF?ëúÑPWÀøO’3Ù­B|vðÙ6ûfÖÑÁƒ‡6Ñ.ÚFûh@¤Õ©Ÿ±,$B¤ê?•* cª½Æ©jTa*rÀB^ÀD†è…¥1šÀGJ
+µE ŠEZ0PjY%ë‚jçâtÚ;†hßì"
+*§	´W–$QíKª ´Õv±WKa£jNµ–¨ÖÖŽýó8Ð˜ùÚ`àãö: ]a=²“Œß[C›l?­à$¢M '±¤$+V@ªýŸKU€ºZ0k·mè¶´Öõ€Û[Knu­ò¡š` Þâ¤vË¼Þ-mC¶döÓ¾' TÀÊâ©Îe\MÛþÙoYí¿Å¶WÛþ’‚{‰®
+·ÀIá~¡À4.¿aYwÏµ'BKqñ¼]¶Ðˆã2ÆäÊoWm ½{Ù¶cÆZÕãmWnJ¸j¬h9,ÐÄ|TÈùŒb.çjœxkq—-Œ¶ˆOèZ[’K@Ÿ*½C¹I×àò p{Æ\®Ó-·Á’°Y¿,IQøPsÀæÒ5b{u…BÅU¶@êèä“`#8áe_ýºþ¶èšÜ£;pSî·e¹j×®1sûn ªºëòÝO{†º.È­¶†·©"Þ`ªxÍ®ÊE»M7×Â\3F¨’ˆ|8¥ÜÝÃ–w_e¡Å¼=w
+8×tË’ì€×¥¶ªìÞ±k	îèe¼L·å>Þ§K¬ÌRhr¶íuÝ*³¯JMqîìÕ¹ž†çú]h4iÙÙÇ
+º½WäÝÏ|-%·%¾K7íŽ[¶»p
+V½c°—Ä·b[}=í²%N |^|Ë{CîÐ½¶bWà–ÝYKzmíñ}¹àC_M¤|(Ïgtrñ÷òî\­ëwMWôH äl.ëÁ’çõ½žàŠ_¹xÍ¯é…¼|ñ.ïç»¢u%qçU¬&Xì1ÕØ™èì¾û÷÷†ßÿ
+<Dpé%Àé7©);à~‹hM„˜ÖÏjÚ;‘uû®¢ÀÇ«.ÎÅfƒâÜ“ÓüX<k”¸ÀØª`“½¶ ‰C~Icø²<"Ú!wåØÏ+w-àL›Ïfã¡ êhe–%¡-ôÄ’&MJ´ÚÊX2ë
+àw…wäßLÆòKˆgƒá¦(!?lIïa9~ÅÒ8©)z8kòá7»¨Š ÀO`§²¤š1÷­÷å¿a×è†Þ²Ë%qî	MøíNâƒK ¶¡î®U˜ÇŒ©£öðM
+ÅÚêíÔ@[cO(Ä¬øàD,U1vÄµ8(Db¸«š†.(/0	Md«Ø™ìUÅÐKz•êÅ¬×íÅ^Ó¦dò;Gh†Ëðnro ‰ÂMãYüˆ¯ñ-ö
+Ýx;^m¬	¾±ëÇÐÑ»fahõ‹ƒÎ¨£OèÈ‰#¦'Þ| Hùa@|ŠÙÙ¸¬†üBã“«ƒGÀê £à5Î;>øqþ©Äºeòâvâ‹ïp0¶©x¢ë¤Q\Š52t$ÄGÕ{à’
+‚‘.I&&¹* d•,‰ûq.ÞÅŸñ k­hÅÎ$òO¥ÈË";?|Œñ4ºTù'b’1Q6Ê®'%cãI¼š¸±7n½á&75_\H¡#Æ>0¸–²¤ ¬ÆÌ
+0ãG²fñÐÚð¯À*·ÖL“¦SvE":ZS_Yb'ÛåD±ÝTÅ>:Ïi˜A;#mñðËj¼ãB”eghVøÅ¶x’ìËn"Ã¸í •„·òÜ ÙP™^
+a#`_æ˜°xêWÁŒ˜5l2u8&·yØ'û‹¸æi¾F@’š2„}psEåË7 ˜Š±kaƒóÕq:Ï(êF0U0ã <}toYˆWÔM­°sÁN¾rÀZ»,ƒ¡#(
+|¨*%™dç÷Ø°Åâ<ºÏxÑLÒ®Z¾
+?+¬QÕèø³bNž¯™ªiÍ˜4•RX¨Gèˆt2¸€	&À
+lèð¡M 
+ðWgý‚gñlKP]y¾5v©E—[CÞÌ[	UÆò€M\£›õÁ;»•G—!É¬M1g.J±œ3ºÜ†;§x5FVÆ°¤	P„€¸á1Ú¤è!uÔ@ñQ'ÔÔgø‘-¥ôZZ<Xzv(-ßbò2I·3
+æù§”×Ç§åôœ¦ÓuÚNßi<§õôžæÓ}ÚOÿi@¨õ &Ô…ÚPjD ŽJ  ¿A†Ô¦’)pˆc;$5L•¨ñC¬Š¦Æ*„…«|ê­ª“ˆWÕ¤zTƒêS]ªQµ©fÕ«ÚU«jXªeu«ŽÕ´zV¿ê[]«qµ­æÕ»ÚWëj`«…u¯ÖÄzXÿêc]¬‘µ±fÖËÚY+kh¬¥u³ŽÖÔzZ?ëk]­±µµæÖÛÚ[kkp­Åu·×äz\ës]®Ñµ¹^"`Å‰Äi±‘¨åõ¼¦×õÚ^ßk|¯õõ¾æ×ýÚ_ÿk€°öeˆñ1X
+Ká C¢˜kdˆ¤„ ^‘ zE[à=Â* KD€ƒ!€„‡mI @,g‘ÔEÒ±#ÂÇ&d#²œ„=RoVpö 8Ôƒ0€6 -¤Ä´Ï
+B‡Ex-tÍ4'9ÕÁ:f-1^UH—ð’Þñ;~Ö§y3ûËÕh«‹A›IõPCÙÃj{ð!>ÈÇ24/}œYþ‘³˜ A»g€$¢+E¡²BÀKæYï «-M0É«éÒ5z²|pFBLˆ;žY~zQ7ê‹ð¨÷
+¹’ú©Œ†¨bD Ô¸*¶¡ro‡¬r©Ãu»FÙïú±lQEœd8µ!ìð,&·€ 1€l„@Ú€èN¹€Ðn
+ZÀ´ Ø;n`l¿²¸íF¸h$¨:7Œì’½N¶ð^$Å[TÏi¶‘h ÛÈÓ[u§…\pp÷ØÈÚûz;…Px·µÈ+vDð•Œí~A¸`(M¡€„r¼ÙÂŽî@à 8€¼ÅÁãfÞžÛpœÁÁ¾ÂûfÜ-5DéGòXÅŽàMA1ìè¡p¤¦ð:‰ßâ@        (àA„       2   
+   bÀÙw¢« ÓöÐÒÂòkÕ‡O¨^hÒøÿý[«m9ô&ö
+YàF˜éºJ·¢#è                         
+```
 
-FabriqueClient.wdc
-PCS                     B      9       j                  01F280051n                 /     %  H<    ;        m5        "       
-      F a b r i q u e C l i e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               PCS          	                   9                         01F280051n     p       %      >        
-                                                                        Έ    FabriqueClient                                    /  *Z   } $n U ' g H C    9 *  o 5 z s  1 ǣ         (    
-dP$ @ z( $)څ  b 
-Y `1@E "  ,    3G ;f  Qc M f    L  b  1  L <.H )S &      7;    DL  5oҙb   8u ؙ GF *}j1  U f  Um*pȰ1S  U;ߎ  #U ! J## & k    z j 
-X0 :B  TCGM5X݆`  d!D XQBEI%P h>ʹs   ,TE  1m  {  <U)3G'Q%Qr A& 5>g   c 
-7r  ?F s # !  6  3  
- :"  9{ 7  I=bTyЍ
- 6 4 :    :   5ژM <  :" Fl 7
-S  gpѺ 4h I,무 j -    E$Q5 \  e    b    #   0 7|`  '_Lο  |c˺
-tS  :  d ʧ< 4 B	C  
-/    R    q/@ 4q  Dk 9Ԥ  T q ?  :NLG   GG    ި+*Q M   ΓP  ֛Tm 	  (æ:|  S   `XS 3    7 
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\FabriqueClient.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 /½ñ«Û÷Ã%†ŽH<øš÷³;”àœ•¨ƒú‡§m5öžŸ     "      Ä
+      F a b r i q u e C l i e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               PCS          	                  9                €    ¼   01F280051n     p       %      >        
+                                                                       ÿÎˆñ   FabriqueClient þí˜á                                /ž­*Z§Áñ}ö$nÆUÃ'ùg¾HºC¨øùè9Æ*œ†o5–zÓsÖÎ1éÇ£¸É      œ(    
+dP$Å@ÿz(è$)Ú…‘b 
+YÔ`1@E‹" ø,‘¼ˆ3G;fˆ´QcæMfèà´óÆLˆ™bèÐ1àŸ»Lâ<.H€)S’&åÁˆ¨€œ7;ÅÜüéDLž™5oÒ™b†Œ™8uÌØ™ÂGF‘*}j1êÉU¯f­³Um*pÈ°1SÇÈU;ßŽ …#UÀ!ÅJ##ä&­k·äÉ z±jå
+X0á:BÈÀTCGM5XÝ†`ì²d!D¤XQBEI%Pžh>Ê¹sÓÏò,TEÓÎ1mŠ§{ü®<U)3G'Q%QrîA&5>g¡cÆ
+7r¼ˆ?Fâs#—!â™ô6«®3§ö
+à:"ŠŽ9{Ã7ÆãI=bTyÐ
+ç6¬4ð:ªŠƒÁ:ªðÎ5Ú˜M†<Üï:"‚FlÐ7
+S‹­gpÑºä4hÆI,ë¬´Öjë-â¢îÃ E$Q5Ö\ãðeø‘Àäb¨È…ˆ#šÈØ0¶7|`±Å'_LÎ¿ |cËº
+tSª¼:ŽÄdÂÊ§<Ð4âB	Cèé§
+/ÌðÌÛRª”†¤q/@Ñ4q­DkÇ9Ô¤ó©ëTqÒ?Í«:NLG•ôÁGG¹”ªÑÞ¨+*Q´MœÔïÎ“P¨õÖ›Tmã	¬”(Ã¦:|¨áS¨’ë`XSÑ3²‹µÎ7ÿ
 p[P
-w\r 5  s?    
-@݋ uw 8  { (_~  w ~ W_ 
-&  8ᄟj``   r^ C  b 3n "
- Y cv
-  :    ]y = ݐݭ7ߧf a #  dtafʀ "Jn     	" N@     Y 9 p 8H     ~ "	       :  V;  h> 扭֘   h "FK 28E   ! .ȗ P  A Yq   C 
- `맼   oNS\  }\ ȕ  g **#     G v f7߰    V ] Svb > m   r  m \1z H  y  t ƌM  j  $  ? s  ) _F D x^ _ X '|     emkk w  ]lZIN"R  oJBZ   ! Z   
- q    c  ]   \    M -   RN .E   >   qz    P  
- w   R # lxQ<  "   0  [\ 3=s  }      B     1 
- +c ¡ 
- y:  ?  -"h ۲hE.z bnK"B Ȅ& B    A    <   p  ^ (-Ɵ  !  S    <':  dX   $    j2    )L ̃   ; ly   05  
- %G (  R.     Kf C  , FzA.s՚נI;  H  /) 	p@ 0 \ c QR0!  9f R޹+ PA
-hxCtF0 _= $\Ў P   3  h   2衢nxILf Ĥ-!  D)  Ґt6L        D l ) :    AG  N  o  N   8 j  T pR%  pH QQL r ;C1F  Qy  O} P 4xGe cH  	#`P P `  }*W z  l@;S0   -a
-!  c     t  ڠK  
-  lr 8} ӟ  jP *T0  RjS )  3n    D2B  I'y  t -  [`ʧ   9%.   |* u C    /0 ޠ,_h:  I^3  
-A Jt jTb&ժ <	
-     T%Qk    w \  W *V   0h
- Z  V    
-P e- Y͆@ !  8GNѶ! $ i 9 2  烵  ~ 3 -  Ѕ ֡8VC T    , BG R&;+'  J  R T       d r      ;   , U  ` *  
-b1 |g    Q X `#  l .  8ؚ   ݬ  b'   aq6'  P(B ¦   zA	O  "  p Cv   *R׻  W   N D  :9E }    b  Eg  e â  g j+   v    l  F$y  s [  .W q ç o) <   B BЊ}07'   P,9 vB   /O.%   R  nFJ  x e N !؁
-     V2!A $ J
-  fl.   U   -DB 0!4 @     + s\I)  y
-  >u X5v 2  L   ^m w J
- >    , /S    6eS      痈@  ]-J   Ԩ j5  x  # X B  m   $7 RuO  X L 
-  u 9 =q   y% _\  5 I p ? 9 o :W ꮗ ww  !  F u   
-M n|_R^ 0   f  
-[J  YnX  Y    7    y     y5 ^ S 4  Zܿa XC    j 0z  ^o  䯃 
--   vZ  k< r/  	
- |  2 * # -- DL { #=PI '   ڼ R  { +   $ > C  h=; ؋  =vʥ ʽ  =L  
-> +>L>\      " 髾% > L ɘ  ȿ<     ? ҫ28  ˻ r ԃ?( 
-   ԫ  ?! ?   8<  r@ Ê  @\  >     -" -$ۭ   8D  0   {) k
-λK|A   ӛB ˥    BI : A  ) 2c1"$  ;  >  3 =&tE  {B      K *\ _ľVd  B P
-. (  / Ad   3  3, 4\  k?x  I 9 ? EG 4c1  1H W"'zJD"`  2 98 :   &  ë    e)   ;A0 F) -# $  " 2  70#   4  4D,  ? HL  T[   +  X  Zk
-J Iv I  5_ !`
-"a "b3  A  X   f  h h  ic"n p ʬ Jp J  J  J+      q
-J lˊ  TP 6p1  O # 	 o #  0(>z 0 1   y z  { B2  Ѣ_0  Z L
- yI 
-   s    0 X r    L  L 9K   \  L  Y(  8 :"hH VȪ  )H7 Y  ķ 7  4 )h oD"          L -2  \  t  a͈H  ̗	 "s   β      >ꂠ r"   	        (  A        2   
-   D   l V  ū 
-d ͛  5 R f0 -  V A   G   5                         
+w\rË5÷Üs?ˆ¤Ð
+@Ý‹âuw 8©³{í(_~÷õw ~þW_
+&øà€8á„Ÿj``‹´ür^ŠCªøbŒ3n·"
+ôY÷cv
+¶Ó:ƒ·]yÍ=™ÝÝ­7ß§fêaƒ#®ªdtafÊ€ÿ"Jn¹Ž°â	"€N@î÷ŒãÈYà9p¾8H¸ÉÄéÎ~¸"	Æý ‚ä°ˆ:€ÒV;íýh>Øæ‰­Ö˜Ÿ¥êh "FKÕ28EÚò!‡.È—îšP £AîYqò½î„ˆâ˜C°
+Ë`ë§¼ùšƒoNS\¨Ä}\îÈ•ˆˆg‹**#¢×¨êéG vÝf7ß°Ë‚ˆVþ]áSvb¦>Îm ’rÔÇmþ\1z Hˆ yªåt ÆŒM¸ jÖÙ$òÍ?ŒsÔ )–_FàDüx^‘_üXŽ'|îÍ»ì³Íemkkòœw³è]lZIN"Rì­oJBZ÷î!ùZàÛ 
+Âq™ÈÀ®c‚Ê]Ž™Û\ ¸“ÏM-¢ƒÖRN®.E ªë>»  qz´ËÞíP Ý
+¬wøŠðR¼#ªlxQ<žì"·°å0 Ï[\÷3=sÝï}úãÆò‹ÀBÍð½í1¥
+ß+c Â¡÷
+äŽy:Ü÷?©˜-"h Û²hE.z‘bnK"BïÈ„&ÌBš€ Aƒ†‹ó<‚ Œp£‹^Š(-ÆŸ“ˆ!…˜S…æ¼‚æ<':œ‹dX˜•á$‚†Â³j2‡„€§)L¡ÌƒŸ¨ ;ly“À¦05ôÈ
+£%G„(ÎÁR.©é©´èKf¢Cî,èFzA.sÕš× I;øæH’µ/) 	p@Ì0‡\áŸc€QR0!´Á9fºRÞ¹+¬PA
+hxCtF0º_=ê$\ÐŽÈP¨‡Æ3¢­hž‰“2è¡¢nxILfçÄ¤-!½’D)“Òt6LåòéÑ˜©¤ÑDÍl†)Í:Ô•ò AGÉÐNµ˜oñæN«™œ8õjÀ–TëpR%¼ápHÁQQL¯rÇ;C1F£Qy„æ§O}ÜP…4xGeðcHš¢	#`PÕPŒ`°…}*W•z äl@;S0Â® -a
+!ðèc¤¡˜êt„ Ú K¡¨
+óôlrò¤8}òÓŸ èjP„*T0ŒÂRjS‚)À 3n·¤‚íD2B»ô­I'y“¤t¥-ýÉ[`Ê§† ¹9%.”¤ò¬|*÷uÐCÌàƒßë¤/0²Þ ,_h:•ÕI^3˜Á
+AÝJt¼jTb&Õªà<	
+ñ«ßÓÖá¿T%Qk¥òƒäæw¿\õWÁ*V²šµ0h
+°Z¿ÓV Ÿ¤ƒ
+P e-‹YÍ†@¹!–‡8GNÑ¶!$”iÝ9¦2ñ–µ¶çƒµ³Ï~þ3 -¨šÐ…òÖ¡8VCÑTžçÖá¢,ŽBGÇR&;+'®JÅÀR˜T—³º•é’ÉÔdÞr—ÅÂúé˜ø;Ô ©,¦U›ã`¯*€Á
+b1¬|g®ÎÆÂQëXË`#ÕÃlí.°ä8Øšø²™Ý¬ÆÄb'ÂÓÚaq6'„ËP(B Â¦óÉâzA	Oð¬é"ï¼ápÐCv¤ÐÇ*R×»¶ÚWç×ÁN‹D´î:9EÞ}±‰Á›bÿÄEg—ëe¾Ã¢Á”gíj+ÛÛÖv·¯íílŒÇF$y­Ãs§[Ýë.W•qæÃ§ˆo)€<‰  BÈBÐŠ}07'˜ÒÁP,9™vB•©“/O.%‘ñ÷R ®nFJ¥©x«e©Nõ!Ø
+ÿ¼©Ã V2!AØ$Â‘ J
+€fl.å—ê†U®°•-DB 0!4Á@©¸­ª…+s\I) ¯y
+µ§>uŽX5vƒ2™éL‹£é¤^mµwñJ
+ê>¿øÔã,Ý/S·êŽöô6eSôù¾µ¾ò ç—ˆ@ê ]-Jÿù˜Ô¨ãj5ºéœx¼Ô#üX¶B®ímœÛ$7”RuO¦ÚX¬Lùï•
+´“uë’9»=qèÞáy%º_\§ô5îIœpù?á9Îo¹:WÒê®—´ww§ç!ú†FÃu¨·Õ
+M¯n|_R^ï’0¯÷÷f‹å
+[J½ YnX°ñY‚ü˜¬7­¶ï»óyÿ†Ôõ®y5Ã^×S‡4„ÞZÜ¿a£XCšÄÑ‚jË0zµ—^oœØä¯ƒÏ
+-¹ó®vZ¼‹k<Õr/øº	
+¼|²Ù2Û*²#Ó--ÃDLÈ{É#=PIÉ'Ì³˜Ú¼ÞR¯¼{ü+®”Š$ø>ÕCªÙh=;¾Ø‹²˜=vÊ¥æÊ½µÛ=L½å
+>¡+>L>\¾æó¿äÀž"ì½é«¾%Ì>ôªL¬É˜‚üÈ¿<‰¶ƒ¾Ô?¼Ò«28¿ôË»ær¿Ôƒ?(”
+ù³ŠÔ«¿¹?!Ô?þƒœ8<‰Àr@õÃŠ»Û@\¹´>”‡¼ £-"Ã-$Û­†²´8DÌÃ0œŠï{)Ík
+Î»K|A«“‡Ó›BðË¥êÃÁ¸BI‹:èAûÁ)É2c1"$ÃÞ;Â >âÓ3ëƒ=&tEßëŽ{B¼¦“¸ÅùK½*\½_Ä¾Vd–ÐBÄP
+.‚(ˆ‚/„Ad” Ë3Åð³«3,¿4\ô»–k?x¿×IÄ9¤?ûEGË4c1 ú1HŒW"'zJD"`ÄÙ2‚98€:—¨ƒ& ©Ã«‚òú‰e)ô ;A0ìF)„-#È$¹’"¨2Ž70#“†4º‡4D,™È?©HLìÆT[µ±ƒ+ÉˆX›µZk
+J©IvûI ä5_ë!`
+"a³"b3¢ÜA¶ˆX¢ºøf“—hÛh»˜ic"n·pÛÊ¬äJpëJ°üJ±ÔJ+²ˆ„óˆ…ûÉq
+J¶lËŠ‘„TPˆ6p1¦èO #ñ	‡oà#½ä£0(>zŠ0¸1ˆüÙyóz“ {B2¤®Ñ¢_0·¤ZŠL
+¸yIŽ
+ˆˆ‚s€è €0êXÊr‹› ¨L¸L9K¸·\ŠÄL¦ˆY(Ì 8Ì:"hH…VÈª„)H7§YÌÆÄ·Ò7ˆÉ4Í)hžoD"“ŠÍˆÎüÌÐÒLÎ-2·æ\Šçt›‹aÍˆHË×Ì—	Ð"s™žé„Î²¬›“‘ ¹>ê‚ ær"²ˆµ	        (àA„       2   
+   DÁÅÜl“VÜõÅ«¹
+dìÍ›¢Å5µR¢f0ý-íýVçA¥ÚÅG´½Æ5                         
+```
 
-FabriqueDeSignal.wdc
-PCS                     B      9       j                  01F280051n                  W 
- j m I  V p    q   =f       "      
-	      F a b r i q u e D e S i g n a l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           PCS                              9                         01F280051n     r       i       >        
-                                                                        Έ    FabriqueDeSignal                                    /   . _r. %   t9i ˕Y ^f ) ] a     +  	P |      Z        
-d 
- @<R6,  ҅  b 
-j,`1@E    ,    3G ;f     1mB  S'  7fBi# 3   $  ӑP  4)/B 3j (e T E_Ŏ%  CD  J={  گW   J nD R *#     
- bE
-  .N;7bز  On     iO(  ػb :~ w `Ω ~  kĒ'-   H%P pm   3c 4  i  8  \9> E  A"
- < 	b A D y(D Aƙ }` ?    >@ D  ) OH ?  9   )@    >+ /   ت  "" x  9   3옃7q   8`ȡ
- b 4-D$ N . N:! 8怃bT)CC "   
-/ p T 0  ZTp-     **# )Q (   G  
-L .	Ȣ
-  2[ 33/K 3 ^  J 
-lӴ P[R 6 jn (8i @ "      >     B     1!  | HA  	J  3 B2(N  ?    ?q  7=   ;k   O    ( C
-9d   `ć  N , E & 5FyL  Fu 1 ^  u " $KɯȵU &  2 *ٍ  ,  , /c
-   ( y1;  5 ]- <#  /ϝ ` %AE JE    '  + ( -2( ! 8 4  8 \:Y ( 89 EF *U b   a s YV @ D p3̨b1   
-3ި   r 
-    
- 5
-     \
- 1     w$: 8    b
- 6 #  6i  ` i qj  vA  s::饛 Iܱ̝ 숀d o w     X  }*C ܈[(Bȩ     w:\V  L ""  ;    -  q Œ g  J   R  HK. ~
-L1 - ߑ        ,e ^      LQ hN   gS ʂ   I  %C kN.2п  I <     
-    z<P   pfv  qg   "  	hU  @  7#  hhP 0 8 NXZ  r   Dt1aD   0ψn ~ p l M(m{   V   !oE  k >- 9!  7 6t 4 a W $  
- 3 0 2h ' S#    tVL   кס  _$Z h ۍK? 
-   +@A
-F B fG< 1 bQ^  x v  M 
-   U/݋    R % o  #X	ӷ Qf N     JT    0jT *H  gV .1 T5G lz*" Zf, S}p?    3KY  L 
-OR  Wt 
-M (,@       dY/    6& ZN bڶEE  D(t ކ  }  se CQN% Uq @  ~ A   ZN*A  t
-A!  :  Tp7}dS" IFĒ  $'	S    /j )ו  ҕ]    
- M T .  K^  	  Y ٘` +و  ` q  I   tC    @RᇿZ   TR  Ă$  :Cx  sNlm ` )| 9!   9a 2Dȁ.  @#k  F  5    U BE   (XaMP  `   	P    | a m( i HR%  'uP  z5   A 9y 3       v      mI: Ru?=dP ۓ Η   CQ     J d&7 I X  Kg T S  ; `  G  ED n      5AfEZ͗> Q    nϥ(( }OQ 7 S CS ̤fs   k3" \f  dq  > $ lYv '    <k   YD  #C   7 PC   1 9 V   w~ A l  ?L P   ! RG    9 y q~ ݕ ; y+   ޤ`yU ܲZ L / x   ` T  /zPP@         (  A        2   
-   װ  e  "      m 
-U  |B  <3M c7 $  o H   x LU                          
 
-GestionDesCalculs.wdc
-PCS                     B      9       j                  01F280051n                  2z  w  ?  	ڕ  9gd0w b   F      "      .
-      G e s t i o n D e s C a l c u l s                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         PCS          a                   9                         01F280051n     s       ,      >        
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\FabriqueDeSignal.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 •Wû
+¥j„m‰I‹øVƒp¶ÚËŒq¼ÏÝ=fˆ     "      
+	      F a b r i q u e D e S i g n a l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           PCS                             9                €    ¼   01F280051n     r       i       >        
+                                                                       ÿÎˆñ   FabriqueDeSignal þí˜á                                /¸­è.Ÿ_r.ð%ÍÀÀt9i Ë•Yõ^f®)ð¶š]Úa¸“©Áà+èŠ	Pé|¼ô    Z   ô    
+d
+Ã@<R6,µÁÒ…‘b 
+j,`1@E‹  ø,‘¼ˆ3G;fŠ˜¡¢Í1mB˜¡S'„7fBi#†3þ¹Ë$ÎãÓ‘P¡’4)/BÄ3jÞ(eêTªE_ÅŽ%ëñCDËJ={ÑíÚ¯W ŠüJ×nDºRà…*#¢¸ È
+·bE
+úÐ.N;7bØ² On«öíàÊiO(—ðØ»b÷:~êw `Î©¡~Š kÄ’'-¨´ò„H%PžpmÊàÜ3cÉ4–¶iøÀ8 °\9>ÐEñæA"
+Ó<–	bÕA“D½y(DÞAÆ™®}`´?â «¤>@ŒDîÃ)’OHü?±å9°¸´)@ ¬Ñ>+í/Õ„‹ØªÒ ""àx£§9ì £3ì˜ƒ7qð¤„8`È¡
+èb4-D$ÉNóˆ.ªN:!¢8æ€ƒbT)CC¡"œ°Ž
+/ÌpŽTà0²µZTp-”ˆÈ **#¢)Q´(ˆéG ´
+L‹.	È¢
+‚ˆ2[Œ33/KÍ3Ö^äËJ¨
+lÓ´ P[Rµ6Éjn (8i®@‹"€ä›š‹¦„>÷ŒˆˆB™„Ðæâ1!ÑÍ|ïHAŠ€	JŸ²3ŒB2(Ný ?ýø‹È?qÀ7=¢ÓÎ;kµ¨ƒOÊ ¢™(´C
+9d ¥è`Ä‡èÂN,„E&Š5FyL ÑFuä1„^üuÈ"$KÉ¯ÈµUª&ŸŒ2€*ÙõÊ,·´, /c
+´ˆÈ(Íy1;³ß5ß]-Ö<#’³/Ï¬`±%AEŸJE‹‡›Ë'‹Š+µ(’-2(Š!Ö8¢4¸ð8€\:Y¬(º89“EFµ*U bÕÕ a…s YV¸@ýD€p3Ì¨b1ÔÀÐ
+3Þ¨£¦›rö
+Èò Ù
+Ø5
+è é \
+é1ýª¸öÆw$:„8ì£—b
+6à#§‰6i¥Í`Úi¨qj£ÈvA‰Às::é¥›öIÜ±Ìªìˆ€dÜoÇwêéðÄÛX¼ï¿}*CœÜˆ[(BÈ©î˜æ¡óÏw:\V‘ŒL¿""ú;àÐÃ×- ÝqÈÅ’Üg¸ÒJ‹¤¤Rà°HK.µ~
+L1ó-óß‘Ëâ·ûÀØÄÅÐ,e˜^èèùÀÎçLQ²hNÀ³àgS Ê‚€ä IÀš%CøkN.2Ð¿ùèIÇ<’˜ ÿ
+¾€z<Pûˆßpfv’šqgËÁä"öÝ	hU±Ö@ˆ 7#¼hhP…0 8›NXZ€Ìr‘‹ô‚Dt1aD¸ö0Ïˆn‰~¸p¶l©M(m{ÛéæV·»µ!oE‹ák¤>-‡9!œá7Æ6tÑ4´aèŠW®$é 
+º3à0‡2hÎ'S#ÁºŒ®tVLÝêàÐº×¡±_$Zèh×ÛK?Ë
+ÀŒð„+@A
+F˜BˆfG<¾1…bQ^ ”x‘vµ«MÒ
+ õæU/Ý‹”ÚÛ÷Ró½%‰o–ä#X	Ó·¾QfïNŠ‚ÿ¨ˆJTÅŠ± 0jT*H¢á„gVŠ.1ÀT5G…lz*" Zf,ñS}p?ýéÊ¢3KY˜ÁLÍ
+OR™­WtÐ
+MÐ(,@æÃÐÅ„ÀdY/žàÚ’6&€ZN€bÚ¶EE¸ÁD(t³Þ†¢·}ö³seäCQN%ŽUqÒ@ÊÀ~¾A‰ŒZN*AŠÁt
+A!ÛÀ:àÑTp7}dS"¹IFÄ’˜Ô$'	S­¤”ž/j©)×•Êô±Ò•]úöÆ 
+âM¶T.ëÒK^Šæ—	›êY‡Ù˜`ó+Ùˆ†È`±qÄšIˆ ×tC¯•êÈ@Rá‡¿Zì Â«TRÁ†Ä‚$Ð¬:Cx³ÂsNlmë`ì)|ê9!ƒ´Ø9a2DÈ.ð @#kÇÜFØð5ˆŽ­‰U‘BEµµ¶(XaMP‚¬`„ ¡	P‚š€Ü|ša´m(íiÑHR% 'uPƒ„z5ÝêÒAª9yõ3…ˆ´¦Êv“»Ýî¾á»ëmI:Ru?=dPµÛ“øÎ—º¦¥CQ½¹•žÄJ½d&7ÙIõX‹ãKg™TÕSª«;»`¼ªGÛëED–nëöÞ¾±ˆ5AfEZÍ—>‹Qžœµ°nÏ¥((ä}OQ¦7ßS‡CSšÌ¤fsÂ‰ k3"Ü\füdq„œ>À$’lYvþ'³¾äð<k¼–ÜYD¼¹#C à 7 PC Ú 1 9óVÆ€ w~ÁA l €?L¡P„ Ø! RG ’’»9ŸyÎq~ó£Ý•”;Çy+”€ Þ¤`yUíÜ²Z»Lã/·x €±`ÚT…º/zPP@         (àA„       2   
+   ×°÷¯e”­"ÕìÎÔÀðmã
+U›Å|BìÙ<3M¥c7ö$ôôoÞHžÓÌxåLU¦                         
+```
+
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\GestionDesCalculs.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 Ê2z®üw«–?öæ	Ú•Ñý9gd0w™b¦ ¼Fž     "      .
+      G e s t i o n D e s C a l c u l s                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         PCS          a                  9                €    ¼   01F280051n     s       ,      >        
    
-`                                                                 Έ    GestionDesCalculs                                    /  1<R+CAd WIK   :  `     >  z vT o &  0 ϭ(      '    
-d N @4%  ԅ  b 
-*8`1 ƈ"  , <   SG
- 7EXӆ  6tB    3!  C      e   @ &塈    9j U   ˘3k ̙tiӧ  Q 
-7U  1#  Ζ!Ȥ  Y iՖ<ɢ  9t  t# Mb    b8m" y `   E xƯg #S f  ㇈ A    m OI	 w   C ݀ GUs/o   Ǌ- ]}6pլ	<gn c   es     i  ~ |   -: q   -D<b 	 *   	   5   36!c 0~Y'    p 
-  sj 8 0 # q     ,2 'Nz      b
- { q   CN9      :h "`ji;  ʎ9
-c  :aȡ
-~C =    ޮ o  D;! 8怃  ʠ2 & x2 ) HA V    P"" 
-   ӣ"
-  @
-  $X 7j  6Eq9  sJ  ҋȽ   9Q p G, D#qx
- T 遌$-9`    C
-  p p   s< G 4u TU]u  <)  d SJ3 ,p,# dˇ~ vQ 0B  ?# 踵 1 M7 TEN B (ɥr >S˗   P 7j*"2   * ފk    S  @ w[ E PE 6 F z4҈&=  @# t  6].g  
-  E[ ( V % 9 S{5 d5ĥ pzi:Yb ( [  D &    He e$ p @
-!    
-ǈ@  Gk = ȣ
-R4 5     9, C+ 
-þ >a ˘ME #3
+`                                                                ÿÎˆñ   GestionDesCalculs þí˜á                                /†¯1<R+CAdïWIK‘”¡:³ë`¼¸¿öÎ>ízÉvT¢où&¬•0ËÏ­(      '    
+dÀNÃ@4%è‡Ô…‘b 
+*8`1ÀÆˆ" ø,‘<‘˜¡SG
+œ7EXÓ†Œ6tB°¬ÂÎ3!ˆ´C‡Ž™ ÿÜeçÑé@’&å¡ˆ¨ ™9jêU²²åË˜3kÞÌ™tiÓ§£žQõ
+7UÒÌ1#¦ÌÎ–!È¤£¨Y¦iÕ–<É¢ª˜9tëÈt#æMbªðöüb8m"›y­`¨„åEˆxÆ¯gÐ#S¯fÝÚã‡ˆ AºŽûâmÚOI	ºw€ßÁC Ý€¸GUs/oý›¹ÇŠ-è‹]}6pÕ¬	<gnûcõçÞes·¸»ïãió~š| òñ-:Úqà™ˆ¢-D<bå	‘*”€â	Ï¸Ç5üÈë‚36!c£0~Y'“  ŠpÂ
+Ç¯sj–8É0–#ÂqÐÃç²Éä,2œ'Nz  Í‹”b
+ {äqµõÎCN9ùŠƒü¤:h "`ji;ÈØÊŽ9
+c£„:aÈ¡
+~C’=‹à³ Þ®ƒo¾‘D;!¢8æ€ƒŒÈÊ 2¨&ßx2Ê)çHAÔVÛÎÈÔP"" 
+ ŒˆÓ£"
+¤@
+¤ß$Xí7jï»ð6Eq9óèsJ¸âÒ‹È½ Îô9QËp G,ñD#qx
+‰TªéŒ$-9`Ö Â˜¦C
+¥p£pÞé°Æs<ËG4u TU]uÛ’<)ƒˆdºSJ3¨,p,#ðdË‡~ëvQ‰0B¥·?#šè¸µä1M7áTENºB·(É¥rÏ>SË—ª¨P7j*"2‚íÐ*…ÞŠk®ºÊàSÇÏ@«w[ßEÈPE½6€F z4Òˆ&=ÎÒ@#Êt ñ6].gÜÈ
+µæE[µ(ÈV³%™9¡S{5 d5Ä¥épzi:YbÝ(š[¬ˆD—&Š§ÜHe e$¦pä@
+!¢¶ •
+Çˆ@¦¶Gká=•È£
+R4Â5£±ÄÌ‚9,¦C+°
+Ã¾„>a·Ë˜ME #3
 
-  .G34   B   T1 
- a
-    
- 
- Ӏ  p⚪     ଎C   Wcq `JXd l( )   E  b
-#Bx  
-G\    3 . l  @֮ |ǈ 	8 @   겣R  /b (u   F` @ [^ B 8P)m
-  7  @
-e 	d0  o *  Yާѐ " C   B  `#P` 0 :<O0 BU2 v,>
- hV̀uH  .( 7      u  |  =   7    F   X    P J, FQ  b   O iBUv 6a   
-9f , wmp c ` 6$ a <Vh   1u      1d; yVwŧ  m A   D  g  J   cM p;5 F ?    EVr %
-     .F Cdn  B  d 1 p  Dr d Iư@6H "\'1  =    4^,U L? O4 ] p 8 +!   Ԁ˾% 6 "     
-R 
-  E3  s<   <U  eTH  qHzR  lh+3 B  R  45aH   5b  
- B  6 m  >  v 
- nwHބd    9  w P  $ | k Y`  %  
- <r9
-  O    % (  t K   ; ]    J/  D8B xWU   Ǽƹo R   w  m {!    @   | ÌfT  ZddГJ W   !  C  '    NgLce  @ :   
- n  l I  , $ @+ Z     }A. N ˆMҗ f6  1d
-v V O  &
-   I*UA
-   u  ht 6U nv oh  P\C "ӧT 9 = 
-PЂ  +  R]COf   ,e    (jQ!aT0  n>    6!]qJ f   )fuJT9< /' x 2 a9C  S     p@g^ "  mH   & 1թ      >   ~     OI3  z L1b  2  O		Y+ 7  KgEs     u  +W_;1̮v|͝_
- (  
-{ 3]6 />9 z   B0 ߕZ   5   D  j  1   k G k>[6`
-< n#8 	V q p= 8tp  # Im [c1 t6Y 4WC Q Ԧ*u)    2NM A R  T:      \ G GR= Ԧ   Cz   Æ D !Є <b $ Uw
-<Bp / nc~J > 3  Y @  f ř QM9 c  	 { O   W   Z G        (  A        2   
-       YA "@dl _ 4l=  ('A  b    r4   t pq                                      O   O    Έ K   C:\Mes Projets\repo\avsp_server\src\TEST_GestionDesCalculs.wxt    
+àæˆ.G34©¤ˆB˜ÂÈT1í
+Æa
+¡Œ ˆ
+Á
+ŠÓ€ö”pâšª˜£¯­Üà¬ŽCŒ®ÃWcq—`JXdÑl(Š)  ‚EŠ°b
+#Bxðã
+G\ñÖßØ3„.Ël³Î@Ö®µ|Çˆ¨	8Ð@«®Àê²£R ‚/b¼(uºÓÅF`¼Â…@ã[^ùB 8P)m
+Á€7¸á…@
+eð	d0‚ oƒ*øØYÞ§Ñ "‹CŸÆäB»ø`#P`à0 :<O0ùBU2—v,>
+ hVÌ€uHƒï.(¼7ÔÁƒ ÜÁu˜–|‰î=ô³þô7 þ™ÁF “”X‡Œ ‰PÒJ,¨FQƒœb«è±ÆO¢iBUv±6a›Á˜
+9f—,Žwmp‚cì`†6$òa€<Vh§ŠÄ1uÃý„¥Ÿä1d;yVwÅ§äëmÙAø¾ÇDÆ gƒò€J§ä‹ùcMœp;5˜FŒ?ÜË ÉEVr—%
+¥’†ˆÑ.FÈCdn²•BñÇd¢1ŸpÃÆDr d¨IÆ°@6Hó˜"\'1ÕÂ=ùà ®4^,UÑL?ÁO4ˆ]Þp 8è+!¸ÃïÔ€Ë¾%”6‚"Êµ²–ù
+Rœ
+€ÌE3ô„s<£èÎ<U¤ŸeTH¤éqHzR“®lh+3šB›ãR˜Æ45aH…ÖÀ5bÉ 
+˜B À6m¨‚> ävº
+ÄnwHÞ„d‘–Êô9“Šw„P¸­$|ÍkßY` Í%“û
+Ñ<r9
+üâO÷ˆçð%š(Œ®t§KÝêˆ;Ù]’‰·ãJ/ÛàD8B‘xWUŒø”Ç¼Æ¹oRéÕôªw½ìm¯{! ¬²Ê@ÄÂä|éÃŒfTÁ„ZddÐ“JæW¿ûÍ!ûƒCÿþ'† –ÑNgLce·¢@Ì:‚¤ 
+¼n°ƒlÁIÚì,ö$«@+±ZÏÔù  }A.èN²Ë†MÒ—Àf6‹Ù1d
+v¸Vê€O…‰&
+±­ÔI*UA
+Â‹ ãùu“htç6UàƒnvÌoh•èP\C½"Ó§Tø9î=á
+PÐ‚¦‚+´ºR]COf‘Š¤,e­ŠèË(jQ!aT0˜Òn>ÅŽ¾˜6!]qJƒfã’êÍ)fuJT9<ª/'­x 2”a9C “S‚† »æ p@g^ "€ÊmHŠæ&­1Õ©­òßìã’>§”é~à™²²ÔÌOI3‡©zˆL1bÁ2¸áO		Y+§7´ÎKgEsš¤’¹šu‘±+W_;1Ì®v|Í_
+Ü(¾ 
+{î3]6œ/>9ÖzØÓ÷B0êß•ZŒšŒ5¼ÃŸD§í¢j¿Æ1Âöˆk´G k>[6`
+<¬n#8‡	Vð·qì‰p=Â8tp œ#¶Imë[c1Êt6Y 4WCÔQ•Ô¦*u)›µ˜¢2NMŒAªR£´T:€ÇýÔ \¦G•GR=ÃÔ¦¦†ÇCzÀ¹Ã†ÔDâ!Ð„×<bã$ Uw
+<Bpƒ/õnc~J™>3àËYó@ÚüfÅ™ßQM9Žcú›	à{¡O©À¡Wž–ˆZÄG        (àA„       2   
+   ã”Ë³€YA€"@dlñ_á4l=™æ('A÷£bˆˆ˜Ër4ªÇØtépqš                                     O   O   ÿÎˆñK   C:\Mes Projets\repo\avsp_server\src\TEST_GestionDesCalculs.wxt þí˜á
+```
 
-IAcquisitionSignal.wdc
-PCS                     B      9       j                  01F280051n                   &  j@2 >. eT  6!2K;  ӗ  /     "              I A c q u i s i t i o n S i g n a l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       PCS          n                   9                         01F280051n     t              >        
-                                                                        Έ    IAcquisitionSignal                                    / =    p   i  X    V   *   M'Ҧf *  vO R            
-d   @h Xe     b 
-  `1@E "  ,   !#ǎ:jꨁ 4oĴ	a N vޘ	A  :t   . 8 Q  4) DDi   #   j̼ C6f 0u
-U G '}`=    !vΜ13  ϠCCԽ Q*u )"  0,]I 
-ۧo <  +f   r w+(O <~R H  {̀qB	 hՂ  %2)VB A# qТG  r: j! _Y
-汒&M  2 
- * C   "E
-*X  =    i   -  3 'W   " 벦2돀 F    [   "k饘f  /  " 9   ; X   D o  0 ,   )C  HC5 #   S  j A z1   ˯  AGIC+% 8, k  BH2 %IL D    
-0 p  H, ı˶ $ ǁ  )  ( l +   M&5    ګ/0b  J@  rK8
-ܑ4*  C 1  /5 a 1 Î  ȃ  `SC6 l  ,   -86 r B    :U  g qC  @ X 
- 0CF  %JFm Q ^  /   P n B0At Uw]v   " >jw w/ wވ 
-@$   7"x .  V8a 
-nX    : 8*/ x *  } 9ޅ =    ^vU  d|  X* ߊx ?Cߙ :@  H   # x<%R  { =cg    Hs " zk     + zg  J        qi?@J    ߲q@   d   㬭  (  ` C  HA r B 1V"  ,    @ { "
-    :^%  _"rY ygg9f iF g    3W w 7>A  ƺ-   :     x ;0  "   :"_  Cq    ^o , o & 4
-?   a{  q  -  P ds  D  t9] " :  N9   V . ] b2      H/  a	M8  U j Z   хPg'L  H     0x ˧ 6
-  B   P   =0w . g& d9U   
-ŉ(    څ       L 2 	Nt҆8 1   d(T  PnY;  	0   " L T ^ 
-  	 ;zYf   $  AG>L4   i( O 2s)< 
-Q < y1 (a j ; T_ &
-   E @
-  āp   #  Ue
-V   E x (Ңe 2    v\ en    Q1s 7+d     % # < Ё T [   @2   ?5 I 8 xJd C9PW& ]   )A JU  wUhTlXD 
-4j ] IƥU$  D( A   11 	c %# \b +f (М 4C Q xT    
-  +[  D a;	 N 3  D "  F4   %  ϋ - h')JC VT  a C[  U -" \ + PW  uyO h\yׇfՃ# >     a
- @   B _ ! xב`V6*           (  A        2   
-   d  a  &      A q     9    GS  [ D   D  !                          
 
-IClientSocket.wdc
-PCS                     B      9       j                  01F280051n                   '   . Z  B>+  q ֜  C   ~J     "             I C l i e n t S o c k e t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 PCS          i                   9                         01F280051n     o       S
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\IAcquisitionSignal.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 Æñ&ùªj@2û>.’eT†¢6!2K;æÍÓ—««/     "      Œ       I A c q u i s i t i o n S i g n a l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       PCS          n                  9                €    ¼   01F280051n     t       é      >        
+                                                                       ÿÎˆñ   IAcquisitionSignal þí˜á                                /ì=ÖüÈòpûóÂiª£XþîÑúVšâŽÔ*²ˆÊM'Ò¦fé*õÑvOƒRÉ    Ú      
+d€íÂ@h¡XeˆÓÁ‘b 
+é¬`1@E‹" ø,‘¼•!#ÇŽ:jê¨ó†Š4oÄ´	a†NvÞ˜	A¤:tÌøç.“8Q ’4)DDiˆ©š#“¨£jÌ¼©C6fê0u
+UªGª'}`=£¦™!vÎœ13§çÏ CCÔ½¢Q*uæ€)"¤Š0,]Â”Ió
+Û§oá–<ù +f·š§r–w+(O¨<~RÅHˆ›{Ì€qB	³hÕ‚™’%2)VBøA#ÆqÐ¢G’–r:õj!­_Y
+æ±’&MŒà®2Å
+‘*ÃC¤À±"E
+*X¤ˆ=»öíÜiëðö-¸ó3Ò'W ®¼"ªë²¦2ë€þF«Š†ˆ[¬±Ç"ké¥˜fªé/ „"ê§9ì £;æXªÀÐDûo¬è0‚,µˆò)CÁÈHC5£#ÄâøSî¿°jÏAz1°žÈË¯ýªAGIC+%Þ8,‰k¦¾BH2„%ILðD¬¢€‚
+0ŒpÂˆð†ªH,‘Ä±Ë¶¾$­Ç“Ì)Œ Âˆ(ÒlÍ+ÔòM&5ûÏ¬òÚ«/0b’­J@ÌrK8
+Ü‘4*°ªCŒ1åË/5ßaÓ1îÃŽÁÔÈƒ¨Ã`SC6ÚlÃí,ùèû-86Ýr†BßúïÉ:U”Òg¬qCôò@ÒXÀ
+Š0CFµˆ%JFmÄQ†^¥ú/ÀŽPâ‰n£B0AtÓUw]v×ý ">jw w/²wÞˆÀ
+@$ÑøÝ7"xà.˜àV8a†
+nX¹¶ˆÛ:ñµ8*/Öxã·*ªÈ}à9Þ…Ï=ãë•÷^vUŽ—d|õÍX*‡ßŠxá‰?Cß™£:@ÀˆH³ ¢#¬x<%R{Ò=cg¨£ŽúHsÀ"Òzk­û»™áœ+–zg‚®Jƒˆˆ¨‰Ã Íqi?@J¨†ºÀß²q@Œá×d±þï„ˆâ˜ã¬­Ê‘(µß`ûC·çHA…ráBð±1V"¢,ª¨Œˆ@×{ "
+¤âý:^%èÏ_"rYäygg9f‰iF¸g¾æâ½3W—wá‹7>Aª­Æº-®¹ö:÷€çûx‹;0û¤"’öñ:"_º¹Cq¥î‡üµ^o,äo&œ4
+?œŒÄa{ÅÚqòÊ-ÂÜPê…dséœÈD€ò®t9]ê"²:„¹N9°“íVÖ.Û]Ðb2›àî ½ H/€ýa	M8äUåjÉZóºöÁÑ…Pg'L××Hƒ¶¬ˆ0xÑË§–6
+ÈBÀ P Š»=0wÀ.Øg&†d9Uá‚ü§
+Å‰(œâºÚ…‡‹’Üô‚•Lˆ2²	NtÒ†8ˆ1ŽŒd(T™šPnY;ºœ	0À ð" L T€^‚
+“ 	 ;zYfêÊà$ÛÅAG>L4¾“Ši(ÅO†2s)<É
+QÈ<äy1ô¤(a€jÏ;ôT_–&
+ÀáE@
+Ž˜ÄpŠ¹Å#Å÷Ue
+V¤íÇEÅx‘(Ò¢eû2¹ì v\£en’“ÄQ1sŒ7+d™þ¤%ü#ç<ò¹Ðð‰T[÷ºˆ@2 •Ä?5†IÍ8ŒxJdåC9PW&´]¤”‡)A“JU¾òwUhTlXD¤
+4jÃ]ªIÆ¥U$ D(à†AŒ˜æ11¢	c™%#Í\b¸+f‘(Ðœƒ4C°Q»xTŒµ”œ
+²™+[îÑDëa;	øNÆ3†óD"í‘F4Ÿ¼—%ÑåÏ‹ô-•h')JC„VT­ýa¨C[èÂU‚-"­\«+³PW©´uyOh\y×‡fÕƒ#>Ðø«¥a
+Þ@»°´BÍ_ !»x×‘`V6*‡´×        (àA„       2   
+   dÎãa©&ÑðÒÐÔÜAqŒÞçàò9œ¯ñÁGSÒø[âDš×ÈD¹ !ê                         
+```
+
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\IClientSocket.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 ²µ'²¦±.ÝZØÍB>+ÀµqÜÖœÝýCç‚ß ~J     "      ñ      I C l i e n t S o c k e t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 PCS          i                  9                €    ¼   01F280051n     o       S
       >        
-                                                                        Έ    IClientSocket                                    / / G  O   Á   !    Z| { I ,  ~  L  V?    ܭ7l    D
-   6    
-d   @P  (ծ҅  b 
+                                                                       ÿÎˆñ   IClientSocket þí˜á                                /˜/ºGýÐOÿÁ›ÃÄËÒ!ú¬öZ|§{¡IÑ,÷~Š¹L¸ÝV?£€ìÃÜ­7l    D
+  ¸6    
+dÐçÆ@P«€(Õ®Ò…‘b 
 )
- `1@E "  , < i  ̛:T ac N3tn yc&K1t 	  ]&q $iR  
-Ԕ  'L s M  cӓ)   FL 4mV  3 4b  ܊  ג'OD gN̙5o l{ Nֺ] 2 +/DT5q؆   b      SQ  qS% 3b    r  \=> "j3s duB   7w   ɺ ۸s rV  < s    3d L>~Yy   ? 
-~ s ę  4f  >߸ETb栮SČ    F  a8 hc        ʈB;  @ò
-  dpй @  
-;  c2 b    " 茹F    r qGw  " > 1 /2rH dH Ř I(# rI)    '  K   " CrL  $ L+  } t3H,qON4 +R #{ 3H8 Tr˻   K.#
-3  D ̥ 1  ,  +   
-% x"1   ECuԥ   1G#b V[eu6B <RG j  4  8  i; x   c 9 ! .p VY O<J4   k  f b}   :  bSH  9s|  v   N   z  xG+ B   4 T[    S  X 7ߥ uG   Z * w   (   G  c
- I	fs    tI    ˥ ٳX  k' Qg   NSQ hUW[   ~ 5  :    l     z   Jf:    z$Qs^ l <z  : ԩ"   ` - +JIv a } I 
-Ȃ/@ ڢ  |΄  %  pC  ܼѝC]    D F :E3 (b@ ը# PTq] `-"* @ì6NW%  w  
-a    	8Јo   
-  RA ݁U=  ] )- Z   }!Bh  < o F y  b 4  c AHd #2Y˔ݎ    OC`    i fXJ @Ԧ  /P `yT4  j HK@ V    i= y  j-1Nz G"H¥ n  TD  !K
- 2 8@ b Y  0 &U-"F m䁃ȵgr  jBp%L 
-V0B ` ܰ9<  e %hA h      " 	 pr  uC ~  2   *X  +bѡs_ `H,6   c [     K k   v$  e$    Y   S#= @WƒT<   W ll  .q  @ B؏M  7 S  I' 1 !
-     l$ #Lt\c  -)RΊX "  a ? 	 θ 4* AoX E>w Ɣ` /q `>   P=   A2~   , I 	e* d F   N  $*A U i  e/Mz&Z ÖL  =F   t)4t c2 b p  l©S01! "
- i0, n f Epz      b 3  
-> )jt    tu kלc      dg2  3`(u" R ۝ 	p( ]º? t 7  o4 St <2  { K ȶ  z _ Ԇ   ? ]  DE
-V   , Q   L !  y ˍ I  t kBa i <  q8L   3 !   rB 1 G   I  W  UC  О8d   ]ns    Nw?  z {  pRGP¦  ]y GL % <  k  u ]     Bޓ  B- 蠂 	P |  < ~9 ކ O L ?  o 
-|'(` _ i`l 9  $+ Od/ !w `  9  >|by F   #`iU9b ABT   wb  F0>0  q   $Y g+ ELbk s I	x z 9 A e s U (=  )  1    :G   SBɋ4 Y&G9 S    E7 J ڣ Z  U  U   ] eL]YRJ Z  K J  K  ~x  :: E k`c Q?AcO  4=  BL    am3  !'Z    4     P 6_ - $ S  Oȹ .~1    N{ 0 ۘ} =I    5 yp  3 
-o   m 2   ` c : 9&  Z  9  Б c  u" z>   e OX | k 5    ,P  rS   Kזƴ 4 RN Ϛ ' - O  !  8zuY z / %Bw}vE  h ƥK & V@ e:
-    O { \Imۍ    #~ 
-cU  R7%    9P
-     a   {,7xԼ3 kl   ^V
-2} O _ :   أ6u Ay 6փ u I v] x6jW ;    Z׀ @D, N9   P    I< ݺ  +ΩZ1 /W } |w   ' l   ˂  C  P Kݟ :E9 u>  +%  =X
-  Q  > 
-    k)a   5 ӕ  63+NI  C  ۿBQ7G > z7': 
-?  !  * !P *@' 6 K  C=	 ?I  M ?O    :  ?  =  : {) Z ; 3  BU9 Z;  6   4 >a"  NჿQ L7  v;A k ! "      ʪ 
-#2 87 
-I  P ћ ۂ#     -  1 4 2@     $/ 
- p	 a ?DܳЉ  
-  
-  '3 QĹ} #b  . C9BS  i Q,EF 5 4  :!    P =%$    U B   ԳBl>, %- .   B
-      2CcA I eXãj     <'y  Cz  {3'}k  B G< 3ȍC$8y ÁH	ȁ ' sd    +;   ?F{Җ  0 B
-bѝ 	 +1( ح 	I 	 >  ⺝   9 / .  .  Hx;  Q R  r+U 9 S( / 6ث    D "  j 3   J'ڀ  #W     ?i D H H     , 3CI<[ɖD  xG DI  : D   2  N  PH <- JDفT    
-  (˴Jy8   2   #   ?  FEF + ֻ  [ d,B ú$d %@4  #4 W Fܜƙ =i1)\ӵ  i ;  | U8   \ ԑ \     ά۠mT n   @@   #Gy ! 5h|1 -  $  ; _@   gc<   9 !z Lk  :   L 2 ;  H x  ` K   LГ8'@" am #  H  P/! 8  `ځ  PL    J'(
- - 4,   >  Վ7@QD< /XĄs 9 w UO a	 Q     1 R 
- %++-  ,!%MӔ  ?  ?M# ;$ gԓ8    M; 5p B \@   
- N_ ¶ S     ,CP$   P f[<
-| D A?   x [    ;08  [T 8    Y    p< .S  	 Ʃ      '  5  U𬤥p           (  A        2   
-   N;x > ĉ     j  zw>QL o  Șp:  P  7H[ V  ?                         
+„`1@E‹" ø,‘<•i£ÆÌ›:Tàac¦N3tnÚyc&K1tè˜	ðÏ]&q•$iR‡ˆ
+Ô”Á©'L—sŠMºÔcÓ“)¢’óFL™4mVÝÙ3™4bÔôÜŠÔë×’'ODgNÌ™5oæl{µNÖº]ï2Í+/DT5qØ†àé®b¯èµ»˜±SQßÀqS%Í3b¨¦ìöræÍ\=>é"j3sÞduB ‘7wàèñÉºòÛ¸s‰rV¼¬<·sïÎÝÍ3dìL>~YyâÙž?ˆ
+~ösˆÄ™§Ž4f–Ë>ß¸ETbæ ®SÄŒ›²Ê FîÞa8àhcÀ—Ìóì¹ð«ã´ÔÊˆB;†ê­@Ã²
+Á‡dpÐ¹Æ@ÀÏ
+;ÞËc2ïbëìÁÆ"ˆèŒ¹F¼‹€ðrÔqGwü ">ê1¢/2rH‹dH¤Å˜ÀI(#ŠrI)«¤òÊ'­ÌK¯ÐÒ"ÕCrL¯œ$óL+ªÈ}€t3H,qON4Ã+RÈ#{¼3H8ÇTrË»¦¼ËK.#
+3 êDÓÌ¥˜1¢Æ,ˆè+ž ¢
+% x"1îÑñECuÔ¥þ 1G#b V[eu6B³<RG…j Æ4ˆˆ8ÞÐi;ÈxÏ­˜c 9†!‡.pòVYÅO<J4¤‘Ûk öf°b}âÕ×:€ÖbSH‰¹9s|ƒˆv˜êÃN·½zŽ†xG+BÕèÁ4ÔT[©¥— S«ŽX¸7ß¥è¬uG”ˆ¨Z‹*Âw £(ˆéG  c
+ÒI	fs²£ötI—óôóË¥µÙ³XèÐk'ÖQgŸƒºNSQµhUW[…•æ~¡5 –: ¢Èl¬‚ˆœˆÂz â‡ÄJf: ž‰”z$Qs^ªl¦<zè :€Ô©"òï×`‡-–+JIv•a˜}ÈI¹
+È‚/@šÚ¢‰´|Î„ˆº%ãÛpC¸»Ü¼ÑC]ˆ•’˜D§FÈ:E3ò(b@ÌÕ¨#…PTq]ú`-"*Ô@Ã¬6NW%õÕwð—à
+aô“Žˆ¨	8ÐˆoŽ®È
+Á¡RAÀÝU=„ƒ]‚)-ÁZÁõÒ}!Bhô<„oîF¸y¬øb4Ž¨c AHd’#2YË”ÝŽˆå ÄOC`Ÿô§·iéfXJà@Ô¦¶µ/P¤`yT4§¤j HK@–V¨ôái=óŠyÔ j-1Nz G"HÂ¥˜n±ŠTDŒ !K
+ 2Ö8@’bÎYú£0‚&U-"FÄmäƒÈµgrª jBp%L¡
+V0Bš`„Ü°9<ÌÔe¾%hAªh»Îã®Æì "¨	Îprà©ÆuCï~ °2¨À *X€Ã+bÑ¡s_±`H,6Œ¹©cô[Šý€¿îKýkÒÿÌv$Úée$ýÇÀ±Y¤…³S#=Ò@WÆ’T<‰ÓÁWáll”¥.qå”Â@ŒBØMü 7à†SÔ I'ô1€!
+Ð¢‹ˆ‘l$Ñ#Lt\cÀÆ-)RÎŠXÔ"½Æa³?ÿ	Î¸ƒ4*ˆAoX¤E>w£Æ”`Ž/qæ`>ýðç˜P=ÑË÷A2~˜äØ,‰I±	e*ódËFÊÙ°N¦ì$*Aè‘Uêi²„e/Mz&ZÊÃ–LÚ =F¶‘žt)4tÊc2Ðbp ÷lÂ©S01!Å"
+¯i0,®náfœEpz‹Š•»ƒþb 3´¡
+>Á)jtÊÓ÷øtuêk×œcÓ ì  Ædg2 äƒ3`(u"¿R»ÛÅ	p(Ã]Âº?²t°îŽ7ˆ¬o4«St‘<2ÒÎ{ KšÈ¶€z‚_ Ô†¨Ë ?à]ÅÓDE
+VÂŠÆ,ÁQÀ”¦Lû!à yÊËŠI¬ètªkBaÝi„<Áq8L¯”ð†3À!¹™ƒrB 1ÄG‹•ÝIä¨ W¹ÌUC¯¢Ðž8d÷¸É]nsßðÜèNw?ÖŠz·{ÛÆpRGPÂ¦ÜØ]yGLÿ%ž<°¦k«øuŠ]¥ Â† ¯¸BÞ“Ì¶B-è ‚¡	P˜|’ô<Â~9ÌÞ†‡O§L ?üõoì
+|'(` _íi`lÂ9Ãø$+ÀOd/”!wî`³ª9²†>|byè—Fô²¾#`iU9bABT¨ ó‘wbíÁF0>0Øöq«$YÌg+ˆELbkÙsI	xÅzØ9¸AÎe¡s›U(=ãÅ)ú¥1”è î:G¦“®SBÉ‹4ô£Y&G9ÑS €…ÙE7šJ¦Ú£€Z «UíêU·ºÕ]ÚeL]YRJçZ×íKéJ¹‚Kúò¥~xš¤::¦EÄk`cŽQ?AcO°‘4=‰‰BLþ˜Çam3§¬!'ZÀ‚ˆÁ4«€ÑPÜ6_™-§$ªS¬¢OÈ¹Å.~1ÄêÔöN{¼0 Û˜}=IŽ—¼å5ïypˆâ3Œ
+oª“¶mâ“2 €²`½cÄ:´9&ÁZ°ƒ9£ÅÐ‘²câµÖu"“z>¸Ãäe OX¯|õk’5¬šÁö,P°ÃrS –ëK×–Æ´4ýRNçÏš'¥-êO£ž!õ™8zuY£zê/å%Bw}vEõúh¿Æ¥K&ÂV@‰e:
+³…ñÙO›{Í\ImÛÅäÔ#~¸
+cUïÑR7%˜ô¹¦ê9P
+€äÄé“ˆa¿’Ë{,7xÔ¼3žkl£À•^V
+2}¡O¯_È:Ñ‚úØ£6u©Ayê6ÖƒªuÜIŠv]Ëx6jWÛ;èöµÙZ×€§@D,þN9âðÇPüØ¥îI<ÞÝºŽ¼+Î©Z1ó›/Wç}ò|w‚ž’'©lúˆ¹Ë‚ªÏCççP×KÝŸ®:E9’u>“®+%±Û=X
+©Q¾ù>ô
+âÛ ãk)aš²Û5ÀÓ•Ø63+NI„ÃC†êÛ¿BQ7GÐ>¦z7':Ë
+?Ì‚! ‚*˜!P‚*@'ã6€KºøC=	¢?Iº¿MË?O£º°:ºû?‹º=ÛÓ:Ü{)ÝZÛ;ß3»¬BU9•Z;¤ 6äƒ ¤4À>a"ƒáªNáƒ¿Q†L7Œ„v;AîkŒ!ˆ"©ª·¨ª«Êª­
+#2¤87ð
+IŽžP¿Ñ›§Û‚#§ ‚ƒã-æñ1°42@˜à‚†ñÌ$/¸
+áp	ña?DÜ³Ð‰ÜÐ
+Þð
+àè'3ðQÄ¹}ª#b³….ŠC9BS¹…iQ,EFÊ5Ì4 „:!„½“é¿P£=%$ Úóº»U‹B²ûÂÔ³Bl>,¬%- .œÀä›B
+œ›“ø“â2CcAŒIˆeXÃ£j„ª ˆ<'yŽ Cz«œ{3'}k‰±B£G<ƒ3ÈC$8y˜ÃH	Èü'«sd”«ˆ+;È‹?F{Ò–ˆˆ0ßB
+bÑ÷	±+1(ó¨Ø­å	IÍ	®>¬ƒâºãú­9€/é¢.úÂ.íâHx;‰¨QµR§r+U 9›S(«/º6Ø«¾¢ŸËDÁ"¬¼j¢3º¿ J'Ú€¨ #Wü§€„²?i´DëH§H­ˆ°€,³3CI<[É–D¸ÜxG„DI¤Ä:°D‡ù¹2ØÄNôÇPH¯<-§JDÙT¤Žêò
+ìÐ(Ë´Jy8Ëþ‚2 ±´#²´‚?ÏÉFEF§+ÆÖ»Ÿ×[¼d,BÿÃº$dÂ%@4ùº#4ÀW“FÜœÆ™ê=i1)\Óµ „iœ;™| U8á§\ãÔ‘ä\Îæ ±€Î¬Û mT©nüÆÅ@@˜Çå#GyÃ!°5h|1–-¨š$ø‡;€_@‚Ø gc<Œ¨ 9!z´Lkû¾:¬œóLÏ2¸;½úHÌxŸ‘`ÐKœŠ‚LÐ“8'@"˜am#«H¯¿P/!ž8Ìç`ÚÊÝPLü—«„J'(
+¬-¬4,ÄÕ>ŠÕŽ7@QD<‰/XÄ„sž9€wUOìa	íQ˜îùôò1½R“
+%++-Ÿ,!%MÓ”ŽÁ?ÕÔ?M#ô;$ gÔ“8™ÜËM;5pôBñ\@ÒìÓ
+ÚN_ÛÂ¶ËS€»ß ,CP$±»P¡f[<
+|šDÝA?­ÔðxÀ[Ôï§‰;08›±[T§8° Ð®Y¶°Ôp<Ô.SŠÅ	€Æ©ðŒ ¥º‹­'Ãà5‹ Uð¬¤¥p•€         (àA„       2   
+   N;x£>–Ä‰ÊßÙËÅjÖØzw>QL“o¥È˜p:ËÿPù¯7H[éVÃÌ?                         
+```
 
-IConnexionClientSocket.wdc
-PCS                     B      9       j                  01F280051n                 Pθ -/Z88  gC wý  R   
-       "              I C o n n e x i o n C l i e n t S o c k e t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               PCS          a                   9                         01F280051n     x              >        
-                                                                        Έ #   IConnexionClientSocket                                    / :2A z ,  :%S 0\
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\IConnexionClientSocket.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 PÎ¸ö-/Z88ŸægC‰wÃ½¨“RŸ—Œ
+¬‚     "      ›       I C o n n e x i o n C l i e n t S o c k e t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               PCS          a                  9                €    ¼   01F280051n     x       ô      >        
+                                                                       ÿÎˆñ#   IConnexionClientSocket þí˜á                                /ð…:2AŸz²,žœ:%Sà0\
 imT
-.   m  % ._    + U"               
-d0j  .2$@ ҅  b 
-*8`1 ƈ"  ,     捙<jZi  ̛:T ac N3t~ y  :t   . 8 Q  4)oDDi  QS L  5o  ٳS P z z2 'p      D  I# ث h  e[  B  	   Y*[ l ; (_   6Lx ay" Q F Z  f ڵ A |1 Eܵ  (ҳ     $ Aq   *   5p +V  O u  G ^   ף    "o   = [      _/   3A[ x  " P 'Nc      H  "AÕ1(     tp  1 B AC=   B! č ōTl/ 8Ԁ  hHE      # LUd F " B  \     "  j;  ʎ9c  4`ȡ
-   =    
-߲ 2= @;! 8 ؉U   ,    9RP ֺ  7%"2@  ʈHR6=J  @  ANր  6     C ɨ 3    \ <V	    #
-a c6 h ^S ĵB a2 u H By Yez  j  FG gȪ =-I  5 Yg5w  <)    . 4L  Ӆ
- | t+  3  X:ے < $ O?
- ]A  PDYS \ ht G-   Hǽ BMM
- S @MMTRsK 5 J5oՕǵ    ¸ Z׺  \ 
- `7 h\? (   i Udq Pp  = 1   פ
-r["-:\    I w^ FЮH 5  + l   W  @ 4#  "0 ŷ ( "  " =  31  R     n   )2< ), ɪ 2 xC7Ԑ 3T a8 h ϛ*N-q xw;    : A u K  OC hԁb  ;T  Y J{| roM{ v  "}d  
-|p `  l a  TT &  RQG	^*q  # x ,   mT 0C 
-e  T A7FA M`S(B   	(   1 ! _|b% &   W@ 0   <  7  d 
- P  @ n --h   d  y <p ʚ@; !Ojp  6  ^ p  Y     c0-@na s  @ *LAJ  B E-r  _ \ J B  ,!H  Z   ͮv SE( H U  E '2L)o{ i^   H d s  l W Pl &    9hj  G8H  h h-qH /  ,Mk 	x  g b  O "
-q DT -n  [gC kE[6  ' W  `2dq+^ {y   |  0R
-6.c  J Ȱ U r 
- ;  y&  
- BP ʵ b # B  < . d  ` ;  N**    O m   ?=    | kx J 4{  %ۖ  [ & +   n 
--   rjS  \lA Ǵ 2Cą RUZVEe ְ  lFZb9 ʽZ" 
-Z B0  5kJ^  4 Fk ᠀  W  (0,c 
-$! u   9svT >'" 	*ϤR~  "ȳ          (  A        2   
-      l}Cη   䎦.?   ɚZ W   J  u b     |                         
+.ÞøùmŽï%ß._ð®Î+ÝU"µ À    å  Þ    
+d0jÂÀ.2$@à®Ò…‘b 
+*8`1ÀÆˆ" ø,‘¼•óæ™<jZi£ÆÌ›:Tàac¦N3t~Úy‚¦:tÌøç.“8Q ’4)oDDiÌÌQSÇLˆ•5oæÜÙ³S§P¥z¤z2Ö'pÜèäé¨ÐD¿’I#†Ø«¢hŸ®e[ò¤¬BÊÌ	ª”®Y*[ïl½;´(_¿€—6Lx¤ay"žQóF°ZÏ¤fÝÚµÇA‚|1öEÜµ¥Š(Ò³ï À…‡$î¹Aqˆ *ÐÝÜ5pç+V´ OöuÚÁGº^½ùí×£ƒŸíÝ"oí¿‘¯=Þ[ªò ÌÍÏ_/µãÀ3A[ˆxÄÊ"ªPŠ'Ncàž×òóŒÚ H¾ "AÃ•1(”ùÂÂ tp¢ 1ƒB‘AC=ˆˆB!ƒÄ©ÅTl/€8Ô€ñÂhHE ˜‚ ´ #âLUdíFè"‚Bú¢\‹ýªÒ "–Þj;ÈðÊŽ9c£„4`È¡
+€£Ò=‹˜³ 
+ß²ƒ2=Õ@;!¢8æØ‰UÊ ó«,·ìòË9RPá´Öº“ò7%"2@º ÊˆHR6=J ¢@ú¤ANÖ€ƒÀ6ñÂ¯Ôì¢C¯É¨†3®¾ž\Ô<V	ãðÇ #
+a€c6Üh×^SôÄµB™a2„u°HÂBy Yez µj€¶FGýgÈª˜=-I—„5 Yg5w ª<)ƒˆŠª.½4LÅ Ó…
+Î|¸t+•£3âôˆX:Û’Ç<õ$ƒO?
+Á]AåÓPDYSô\ht G-ªˆÒHÇ½ôBMM
+ Sä@MMTRsKõ5òJ5oÕ•ÇµˆÉ÷°Â¸¹Z×ºµÃ\ 
+ã€`7ºh\?Œ(Œ€i§Udq Ppºê¨=¼1®îÚ×¤
+r["-:\ Åõ×Iw^ôFÐ®Hˆ5à°Ã+šlÂÉÀWîå@ß4#ÂÙ"0¢Å·‹(Ü"àÆ"á=ûü31ÆØRŒ®¾¢Ûn¼ÅÂ)2<ÿ),½Éªë§2ôxC7ÔÃ3TØa8àhƒÏ›*N-qÂxw;¤èø:A®uäKæ´ÔOChÔbÎí;T£¤Y½J{|ÜroM{Ïv Â"}d©‚
+|pæ`©¦lˆa¡TT &RQG	^*q¢˜#´xÄ,Ñ mTã0Cì¡
+eŒTA7FA‰M`S(B²‡	(š°Ä1Â!_|b% &ø ŠW@Ë0 ÖàŠ<Ðð¸‡7 ‡d€
+³P†¸@¶n™--hˆÚèd‘îyÏ<p«Êš@;Ä!Ojpƒò6Åâ^ p‘ÂYÀˆóÈâc0-@na’s˜†@…*LAJ¨‚B€E-r¥‹_ü\èJ BšÎ,!HÝêZ÷ºØÍ®v·SEîŽ”(îH±UÁÞEŠ'2L)o{¹i^Í½ HÏdÔs™õl†WæŒPl›&±§›Ÿ9hj„‰G8H‘…hÝh-qHÇ/£Å,Mk 	x„‘gøbÉÔO¶"
+q¬DT¤-nÄ[gC›kE[6‡Š'éW ¦`2dq+^‹{y Œ£|¢â0R
+6.cŸ©JäÈ°ÉUîr™
+Á;ã‡y&’†
+ÁBP‡ÊµÁb°#¿Bº±<Æ.dë`§;ÏøN**ýÆ©O®m™¡Ü?=•Ý•ª|™kxêJ™4{©™%Û–“Î[Ö&—+ª¦ƒn”
+-ü˜ØrjSÅ‘\lAªÇ´ª2CÄ…­RUZVEeºÖ°³lFZb9‰Ê½Z"—
+Z B0§Ý5kJ^Áö4¿Fk—á €Ó»W€Ü(0,cÿ
+$!­u ä—9svT¹>'" 	*Ï¤R~‚Ï"È³ˆŠ        (àA„       2   
+   ö½l}CÎ·ÄÿêäŽ¦.?ÛÀ„ÉšZÆW±å JÊÞuÄb„ý¦¦|                         
+```
 
-IGestionDesCalculs.wdc
-PCS                     B      9       j                  01F280051n                   j	Y
-y   K % I Az 
-cL      "      z       I G e s t i o n D e s C a l c u l s                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       PCS          a                   9                         01F280051n     t              >        
-                                                                        Έ    IGestionDesCalculs                                    /`+ z T=S v cR*  W    z -   Y   (Q
-  ) `o b             
-d     贅ׅ  b 
-*8`1 ƈ"  ,    1C  8o  $" 
-;m hY'  7fBi# 3   $  Ӂ$M SQ 7qژqc M J   cG
-5/cF   R N z zr U5ex     W5f  "ܦs <	 * mƈ!æJ 9f    Wh  d  *c'3b   2 ! 5oP I  m ?D	2w      z H  (gҹ  =ʰJ :n  =V hAo ׾M@    kO   E  K  8T   o1;Ԏ:#"  +   
-% x5j)   R
-      \ż z !       ) 8   K"ͭ J ,  RP!  zI  l q  B  ;  C0 ;\*1# Co=   R<    B   >    J  T
-  p #6     Q4 L  +l2ô |J   j  T   v ˇ> 2 H ^D    .       
-` K S3UV[m Xs "D  V[m#SLSQu R2    hv  ` 
- c U   &
-  v   ߢi d U*֩f  V\oՕԁz 5U2<I    ɥ9   Ie     ć kW  ,h  |%x l-G=    z  s)mU %"2`  ʈHd -J  @ $2ARN۔ P -  4K > oԒK=s] h 6 [ -<   Y\ɜ+ + f Vq
-  7    a z \7 UVZ * \ v  g    ]y2 h&z  w   x  @  { & HڅY  · ܑn  8cD   c I  N( #jY: A h  n  6խ Y U R )u۾-v s z p n  \  vݵ#  8  
-1  l   J
-&   coy Vn   (   ^ զ aJ 1 #-  o y  BK 7|r8   + ) R@  @>f  hNsb \ @    t;
-  Z    7  K  =  xP  E   nɮ8   
-  [ ph H(& Bg  2 rbp	n$   S| Bq ! E  ,ޝ j @ ճt m  9 T # ,г  b  ! О H =
-  S Ό Ǹ  h}    0ff       o4  \ rW  <
- \ 2, ,f  QmV  p    }  -v07   $ C	 T9 @ %  	 d9 @ &  	 t9 @ ' 
- 9 @ ( C
- 9 @ )  
- 9 @ *EyL \g b B  Tަ '1Ѵ '  P,)      F  u G蘸   }x c  >   
- gfR    Pq)   )ɋP  C    ɈLv   '1 3
- F ` h)   t 0"i     9n@     9r@  C   s v@      9z@      9~@    1  @   	.) NU,' `    :M +  j+ Y'l "۸    
- p5 @&@J 	Z 4 jh\        (  A        2   
-      v   a    I )J G   y O[       /p hi                          
 
-ISignalDessine.wdc
-PCS                     B      9       j                  01F280051n                 ] A7 M{8  %&a{AG 4 |  K R U      "       
-      I S i g n a l D e s s i n e                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               PCS                              9                         01F280051n     p       	      >        
-                                                                        Έ    ISignalDessine                                    / #ǚ ҮR3  *:  l0    p = p t ??  *bt   Nc    	   $    
-d   @g )  ҅  b 
- *H`1 ƈ"  ,   PQ 捘6E С 捙3넰s3 6bh 	  ]&q $ieDj  iCL 3o  T"  ;jj Q M 9p = t Ǧ'G@US&'  =sjUcfN!b E nɓ*  I#f 7b     ' 6/ K&j  ᑈ ɀ*f 3u H KE 4m*  w8UUe% t   @=   !g 3 |7    C    X5dͲt	  :s RE aǖ}  7S "o  7  " p       " @
-p /R @  H$  @B
-C   
+---
 
-k C HHC|OB߫ "
- !pE' ?Jd0  V  e  A# p 
-1T   @   
-c`  D   # x  *         XJB4 t
-    R P	4  L  (  (
-ӌ F! ̈́  H  ʰ  JA v؋,   -8
-"B ;  ïFʹ ?= GC$  y$  WU* $; JT] 
-    #\- 0  T B I +`2 P ,{  9   0 h  |H  C%ŏ  O   R[Q  *  -Xm% HpC T      X@  ]   H g7f        @4 #n
-  3   v zb Cy &v    Xc  c u @̓*    2   >  (!ar 	g^ H   pUx  @ -Q  Йg  X  xP""<     ^z  
-  @ $	%1"~  Q E]A x YcN  \}B  B  B  B  B  B  B  B  B  B! B" ,B# <B  ) H 7 mp `6\ h '  b
-  e   =  $L~i ,` i & 08@  ZCu~瞣 zZ  &   Ԯ e "z;      
-$o{+ 8 ̫ 3  X "( ns` ӻ   b H   Z ?    8&5  tT@ [    <  #7 Uh    
-} 
- Ơ31d '(  
- c 0 1     B   o e   ҆  5n 
-     ` ~#ׂ    E]b` D C  J`  P d  B P d/ @ j  
-6  @   $  	@    , ! 
-   4  
-  d'AYo8     Cw	 ҫ  $2 A Wԓ d  G4   (̃ ! @nh A  "< h DB
-QFD C KӠ&=   ը &7V 
-   űm ~    ¸?2 1IhL    FSTFq|`  $K  
-e(  AMРHd   J evl( "	  [ z̒ >l$ P    P2 G  4#BM  &ؼN  $n%"E
-I}IN   Q  M; H- i _     9F   nw ? X@  j     CxG* * & :     o j -  ?     @rp<   w ( 3 . v u   7  ܤb  f&  Yl$       8I  x&.l L  J4w 6}zD z36 5 d+KE(  
-   QM  $3 ỹ  ,   Kܠ   QK  q   IE5 S   Rϥ\ 2] V Ư   o<A 2Gv!4j L b 
- ʣ  
- a=    0  a @d2; a 6 6r u B|  (bZƙb$ %mj}x 6}  P   ӊ }'ɤ     ê  ~ џvJo@{<б      ,Z_ 蕯  `$    
-y k s XPy  !XQ   w  - FA  c  'QZ   ;   5  ` 0MQA9f  n  3o a &)8v1 Do 9 sƭ     nK     <  t9  \  A  d*;     s~ݕ Ui<^5 ѼiD z  c ~ f   ld " I LsC lQq` ̈Ev  ;` l "h1CLS[ 2h  . 0   𪞹
-D{>NQC  	[H
-   FM 1 n      mp C\Q   9 cR-]  %T"{1U ;c    7H 
-  +    r  ,ߎ* a ؃ @W 	{G   ;    c   2 ~#>>	6    a   j[ۖ'1ar Ә 
-I ;   c	 l 1  ]MS ~r 
- M  
-  j` d    ځ uU , |j uy f s | '7+ - rk7  D      ;  oMޜ ވ 2  B Q@ * L S@J T!x j \ W@  d Y@   l CĴ  t ] r )     # G Q #r  w pڗ{#2    V { h         (  A        2   
-   xR  wʇ           {: &   "t  )  9                              
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\IGestionDesCalculs.wdc
 
-ISignalEnregistrement.wdc
-PCS                     B      9       j                  01F280051n                  )   a e  k ֠
- Z ]RN B   1        "              I S i g n a l E n r e g i s t r e m e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 PCS          a                   9                         01F280051n     w             >        
-                                                                        Έ "   ISignalEnregistrement                                    /  ML  S  B  ]  
-  a  ? wCD p    (d      ) F       _    
-d@" @
- ) g ҅  b 
- 4`1@E    , < PQ 捘6F  1 F
- :4ݘyS'  ! 1 H1t 	  ]&q  ,yrEDj  iCL ΞE !#  M5u  ye2M F ꑤIy#  ) 3 П=՘  G r ֵ[U^  gԼQL 1U "  |  g ?D 1   U  
-y HưeG }  ) *`ݛ5l +Z G x  	 ^<xjӫ}C/  y   O   vr   ^  v "Gtl! +O TQ Ie 
- > ="   "  S 93 	@]     
- (Dj."  
-ஓL (    ;h
-  Ta   "   8 G  hz 8  l  Z,F N 爴ι  ;7
-  N ܰ
-rJ%/#-,  ʐ s,  @ k  B 
-  ( /     9T  31 h  |@ 
-5  
- <mH z#4:   *#zRI   FY[2    L¸4  9 S  SM=  ST   1 , Q j     r M{  W`YsVY   \  ( `'    h  p  2  ?$@JH    g  &D NR
-e<   4  7  V S  W   # **#   (   G Ҟ,
-6	> m  M4  T J 5<) 
-   	m  2 ,JT9  j  /ΐa   P]  P D2@ DB@ DR@  X#  X[ 58 fE h 9h "    mge o &܇`  \ ,`B] Pn 1ÌWM  l  w `   # 	V "  R aG  X (N   2r  < xِ ^Tt K  U    j\=_<  M  IǸ l7Ę &  BK-    L F
- i;rsճ`  =R K N 1 .31ưV    ]w  :    z# C8 R  } 
- Y 9B<     -QSV F7 i H  k8W  8 X
-  dA  i'  @  : A	d   ih  awf V Η     6   (o\ aD '  YdzʒQ '"홨{ 
-_TH   w c  ? Џp@]  0  Jj\ 7@ EĀ  0' 7&j      1 {    ʰ ! T h  8B   İ  0 lt  
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 ºj	Y
+y‹ÏKŒ%·IéAz
+cL£     "      z       I G e s t i o n D e s C a l c u l s                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       PCS          a                  9                €    ¼   01F280051n     t       ×      >        
+                                                                       ÿÎˆñ   IGestionDesCalculs þí˜á                                /`+·z¡T=S–væcR*õ˜Wø»Ò z-±ñéYó‘›(Q
+ŠŽ)Þ`ošb³    È  ¼    
+dÈÂÀèÜè´…×…‘b 
+*8`1ÀÆˆ" ø,‘¼• 1C§Ž8oŠ´$"¦
+;mè„hY'„7fBi#†3þ¹Ë$ÎãÓ$MÊSQ7qÚ˜qcæM¡J„‘cG
+5/cF™‡ŒR¦N¡z”zr„U5exºüù†çW5fæ„ð"Ü¦sé–<	Ã*›mÆˆ!Ã¦Jš9fÄèíÙWhœ¶dˆ©*c'3b¹Š£2–!â5oP«IÛömÜ?D	2wÄÝ…ÿ†êz HÕÈ(gÒ¹êÏ=Ê°JÜ:nå×=V¬hAoð¾—×¾M@ûõàÁkOßû¼Eãã“KŸý8Tê¼ço1;ÔŽ:#"Öè+ž ¢
+% x5j) ·ŸR
+§‚ ¢¼ \Å¼ z‡!‡ ŠÃáÚÍ)8”«K"Í­ÑJË,„¼RP!„þzI°Ùl›qƒˆBÈì;àÐC0 ;\*1#ûCo=õØÃR<íâûÏBé¾ôÈ>ù¦«ÎJþÄT
+Œ´pÑ#6ý‰µÃºQ4ÒLªÇ+l2Ã´½|JÈÀæ¨jÊÔT›ƒˆvÈË‡>·2­HÚ^D·ö°´.ÓÏó’¶æîƒŽ¾ˆò
+`¿KÏS3UV[mõXsÀ"D²õV[m#SLSQuõR2¸œëÅhváæ‹`­
+œc“U¬‚ˆ&
+ Šv”ÃÙß¢iÁd…U*Ö©f¨V\oÕ•Ôzý5U2<IƒˆˆˆÉ¥9ì ¬Ie ‰‚‡Ä‡”kWÔê,h¹ÿ|%xÆl-G=‡š·Žzïýs)mU %"2`» ÊˆHd‚-J ¢@ú$2ARNÛ”ÛPÅ-Ïã4Kþ>oÔ’K=s]ìhÃ6 [ -<ä ÃY\Éœ+„+”fúVq
+¡©7Âõ£aÈz \7„UVZã*×\ÚvÅïg ùëÀ]y2ˆh&zíÅwèx ¾@¹·{È&öHÚ…Y«ÑÎ‡óÜ‘nŠí¾8cD×åØcIÝ N(å•#jY:˜Ahæ nöö6Õ­ÔY±U Rû)uÛ¾-vÛs zìpËnêì\Óæ¼vÝµ#“µ8˜É
+1æÈl¬²ÎJ
+&ÙôåcoyüVnöˆÀ(äÄó^ÎÕ¦ÂaJŒ1è#-¡–oþy²ÌBK­7|r8àØÊ+)ÆR@»Ü@>f‘ŠhNsbò\ @‡³Ñ¬t;
+ êZ§¥á¬î7¯›K¨Ã=‹¯xPÁE†önÉ®8øÆ
+œ‹[ ph‰H(&ÑBg…‚2ä’rbp	n$×àáS|†Bq ! E Â,Þ¤j¨@ÎÕ³t±m„¿9ÞTÒ#ç™,Ð³ßôb¡ë!óÐžèHå=
+€¯Sã“ÎŒÎÇ¸ôéh}í£ØûÀ0ffŒõ“þô·þùo4 ¬\•rWÀ <
+ä\È2,½,f§ƒQmV³þp„œ³}¦Ÿ-v07‘øÒ$C	äT9–@Î%ƒ	äd9š@Î&Ã	ät9ž@Î'
+ä„9¢@Î(C
+ä”9¦@Î)ƒ
+ä¤9ª@Î*EyL‘\g»b™B¨ÅTÞ¦‹'1Ñ´š'†®P,)ú‚ÃÞèÑFöŽuŸGè˜¸©Ð }xÒcØç>ø… 
+ïŒgfR †ÒáPq)î )É‹P‹C™Ê ˜ÉˆLvœ¤™'1ˆ3
+æF”`Úh)‡‡Ît–0"iøÒÃä´9n@Î äÄ9r@ÎC äðs v@Îƒ ää9z@ÎÃ äô9~@ÎäÈ1 ‚@Î ¾	.)úNU,'¯`šÎßí:M›+Õêj+®Y'lß"Û¸Ì¼¶®
+•p5Ý@&@Jâˆ	Zù4§jh\        (àA„       2   
+   ûœÓv‹¹øaî©¨ºøü¤I÷)J¬GÕ¹½yÉO[ªð  ³ŒÒ/pœhi’                         
+```
+
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\ISignalDessine.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 ]ÈA7ÝM{8ž…%&a{AGì4á|”¾KÑRìUø     "      º
+      I S i g n a l D e s s i n e                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               PCS                             9                €    ¼   01F280051n     p       	      >        
+                                                                       ÿÎˆñ   ISignalDessine þí˜á                                /þ#Çš–Ò®R3îá*:öÑl0í¢ ô¯Òpä=°pút÷??…ò*btã¶ÜýNc    	  ¤$    
+d¦Ä@g‚)Ø¯Ò…‘b 
+Õ*H`1ÀÆˆ" ø,‘¼•PQƒæ˜6EÌÐ¡£æ™3ë„°s3‘6bhš	ðÏ]&q•$ieDjÜÄiCL•3oêàT"„Œ;jjÖQçM”9pÈ=št©Ç¦'G@US&'=sjUcfN!b°EúnÉ“* ’I#fª7bÐàÔÉÓ'ž6/ K&j´°á‘ˆåÉ€*fÎ3uªHõKE™4m*¨¬w8UUe%ìt€¸ò¨@=£¦!gŠ3æ|7¯ÏâÇC”áê¬X5dÍ²t	ó•:sÀREëaÇ–}Óû7SÑ"oïÙ7èà"†pÿÞÿ —ú "@
+p /Rð@¥äH$Ð @B
+C²ðÁ
+
+k C‹HHC|OBß«¨"
+ô!pE'é?Jd0ÁV‘ÆeŒÈA#äp©
+1TÊÃ @ÔñÈ
+c`¾ˆD³ ¢#¬x‚ˆ*”€â‰Þ ¥€ÿÎXJB4št
+‚ˆêÊR•P	4àÆL Š(ÌÄ(
+ÓŒˆF!Í„ˆâH‹«Ê°µêJA…vØ‹,¿úû-8
+"Bí;àÐÃ¯FÍ´Ï?=‘GC$µÎy$ñËWU*È$;„JT]ý
+Œ´ÈÓ#\-’0¸ÁT­BÅIÑ+`2ãPç,{´¯9ûô½à0ˆh‡º|Hö¸C%ÅÖ O­ñÆR[QÕß*ìó-Xm%ÒHpC´T‹à €Ì X@€ò]ð  Hœg7fÀ ‰÷áˆþ@4†#n
+ Œ3Æø½v—zbCyä¢&vªâìÓXcŽèc’uä@Ì“*ˆ³ðšÃ2¶êÖ>Ø(!arè	g^·HŒš€pUxûî„@ -QœßÐ™gŸçXÔÛxP""<ª¨ŒˆÐ^z Ž
+¤@‚$	%1"~×ÜQËE]AëxÈYcN÷·\}B ŒB œB ¬B ¼B ÌB ÜB ìB üB  B! B" ,B# <B ‰)¶Hå•7þmp`6\Äh–'ƒˆb
+ëeçÈòˆ¡=Æè‡$L~i,`âi&Ê08@…µZCu~çž£ÿzZˆÅ&Ûì Ô®ßeŽ"z;îˆæÎÐîÃ
+$o{+8ÃÌ«ø3ÞñX "(Ìns`ßÓ»“ýîbÁHËÖ€Zð?°œÓ8&5¨ÉtT@Ù[àÒ€‘<èË#7ôUhœ‚ƒª
+}Æ
+Æ 31d '(œƒ
+Ãc†0ç1‘™Œ´ÚB¯˜Éo e³ÈÙÒ†¿¶5nã
+€ÿúÀÀ`€~#×‚øÆ ¾E]b`áDØC ¹J`ÀP d  B€P d/‰@ˆj „
+6 @Š „$ ¡	@ˆª „, !¤
+Ê „4 ¡
+ðÎd'AYo8ØÁáÕñCw	Ò« È$2§AÎWÔ“ödÉÉG4’¡ (Ìƒ†!Þ@nhAèÐ"<Ÿh„DB
+QFD¢C KÓ &=ØÑÎÕ¨Ü&7Vá
+ü¾•Å±m‘~ö³Ÿ­Â¸?2š1IhL ÞöÄFSTFq|`¬€$K¦Ñ
+e(€ÎAMÐ Hd¥‘òJôevl( "	—[çzÌ’¥>l$üP†¶ ÌP2óGÏ„4#BM©‰&Ø¼N¸ž$n%"E
+I}INöœÓQêÔM;¯H-Ãi±_óüâ ï9F¹•ªnwà?ÝX@¦j¡­Šå CxG*…*Æ&Ö: „ ­oåj -’‹?¼âÿ Ä@rp<–•Ìw»( 3ê.Žvô uŠ š7“šÜ¤bÐÚf&“¥Yl$ ÈÆ ’Œ8I¨™x&.lêLüJ4wà©6}zD z36‘5Ãd+KE(š¡
+ÍêÊQMúî¼$3àyÌƒßÓ,ÓÑÃKÜ °˜QKÅÍqœú™IE5žSíâýRÏ¥\•2]ÐVíºÆ¯¶‘Œo<A•2Gv!4j´L«bí
+ŠÊ£•À
+Þa=–ØûÖ0 ¢aÞ@d2;Ôa¶6É6rŒu¬B|¸(bZÆ™b$§%mj}x´6}¯í¦Pœà›ÓŠØ}'É¤ÊÅÑŒúÃª€é~ÊÑŸvJo@{<Ð±ö©¾£Ýè,Z_Ðè•¯¨²`$ ¡ä¾ 
+yÝk”sšXPyÉˆ!XQåüîwƒý-«FAà c˜±'QZ ¨ ;ÜÁ–5Ãâ`†0MQA9f°€nð‚í3oÁaœ&)8v1ÚDo¾9ÎsÆ­ñœÝò¶¤ÊnK„ûðŒ§<çÙt9™ë\èÚAºèd*;ëóÔìÂs~Ý•±Ui<^5“Ñ¼iDïzÁúc±~f¶‘Ïld†"¹I°LsCÃlQq`´ÌˆEv³É;`§l "h1CLS[È2h¦Ø.Ø0ìÖ§ðªž¹
+D{>NQC£·	[H
+•ÛÞFMŠ1­n¼„ ·×ùmp½C\Q·Ôì9µcR-]°½%T"{1U¿;c·ÕøÚ7HŽ
+Úë+ûØ× r’†,ßŽ*ûa¡Øƒ²@W…	{G ŠÃ;öñºæc ­¨2Û~#>>	6ƒ„¶a§ýßj[Û–'1ar–Ó˜Ë
+I ;¾ ¤c	©l÷1¢ˆ]MSÞ~rŠ
+ìMâØ
+Õéj`ÎdÞ ëÇÚ§uUÍ,Þ|jÇuy©fÖs•|Ž'7+š-¨rk7ûÙD—¶àð× ;ÖñoMÞœ…Þˆå2ç¼ÈBáªQ@ˆ*„L¡S@J„T!x„j„\¡W@Š„d¡Y@ˆª„l¡CÄ´É„t¡]¨r°)óÊü«È#›G×Qå#rùÌwpÚ—{#2’ÿÇVÿ{Âh        (àA„       2   
+   xR‰ wÊ‡°‘±ÿõ¿  ŠÆµ{:Ì&ïêŽæ"t±ù)º¥9¶é€éê                         
+```
+
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\ISignalEnregistrement.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 ¦) ¿‹a»e‘ÄkŠÖ 
+»Z„]RN®B˜–¤1¹¦á     "      º       I S i g n a l E n r e g i s t r e m e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 PCS          a                  9                €    ¼   01F280051n     w             >        
+                                                                       ÿÎˆñ"   ISignalEnregistrement þí˜á                                /¸ûMLÄÜS¬ãBÀŽ]“¶
+¼¶a´ƒ?ÈwCD›p—ýÍõ(d ü¥¥½þ)­FÜ      _    
+d@"Ã@
+¢)g¯Ò…‘b 
+á4`1@E‹  ø,‘<•PQƒæ˜6FÞÌ1ƒF
+:4Ý˜yS'„œ!ì¼1‚H1tè˜	ðÏ]&q¥Ž,yrEDjÜÄiCLÕÎžE•!#ÇÎM5uÔÀye2MŸFê‘¤Iy#°ª)ó3èÐŸ=Õ˜™ÂGˆr¡Öµ[U^„ˆgÔ¼QL—1U¼"†¨|ÙógÐ?Dù1ôÔÑUŸ®
+y HÆ°eGœ}¹í©) *`Ý›5lß+ZÐGÚxé×	„^<xjÓ«}C/Üy ×€O­Íøvr©ºð¾^Þãv©"Gtl!â+OˆTQåIe´
+„>Ã="öð‚ "¾ðS¥93ˆ	@]ŒÁ¢ÿŒ
+£(Dj."èÀ
+à®“Lˆ(Ž·Èðª;h
+¯Ta‡ÀÔ"¬³Ï8”Gƒˆhzã8ô lÅZ,Fóœ£NÂçˆ´Î¹ìÐ;7
+ëúN»Ü°
+rJ%/#-,ôèÊ”s,±@„kÄ‹Bñ
+˜Ì(Ñ/Ÿ ãÉÅ9T€Ñ31ˆh ¾|@³
+5ç˜ó²
+§<mHéz#4:ó’ô¬»*#zRIñÈôºFY[2Žœ”±LÂ¸4ÓË9äS²SM=ËÅSTÿÀ1 ,òQ€jµµÖÏr·M{õõW`YsVYçºõÖ\™ô(Ò`'å À“hˆ¶pšÃ2êè?$@JH†º ¶g›£&DÚNR
+e<áÃÉ4‘Ú7¬ÅVÛSü³W”ˆ¨#‹**#¢Í(ˆéG Òž,
+6	>ƒmÀM4‹§Tô²JÐ5<)›
+­ã 	m¢ 2ô,JT9¡äj˜Š/ÎaŠÉP]‘°P¤D2@¤DB@¤DR@¤¯X#šõX[“58 fE²hå9h "€ÊéÞmgeào˜&Ü‡`ãÚ\,`B]Pn×1ÃŒWMÛÞlûÔwÖ`ûý×#	VÖ"„ R˜aG‰„Xâˆ(NÙÈë2rãØ<ûxÙµ^TtÒK—úU¨‹…Šj\=_<¢¬M÷íIÇ¸ l7Ä˜ƒ&²ÌBK-¶ðó¤L¡F
+îi;rsÕ³`ž=R¯KÌNÞ1ù.31Æ°VŒ´ŠÂ]wÞË:‹Ž´Öz#ÅC8ºR…§}ë
+´YÃ9B<€‚ùýà„-QSVÄF7Ëi®H«¹k8W—î8éX
+ì–dAŠìi'‰Ú@¦Æ:«A	d¼Êàih‡èawfÐVïÎ—¾à™­ ±6ª¡€(o\ÌaDœ'ˆèYdzÊ’Q°'"í™¨{ß
+_TH“šïwêc‹Þ?¯Ðp@]þ 0ãô¯Jj\ 7@ÉEÄ€«†0'¤7&j‚Ôë¡¯»Ö1{ÒåÑÁÊ° !„TùhÇ 8Bˆ‚îÄ°“œ0Ålt É
 Fa
-tA    @      r (  ,1'  V9 G  &)x p5 !
-  S  r   K  @ 8 2  ai ; @720sq,  s5 tv  ` , tX  ȭ 
-B  e&c̭ y [i 7  \h  R   : !m 5D d CZ   z R   -@ Z bHƃ8 :  "     p $  { l @
-Z  &4  $L
-  6 `,RD      T 	   *. "[BP=  
-j0 TdE  O s
-0  E0^D L      0 	   ʊ 9* c K ͈ 8  ,     H8 	 ʌ `E 8b   0D s  
- M  @  Z GZ  P A  
-   #7 yZ N垡 >G    pi  T* C    U@         (  A        2   
-   h-b 8  ڗ     p  %  ' 4    r$ 		J )FY P  !                         
+tA‡°ùÜ@œ—‡ úð‚rŽ(¯¢,1'àÓV9‡G²&)xÜp5!
+ƒ‰Sý¦r¿ÂùKóß@Æ8•2ž±aiÈ;‡@720sq,Ïýs5‹tv†Ì`Ç,âtXÄ¨È­ž
+B°âe&cÌ­ yš[iÆ7·²\hüÈR»:×!mÓ5DÄd˜CZŠ †záR—¼Ä-@²ZøbHÆƒ8ù:çå"”ž¥ŒðpÊ$¦Ò{«lâ@
+Z‡ƒ&4—»$L
+ÌÐ6…`,RDðÞÀ—ÀäTÈ	Š „*.œ"[BP=¼Ä
+j0‹TdEøÉO‹s
+0åE0^DŒL¦ —¹šÉ0 	¤¦¡ÊŠ¤9*«cÚKèÍˆÄ8 Á,Ôˆ âëH8Ñ	€ÊŒ®`Eƒ8b‚ÝÔ0D sìã
+‚M â@†ÃZ³GZ†ÓPÇAÕÑ
+„®»#7ýyZÔNåž¡ä>GØÏÔöpiýÍT*ÀC¸ Œ¹U@         (àA„       2   
+   h-b¹8 Ú—À¡ÏåïpÐÚ%Ýá'²4¾ ¾–r$á		Jóµ)FYëPÙÚ!                         
+```
 
-ISignalTraitement.wdc
-PCS                     B      9       j                  01F280051n                    ` \cmV  ϡ~t   \	 | _Ю   ?#     "              I S i g n a l T r a i t e m e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         PCS          c                  9                         01F280051n     s              >        
-                                                                        Έ    ISignalTraitement                                    /8   0z aꥌ   GwkY  %& ;    ŕD6  : G <@       A    
-d`   D |IȦC҅  b 
- 4`1@E    , < PQ 捘6U QSǌ3o 0Cg  7fBi# 3   $  ӑ%O   @  8mn B 2r쨡SS
- 7Q  !   S I  7   2<}   S 3sB  mӸr ʋ 7  & J A  )o   ⇈ ?z 
-  i q   눰)7 
-UF ԹS  }  }   f    {  Z7s ĕ X 7Tىiz{    ^  q  "  H%P HfP   3 # AOBD  [% 0ơ'       #)DJ." 
-`  L (    F 2 C( RP!    94 Cy6 l 7 C  Pp) ^O9 \NH锫 <  CҢ  
- \210 BB  ɸ  C >q J &3D  7Td *' F" /  JD7 0J҂t.7A   ͔ܬI$ 
- <@Û2     H˃ J/ ԳL8 t  X   hUVW  '  tVZ  D N1 5 ROM  V[}    5J ;I   @˧9   &> d 	   ! .h-Y
-e  	     
-;a  Q(g߀VZj 0  YP"  ,     7 "
-  DkR  $ଵ *T  & Q &
-  be= 3   f \)K   H  Q ʁeO? W P H `]]] =W  :PV  *  :  6  ="[\    քX 
- (ף ЅQ /     wi sW}   ߀y& ` 
-]]  (  , ȋ o    s  G=   ȼ 
-a V4 9   \e 6' s h>  p y  8  \L   vC 9FK,  B >>@* n  K    ̳   3o  N  0 &S 1   + q =   Z-Q8  	   < m  @  W    
- o~j(   FL   `  = V @C ⒉X 3    $ 3 ͦ ƒ`jdG !wf      X+xC7¡ U Oya @   AM k  ^ز7& p {5 
-G B   |oH  ׾ om> <g?  I      E$o    7 u s [   1 {LL6         U,   #x #   
- N  k $  *P ^, 5=   =  B0  <  $v/i  $gb    t   ȏm     71B  0   8 5*P n #
-u@ $ 
-  I   %e  B 2P@z$   &D  | ӝ L:GU _5  Id   H  ͂	   $Ox 36  d     !F^ J  R 0r +ݵ=Y΄ C) A͐3 aM^q     &/ B  P!TA`h  ^ 2  %nP X p ] }1&e  ~	'  [f3   Ds Ӕ 
-xM9RT?s  ?= pT 33U  ) } 3V [+ Z& L! I  R   ,
-~ k\ pB  to  # J׺ q  
-T F zd iU@         (  A        2   
-   (m"   G W  a%       *Q    2d  IY 3 i +                            
 
-ITreuilClient.wdc
-PCS                     B      9       j                  01F280051n                    K 6i w %  cOە  8W@o L         "      E      I T r e u i l C l i e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 PCS          	                   9                         01F280051n     o              >        
-                                                                        Έ    ITreuilClient     ILj                           / P*    J   2 cM   W   * T)( kkWa
-7  }  ] ^         6    
-d`  @ R  
-х  b 
--> c1@E "  , < T cƎ 6Dڨ1 N3tn yc& L1t 	  ]&q $iRވ 
-Ҙ    O%2iڤ 3u M  cӓ&    gΛF  q  % *m Ej lɓ    w$`y"Ʃz  * e
- @ 2 ;g Pmb L;-q  3f T#Of 8B 3jެfM uk 2"ʥk e  nG    \7 爩  l  
-W Ռ7a   = r S<   }N  9X \I   c %{  끱 ׯ} 2b " '  B ' 0= *#!*" 
-( ` 	*  Ј(B !   *: Sk  Pc3  Pî 
+---
 
- )  0 t#   
-0 `  4: @  ¼C   !F  0    H  ( "B 1 0 (  E0 03  tj  ļ0C0 P 	$ S G     aD  l 4 s  6+|S ) 
-(  O 0p
-?g 4ICOr!"!ST L) Xi < 0b@? T A *Ct P $ 	% hUUe O6  A f QǄW]'$b
-%    < h  $Z  AQ u  jHTY
-  "
-#   
- p* b
-JG0]?eض6 lwQ0 Mw]FW P^z 8 }    X]v x @U  ą m Syb ΉUuAU7  \#   cb    F   5 	0܅׈yU^ *L   x   XӁfoF7g s  `i   Q"V ip;E7k : *t    Un " O
-   L0o
-  $  N'"Uz   6 K   [  Y  ް
-¡  % 7 |  ˩   p  < ;     n )  d s  C"J |%%LD K=a <  nB9 d&"	 H   y*    ُG M  C	̋ u      `O ӽ 16|  - Q0Lb FU6ى )/~   7 t Q
-R  ة{   \    	Vx  @   L
- '  
- ꂍ ` T* U wOx  p*  T  ^    )  4(P w  4  I
-H 	WH;y N    lw   hM|  D    }(       n
-B Bڪ + ͱ =|# xE 9 S.  
-+  zԫ  X 8rC ,  E   z$b  I5iHv(ґ@y   IY   r%Vn K_
-  p%d!] 4   #   y f~     	A1 p V'! Sj  7  
-  Ǭ (>\겉   Tv (xp B # ( i  DRYx .  I^ Ҕ K~j K^  4  HAA  <f2 I f> C $ 4upQ`3dp7  M  *
-M   0  + 2  B  "  O    ') TOnɃ d ?_    A  %8s  #4J
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\ISignalTraitement.wdc
 
--fC  LgB OҤff &a H N * zD )։    4U <o  * 4 > Pe$ԁ Ҡ`@   Tc" - Te@    2e#
-l V   *   "  1  t MM Xvʣ r +]zס Ֆ ,ә    ӕu e^
-j (` f ` P v }:lE zUn.D   l"  \+ 1)Y n w    u_Z} Nκ  jŢ     *n Z nv@  M/  5    Lb  5J     * :  % T  X rS7 <0 ܅ F 1O cN   
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 ÁáÎ`û\cmV¿õÏ¡~t«–µ\	¯|Œ_Ð®‚¼ç?#     "      Š       I S i g n a l T r a i t e m e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         PCS          c                 9                €    ¼   01F280051n     s       è      >        
+                                                                       ÿÎˆñ   ISignalTraitement þí˜á                                /8£Úà0zî€aê¥ŒÑÆúGwkY¸ö%&ß;ÌÄÊòÅ•D6›ª:ñG»<@    Ù  A    
+d` ÃÀD¸|IÈ¦CÒ…‘b 
+Ü4`1@E‹  ø,‘<•PQƒæ˜6UæˆQSÇŒ3oê„0Cg§7fBi#†3þ¹Ë$ÎãÓ‘%Oªˆ¨@›8mnæ´B‰2rì¨¡SS
+œ7QæÀ!£”©S¨Iš”7¢ªš2<}† ÊS§3sBøÃmÓ¸r¥Ê‹ñŒš7‡á&ŽJ÷AÄ’)oæÜÙâ‡ˆ ?z†
+úâiÒq™¸õëˆ°)7ˆ
+UFÕÔ¹S·Ö}±¢}¡…‹f‘€çã½{›Z7sÑÄ• X€7TÙ‰iz{ ‚éáŸ^ŠÀqÄÅ"±ò„H%PžHfP«€ç3Ø#¢AOBD¼è[%¹0Æ¡'ƒŒÁ¢ý„û#)DJ."æ¸
+`®“Lˆ(ŽµÈ F•2ì˜C(¼RP!„üª°94ãCy6ÀlÄ7î€CÀPp)Ä^O9è\NHé”«Ž<²CÒ¢í¬³
+·\210ÒBBªÉ¸ÅˆC¶>qÄJ¼&3DÔë§7Td‘*'£F"Ú/ÎÔJD7›0JÒ‚t.7A›ïÈÍ”Ü¬I$½
+ <@Ã›2µÀ £ÈHËƒ‰J/ÍÔ³L8µt€ XÌ‹âhUVWåŒÑ'¿ûtVZŸÊDŒN1­5ÊROMõ­V[}µ¶î Ü5Jú;Iƒˆˆ@Ë§9ì Ã&>ãd 	ú…!‡.h-Y
+eµ 	‘®ƒ”Ø
+;aÃÅQ(gß€VZjç0±ÏYP"¢Ž,ª¨Œˆ 7¢"
+¤DkR´Ö$à¬µÿ*T×Î&ŽQÊ&
+ Öbe=Ö3•ËfŒ\)Kƒ‘’H åQ ÊeO?æ¬WºPHÕ`]]]‹=Wæé:PVžƒ*¢§:¢6Í­="[\€áö¡Ö„X 
+˜(×£‰Ð…QÃ/ÛñÝŽžwiïsW}ùõèß€y&Ø`„
+]]‡(â ,’È‹åoç òè‡s«è€G=ò¢·ãŽëÈ¼È
+a–V4‰9®È˜\e‘6'­sðh>ÉæpÎyØÂ8ñéš\LË ŽvCŒ9FK,²ÌB‹>>@*án˜„K¼ˆãˆÌ³ ‘¤3oËÊN‚Ý0Ç&SŒ1 ¥©+Ûq×=¬±ÊZ-Q8´Ê	ßÄþ<¶mŽÞ@àûW™î„—²áÄ
+„o~j(–Œ¹FLÒßë`—=V¹@CÊâ’‰X°3¦“ ê$“3Í¦Æ’`jdGæ!wf°ÉîÊç»ÈX+xC7Â¡€U OyaÞ@œ ½AMÏk‹¹^Ø²7&¡pÏ{5Š
+GÔBòõî|oHßÖ×¾½om>ý<g?üáIÈÁúÇÃÿE$oÛ… ÷7®uÔs’[çÀÒ1{LL6† Á§¤ ¹â  U,ÖÕÑ#xä#á° 
+¸N’–kÁ$€Â*P†^,¨5=€óê=ÑB0¢ö<¤½$v/ißÊ$gbÉ¥ ”tàô–ÎÈmûªŸ¿ò71B…Œ0£ÝÒ85*P€nŒ#
+u@Ò$‚
+ôßIÈÇÆ%e©BÊ2P@z$€ØÅ&D‡¸|°Ó L:GUÈ_5„ Id£¾ÙHí­Í‚	ì ú¨$Ox 36 Ždˆ²›Šô!F^J‹¨R‘0rƒ+Ýµ=YÎ„‰C)èAÍ3´aM^q¡Ïò–¸&/ BÒÀP!TA`h©ù^‚2èá%nPƒXÌp¢]Ñ}1&eæÅ~	'Œú[f3öÌ Ds›Ó”Ø
+xM9RT?sœ¨?=ÐpT­33UÍò)Ž}ö3V[+¥Z&ÁL!I„ R–‰¤,
+~½k\òpB¶õto«#ÍJ×ºÒqÜÜ
+TŠF²zd™iU@         (àA„       2   
+   (m"ùøÐGšW€Áa%¯°Ú ¨Æ*Q·¢þÖ2d¡ÉIYŠ3õi†+™á                         
+```
+
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\ITreuilClient.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 èßéK 6iíw%‘óºcOÛ•“À8W@o¦L«¸ùŸ     "      E      I T r e u i l C l i e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 PCS          	                  9                €    ¼   01F280051n     o       §      >        
+                                                                       ÿÎˆñ   ITreuilClient þí˜á ILj                           /âP*ý¤ª±JÁŸƒ2­cM±±ìWîÑì*«T)(ÜkkWa
+7ìº}õÏ]^ƒ    ˜  ¡6    
+d`æÆ@âRÈâ
+Ñ…‘b 
+->”c1@E‹" ø,‘<•T™cÆŽš6DÚ¨1ó¦N3tnÚyc&„L1tè˜	ðÏ]&q•$iRÞˆˆ
+Ò˜™£¦ŽO%2iÚ¤‡3uŠMºÔcÓ“&¢ÖÑÇgÎ›FÞØqÃÒ%Ì*m‰EjölÉ“¢Žíëw$`y"Æ©z‡˜*Âe
+ @‹2ê;gÎPmb†L;-qêÁ3fÍT#OfŠ8BÄ3jÞ¬fM€uk§2"Ê¥k÷e›¼nGïìâñ\7çˆ©£Îl¾’
+WÆÕŒ7a¯†¦=¹rëS<›‰³}N÷éˆ9Xò\I™šÍcï%{»òë±¡×¯}›2bˆ"Š'¨¨Bˆ'ª0=¿*#!*"ƒ
+(ˆ`Â	*˜Ðˆ(Bð!„À€*:ûSk ¨Pc3ÀÀPÃ®¾
+
+Œ)²ð0„t#±¿
+0 `€¡4:Ä@ƒ¾Â¼C‡¨„!F°ê0‚ŒªêH¡ (Ã"B1Ú0ã‡(´ðE0´03¥•tj…¨Ä¼0C0¢Pâ	$°SG“ÎúŒaDþÔl°4Ósª…6+|SÃ)Œ
+(ª¸O§0p
+?g 4ICOr!"!ST”L)¬XiÒ<‹0b@?ÿT€A³*Ct PÝ$“	%šhUUeµO6•®AÄf QÇ„W]'$b
+%¢ÔÎ<™h‚Š$Z¶ÇAQ„u©ÊjHTY
+«Ð"
+#À â
+pÂˆ*´b
+JG0]?eØ¶6ÄlwQ0îMw]FWåP^zó8Ó}•‡†ÉX]vÁx‚@U Ä…m¸SybˆÎ‰UuAU7¶÷\#ü¬ácbòáßF£˜å€5µ	0Ü…×ˆyU^Â*L¥ÂçxžæXÓfoF7g s¥Ñ`i•®·Q"Všip;E7k–:Ý*t¶ú‰ŒUnï"ÓO
+°•ªL0o
+ù$‘ÉN'"UzÂ§˜6ÏK«Ðö[»ÅYÃÀÞ°
+Â¡ˆ¢%¬7ñ|ëþË©¾´pÁç­<Š;¯ÂòÅõnÚ)¼düs¾ C"JÍ|%%LDÜK=aø<·ènB9ôd&"	‘H÷èáy*ž ¾øÙGŒM¿ÉC	Ì‹àuòÉßÞøÃ`OžÓ½å16|€ß-ºQ0LbŠFU6Ù‰Ö)/~£™ì7¯tí¯Q
+R™ç§Ø©{íë–ì\¶ÜØî	Vx× @µ©L
+ 'ˆ›
+¾ê‚Ë`áT*¢U¡wOx‚„p*ˆð†T ü^—ÂþÇ)Ýß4(PwêÙ4¯æI
+Hä¡	WH;yÄN…üáÃlw…•íhM|¢¥DÆ ö‰}(Ìâû†ÕÅØn
+BØBÚª¶+•Í±Ž=|#xEï9åS.„‘
++ ÎzÔ«¢ƒX™8rC‡,°ð„E²‘úz$b´ØI5iHv(Ò‘@y¢ ÈIY’•¬r%Vn©K_
+“Áp%d!]†4Â #°  y f~ ‚ˆáž	A1óp£V'!èSj€“7„à
+§”Ç¬Š(>\ê²‰½ü¥Tv…(xpBü#ý(i”¥DRYx’.ˆòI^‰Ò”ªK~j‰K^Óè4„„HAA˜Î<f2—I†f>óCÑ$Æ4upQ`3dp7ç÷M€©*
+MÀÝô0–®+ô2Š Bèê"ÈÍO’‚ðÔ')TOnÉƒúd¥?_‰¥€ÖA–­%8s™®#4J
+
+-fC•ÉLgBÓOÒ¤ff&aÜHÉN¤*ÕzD )Ö‰¼¼¹óž4Uå<oÊÍ*ð4¨>µPe$ÔÒÒ `@‚æÄTc"ó©-¦Te@ÕÈà 2e#
+l V¾ú“*œ "˜º1§ñt’MMÉXvÊ£ r½+]z×¡êÕ–Œ,Ó™¸ÉÒöÓ•ue^
+jË(`á²fÒ`ëP¨v¢}:lE«zUn.D’¹½l"ÏÇ\+œ1)Y®nówÉçê¶Òu_Z}øNÎºõ³jÅ¢ ô‰Õ„à*nˆZÒnv@Ÿ‡M/âÀ5ˆ¾ ­LbÓÚ5J©½­ø§*ß:õ¡%¦Tû„XârS7’<0ÚÜ…ÄFá1OæcN™·×
 O(
-B  4"     Z- J  _N i[ Y ٞv  -jH9TV %   fS    ƭ   I  I @~   [/ F  0 ݔKZe U    v3 ]{b  m 17k U 5  ,
-  ~ِ  m   + Lv2 eIB   ̕ʎ   =  G S' '&  Q     @ "N Bd  &     , T(\V JH    _& R" N G]    ժ~'u !ʹ:
-  ,. hb% w:"   B  ; ]4  }:f I ԕ97f ^;E  6Y M :E Vv   \"    X O   `;   r    -ۃ   4 ;q [   	  < 	  ;I   Fʻ  ꍿz  jB9   -    u / ֌{ *   0)J1I 5    rp   D   7   X; $   ip  \ =oxK  
-  67z  ^  	Ep       /;     |-g  " 5Jɀ H z K~s,J "  " i>    ,  | -y g^  | = yЇ^ '} Mo   d  U    xD `}   ~ K } c        E    $"  <~0{  ^  ~ } g   ߾   } _     ~ ?  _    ~  _ 쟿    ?  ߿     ?d?  =  >   +   ļ£  3@ 	  \
-  @у>  @AA,A<A4   
-Ї {A  >  L> A˳  <  @    >
-T ¥p    X  8+p""  ` {  3 2 AȂ,4 |P -   H0 B lX 0 PC34 P` 5 xpC14 <h 9 d C3  @   ^C<D `
-     W)B X  @
- "x  ;  8  ` ?   H  x ٓD|
-՛Ao	  : Ř x 2
-   7  M4 @ : p  %   (  `     @   `>
-d  S ɘ=    <oT>4 $  XĥpDH$GL g     jH  p> @ oW   H 	F4 G  W b   @DB 6D<DEdGu\G֨=   " 
-M D  D1Eq` R   3B   3P= =4 Y EU E  H^  9  G* cDe gJv     jĽ?m4n  p<C {J   mdG @G   u  ( 74 |    
-LAXU0 )hH Ĉ(ĈL   J  J  
+B¡4"—»íüîZ- JÏâ”_NÙi[÷YÚÙžvÀ¶-jH9TVŸ%¨µ½fS»à¨÷ÁÆ­Ÿ¸I¯ÂI¤@~—[/‘F—›0°Ý”KZeÊU»©âÐv3ë]{bñÅm17k¤UÎ5Çè,
+ìã‘~Ù”ãm‚Ü+«Lv2ÃeIB–Š Ì•ÊŽ ­¥=ù±GS'¤'&ÁÑQ ‚Î Ä@ "NˆBd’à&¬Ž’,—T(\VJH©Ž  _&”R"‹N¨G]êèì Õª~'u!Ê¹:
+°¾,.hb%áw:"‹¯ BêÈ;Õ]4¶}:fÇI·Ô•97f¬^;EÔ×6Y´Mìµ:EßVv¸ ô\"‘¿ƒXºO²î `;ØÃî¢rÝêÕ-Ûƒ—í¥¥4ù;qù[ ¸»	þÎ<Ù	÷ù;IœâíFÊ»¹Íê¿záêjB9¤Ûß-¶Úêþu¶/¾ÖŒ{á*õí¬0)J1Iä5ø¶‹rp¯¼áD€¶´7–ƒÈX;à$‡Éßip§\á=oxK¡ð»§
+Ý67z¼‘^ï•Á	Ep¼¦Íë™ÿ›è/;¡œõ¤÷|-gºô"§5JÉ€ÚH‘zÅK~s,J "ÎÞ"ái>ö¢Ãû,þ¡|å-yÌg^ó›ç|ç=ÿyÐ‡^ô£'}éMo›ˆd òUÊÀ‘‰xDõ`} ‘¼~õK™}íc  Ý  à·ÙÈEŒùâ$" á<~0{³Ì^ú™~ê©}ëgÿùØß¾ö«ß}ð_üÜ¿÷É~ó§?üè_¿úËß~ø¿_þìŸ¿ûéûç?þøß¿þëß ü?d?³È=í³ˆ>Œˆ+¥ Ä¼Â£ºÙ3@ð³ˆ	“\
+ ¬@Ñƒ>Óû@AA,A<A4½Š¨
+Ð‡å{AæÓ>ÔãL>æ‹AË³Áì<çó@¥ø¾ä>
+TÀÂ¥p½üˆÄX³ 8+p""È`€{ ¼3˜2ˆAÈ‚,4Œ|P‡-ìÂ H0äBôˆlX‡0‰PC34ŒP`‡5ˆxpC14‹<h‡9€dC3ü @ °ˆ^C<D€`
+ôÁ ¸ÀW)BÿX@
+ˆ"x˜;ø—8è` ? ‰„H‰†xˆÙ“D|
+Õ›Ao	‰™:Å˜¯xŒ2
+Ÿ¸Ä7ÈÄM4@ò:ÿpÅ %ˆðˆŠ(ƒˆ`Æ ˆÛˆ@è `>
+d¾ÙS¼É˜=€ÓÁã»<oT>4Â$À¥XÄ¥pDH$GLÆg€¨ jH‚ p>³@ÄoWà ‹H 	F4‹G´ˆWÀbˆ¹@DB¬6D<DEdGu\GÖ¨=ÄØÀ"€
+MäDîøD1Eq`“R¼€Þ3B°€3P=Œ=4‘Y¬EU¸EÑØH^ôÈ9øÅG*ÆcDe gJvŒÆ ˜ÆjÄ½?m4nŒˆp<CÊ{JÏëÁmdG‹@G¥¨ÈuÈÛ(„74½|à ¯Ã
+LAXU0–)hH§Äˆ(ÄˆLÄÉÀJÐJ‹ô
 
-    8   ` )t wĄA   0z0E |@ d@=
- ƄE6B c	 (  
- p l  h1  P :H8 ͬ   `     ˠ &Y t bP "@  M 4V I F  @ ͘   \  h W  "  5  ̌ \N h    01( n   :Ѓ7  4  7P  `	1Ȏ" ]_,ϖCOCs
-y 1   (  艜H  L
-   4 L @:	 
-y O20	ENΰP\T   Й GQ 	 Nm	OnZJp6nr>λ=cDƟʠdD 4Jq k侥  ̼'m>     H" D    +  ` # G{ G      ~ # 5      x 5 `˓pˁ ˈ  wL W    F΋ Ș@,
-T  BE  t
- sO  O  O3 O  O: O
-  V L S  r h0    ƴ Y@  Lٛ){ƐI  	 P P       TL5      IdJ 1 8h Ǩ   )D
-  
- P8,008 c N\|  1 	/  cQ  | eΖWr5 / h  N Pw5.8 Ѥ/ P ! O $ ` )& dq |Wр· Q~    nb P  7xn" tM%  o Xx- 6 (  ɕ&    " =O* & e ;Q"  P  W   r# )  *p z% Z  ٣ Y /  p6 М-Г  P  & 48 9x +  e  |
-   UZ  )
-    Fy + - %mZ 6 Zy   %  ' &1Y;	۱ 
-#    ל- D  X۶  lz[J   /:    E;       W  & ,\;aW}   ݠ  - KA   X  ۻU  x ; =  81  < X  фe 
-Y  
-ܑ  jO   R  ^e# ӏh   ؀ 8  ] 9 ;    R e  IFʁҥ(Rj< $վ%    Ƥ J   ͣJ  R	 R
- )  @      c ` { } G4G pɏ  )  # Sy Ө K 4    `$UB  D \ }P3ȉ)     0  8UDeL  V      $[lN1 L,׫ePb% E  ( l ׹ A 8  
- w|A!ʈ0RkL l  v  <  <fR   N -A3  &ӥ0S4= - s CDb   a SD ST ,  ;  J  xІ/ H Wne  :  Z Xx \ W] Z & h  aV
- 	  _ U5fR~H³aTfD@       : <C  (N F$BpV
-q. ٛ 
- <F ^  XT%<Ā         (  A        2   
-   ~              L
-O  6    I]  "&   %~  ~                           
+¤ÄÝ 8°ƒ«`¥)t wÄ„Aø„ 0z0E¤|@Àd@=
+ˆÆ„E6B‚c	ñ(¹‘
+«pŽl‚h1äP…:H8 Í¬˜‰ø`¥˜’¾üË â&YˆtªbP„"@ €M¿4VÒIþF˜ˆ@Í˜ƒÎø\øh‚WÆÃ"ƒ£5ãÌŒä\NÐh‰ø01(°nÁÎ :Ðƒ7 ƒ4 Å7Pƒ¡`	1ÈŽ"ƒ]î¤Š_,Ï–COCs
+yˆ1˜ƒ¡(‚çè‰œHíL
+åôŒï4êL³@:	ˆ
+yÂO20	ENÎ°P\TÆÓÐ™’GQ€	íNm	OnZJp6nr>Î»=cDÆŸÊ dD¢4Jq€kä¾¥ô‹¦©Ì¼'m>«ä¿ô¿¹¤H"„D®ìÑÎ+€É`Ñ# G{ÄG³ðÒ ØÇ~ôˆ# 5¨¼‚ ±˜x 5™`Ë“pË€ËˆœÈwLÀW´½¥ÀFÎ‹ÀÈ˜@,
+T¢´BEÁ¼t
+ƒsOø”Oú´O3ÀOýäO:ðO
+ÂV˜L S  r h0ÉÅäÀÆ´ Y@Â‘LÙ›){ÆIšô	ÆPÇPŸÔøœÏç°TL5ƒýìÏÿÌIdJ¯1€8hƒÇ¨‰Ì)D
+€ö
+P8,008cõN\|¨1€	/«cQ ö|ÑeÎ–Wr5×/ñhÏÑN­Pw5.8¬Ñ¤/ÏP•! Oó$Ð`œ)&¡dqÑ|WÑ€Î‡Q~ã„ðnbÂPÁÎ7xn"‚tM%À×o¥Xx-×6 (ø¶É•&˜ž´±"¨=O*à&eØ;Q"“¥PˆåW—õ«r#œ) Ù*pz%ŒZ˜•Ù£­Y/¸‘p6ƒÐœ-Ð“ ¢P¹“&€48’9x+ ŠeŠ|
+÷üUZÍ)
+€¯µ“Fy‚+€-è%mZŽ6åZy¨žµ%º˜'à&1Y;	Û±¥
+#˜ƒ–×œ-éDƒžXÛ¶ýØlz[J…ƒ¸/:ÐÔõ¢E;ØÕ–Š›ÈW¹å&Ë,\;aW}½Ð±Ý å§-ÚKAÚòÔXÁ­Û»U€–xƒ;€= Š81°ƒ<ØXÆÝÑ„e£
+Yê­Î
+Ü‘¥÷jO¬ÞÐRžÍ^e#çÓh±“Ø€ˆ8Þä]Þ9; ÜõåRüeõIFÊÒ¥(Rj<Ò$Õ¾%¾ˆèÆ¤„JÿˆÒÍ£J¦¤R	¶R
+À)ºÂ@ÕÒüíàÐcÑ`Ó{œ}äG4GÃpÉ  )€˜#ÀSyÐÓ¨‹K¹4ŒŽ»ô`$UB§¨DÛ\Ð}P3È‰)Ì ƒ 0 8UDeLŒð„VôˆÉä¾Ê‚˜$[lN1ƒL,×«ePb%âEá(lÊ×¹¥Aï8Áý
+ w|A!Êˆ0RkLÊlÔßvÊÖ< Ö<fRöˆˆNÁ-A3õ‹&Ó¥0S4=áˆ-ËsÉCDb‚ƒaæSDôSTä,åá; øJ³ÈxÐ†/ÃHƒWne¥„:øƒZ‰Xxƒ\‰W]ŒZè†&Ãh€ƒaV
+¢	¨†_¦U5fR~HÂ³aTfD@ÅÀ †¥ø¨:Î<CŽ(NåF$BpV
+q.ÁÙ›€
+¦<F¼^ŽçˆXT%<Ä€         (àA„       2   
+   ~Å•«æü§’¼æþ¦·‰ã‰L
+O‡Æ6ž™÷ÏI]¨ò"&½šÌ%~Žó~ ô                         
+```
 
-Logger.wdc
-PCS                     B      9       j                  01F280051n                 `
- %k  ` % T  %4^$  7t
-**     "             L o g g e r                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               PCS          	                   9                         01F280051n     h        
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\Logger.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 `
+£%k¯ `ï–%ÄTåò%4^$ž¸7t
+**     "            L o g g e r                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               PCS          	                  9                €    ¼   01F280051n     h       ø
       >        
-                                                                        Έ    Logger                                    / m)R y?  P ,    s  <0  ,:    V    G C 4      
-   5    
-d0  @ z 6bӅ  b 
-  `1@E "  ,    A  ̜f  	a獙Dڈ C L  2  Xt I  ,DT  	 !B *  Q HO `   ;f ؉93  b yc Mgӎe     h Ś   ]Ŝ9Se 28eҴb8m  2 n 3c     _y  ig  68 LQr  " A z  4E 7p QC&   e  [    i >  k1oʤ MFxM˕    Å ˵ # u   cw      w誦 u   {_  ; 0#  l  8b^IN   
-  P 
-   % R+  3 а  C ' 
-  O    k< " 7f N  p %'  0.B aH! t  "   7 4
-Ea    j  a +';l; ,j<
- 29 0   AL   (B X    3 0 <  oO3
-C D  MɁ   "(S tRJ+  ҁ>   0  "P1   D   R#BuUU[  W]M5VZg  [e  d   uؐ 5  K+  }6u  Z#   > 4 J  ZLIE ]   _[   o ]2"Ж +   
-% x 3   Ȁv0 =w`       A v   Ƶ  
-  v *s "h i;  M|  )!_r T1&7X 1UZ  eN " c8Ș 6q  :@y 9RpNP R  ␔ h# **#  _(   G N% U	 C   u R    W pM (   Xa N n  ͤ
-  + 9 )9(  斶 ^ت     X -    8        E P |   @  = H  LЙg UZ D/ t  ~t$ 7 H     ٬  n    Ė l  N{ k-m;|Q  ^W  6Js Om }b XC Rq  ȓR8" + 8}   \  @ӑ  sPC  4, *XA ֱ,{pC F      "  h,    ,h!  iP 2Ё I
- @ 4\ 8#jA r  PI-uqC  ; !
-rd$C 7  3v C+ӡ 8 L|Ld&S  L1* b    i/rhR2:   `	  X% H
-S   n   
-w    5"iQ9   ' 1)֊cS  $&z U 90mxA   $  Wx	   հG  nԂ$!	;p v@* DY   !8 R Cc  
-iP   16 Hi,   c 
-KK   BF:2      7 gL Op  v  *)      HA8  3  LiRS,ׄC6Ѹ n~   gR  5n1. +  JX4 Dcen  ]   f1 L3 3  'B @   d   =d   =# ` 
-] 2Ci Cr fZ J   % 8!@Je  nu 9EID   @G:  M| M>     2#< 
-PЂ  $     ,砒   &,  SUX %% < cb 3   
- iCj~    G!h(f  ĸt  Ix  y  1l`
- :    ' Z   n C  j ^   = \9 Z 7)  z     
-  5     RmUOB]AҐ0 Y;	 ^ R yS հ   z  ^    e
-|    \) VrC߂ + G f  +   }   =<0 a%z _H츁  Ă     ?  orC   < a  a  @   8!
- A )V   \ 5`R     _ ( B      F
-40@a ~  8 amP 쀓 FCP mq $ɓX5   Mo~cOd 21/(
-  w d -[  <! I  } r   Z ЏF      .  [ց 5   mu  ڹJ  I S  Gc
-v        ٷg  01  
-TP       Z iá	fY h[   ٜ' # { 7Y   bX;݂#h q  T!  & j 	6_  Wz  p~ 6  lr  + =  /|q vx 替=> <"  KA `,9 Q Ɨ   ? & ĻR C u  %DY   :h `@Ib	   C  ,  [a    7  4r 	  | q #fEko{      I!U  <jv[ C    Q   KV"t P I Ф&6  Y`WX   3~ 2Y  `s ߑ 9S [ꛕ{  M <  X
-ٖՎ | 山       'O"  h  E   j
-걶~< 
-  {h w>g  Cv 
-U  H R Z  [
- x E 7=  k MxD   4  l 8 &~
-[\  U 7ߎs Œ AF  ,  }     ?     2Ψ1 `9   8Q   2Ѳ s  ` $    R 
-|   #
-  C S  Z    (3 c37   {  
-ڢ     H:  
-  *  P;:*qj!    qº      ï  > 
-  @ +?   	  I s?   a  Ƀ2   Ʉ8@     tx9  )  T@ y  
-     ;x  ` sHb(AD 2
-`  C   d:T3  8 A? ( ء  Bʓ    +  PB KE'      8 F 1  >   B 1       P90 a9?h  4 @$ 8 I SqCو  p C@ D  V q r  sL   GژG  Cy0   B\ 5< 䓁   	|I  )J<  s Ll 3    3
-  :t!
-AH8 T ! 4a 
-< EY̫ ꫿  j '  ( ; tE   c$ DGe >/  
-?ij 2| ; 
-k?n  ?c  0   u<D   q  ~ G Ȍ IC  d    `  0    `A 3  Ȧc ; "  H 0(:Z  $         Ұ "+  "* 
-<"   ; !+؋ Ŗ     / >Λ    `   ,L_ B  #\/d₧@p  $  Lʴ ! M`t ՜   
-Ьſ "0 ! $ M   |  ͚ $D	> \N lN   * ! # NYk-/ B  P   .  Jb ɪ8~ B  
- /T   i  5?3\?4lP [  -ā B \ >  l(=$ I
- â # P Ʌu   A,K	 @  @tJ 4 La  i xH T  ։PM   ˊ
-   P|  K   e     hE K   E dB  ˜M d  45  O  I   .P â 5J [Pm I 8 ̙P  ˇ#      (  KD GbIє   cQ tQ ,  K*   p  4 $  $  
-   3  4 J "PR4E tRtL RU  қ  Sc   R] Bx  +85(ӣ F  Od I [ JJg  S ɖ  l,   05  3m ї˅@؅M` aqT?  	Ȣh@$;J< 	2
-  Rm y    ? 
-   x  P I   틁5Fv= H ƞ W  Ҿ( K   2"R
-   
-  TQD  1 h W  / x           (  A        2   
-     gzJ  [띗*    : {QTl  [   s    k                         
+                                                                       ÿÎˆñ   Logger þí˜á                                /“m)R¢y?íéP‘,è—Žœs•»<0øæ,:¢½¨ÙVƒ¼¾GäCÍ4ˆ    é
+  î5    
+d0ËÆ@îz 6bÓ…‘b 
+™Ä`1@E‹" ø,‘¼›ÀAƒÆÌœfèÔ	aç™DÚˆ¡CÇL€î2‰óXt I“ò,DT€¤	”!Bš*”¨QHOÞ`ªàš;fÄØ‰93Ä°bíycÇMgÓŽeëö…‘•hªÅšµäÉ]Åœ9SeŽ28eÒ´b8mˆ©2ónˆ3cóì½Ú÷è_y˜¢igŒ˜68£LQr…˜"ªAùzþœ4E×7pÜQC&š—eßá[Œš›œi×>©¢k1oÊ¤æMFxMË•ë ŸãÃ…åËµÊ#ÑuŒÂÁcwŒþÌËð´Çwèª¦ÌuíÜã{_¢«;ê0#ëlÂÉ8b^IN¶Îø
+¼PÀ
+™èÃ%ÞR+¸3ÔÐ°Œ¡Cî'—
+€ Oí¦öëk<˜"Ž7fŠNÀ†pï%'Ä 0.BˆaH!‡t«ñ"ˆ¨Ã7Ž4
+EaŒ­°èjë­õa²+';l;,j<
+˜2Âˆ9æ0Ã˜âŠAL¿’‚(B¼Xº¼Å­3‹0ã<½ò”oO3
+CŒD«¢MÉ˜„Ó"(S”tRJ+µôÒ>ˆ¤0Õô"P1ˆÑ DòÌÔR#BuUU[ˆÕW]M5VZgµÖ[eÅ«dµÂ uØˆ5öØK+ªÈ}6u–ÓZ#•Ùå>í4ÔJ­åZLIE«]êµÖ_[¤öÒoÅ]2"Ð–è+ž ¢
+% x‚3î‘ôÚÈ€v0ü=w`‚‹ú Ð°ˆA€v¸áåÆµµÜ
+¦–v“*s "hœi;ÈM|ý )!_rèT1&7XŒ1UZ˜‹eNž"Šc8È˜¬6qê¸Æ:@yÍ9RpNPþR¤Ùâ”ˆh#‹**#¢«_(ˆéG N%æU	–C‚ˆ´uöRµ±íÖW£pM·(‰ç Xa¡NÑn½ÏÍ¤
+€î+‘9 )9(‹Âæ–¶ƒ^Øª‡Žîðî›Xú-ƒˆüü8ä‘çÀ·“ÝùEå‡Pí|â ²@™=šHÖñLÐ™gŸUZÍD/št¤•~t$§7÷H © ¢ÚÙ¬ˆÞn® òìˆÄ–µlÚÎN{ík-m;|Q½í^WÚê6JsåOmÿ}bóXCñ¾RqÃðÈ“R8"†+‡8}ÌÝÍ\ð£”Ä@Ó‘sPCš 4,È*XAÞÖ±,{pC FÊÑÁ ˆÆ" Äh,±»žý,h! iPƒ2Ð¼I
+Ü@ 4\Ç8#jA¾r‡ëPI-uqCÏÐ;Ð!
+rd$C™7ø 3vÈC+Ó¡Ô8‡L|Ld&S™ËL1*Ábò†íÀ‡i/rhR2:¨Á‡`	ÁæX%²H
+S Âñnº©é
+w€ƒ‚ó¦5"iQ9‚î•È'µ1)ÖŠcS˜Ã$&zä£U”90mxAÑ•‚$ ÍWx	ˆ Õ°GÈÐnÔ‚$!	;p‚v@*ì€DY‚”™!8æRðCc† 
+iP“ÊÐ16ÝHi,ì˜ÌcÞ
+KK”ž’BF:2ëôäÓ™”7 gLÌOpâòv‚†*)Ã´˜Ãõ HA8‰‹3¡ÉLiRS,×„C6Ñ¸Ín~¡âÌgRª€5n1.©+çàJX4³Dcen™Ë]öò—Áf1šL3‚3ýü'Bç@†Šžd ©ä=d†š¢=#Í`Ã
+]È2CiŠCrÎfZŠJŠî‚%³8!@JeâðnuŒ9EID¨ „@G:ÔéM|ƒM>¥“Óç˜2#<á
+PÐ‚¦ $²’ª‘,ç ’òºó¤ &,ˆËSUX %% <•cbß3‡¼ 
+ÇiCj~àËòÈG!h(f¨Ä¸î±tÓIxÀ”yÆå1l`
+Ô:¥ö¦'íZÐÛÌnÖC©‰jƒ^—«’=û\9¹ZÈ7)€–zëƒ¤„µ
+÷‚5ØÀ¦“°RmUOB]AÒ0éY;	ø^øRŠySóˆÕ°ÀêàzáÓ^­¼Ûïe
+|“Ôø\)ó¹¯VrCß‚œ+ GÂf°„+Üõ…}ñÕ‡=<0úa%z _Hì¸¤âÄ‚û°ˆ€?„éorCñßÿ<“aôa€ð°@ƒ¶8!
+œAŽ)V³ ð\ð5`R¼«„¯Ô_¾( BÜŒ™ƒ”öF
+40@aï~‡“8ØamPƒì€“žFCP®mq£$É“X5 ¹ÙMo~cOdš21/(
+´Ýwžd¹-[­ã<!úI„ˆ}àrûÕZ ÐFÀé€™Þ.òÌ[Öœ5­ÑÁmu Ú¹Jº®IùSÛGc
+v¸ƒšž©›êüÙ·g€æ01€é
+TP” ¤¡‘ÄÂZ‡iÃ¡	fYÐh[‡ ÙÙœ'¬#Ý{ê7Y¬ÆþbX;Ý‚#h¦qÃê T!„Ì&âžj‹	6_çÕWz÷íp~÷6ð‘Ílr ì©+Á=¶ðƒ/|q vxÃæ›¿=><"ÄíKA `,9þQ®Æ—Óø ?î‘&ŸÄ»R°Cñu ª%DYÞàË:h`@Ib	³­ÆCæì,…¾[aš×Üæ7³°4rÆ	Íë|îqË#fEko{ðƒìÂºä•îI!Uû<jv[ðCµô°×ÇQÁ«ŸKV"tÅP‰IÁÐ¤&6Í“Y`WX†èÐ3~æ2YÀç`s‡ß‘•9SÀ[ê›•{¼ÆM´<¬¥X
+Ù–ÕŽž|Ùå±± ÜÚÕøÄü'O"‚ˆhµÓE˜Ìðj
+ê±¶~<î
+ î±{h²w>g©¶Cv¦
+UáÚHí‰R™Zú—[
+àxÞE¢7=£üküMxDþ»ä4üál‹8±&~
+[\ýæU 7ßŽs˜Å’ÊAF®¼,ØÅ}ÉÄè—ÿÛ?ƒ‰±“ø2Î¨1€`9Ø«‚8Qù±Ø2Ñ²–sÀ ` $ ˜“ RÉ
+|‡Ôž#
+€ŸC S©²Zž‘ (3§c37ƒ³©{¡È
+Ú¢€‘›€¾H:µ³
+€ô*¤àP;:*qj!²»¨“qÂº÷š¾êë”ëÃ¯®Ù>„
+…Û@ñ+?ñÃò	 ›I¿s?—ƒ¿a™¿Éƒ2¸¿ÍÉ„8@£È  Ÿtx9ˆü)À T@»y¿è
+€œ€Ðù;x¬¡`€sHb(ADÜ2
+`‡ôˆ¢C•ñød:T3Œº8ÓA?”(³Ø¡ ¤BÊ“ ˆ¼Ò+¾ò«PB¶KE'œ‹µ¸’»8ÅFÂ1á¸æ¡>ËÂ‚ÛBì1Áîˆï‹†ûžP90¿a9?h¬¸4¼@$ã8½I SqCÙˆ pôC@ˆD˜…VÐq´r„™sLÇ ˆGÚ˜GØûCy0ÀþñB\Ÿ5<Ää“ð¨Çð	|I‡Ô)J<ÁŸs‡LlÁ3 øÄ3
+„:t!
+AH8ð‰TÔ! 4aÌ
+<ƒEYÌ«½ê«¿ÂÅjÂ'ìÅ(Ü;“tEø±Âc$¸DGeä>/ô¾…
+?ij¬2|›;Ã
+k?nÌ‹?c‰„0…ø‡u<DÏ æq¬œ~ôG•ÈŒëICŒ¾d‘ƒÄ€`Á„0†‡´Ä`Aµ3¼ÀÈ¦c ;ø"©óHœ0(:Z™$¢“„””œ“ ð‰Ò°Œ"+ÿˆ"*
+<"¢»ø;¤!+Ø‹˜Å–´Åà¿š/ >Î›´¤èÌ`™ÌÊ,L_”BÎìŠ#\/dâ‚§@pÔ$«òLÊ´Ì!šM`tÄÕœµ×ë
+Ð¬Å¿Í"0‚!°$øMÝà|Íá”ÍšÌ$D	>Ö\NÏlN—ÌÍ*˜! #°NYk-/²B¯ÊP¯àÈ.œÔJbÑÉª8~ÒBëáÂž
+Ÿ/T° Ãi„¸5?3\?4lPŒ[Ê -Ä¬Bü\Ž>Œˆl(=$úI
+µÃ¢È#¸P¨É…uœ°ÄA,K	Å@üì@tJ 4ÙLa †iÈxH€T Ö‰PMÄ‰´ËŠ
+ ÐËP|ºüKª»Åe“‘üÁãhEÝKÉÉò´E˜dBÚÅËœMÍd“Ã45øÒOèáIêùÉ.P¡Ã¢Ü5J‰[PmìI‹8ÁÌ™P’ÊË‡# Ñ È Ÿ(ÔýKDÅGbIÑ”£±•cQtQ­,ÈØK*—À€pø4 $¸€$Ø 
+„Ÿ3‡‰4ÒJŠ"PR4EŽtRtLõRUŽ©Ò›¼ÒScˆèR]”Bx“·+85(Ó£ FúÚOdìIí[ÆJJgÊSðÉ–¤¼l,Š Å05¤Ô3mÃÑ—Ë…@Ø…M`ÔaqT?ËÊ	È¢h@$;J<•	2
+´ŠRmÑyÝÀ—‹?õ
+ÔÀxP×I™„€í‹5Fv=ÀHÝÆž”W¨ÌÒ¾(ÒK¹× 2"R
+ ‹Å
+ŒíTQD»1Èh­WÈ/‹x˜€         (àA„       2   
+   ’ç¤gzJÅÕ[ë—*„˜ÊÄ:¯{QTl¬þ[»ÏµsëŸ­ k                         
+```
 
-LoggerErreur.wdc
-PCS                     B      9       j                  01F280051n                 L i]   ; i   
-rv1 p   A h \       "       
-      L o g g e r E r r e u r                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   PCS          	                   9                         01F280051n     n       
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\LoggerErreur.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 Lÿi]úõÐ;«i°¿¹
+rv1¸pÙÄöAhÒ\¡¨     "      ¨
+      L o g g e r E r r e u r                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   PCS          	                  9                €    ¼   01F280051n     n       
 	      >        
-                                                                        Έ    LoggerErreur                                    /@  ʋY   n  lN 4 G G~ B     mivA  s   v  W           
-d@  sA %(cbӅ  b 
- |`1@E "  ,    A   #s昱3' :uB yc& 6b  1  L <.HҤ<
- ig  6E &e    R 9s  1d|   3 8p Se M!Έ   (R ]-~  A*U X}ƙ    .y2 @
-  qsD
- 4j^ ̹ g b    ur   T M# M   ɐn{ n s|   : k $Ď Sv4[ o  yi 5짆1+PS   7  o=> p	 n  1  ;O    bM z  ŷ  IG Kϲz 3    j[-2א  #̬  0 " 7r      %' p//B  DO    "   7V4 >k    >   p Hǋ   " i #HrɈ 4 I(  R (    *- /    $  * @   qʍ ks    QH  qM/  R0' rJ-  s 0 : ňb j # x  *   	    3 21V  <5բ   RhUVW   = pTZ9H )
-""Ü氃 j   ! .H V@  h #ߜ J N  18Ƞ   | 5 :|  9R ;	i  V0     **# y (   G a 1I	 K Ӥ F;
-S B  a ` x .ٽb=    `B P9 (  ?  SSM  V_ 2" ET  b   " 7 9*    A  $i.T 
- ֣   ̈́k  v nCȹ _y6WF   Zf pw x-  ޗ  w 9 ʀ_ `!C 1ჇdX *1 Hb b[  
-5!@  P  < Yu   7 GXc  "# h  & @ >     ghe ~  =        zjU  )Į   C݌ܠ  R[  ڰ  4|+   zÇ  R!   gt S7 " B  2
-- B Ì:    ^z    2 {  GM       R B^ ?   	 2 ^B " f>=IA VÞ7l #HBv ' 
-T  0   #  C  p S   0/ P UH L P ] dC b | ! @yh8 d&=A	 *ߌ   .  
-b2  $oyUl    D$[  Mp    ) Y    5O   I^r   0 4b p $ %<Lt")    +   ɼ L [   A  ."$ 	Q B  7 a .Y ?R s  &=R  إ@YI^ c      $  />jq w    L 
-qxI  gF $q  BP    3= AB0   ]  Tz  +@A
-;4 /)Ӣ h  V4 8
- 8 &, 
-339  /"tP t     
-Y  J 9  =p C W=xП# 
- 2Ǽ  xj C
-Љd~ '  KZ  2f @Y	 O ,.Q4   ;S*O      FG  16q @W   dq _    r    
-w  F - z rs  }   x ^zM[ P }  uB B   muR  n 7$ M Sz d TY Z   l_-  X   mi    (δ  @Tە @ 9p j30 1 $  "    *"} @ '1  pB  $ z r  h3  * 
-4  /
-    u }F  &   #I"v   U-vC   ; $x 	 vi   zŬ'  @6әτf4 |	ˈ? F  O @Dn    8 el*    ݉kl   h(n X@bf   g  yᜒA  $ Jc ҧ|A*8    ; a&)8 n<  D ]  QA
- m 4HYk i  & Xݚi UT 5 c qSf  \3 T 
- X  ! -   P c
- W<  Wk   - { +  ض mJ\E a  6 樱p l 9 YT Z } Jte G  ѳ H=VP  H L   b2   
-L  @ ) ȭ  2q   q5̊K V  $\   K 仩
-? ;X    h    Ľ |}        |   6 F G  >    W q<K   `Ɯm6  
-=% F;~  OB @y#8# BP  s4 ZlC  $؎.n  _" bW*^ 3~ 8灶q '       68 
-ε +
-/   <D  o .  vM   M>  j   s  q`  S 2s( L&ر  H  li t_/Ͷ~)  | tbG=$ņ F  n 7 x f r -    Z e   n ^ F. # @x/)7  %y'  G     _ӥ. eA j %   ,    ~;z      }   4   ص ?  %i   >< j
- iU@         (  A        2   
-       f TZO);u Fh% L ё qx8  { os i?   y s|                          
+                                                                       ÿÎˆñ   LoggerErreur þí˜á                                /@¡ÈÊ‹YˆƒÜnüñlN§4±GÝG~ÝBñéñ ö€mivAÿÜs‡„v»’W    ü      
+d@ÄÀsAî%(cbÓ…‘b 
+è|`1@E‹" ø,‘¼›ÀAƒÆÌ#sæ˜±3'„:uBØyc&‘6bèÐ1àŸ»Lâ<.HÒ¤<
+ igŒ˜6E&eºÔéÉRˆ9s¦Ê1d|âÔÉ3Ä8pÚSeæM!Îˆ±“Ç(R¥]-~•×A*U«X}Æ™£æŽ­€.y2å@
+ÞÀqsD
+™4j^ÞÌ¹³gÐbÔôüËurÓÊòTˆM#æM™¬žÉn{×nÑs|¸Ñ:ðkÂ$ÄŽ±Sv4[Óo›Ÿyiü5ì§†1+PS†÷Í7À«o=>™p	±nìÔ1“ç;OŸ©‰½bMþz ÂÅ·»ÁIGŒKÏ²zï´3Ô°Œøj[-2×‹­#Ì¬»Ž0¤"Ž7r²½†˜î%'Äp//BˆáDO”ÐÁ§"ˆ¨À7V4ï>k´ñÆë>ˆ¤pŒHÇ‹‚ôÑ" i²#HrÉˆ˜4²I(Ÿ”RÉ(©œ¬*-Ò/ †ô²«$¿óµŠ*²@ŸÓäqÊîksÌû€ìQHåäqM/‹´R0'ÃrJ-¥‚sÌ0™:àÅˆb‹j #¬x‚ˆ*”€â	ã¸§Æ3õ21V ƒ<5Õ¢ ˆÍRhUVW½îÏ=pTZ9Hô)
+""Ãœæ°ƒöjªÔÂ‡!‡.HÒV@¹Äh#ßœµJÂNˆˆ18È «Œš|Ú5Ã:|–¦9R˜Í¾	i”–V0•ˆÈ **#¢y›(ˆéG aå1I	®K‚Ó¤óF;
+SÏB—ê³a`…xË.Ù½b=ÕâÉò`BãP9Ž(“? ÔSSMªÕV_Í2"ŠET» bË ¢"Ø7Ø9*í£Ø òAö¡$i.T 
+‰Ö£‰¨Í„kçÈvÛnCÈ¹×_y6WFÁÖíZf¦pw x-’—Þ—ïÍwß9ð·Ê€_¸`!C¦1áƒ‡dXî*1ŽHb¦b[àÁ
+5!@¶å§Pˆ<–YuÙÞ 7ÜGXcÃ "#Èh¬Ž&Ô@£>Àðß Ògheÿ~Œð€= š šÝé§ÀˆzjU¸)Ä®°óÏCÝŒÜ ïR[°½Ú°ƒŽ4|+®¹êzÃ‡½úR!„À¯gt‘S7¶"¢B‰È2
+-µB ÃŒ:À¡ª–^zÁý³Ò2ƒ{¾¸GM€Â¨Àµ®æRÁB^Ð?µ¤ 	ä2Ã^B "Ôf>=IAˆVÃž7l¨#HBvà'ì€
+TØˆ0‚ï± # ßC ÃpÁS˜‚¬0/ØP†UHÃLÄP†]ÕdCæbÁ|ð!†@yh8—d&=A	”*ßŒÜ›ƒ.™Ã
+b2“š$oyUl¯ø”D$[ÖûMpðâ )„Y½Æà„å5OƒôñI^r¸Ãþ0ˆ4bÍpÄ$¢%<Lt")ÅåéÑ+±©‚É¼¼L°[œ ÉA†Ç."$¡	Q¨Bº†7´aø.Y†?R†s ƒ&=R­ˆØ¥@YI^þc† ™¡¸ü$Ëóµ/>jqÃwœ°žöL°
+qxIò°™ gFó$qÈúBP›Ûäæ3=ðAB0À°‹]³™Tzø„+@A
+;4‘/)Ó¢ˆh‘‹V4Ÿ8
+æ8Ç&,È
+339Ï¢/"tPƒtú‚ ª¦
+YùJ9„È=p°Cô¦W=xÐŸ#‰
+¤2Ç¼œxj¨C
+Ð‰d~¦'øèKZÐÓ2fÔ@Y	çOÂ,.Q4Ùú;S*O‚š§žÛªFGˆî16qã’@WŠ“dq‹_ÅÏùžr³Ìä
+w€ƒF“-²zírs¥ë}Äö®x ^zM[ P }ñËuBáB°à­muR˜Ýn´7$õM²SzØd÷TYÊZ³—Õl_-¸¥X®®žmi¿´±ˆ(Î´¯É@TÛ•¬@µ9pj301î$Žä" ÉÅ*"}Ô@Å'1Å±pBŒ“$ÐzÄrÇÓh3÷®*á
+4­Ô/
+€ ìƒuÐ}FˆÑ&ÞÚÎ#I"v§­ÞU-vCÔ  ;ø$xŠ	viºµ¬zÅ¬'±Ö@6Ó™Ï„f4†|	Ëˆ?¬F•žOÙ@DnªÎÝ§8þel*‘îàåÝ‰klä¤öŒh(nÏX@bfÀò g Ìyáœ’AÃï$ JcÌÒ§|A*8ÖÍÏ ;Üa&)8°n<‡œD˜]Ä QA
+Úm4HYk iÂ‡&˜XÝšiºUT…5 cýqSfƒˆ\3ÅT¦
+òXœ‡!€-ˆƒæP‡c
+áW<³Wk±»’-¯{Ý+ÄþØ¶½mJ\EîaéÖ6Çæ¨±p‚l§9›YTŸZÕ}êJteå¬GûíÑ³öH=VPˆ ÂH…L‘‚ b2±° 
+L†¤@à)”È­©§2qü¸¯q5ÌŠKëVßê$\•‚¸K ä»©
+?Æ;XáÂÎºh¬Ô ŸÄ½Á|}·úÚ¿ú­Šð|Òíÿ6šF•GÔÇ> öà Wåq<Kü”°`Æœm6 ¯
+=%«F;~êÃOB±@y#8#¹BPÐÅs4­ZlC ½$ØŽ.n²Ì_"ðˆbW*^­3~°8ç¶qÂ'‘ÓŽðþØÔ68Õ
+ÎµŠ+
+/Ãö¸<Dço.áòvMÿìôM>å¸¶j„…žs«Ïq`ŒøS…2s(ÇL&Ø±£H  li¢t_/Í¶~)¬°|ótbG=$Å†ºF¥®nª7ûxËf›r¢-­¬±ýZÃeÃ˜­nå‘^ßF.¸#î´@x/)7ÏÎ%y'íÓGöî‰„å_Ó¥.…eAí˜jÿ%Ü  ,ž ½ª~;z¦”Ö¨£}¤ú4÷¹èžØµ›?ðÁ%i¤µÄ><j
+æ¯iU@         (àA„       2   
+   þ‹È®f‘TZO);uúFh%éLíÑ‘‹qx8 ª{¯osài?§ØËyæs|                         
+```
 
-main.wdw
-PCS                     B      9       j                  01F280051n                     \ ^
- ˥L   5w ;   t3        "              m a i n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   PCS          	                   9                          01F280051n     f   Y  
-j   `        >             a   
-$                                                                                                        Έ    main                                    / fh xs     3 80 y  c
-b^ f{N > ^{$       O a       Y        e      X   d    3@  g  I F  7   $Ăj:Hrvb G  2rd O (  K  E
- a`  .A (o = *  K΁\J #@   :e R'TBPIc M Eڠ y"X  N[X V`< n Tw ݗP  Ku` 
-  % m߼    8.    h  @   
- 0H &.
- 1S 0 \ 2ra   9 I i
-F X eiɦcf   8ޠ l     n 
-L     HdG'f脈2  3u t c& .b Љ   9w w 3 L  z 2 "q:` Ns A ZЭ2
-ͩ  N     a   + %bJ p    
-; ȗFl 4 8! $ë P 0|  
- ,$k⪁ #
-8*  <c
-   *  qjH H 0 $
-[r &  R ) B ʻ  k˗ t*(7 D* 1BRI&rJ)_2+Ϲ\  )9. bS   :  0:  ]  *?R  { #;%ݳR .MA , CC kјU ҘR )H  b  
- Be zh1e zb	      A 8J    LHb J: 0Í b &  C 7̝ 
-3d  L  '͂ LT  *L   J2 `
-     *  @}W J  ^# i9   M R N 1 
-   ,H  +L    e \ f d~   la   $ m V  / `  Z  RYOT16x   a  K,  rbR# S Ȟ   
- |  J  [ F   a K AbQ | .8 ~ L  a i[       ) AR OK F8Ѕ v   FT.   B_͆ c   .` 7 @  r . 
- wڗw }    ?J< Ņ2 % _Z x     (ôU  N < t G 8lZ ΛS Vw 곽T     ~?ᮊ|ѽ> D  - S
-  %  }dD Y`  5! 
- _   Z2 ͱ
-8 ;  V>   t Z
-   *p ؃`   ғ  ,WA 0D  P $w  ؐ VR  .  6 q   " e  i RI !1' I|q _ BX   D&d
-   : K/KD _ b  1X  ` p 
- 4>2[S  3  5L IA  4  b'    } v GjE  = Yw  d a5  3 \  89$Ro U `R  I5  s  "% gI   ! iИ   %vn  pJ  2 "H  ū rk $ - r   r  D /_BŁ  $ \[3 t k n f d  iֲ  l 6   x 4 T"] HF Ҍd p 6^9hQY  M~(&      4 #   |eۂ A.Ҳn !&U7P֭ p L%  X=+  &< &   4 ef   5:(z  & Ș`,7H
-  {F((   R V ӎ1 I >  VAr rmI 1  ? gPO#; Ԁ  +1   .   (S  =  R `]ԑ 7 . 4 a$a   ; t&s+  *  褪/  6  ,   d  P;    "  l   k x*V  5i P   ! %-t 
- 9   ա
-c ;&  7n) `mQ w      5sYO   ?% i Y  U   :ޑ  h    h N F2   -.     /   S$    e  ] ) 
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\main.wdw
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 â=i¶§;ˆ‡¬Z:Õ¿½ò5+i¨™Œ¯_¹‘eï‡Á/     "      Ùâ      m a i n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   PCS          b            Ñ      9                €    Ì    01F280051n     f   Y  4g   V        >             a   
+$                                                                                                       ÿÎˆñ   main þí˜á e¼Lj                           /®fhä¯xsìÎÆù°3ê80ªy‘£c
+b^Ýf{Nð>¤^{$óúØËÆéêªO€a       Y        e     õX  Ýd    3@ Àg‰äIèFŒš7þ¹Ë$Ä‚j:HrvbàGö2rdÉO¦( äK˜ E
+Ãa`™’.AÎ(o =*ÀÓKÎ\Jó#@¨€¾:eàR'TBPIc¦M›EÚ y"X¤¢N[XªV`< nå‚TwîÝ—P¡ÅKu`¼
+ü®% mß¼š¾„Ë8.Ìƒâh ±@Ÿä
+ò0HÁ&.
+ú1SÅ0ƒ\ý2raµð9ÓI€iÂ…
+FœXñeiÉ¦cfèûÙ8Þ ÿl èÔ±¢n…
+L·¼Þá êHdG'fè„ˆ2 Î3uèt™c&œ.bîÐ‰†Ž™9wðw¡3‡L‡ z2ðˆ"q:` NsðAÕZÐ­2
+Í©ÜÒNž Š«·aºî â¤+ñ%bJÚp‚Àï
+;¬È—Flð “4¬8!ç$Ã«„PŠ0|äÒ
+,$kâªª#
+8*ë¬é<c
+¯Öú*¦ºqjHÃHÔ0ª$
+[r´&ŸŒRŒ)ÑBîÊ»²ÄkË—ºt*(7…D*µ1BRI&rJ)_2+Ï¹\êÑ)9ï¢“.»bS§ÅÔ:²Ì0:Î ]³Í*?RËÇ{ô#;%Ý³R§.MAÕ,¤CCõkÑ˜U‹Ò˜R)Hôbµ¯
+åBežzh1eÂzb	ˆŽ’¸‘A 8Jªé ÜLHbØJ:ê0Ãªbˆ&Œ C‰7Ìã
+3d‡²LŸˆ'Í‚êLT·Ž*LÔú”J2«`
+ «­ºú*¬±@}WÕJí«ž^#…i9…ý÷MR‰N 1¤
+ ’,H•‰+LŠ…‰e\æfd~‰æ la œÐ$žmöV  /´`æ– Zè˜ñRYOT16xªÂæ”a®¼K,²¥rbR#¬Sã—Èž˜²‹
+ë|µÆJ«®[â»FÓâ»a›K´AbQ |§.8 ~ØL aƒi[Â÷Ô³ŸüÙ)AR›OKßF8Ð…évøëˆÅFT.½çÒB_Í†Éc ƒì.`Â7­@îé©rÎ.ï
+ßwÚ—wÆ}·½¤à?J<ñÅ…2þ%à_Zžxç»«žä(Ã´U„êN¦<Ït®G‡8lZÇÎ›S¹VwËê³½Tõ €ÒŸ~?á®Š|Ñ½>ïD±Ï-îS
+ü %¿ç}dD Y`¾ð5!å
+¯_½³žZ2”Í±
+8ø;ØøV>ÿÝÍt¶Z
+Åã ¢*páØƒ`¡ìåÒ“ â,WA§0D …Pô$w¸ÌØ‚VRËí.€ 6¯qùš‹"´e“Èi¯RI¼!1'¹I|qã_ÃBXºôÎD&d
+ßÌÖ:×K/KDÝ_ðb³©1X»›`ñp“
+…4>2[S†õ3®î5L„IA·Á4ú±b'„ó²Åý}°vãGjE¶½=¨YwŒÉda5Å 3\ ä89$Ro‰Uº`RœãI5æïs’ô"%ÑgIõŒ!àiÐ˜Æðí%vn¼ËpJ ª2"H ê‘Å«Írk“$Ý- rÉõír ½DÌ/_BÅ¼ $È\[3ítæk•nfçdéÁiÖ²š l£6ù Ïxó4†T"]§HFòÒŒd•pÇ6^9hQY¨ÖM~(&Î¤Š ³è4à#îÀì|eÛ‚ÙA.Ò²nó!&U7PÖ­ðpäL%åêX=+‹&<ç&Ïÿ•4›ef ô™È5:(zÂó&êÈ˜`,7H
+ú{F((¥Ä×RÈVÓŽ1…Iæ>ÒÎVAr rmIÏ1ò˜?ýgPO#;¼Ô€‰‚+1× è.Š„Œ(SŽª=´R `]Ô‘ô7Ö.Ž4§a$a˜¢ÊÍ¾üt&s+„î* è¤ª/± 6ÐÑ, ùÚd¾êP;˜Îô "á lá›ékÒx*V„Œ5iûPª¡Œ!ð%-tÐ
+»9ËæÕ¡
+cÊ;&Á7n)ë´`mQÖwâö¦º­ä5sYOµö–?%îiŒYäâU¯¦”:Þ‘h¦½âÀhêNF2·æÛ-.óªÔù¶/Á °S$ÛÇÊöe²É]ï)Ý
 _:
-q   }m   
-  1+Iy W =  0!p0 R PV  Y z     W  | ` v N UÉ ow M 
-P- H O,\  xňi @,9 fu \  u   "V = 揿  L    uJys^ 1 Ň  ) U+C   C   zW  2 F *2 d .Lp ] W6GX         w \F+ E\ @ d  - i  H Js _ r      e (f @  6    @(  J [ G 
-` v յ uA  : ԕߥQu  <  B ] CTʗ   ק%j      oc< ?w  fo  r #j  q }  Hky   )  | LW  a [Ԍ h    K ] n  Y    a ӀC2
- ^  }#    [ l'   @ /|    &     \  u 	 U n b9   ^_  ̺  u 
- k         I b_        o    Ж6 7m^  E 19Kۼr 6Μ 9 e  c< 7/ {    e x ǚ   6z  6 ^ )OͪܽE   W換 <     l` HW  q W   -, g> <{y  N [J     ́7     
- P @ u | Wޣ E-n<   _ t  yd   K   |       K wF/  l N숿| w x ' S  Q1 4{ #Dt *    L    
-&  :  VZ<- d ?   0  (  > ;.  " ;<  2   { û
- 9 2  
-   	 ٙ
- 	r EC      5 j8	   ۫ A  7 !  !\ 	;B =) B#,Փ ے4  R;    3㿎 =4  C 
-    ¬   {> = #C0 3 @A[C`Z Z" I( J 6<9ȋ k:ĺ  1  ׋ 1 > ˿ X 4L1B >DD 
-@W BY 5 s: B ΐ  : D     
-    s   ?j ^   ×  F<  H@ X@  5     Y| Z ?\ 9]|A?  iS1 s  s
-,䫷+  9  : ; Df (^/4  _   Ds)sT>/ 0; 31|  GU  ?  oDȏ G  8T td ֣D   =x ># =`     8        Y S b      5Vd g| h  p;-< 2       h50 x1 9 5 5 5  @q G W k8 |         HC  @  P0
- 
- "0J   Xʦ|ʨ ʪ 0 	hB   X    Ȩ     8       8  7X D(	   |  ʬ; S 
-Y   6 Jz i 
-  "PM 4״JA    h  P
- 8 6H{    K.\    X     84A9   D[ Ā =4 4 FDҾ`JH A   pӮ0 4 >M  z I}\       |D    |$  @  C    d      t    dB*    !  P.|1+D  O  P**  P   (  ϖr  AH `(  û J  )DQ Y      ( x   k    E , NA +M +s   0X h  Q2@8  4|j< ̏8L55   =?aL  ӈ    1 ї  L    ; ӗ  z	  "8;D͘ɟ   <H ]` J]    |z { M   ٬   T3 T J= ʮ܄   q:@ @ ; = UHN XN 2
-眖     l;Q*  1R ΊTR Du    |      G  VL        rQ>  z Or I~DAIlVk5 sA   3RP@lPċ5 fZ  L "B  $ؓ   IX* P XU؁ dт  EW*  ʨцrCT Q 4 	R&R J  hO0l  Ի𬼞 )% ) 4 +U@ -  /  0  @  k峖 #a  5-L  #T  SĠӍ1  B=  ?
- = ̿ Z  T 8T HTb d
- G    Ԧ J  W M   z  T -U        J[x 
-h Y
-   T Q  X& 
-   b
- v Ǎ-Y P  %g%Pp ȁlRp E LZ  mu
- \A   p= q} 
-  u  E   *  y}ϋ  2  ^|  V  W 9ǡ   Y 2X B؉}X    X X   mۊUQ iQsuW    0      Q = -_  (Q "
- |qY}  \\Rm 9nd   R    Yz@5Z/]Т   U aZ 3uZ6    7-S  ھ Z SZ Ӯ S  \۱͏0[CETE \ }۹ [l ԝE  e 4X  
- ؖōW  (q z     T7 s  9  (~  p\EJz  oÍ. 5p;p1Nb  b1ȃ3N 5f - `:  : D     v胭u\   $[ U    (D  h	   ܒ0 k	 l)V  o	 q) sI ui w  cqQ  ¶]>:$^o  K4 C] 0 z 6  ]     a;]  y  Q    q c  A bv e  	 d    h j   Qg   MRڕe+! |}       Y ]S r W+ #Je   mH ] e ߧ ]q e& g_ W 9 |ݘ    )   }   g ߆    ^
- h Dߗ (ЕT d [t  =h| O  1     pV qfi  
-[           vXee   Wv   ֜   څ6 z1  X  Zl !'l 
-]     p"L  c5j  Hp.^  O =Ч    @ ޹ #  (  Q~ E<U5u  2   r    
-NOjA B  N Fޙ AM   
-P  Q:  U    ץ Yʖk MP  W  k 0   h  fz&  Vv ɶ LmjUh      t   Zf]         g IlN    F  Fasʔ̆  
-Y  _V  =Y "  ŷ 6 z  {  z Ja     V&   ֛. E Y  F  P  j &  X   ¨ Zv  ( j Ēm . ݦ ޖ    L  qh  +   C+o     id=WpX xn   G7 ܫ  
-    P  `  P- r-  I*D   g    M| \v ] 
-  s. . qW
-݁FR 6h(  r V;Q| 1  S)okn 2sV 1 C2 k& sc s   qO  ~k>'` =7  @    q3t E  qi< x pg  sZ K  A  Bg ? (# mF oRwOH oI m  sB |   [  \Y   hWg`Lo O  (   m[ F m]o ~vۍ   H 	 v  Us wx. T 9s   ( S\:GLF  5gl a
-    #}tpgr  K 'Ew]6 N9 >vt  .  p6  J m\  x  *c     x_7ྫw v  v c ;W <   ~w  i, aawu`9 G ?WϽ dg v7x  qyG N
- j x FR |O:Td:d$WrW ɀGvn 3 .uӆ   u n  ~x  =XO خuY<  o    v  vV  ֕  +  F 2 Ӻ ǔ ؔ  <6  q r  z ټ   X=S z} zP7    tz  k  y  =      s!> 3> K   x   =w xW yg   x.     ďə|  ğW    9~xO [9~    O2  G F< <    7i ? _nG {S?   x  [       όh pzo  5    ԋ,    0b   ! ^ -P!%  2Z ʀ Nё(  -  i ۩m  Rߨ ܯ絹 f^ ڹ {r V<h V` s>j           ch A	  0  
-# ;Q  )"F   YC} ׵@  ]  |&K ?  7D +E! IA      x 
-     y J   ɽ  尞 } H   7   `   @:         tK^, h  1  g     3>@b 4 ԁVP a o 	] ㄖ "    (k   8  
-[ c   A   ZI$ % $   T hI/) H?  a    p 	 Qh  P [ 3ĥ /耽   .    K:  	 Ԓ       p x @ KT  )  S  Z I ! ǔ $ٚL8 2) _ ܂  rV$(     b  T 	p O 
-  m M vt  B pt 8 :  , 
-t\  %    OP eA   J  r  <E<   ^B rw    <_H     k M  w   ; ) @E  F  a O2(E   \\ԆrA  ( ( ,   ^<q2,   _  L .fCJ   	 ~   r    R     Q     qAP,   ( `   <k)< 6      ` `  巶   
-Q * 6  
-	 
-&    uV ! Q. 7   X fX B[ BmYĈ tX Ks~$nQ*K 
-0  	U!P         $O /   n`q  ; p    A &   0p t ] Kz-  u^;  V        K x )     P[T ]   -g Q ] \  ŧX  I  
-Æ &  h /       j
-E EY .   Y )F u   :o  G
- U  {
-]  G  1   X   7  Q  LL  Ԉ  kt
-      rg  q# 4 8v   ~ 76D h hXq 	Ǒ   * e  z i$ M  XM  " ; &B ?:  KqѪ     @x  
- r     -  [ vE   ts 0 
-H " Z  r2  -  ]-   /6X  w \@  =P&    .  $q   ʁ wP    /n4
-9\  ҒE  5#   0G ø# W   QH=  U$AeJ ,/I  s 9   ZPҁ  8P% ԕ Y N  X ټd  TkLΩ $ r  [m   I 'A̜ a  & = 嚣 ;Al Y |q   SK  =1  :"m V ` 9&  XY b *fr  b И b$   7 xf  cE6 1 h4  ; E AVȼ  	 L20      Ԡ ]2 E6 4 
- 
-s .  p B^ 2 ʰe  ~  WRF (,  N z ,  C~  f   m  RH L f fF͞  f j䌁p B6  BCj  o ٥ D z^ 5V  f  +h
-  1@ @  _L g% 0V   $$l o uF  * ` {  Rݬ < ڐ @P  YFKk , %  mn    & "R!i  OZ֙ 5   I奁  v    t  3"   LX O;Aͪ]K   ޿  p*    0   FU    W Z^̟ a  {W# g  s$   ). #   5 n J 9ag D a _-ϞQ8k% |	֭ I   r     @     <x  ] O PZ( T
- M_t  +7( 령 ˼  ( ,   y Pض)-(m ] o]J  )
-Q:  z7 X  I:  ^ z Z:  \  "6ɠ `hcˡ3 G   ƛ T  \ /ؐQ     _ ʵ 9 7   n mn 
- A (T  ; ,  8-Sd  e     0% T  
-C^R^   s " x6 ;j(A *. ԕ   e |W  R  ' 7c   2HuYQ Y ^  uE *    Z k F  e d
-B ( 뤂ovJ5t  f	b. D  #1  Ð` TQ F@ca X   к9O f8ݤx   Q@쀡 <S3i C Oue    T E   Fh Xu &O  d K   KԛS 	F1 A 9 4   /
-A Z  t ̺    gJ}  t nԎ    >G  [ Ҋ:P *䅗 z  'S   3  , 6 e T g    s#-T  H !  > }   S_   G  E  ʞҳ  )| K zP &Ë6  R 
-o` ԟu5 ] ] 'E   ݔ   S   dzq ) QH@ WU   N ]j  @ y      
-N *] ų|һ  >kC[D     jR)jj  <   ^XN3_T 5`: p  N[E  t¸ Mw N} o4Tbּ RK%_uR M VTq 4 ď  ԕ X  9   :T   bT|, R   '  @ |i PT U T p   q    <D +   TtU+       ջ  b+C=       3| O 8>ɍ NX WV f]   d: *   8Yo   h V     9  R֟ X  Ű
-   W } +LP    ? cm      TZ:>  kG֎& G d I l   f   )   ĮZֵ>  'A LC  sz=  $  蓬 ^8  "   9 {  B  E
-  J  & 
- !  + }~ Ǎ֝(ay R         
-   I uُ ?, XD     EWW9-   Q   ,7j jl Y   >  +  n ǚ  j$Ulf
-     XK K  r  խR 5x 檕E  3xIf+` k  p ƆH i'  ů V BZ"+ie    T5 JPv+k jU ! 6 `Ai  { L   Z  [), ͮ  W (f=+1tT S     W  rI0	 Ji c B  aD  m ԆA p.     x  ᰪ ,ľ 	 ѝ C 0_X  
-    %q\ q  $ Ce8>   gj I c BDap  <Do  $ Z    "&G
-  U  T Dq W& "    tX!V"qb 11r   Ƨ*W L   j n e[    \   8Ti@ k\O t  M8`i ɝ uW^          6^8 K ,0:q"    Ë      Ծ  =k=   4 ̢  W8 B ,   O K   " 	 M 
-Y  Uq-  G  *,{)%逾$Z Bp   %"A|  ,L FC,  _ Ɔٶ|#  sbǊ % # T       vG   q P
- New  +Ȼ    5 & \ē1a + 8^    A  ٳ*o G]]H1B PW p u 
-d  > y_ <  <  .ۆKFՎ  ӭΎH  gnX 0r/, 	|A ]̞ - lO    Qݽ R-_ kH 0 A #I            k} i  
-  p_  } =6  )P F f %  4a  : ֤  n   _  (fںa  Oe T      w  .  0&F54ཻ  @{   JI n"֔   &  x ' %  י  L O       f q Tf0    W  b  i   m -֯~R  K]/     ^#  W  U ۘ	o '|ho    8 X  K  b 4e K" H     OR  ر6V  ^ 8  J i  f*`r0 %    w. ߉;5y^ĳM ⊛#  "ƿ dZʗ  
- $ T  ni Kl J&֎m d
-@qK.   
-ܪ\  N L O G \H70jE    fj   V&8=  y SW ^U    ڶ; b   ։ [q I  3.  ؊  4 * 0?ֳE 	  ٻ{ 9>_ڲ V ,  o R   B6w,$ qVvc,T :}kZYk   a)   # X   
-; q 2&8d    Fnm J8CL   * 	  86  D2h% DT.Tb   m@H  , # f ;d L  K  GHi r   
- U [    tSxϻ >s F-  8   렠 
-  HY܎   ap (  _ ~   ,-޲   B s" cX  Y Ţf  ru y  c A   F |  f 죸p  s07  ֋  T֮     Ƽ  s   R Lf#X   e  5 _    nC â N _ P 3 S    8 |    a6 ߦ ]  $b Id* We2݀    6U +  z&   f ͊ 2 ! љrlK  1 0  ά ) ( M8 4c 4AN"A @ J3  Ӆs ]7p0!&   dԀj F 4|ԫv7        J  34 ʘ  [  
-  =9
-Z QChYd    'R  45  F) < [`   J jIxS  NMk   e  Y  j  	"  -  Z     &  dC 
-<0@ Xh( /  <@ g_   JN i * 6  ' W  #̩5 v  W'yY  d 
-A́9@V  PJL )A% D  E3    8 @ N   % |  0H$#s    +   gx  T  
-ѯI   .l    R (
-  *̿ H$   `  C] h  C 9j    uc } i     3     X^G ,K ߬    0S  {   Q յ k ^    9    jW- /F   zz  |^     
-~"k P  Fv q  l h y8   d  Zckm]ź L 	 :B|    k5Y    7  V ѽ	  _     Fx  $ {!.  M [f     L %d )  Jvj   t 
- ̀ U  !9 l p qΖ  g Ē  6   :  dj C5
-e | <m   6   .l y=    h k 뵭    &۞ W, MOu   X     |  "ݶ۶oV    m  s  M Ѯ 5  Z!$n       z[O \  F f l   m	^  p    3 *  Nwz0 ;?8oq
-1@ " m3 ƶ̹    Ӕ   {FÄ  0 2  
-9|      Y o  /Az ߻    dlo }    (軂 o 툛6    M ^Ꝅ 37  ߜ  k    & cUUW 	n i8   j{     U  F 
-  ,     #v  n  Q}          P  f'K / q p  C ^  }  L  qNʢ    v [ 
- JpW     6 '  ,0&v  .@W ~_    t w  *N  7H  } x_  v *    r ;   \o\  -ǿ s # ;i qҴ  \   S     0 ʜ X{ c]  6#  \  `DΝ Z   V    OݪQy-       Y Xv ,]    9 	* ;ZKkZ^ Kx  ֺ\.Xn    I   m t H)lx U   {8   ``k  6J|ys 
-2t7 d   ̅|Ņ x  v
-     `  C7 
-B  K9    qB   o[ |w  ׷ U w G m jʡ HW   gcQ xIyfO 4 *   * ]zG  N]  vc޵S;D_    ׮!       OoW   / ꌻ  r  3/ ܴݲ  ۾ òn  '    =3  v 4s{ ^  Q     v   L 𐉯 x^    W݂ & i  c 4}  w  N       @p*# \.0 
- H    ܸ2%    s@   璽  ' ( ۊ   v  ū7?ϴ*  L ^
-  fl   9   
- ]         @M    88 M@/(  @
-"pﷻ K̦U ::  "{   h@ օ  zRw  >ɣ6_ )        i Å     oe tO P C> L_ 25   ]h 5 qoV K  4 l  !0 Z      b.a  ܛz 8N   b    |'  ] ; Ć= _  N g:u'2 ܳ t  q{i  2  vK  %:L7 1    . !n      p_\  i_ 7=_ t ӵ oK   p[> O Qw
-H ATv   =:E  *     7 [D7     , n       / U>  ; _B   } wy+>  8] ϼ :o z    | G D  V \,`&     s9   q eco su   ɼ K 15P    j       }V  9  vs+ݍ~߮    b   B*e
-   | K   և> 3   B  @, ( 	 ~ 	 Z |C4q䰃`]  O    `   u ^0 :H u    I}#A        Z     E+     E; / |  7 <  l  τ^-    G ً  H _ %   \z 1  LX
-%(  
-, @Tj! ؁  ~W  4y          ^ll3    6c W ?     AD  _ x>  @ 
- O  /nPHi  ? % - ?n 6N  ;   @! Wi  С   3O [     
- $   "j   5/" Ȫ  ` KL  /ͱ  pj   $  I,`:   [M S#[   
-3H@v 5 p   >u  _  (9^@k l k     \       
-x    (     `  X  R     (8  < 8I  h     {F  `*   =NH    ,;   NX & GXpK 0( ;͠  # P/ s! < /4  86o Y \      ޲*! {     ڳ  =Wo c  =׎   :    {  ;]O   $9\0  O  I  ܽ n ଽ   c9z m #  i q
-   q  {	̽ &  f     , PM ;  =  ǃ L	] !P   2      `M   ` 	 P   
- 
-     [ < N  `  {   N  ^  *  6 u h w  ̇B z     / W      L>   T>; "  j0 L   > / +   @ ,  jA '   >a 
+q«ô•©}m‹ßÃ
+„¬1+IyËWë=ö·0!p0¬RÑPV˜§Y°z—›¯ ÇW™œ|‰`©vÝNŠUÃ‰åow‚M 
+P-H‰O,\™ xÅˆi±@,9ÏfuÆ\­±u‡Ýü"V¤=¶æ¿›ÖLâÅÈÁuJys^ 1øÅ‡™â”)ÜU+CËÀ†C‡ÓþzWŒ»2£FÜ*2Çd².Lpš]¼W6GX‰ËˆÁšãìêw»\F+ŸE\Ü@ÃdÐÅ-ôiÀŠHÃJsÒ_ìr °©Ëðâe¼(f¯@€«6Å”€†@( ÒJæ´[¥G¯
+`Çv¶ÕµðuA­ã:ó˜Ô•ß¥Qu… <èÀBó]ð¥CTÊ—ºõÍ×§%j›–•š‹õoc<À?w“Õfo§çrí#j›Ñqô}óå¶Hky¿ËÖ)ªÃ|æLWÉ a£[ÔŒèh ­ñK·]ánÛÒYÞñ–ùýaŸÓ€C2
+ ^ð }#®àÇÁ[ l'Óáó@½/|ïÒÙÎ&·žÍÝç\¥ûu 	»Uín¹b9ÉÍì^_ë ÌºÖ¸u®
+³k˜öšµÀŽ†°ûIÛb_ùØù®ø¾ÏÚoðþ»™Ð–6«7m^ »Eè19KÛ¼r 6Îœƒ9 e®ì¯c<ì7/Ï{ª˜´»eèxÇšãíæ§6zîü6™^Å)OÍªÜ½E÷ÆãWæ›<ˆ‚×ö’l` HWº­qýWÄå×-,²g>î<{yÏÍNµ[Jï÷œýÌ7ðàüâÄ
+ŽP†@ u²|õWÞ£ÝE-n<ûØÔ_¶tíÝyd§è¾ÝKîË |€¢ŸœÍ ¿K¨wF/¿¶l¯Nìˆ¿|âw·xÞ'¿S±·Q1ù4{æ#DtÍ*‰à¶ÉLà”óˆô
+&ö«:÷ãVZ<-âºd«?»¿Œ0‘(ŽË>ÿ;.š€"ñ;<¸£2¹ëù{×Ã»
+´9Ê2Ã
+¶úÀ	€Ù™
+Ô	rÊEC½Æúˆ¡‚5¬j8	›¯ÄÛ«äAº¢7ó!Ì½!\Â	;BÊ=)’B#,Õ“ÀÛ’4èã®R;µ½ÓÀ3ã¿ŽË=4´ßC¸
+“·¸ëÂ¬“³ù{>ƒ=é#C0ã»3ì@A[C`ZŠZ"ŽI(ºJ¯6<9È‹Ûk:ÄºøÃ1¤À×‹¾1¤>ÚË¿»Xµ4L1Bã>DDð
+@WƒBY£5Ós:ÓB­Îº´:„D²·­£¸
+ôº”½›s¶µê?jã½^ù¾ðÃ—£ÂF<½H@X@Íð5ªƒÅæã¶Y|¹Z¤?\¬9]|A?û»iS1‚sµs
+,ä«·+Â‡ƒ³9¤»:·;´Dfó(^/4ôÀ_ÅÓÇDs)sT>/Ä0;¼31|ÇèˆGU›Ç?¬ÇoDÈÀGÜÇ8T¼td•Ö£DÄÆé›=x´>#Á=`ª¶»ð¹ 8‡Ø˜†ÀÀÝYŠSúbÐòû óÓ5VdÀg|Àhô¨Âp;-<Ç2³‚à… îh50ƒx1 9°5 5¨5€Þ@q„G W k8|ð ¨˜˜ €HC ½@ ìP0
+Á
+¢"0J¤¬ƒXÊ¦|Ê¨œÊªô0‚	hB¨êXÂ€ÃìÈ¨€´øŒ8è‘éƒ¢Âãˆ8ÁÄ7XúD(	¼Ÿ|Á¶Ê¬;ÌS˜
+Y¸„ƒ6 Jz¹iÁ
+Ô "PMÖ4×´JA€­äÊh„ÛP
+˜8 6H{¡¯äùK.\Š¥ X•¡ª‡â84A9Ô‰›D[¬Ä€»=4Ã4êFDÒ¾`JH¹A¹€ pÓ®0¤4ð¬>Mœ‹zàI}\´‡¬êÌÂû|Døûªí|$Š´@‹ÔCùäÃñdµ¶²Ç õt‹Â‡âÁþdB*Œ‰ ¬!£²P.|1+DœÂOìôP**ÄëP²ÂÏ(ƒé°Ï–rÈˆAH¹`(àÃ»°JáÀ)DQÎYŠ‹‚ÙÜ(µx´ÆÐkŒ½‹ÜE,»NAõ+M½+s‹ ¤Že˜ È^h‚§Q2@8’Ô4|j<ÝÌ8L55ÌÏÜ=?aLìÌÓˆˆ˜øÌ1õÑ—ˆ–L¨ýÓ;…Ó—˜„z	 Œ"8;DÍ˜ÉŸûžó<H¦]`…J]ŠÓìÛ|z™{M¡”‡Ù¬ÍÕäT3ðT¹J=ÝÊ®Ü„à” ›q:@ƒ@Ê;€= UHNÉXN¤2
+çœ–’ÎÌÑl;Q*¥·1RíÎŠTRÍDuò”óÄô| •˜ûGšƒVLÌÈù”‹ú¬ÎrQ>¥‹zØOrìI~DAIlVk5ûsAü›Ö3RP@lPÄ‹5ÖfZ¯ëL×"BžÑ$Ø“ûÐéIX*ÌPXUØÀdÑ‚åÏEW*œÑÊ¨Ñ†rCTÚQÿ4…	R&RŽJÁÂhO0lÇïÔ»ð¬¼žú)%Ù)­4‰+EÌe¨€-íÒ/­Ç0Š@ýˆkå³–ý#a™‹5-L¨í©#T¤’SÄ Ó1‘·B=ÍÏ?
+Ö=¥Ì¿ÓZ T8TÂHTbÎd
+ GÝÄõ‹Ô¦í©J½ÔWÕM¥—¹zÍØT¼-U½µ—«”„ÞìJ[xÕ
+hˆY
+ö TˆQÎàX&°
+ è b
+ vÍÇ-YˆP–%g%PpÅÈlRpôEÒLZì‹mu
+ö\AÒÍÃp=Ýq}Ø
+õ©uÁÜEÖ„×*åÎy}Ï‹ÃÀ2¤Ù^|ÒÍVéWÚ9Ç¡ÐÎÍY¡2X¢BØ‰}Xì ‰åX…XíÝÐmÛŠUQÛiQsuW¯õØ 0œ˜°Ñ ÀQ‘=œ-_µ(QÙ"
+Ð|qY}£×\\RmÌ9ndµ›•Rü®»èÙtX†
+Z/]Ð¢õ“£UÃaZÚ3uZ6ÚÄª7-SÁ´Ú¾ÀZSZÄÓ®ýS…­\Û±Í0[CETE\¯}Û¹˜[l•ÔEŒºe…4XËÂ
+ûØ–ÅW£‚(qƒz‘ÉÊÙÔT7ˆs±ƒ9°—(~ÕÎp\EJzÑâoÃ.†5p;p1Nb…èb1Èƒ3Nã5f¢-Æ`:ö‘:öD˜à‡òúŒvèƒ­u\‰€À$[ŠU‹œš (DÉÈh	 “±Ü’0†k	€l)VÅè–o	—q)—sI—ui—w‰ücqQòÝÂ¶]>:$^oÅÃK4ÝC]§0 zÒ6íç]Ÿ¹œ’a;]™¦y™¨Q‹¢¤q‹cˆŸAšbvŠe€£	€dˆÙüˆhÚjž‹©QgšÀÑMRÚ•e+!È|}ÒÍùà®à­ÝY¾]SçrŠW+œ#JeŸ‰ÍmHð]åeõß§]qŽe&•g_ÒW„9Ð|Ý˜ø×úõ)Þë}ÂìÕg–ß†ÝÞðí^
+¥húDß—È(Ð•TÐdç[tçÒ=h|¥OŽ¼1¨°”ÔpVéqfiñÄ
+[ˆŸšŽˆ’¡’€ vXeeº«ÆWvÇø”Öœ¾ƒÌÚ…6›z1¢–XŒöZlã!'l×
+]àŒõêêë»p"L†Òc5j€ŽHp.^˜…O™=Ð§Žœê@†Þ¹€#€…(ÝõQ~ŠE<U5u¼§2Š‰‚r‹¿ŽÆ
+NOjA¢B”öN¸FÞ™…AMÚÓž
+Pš£Q:ëßUëàÄá•×¥ŽYÊ–kåMPæÝWýÃk¹0¦Ïæhóêfz&îVvÈÉ¶×LmjUhù§ˆ€¿ñt†äóZf]·Öíãåíäµì®g×IlN¤Á ÇF©ÃFasÊ”Ì†‰…
+Y´¶_Våü=YŒ"ýÿÅ·š6ÞzÍÆ{ë”zÒJa© êëµíV&íÜþÖ›.àEªY…öF†ÆPÆj&× Xª¦¢Â¨¢Zvµª(üjô†Ä’mæ.íÝ¦ïÞ–îåáóLðËqh˜+º²«C+oˆºß‡¿id=WpXÈxnéû¦G7 Ü«é¬Ï
+€Ð­ PÆ `Æ P-Ör-ØÂI*DêŽìgðúöíM|é\v§]ž
+Çàs.è’.ë•qW
+ÝFR›6h(ñÒrÖV;Q|²Âˆ1öýS)oknú2sV‹1óC2µk&›scµsßçìœqOóø~k>'`ó=7Ÿ‹@¿¼ƒìq3t‘Eô±Žqi<óxípgêósZ‰K§îA×ôBg»?¥(#ÂmFÿoRwOHŸoIñm³ƒsB†|Ã‡¸[Ïî\YçæõhWg`LoõOìò¾(ö´–m[õFÇm]oö~vÛöŠô—HÚ	´v¼ð¶¥Usùwx.çTß9s×Á’(ÆS\:GLFšä5gl¿a
+õÁ¢Å#}tpgr‚²KÝ'Ew]6ñ®N9¾>vtôï¤.øæp6¿òJÿm\Žó°¦xë´ø*cëë¦òÙíx_7à¾«wv¼Àv…c¸;WØ<ÿÂ ~w„Çi,ßaawu`9’G’?WÏ½ødg¼v7xŽÇqyGèN
+új—xºFR |O:Td:d$WrW¼É€Gvn—3¥.uÓ†îÊþužnø„~x‘ï=XOÄØ®uY<ûŒoú¿ñ¦†vû–vVáÖ•‹ï+¼áFú2øÓº‚Ç” Ø”¥ˆ<6ùûqürŸöz Ù¼Îû¼X=Säz}ÿzP7û¹‰tz¿k§þy§¸=˜·ãª Çï£s!>â3>äKú“Çx‰Ôø=wöxWøygÀ—†x.·úð¾ºÅÄÉ™|ºšÄŸW„ò£îÇ9~xOø[9~ÂàÑÁO2™¿G¼F<¢<À¥ûê7i²?Æ_nGï{S?í×ÿx­ÿ[æñÚ÷¥ÐÏŒhÓpzoÊ´5 õŒŸÔ‹, îÿ¥0b‚ƒ¤!¡^ü-P!%”è2Z÷Ê€ŸNÑ‘(Ð-àõi Û©m—÷Rß¨«Ü¯çµ¹Âf^¢Ú¹›{ráV<hæV`·s>jïÃõºèæöäÑìÓch‡A	²0ˆ¶
+#£;Q€Ó)"FÔõöYC}×µ@éÄ]ŽÃ|&Kó‘?Î×7Dú+E!ÐIAÓçþüÝÔxò¯
+²»ÿ… yÞJƒå€É½òçå°žÑ}ÇH¡Ÿ÷7öÚ `›ï¹@:èñ„ ÈóœæªtK^,„hÎÛ1»§gù¸ ìÓ3>@bú4ÖÔVPÙaÁo—	]àã„–Â"­¨Ë’(k¤°Ò8 —
+[þc…úèA¦îZI$é%˜$€’T§hI/) H?ú¢aÊú‰„p¦	µQhòâPê[ò 3Ä¥£/è€½ ƒ€.¯– ÂK:áô	´Ô’×ú„¯ƒŒ¥p¨xÕ@ðKTˆô)µð´S “Z‹I„!•Ç”Ÿ$ÙšL8ä2)¤_©Ü‚ÕÚrV$(ˆ¦ËÁ¶b§ÈT©	pá¦OÕ
+ÿÖmÊM¡vt˜•BÕpt 8§:°ó…¯,À
+t\®Ì% ³ÞûOPÏeAâçýJøórª«<E<³â^Bìrw»®ûù<_H®îžïã½k¯MÂØwà¼„;Ï)¾@EèòF‰óaÌO2(E Ñ\\Ô†rA£…(ª(¡,š÷Ò^<q2,¸ñÕ_‚ÅLë.fCJÜü‚	ò‹~¹¸¾rââá Rû‹½­¬Q ßìßÚqAP,ª¶¿(Ö`Ü äŠ<k)<0
+ Á†–Š©`€`± å·¶ÂÇ“
+Q *¦6Ý 
+	Ã
+&¬ç²çuVØ!óQ.Œ7¶­ÓXƒfX¡B[™BmYÄˆ¨tXºKs~$nQ*KÅ
+0Õóˆ·	U!P•Éü–¦úˆ×Ñ$O€/Á«²n`q™;ðp•®’‰A&‚›¨0pâtò]ëKz-¯âu^;›ƒV®å¸±ØêŽâòKŠx)²¾ûÇöP[TÄ]öÑ†-g¢Q ]ü\úÑÅ§X ·IêÐ
+Ã†æ¯& î˜h/¼Åïµ‘ÐÁÊj
+EÖEY….–úŒYÑ)Fu£®âŽ:oœñG
+”Uø—{
+]’úGË 1£‚ÓX›‘å„7‚ð— LL™Ôˆé kt
+®‘ ÂÆÑrgã„¶q#Î4á8vãîê~ê76D²h‚hXqÔ	Ç‘¾°­*±e¡ÜzŽi$ˆMÇíXMÕÞÂŽ"‘;Þ&Bù?:ÌˆKqÑªÆõ¸Úã@xŒ
+ rŠùèÙ¤-¬[ñvEþøátsŒ0Ó
+Hì"åZü r2þÀ-õÈ]-›Š‹/6XÅÄwó¢\@³„=P&ÈÊØö.£©$q……±Ê wP‰´‘¿/n4
+9\´•Ò’EêÅ5#Ãçâ”0GºÃ¸#íWŒ¬QH=ÆþU$AeJë,/I–Ês–9—“ôZPÒ-P%ÁÔ•ŒYòN®ÆX’Ù¼dÔ“TkLÎ©Ò$Ãr£š[m’¹¼IÜ'AÌœ´aª±&º=Éåš£û;AlˆYÌ|qÄÞ×SK¬‰=1‘Ç:"mŠVÌ`±9&ÅÚXYùb¦*fr±²bÆÐ˜ƒb$Ó–•7ÇxfÊÄcE6ä1Ôh4‹;ì®EˆAVÈ¼›Œ	‰L20Á™¨¢…°Ô ’]2ÍE6Ä4â‚
+
+s.Ô»pðB^˜2Ê°eËÑ~ëèWRF (,•¤N£zÒ,‘C~ÙÉf š…m¢ÙRHœL£f„fFÍž™âfÒjäŒpÍB6»œBCjœ½o¶Ù¥¨D’z^Ò5V“ÎfšÊ+h
+ðû1@º@Ïú_L¸g%0VŠ©°$$l–oÃuFšö*µ`ñ{³RÝ¬¶<ØÚ¥@P–ŠYFKkó,©%´–mn¾ÈÜÉ&ù"R!i¢®OZÖ™ 5¡¬ì‚Iå¥‰˜vÒä ét—¦3"†ÖLXO;AÍª]Kùû–Þ¿ô•˜p*Èü·¡0¬ˆFUº…ª¶W®Z^ÌŸ a«õ{W#¡g­…s$˜µ°).ï#ž«›5înÂJâ9ag‡Dža_-ÏžQ8k%õ|	Ö­ˆI­ì¶Ýr¡¤éŸÄÐ@ÂÝ Ûú<x£ò]¾OÄPZ(”T
+›M_t¶š+7(Îë ¹ÐË¼¹ (ê,¡ ðy¡PØ¶)-(mã]ôo]J¶á)
+Q:Àz7ÄXÜÎI:‰‘^´zÅZ:¥è°\˜ò³Š"6É Ø`hcË¡3ÔGðö Æ›ŽT¢…\ê/ØQÚÛüˆŒ_´ÊµÏ9º7ãåÔnûmnæ¼
+ùAÃ(Tœ¢;Ž,ËÌ8-Sdµ¬eŽ© §â0%æT©
+C^R^ÉéÊs"Ôx6À;j(A¡*. Ô•ç‡ûæe|WÀïR¢Â'Š7cå¼¥2HuYQó‡Y²^›uEî* ÷ÇäZËkF»åeÒd
+BÅ(¥ë¤‚ovJ5tžàf	b. D…á#1éöÃ`‘TQÁF@caX§íå½Ðº9Oíf8Ý¤xŠœÒQ@ì€¡¿<S3iÓC÷Oueöû¦ôT“E€êFh Xuç”&O·Ðd”K§“¨KÔ›SÑ	F1ªAÅ9’4¡ŠÌ/
+AªZ©Ât Ìº‰ÚßögJ}¤µtŒnÔŽÊÓÖÍ>G´[ÂÒŠ:Pá¨*ä…—¯zÁñ'SÓéÌ3ªþ, 6Ñe·Tÿg°Œ¤§s#-T¢ÊHß!¬§>Ô}ÚÁ—S_ÌÖóƒG®ßEç€ÊžÒ³¤)|¶KŸzP÷&Ã‹6¯êR‡
+o`ïÔŸu5í]Ô]ª'E§ÐôÝ”„£—S·§dzq°)ÆQH@êWU«¡€N¢]j«ª@¨y •”ž ”
+Nµ*]¦Å³|Ò»Î >kC[D¯äÐÂÈjR)jjµ«<”©Ð^XN3_T³5`:ÔpôãN[Eƒ×tÂ¸ÚMwëN}¡o4TbÖ¼ÚRK%_uRÕM…VTqû4èƒÄÚï°Ô•ªX½ª9ª¹ô»:TÙúübT|,µR×Þê' ß@|i‚PT¾UèTäpõ¨·q¦ÎÏ <DÝ+¢Çæ»TtU+êêžéõž¢Õ» ûb+C=®¶Ážœà3|ŠO 8>ÉƒNXáWVå¨f]¬ûd:Ç*œßÉ8Yoü”ŸhøVÕÏ÷¨†9‰®RÖŸˆXíéÅ°
+ŠÿµWïº}À+LP®ì•¬?¤cmÒ ô±…ÈòTZ:>™ékGÖŽ&ÙGµd›I l¥´f§ßù)­ëèÄ®ZÖµ>Õã'AéLC¡Ísz=ÏÉ$ÁÏè“¬‚^8òê"ÿ¬”9³{±ÎB»§E
+­²Jª½&Ö
+»!‹Ë+¤}~ÓÇÖ(ay«R½®¿•«²Øõê
+Áê¤IuÙà?,¾XDÁ¢­žÖEWW9-›õ´QÔâÓ,7j§jlƒY¹–>çšä +”«nðÇšÂÊj$Ulf
+®›µ»ÂXKëKöàríƒÍÕ­R¿5xýæª•E¶ü3xIf+`…kÜ³pëÆ†Hˆi'¤¦Å¯³V¥BZ"+ie ®±T5ÑJPv+kíjU¦!ô§6Ó`Ai‹à{ÅLýßÂZˆÄ[),¸Í®Ž³WØ(f=+1tTÝS  Ã  W’±rI0	ÇJi¸c›B…aDÑÖm®Ô†Aàp.Ñûð‘ˆxƒ€á°ªÐ,Ä¾Ð	ãÑÄC€0_X¥Í
+¸¡åÊ%q\¢qš¹$ôCe8>ÓÀˆgj‰I“cÔBDap’¾<Do”™$¢Z ˆÓí"&G
+¦ U‡ÒT•DqW&©"‰ö¢æºtX!V"qbº11rõªëÆ§*W¦L¢ôµÏjÅn‹e[§›µ¥\–„ò8Ti@ák\O³tñØM8`iåÉ uW^ÝÚßÒì¼¬µ¶µ6^8‹Kå,0:q"²«‘ÈÃ‹°çõ”ž£Ô¾ÊÅ=k=­Œì‹4ÒÌ¢ÜæW8B¸,¤ôòO•K éÂ"…	ËMÙ
+Y³ÚUq-•—GÄø*,{)%C€¾$ZüBpØÞÊ%"A| ,LÊFCï‚™,®“_éÆ†Ù¶|#ÕôºsbÇŠ©%á#ÆT²“‡ùÉèÈvG¢©òŽq×P
+ÊNew Á+È»¯ªÕ 5 &å\Ä“1að+ú8^»åï½AöÑÙ³*oäG]]H1B PWÉpï¿u¼
+d…ž>óy_°<¥<ðÛ.Û†KFÕŽ‡¬Ó­ÎŽHº€gnX¥0r/,ü	|A ]Ìž- lOÀâõìQÝ½ßR-_ÐkH0òAò#I±Šëžï Ž¾·¶ÈË×k}‰i½Ä
+÷rp_Òè}ø=6â×)PÝFÁfú%“ï4a¢É:êÖ¤–¿n’þº_²ø(fÚºaÕõOeÌTé¿§Ùø“wËí.¾ª0&F54à½»ŒÒ@{âï†JI¹n"Ö” ÷ö&Ü¬xÅ'æ%Ÿ©×™âÁL O°´¼³¸©fÞq›Tf0„”ÁœWÓÆbÕÚi·ª­m¶-Ö¯~RÖËK]/…½¡÷Ö^#üŠW¤îUÂÛ˜	oÑ'|ho‚ï¥ÂÝ8 XááKÞ˜bÜÂˆ4e¡K"ÙH×ì»ÁÒ÷OR ¥Ø±6V³á^– 8ü‰Jãi¤Ãf*`r0ö%Íïþêw.°ß‰;5y^Ä³M•âŠ›#‘ã¤"Æ¿ŒdZÊ— ‰
+¨$žT ØniâKlœJ&ÖŽm«d
+@qK.çñ
+Üª\µ«NñL¼OåG§\H70jEÆ•¯ØfjÉí©´V&8=ñâyÜSW°^UÊÂØáÚ¶;±bç…ÅúÖ‰ò[qÊIí3.–ÑØŠüà4Œ*„0?Ö³E¸	·­Ù»{ã²9>_Ú²úV®,£„oüRÇòúB6w,$áqVvc,Tõ:}kZYkøø¶a)y²#ÈXò º
+;ð°qÅ2&8d¹ ‘ã«Fnmð—J8CLˆëï*…	‹Ø86â´ë£D2h%ÉDT.Tb”ü’m@HÌÍ,ó#îfš;dÁLÞ‰K ˜GHiärº€×
+ÞU”[ñïÍËtSxÏ»Ê>sðF-£¸8ò‚ÖÉë  ò
+†¾HYÜŽåÍëŠap¯(Æê™_ç~œÛ,-Þ²¶øñBãs"£cX±×YÎÅ¢fŽçruÐy¨‰cÂAŽ­êFÇ|™fá¿ì£¸p ðÂ™s07ß÷Ö‹ñêTÖ®ŠùÙæãÆ¼×s¯ôÇR2Lf#X™ûåe˜³5’_…¬‡±nCîÃ¢ÙN¡_¹P‘3²S˜¿ª“8Ž|¶ò¯·É a6‹ß¦õ]‡Ç$b¤Id*²We2Ý€»™½¹6U±+–Åz&û™¦fÂÍŠ 2ï!‡Ñ™rlKÿ¯1½0‚æÎ¬Ò)¦( M8­4cÓ4AN"A˜@ÈJ3ÕÌÓ…s‘]7p0!&Ëå¢âdÔ€j¨FÄ4|Ô«v7§ð×Õ•¤íJ†Â«34ÌÊ˜µú[ªì¡
+ˆÀ=9
+Z¶QChYd¿§úÓ'RÏ45ª¦F)¶<‡[`Œž“J¬jIxS§êNMk—ñéeÁöYjú’	"“û-ÒÍZÕà†°ÉÌ&ÚüdC 
+<0@ÎXh(“/©…<@¶g_åÑ‚JNÌiÌ*§6›œ'²WÏê#Ì©5´væÐW'yYŸÂƒ£d¨
+AÌ9@V¹PJLÉ)A%©D•ìE3¸ æƒ 8@ Nóç¦%‚|§ë0H$#sü¾„ò+£ÑïgxÀÇTÏÍ
+Ñ¯IÀØæ¢.l¼”°÷R‚(
+Ÿá”*Ì¿ƒH$ æš`¨ŒC]ôhºÎC»9jÅ©ñÈucÔ} i¿ê  ´3âý„×üX^Gå,KŸß¬æÝÕÀ0SãÝ{µÉóQÆÕµ˜k‹^ÄÀ¶9ÛòÙô‚jW-‚/FÚ ¦zzŽè¢|^³…·„
+~"kÉP–µFvÖq§±lˆhÝy8ÙÙôdèÂZckm]ÅºµLŒ	á:B|í ý«k5Y½ÕÛà‚7ÀýV®Ñ½	çâ_· û€ôƒ–Fx€˜$œ{!.„ªM¡[fì±±éLå%dƒ)ÏüJvjÆõ’tÓ
+°Í€ÒUÝø!9Õl˜p³qÎ–€g·Ä’ €6¢–Š:ödjƒC5
+eÚ|¸<m¹ý¤6ÈÄÜ.lëy=Ÿ±ÙÆhÛk¿ëµ­¹­&Ûž»W,ºMOu¼†ßXûòÎïú|¶÷"Ý¶Û¶oVþ½·ámöÛsÒÁMšÑ®Ø5ÜÏZ!$n»¸©µã¾ÖÙz[Oî\¹ÍFûf l»€m	^ÍpúÞ¡Û3†*  Nwz0©;?8oq
+1@‡"Úm3ÎÆ¶Ì¹Û ’¦Ó”ïŽÑÀ{FÃ„áý0…2ÊÆ
+9|‡»ìûðÃY·o€Þ/AzÇß»öÀõ–dlo¡}Ýµù®(è»‚«oòíˆ›6À±ãÚM‡^ê„¿37­Þßœ»×kü„¸¯&äcUUWØ	ni8¬¾ßj{ðÍýÈU°ÖF½
+œ,òªýÀ¯¬#vÛÃnÛëQ}Á÷àÆÙû·ƒŸæPÂËf'K›/àq›pÉí­C¸^á‚Ü}»ðL¬éqNÊ¢º‚àëºvÃ[ò
+¢JpWä  Á6¸' è,0&víÆ.@Wè~_ýÄ t·wƒì*N´‚7HÈâ}¦x_Üð€vä*ã áŒÃr³;ø ¿\o\ í¢-Ç¿÷sî#â;içqÒ´Çß\·ÔÀSûò®¿¹0—Êœ¼X{òc]Éë6#Çä…\“ã`DÎZ çèVû…—òOÝªQy-åù»‘£½î©YµXvÆ,]•†ÞÊ9¸	*Ü;ZKkZ^­KxäæÖº\.XnÁÂ ¸Iæñûm«t¢H)lx‰UÌüœ{8Á ò``k®à€6J|ysÜ
+2t7ådš™ŠÌ…|Å…·xÑëv
+ã«ŽÕé¹`ºçC7Ÿ
+BÀÏK9€ãÝÏqB¼‘úo[’|wƒµ×·þUêwÛG¶mßjÊ¡ºHWä½gcQžxIyfOé4½*ÛïØ*«]zGŸèN]³›vcÞµS;D_ê¡³—Þ×®!ïø ­œ•OoWÎÓã/âêŒ»–ßr¢ŽÂ›3/¿Ü´Ý²³œÛ¾ªÃ²n÷ã'™ëëÑ=3Â€v 4s{‘^€‰Q ¿ ¨€v±‚ÈLâð‰¯è¿x^ÀãûœWÝ‚Ÿ&ˆiç‹âcß4}¸»wŸçN·ž„¾þÓø@p*#£\.0á
+žH¨’š³Ü¸2%à ¨s@¼úð¯ç’½øï'µ(»ÛŠŽÀ·vý¾Å«7?Ï´*àËL¹^
+ÑÌfl³ÿË9Ñî
+Ù]°Ä   ‰ â @M  àÁ88ïM@/(Á @
+"pï·»‰KÌ¦UÝ::‡ë"{¿†÷h@›Ö…ˆýzRw¤È>É£6_Õ) ” ˜°Ï õiÌÃ…·ÄïÖ¿oeútOÌPûC>³L_Ð25ÂþÙ]h‰5”qoVôK¸†4úl©à!0¹Z€Ò÷…Àžb.aÿçÜ›zï8NÐÃ÷b÷£½|'öó]©;œÄ†=”_ö“NÚg:u'2ŸÜ³—tÛëq{i§õ2£ÏvKþË%:L7ä1œ˜Ÿçš.Û!n©Æõ°¾©p_\‘ýi_à7=_ätà¾ÓµýoK¼¸p[>ÔO¸Qw
+HýATv îì=:EÏÚ*¾“³øð7Õ[D7ìþ»¿, n ¯€ˆô®ÞË/ëU>è¦õ; _B÷œö}Šwy+>²±8]çÏ¼³:oˆzºû½Þ|ýG»D’ÐVä¼\,`&¼ƒå á§s9®Îùq”ecožsu² îÉ¼ÞK 15Pú¬ïójÞÇü²Àá}VÝóˆ9Òîvs+Ý~ß®î”’ËðbîçÝB*e
+ñ ”|K ’ÁÖ‡>¾3  ºBæ›@, (°	 ~Ð	ÊZ |C4qä°ƒ`]ì‹±Oî÷²Ù`äü¿uü^0å:Hó uÌôØÙI}#AõÆÍÃù—°ÏZ€§§óåE+××ÐîòE;Ì/ú|›‚7ý<¶ælëÝÏ„^-úè‰èµ¤GÂÙ‹õ¿HÖ_—%½¸ô‰€\z©1ÀLX
+%( ¬
+,ª@Tj! Ø€Â~W Ü4y è è ¿þÐß^ll3ý½ˆØ6cúWê?ý›ÿ†¸ADÀü_ÿx>¨ @ÿ
+áOéö/nPHi þ?à% -¸?nÀ6NÀÿ;øÛ@!€Wi”‚Ð¡³¿ì¯3O§[ »¾Àí
+ $À¥ "j «¬5/"³Èª¾¦`ëKLš¬/Í±«Øpj Œƒ$ ‘I,`: ïŽ¸[M•S#[‰Ž
+3H@v€5¨p¿˜ >u €_  (9^@kªl«k‚ ª„\ÆÒû’€ 
+xÀ˜ ¨(  ¸®`À X °R ðþ  (8 ‚< 8I Àhš   {FöÀ`*ˆ¥ª=NH–ö´ƒ,;õºÇNXè&±GXpK²0( ;Í °Ó#ºP/ñs!Ò<¤/4õô86oêYü\ƒ’«ÕûìÞ²*!º{úŽ½™Ú³õ€=WoµcêÖ=×Ž×ëù:Á÷¤{õ ;]Oéóü$9\0•ƒOÁ¹IÜäÜ½‹nèà¬½  Ûc9zºm#î·i­q
+÷ ·q¯ù{	Ì½Š&¼äfÁÖÚÛÐ,ºPMê;æä=ÀÇƒüL	]Å!PÞÀ 2 éªÀ ˆ€`M˜³Š`€	àPÌ à
+Ð
+ŠÀŠ›[â¬<øN­ç`ƒå¾{ø¿¸Nâ›ë^ÿî*ãÇ6„u°h w¸ Ì‡B€zðìøŠ/äW‚‘™éÙL> åT>;Ï"Ìüj0ìLÖãóŽ>Ð/á+°¬®@ï,ÊùjAž'¬õˆ>aÍ
 }=d
-  ߌ     f `0+
- B o(  >^  %8* J1   >zo    >  H    @   B  c@5 H  6K  [  `  ; ڹ  !  Թ  #( Δ /T  Q cc  / K &?Q1  .?ԏ( ʈ aN  t5 
-?       -I { h/ /qx     @   $   @nF    9    
- ? oy;    p  
-       ?      ?  {  C ;Hᖹ   C  l      "     o;       C   ,   0\ @ -2,
-ǖ P-  )  k"C$0 Ak 
-   +\?B@  M@ !V@"    Ba   @A  r@e $}@  % @  L  & s    g
-  +&  1  a/ @3
-T @7   :  a>  xF  %  A tр C0D*AF0 xA"M2 J) g+ & -n    ( f  @  g)  3 3    ne)  k    " 
-   . Xn       
-   0! B    $v  @O b 8 x҃ 8 R8 a K>      C $ & 
-   , "(  < x  8`0 ^ "@ Ā+ )    d    O !  :  ?p U|^ XqV o \qW  _1X    
- W X   0m    6ְ   04	U ԫ;  Q ?  R =^ ك B oڋ P e  Խp _ 
-oª) 4: Snz UP3 8 jo 'Fq c??  a  V9
- bz儻M䧣 :  A  <
-FT2J=ƥd   :k  k 꽍 *Y 9`     T W  	 ;   s     H p I =,&   :  \J      H l@$J0 (    ]4 4A{^j   ( R W=  j s   &    P i A    5r0n 
-    ňӽ~QqT3ào  _  ѹ 9F g    [ |  1  U nO  D8k    m   wA  fGǨ   ;  ǛM΅  K %`   w@h  j   ;pΉ `@      kĺ F   ˴ @) pb    l,J   y	
-    ?=     {  k F4/1   ESpc S A  q\  G$K "߷ qף
-uFB Fb   B  m q  b<  Vp` OG  4QF HPC j  ^F 1f  Aa  {, C΀  D  Q-  %  ܃ Ah  6@ `  G` 
-  C b   Q!        B l  '> l   F   l H 	fRA q\  s`BxNJ } ( YH     %  + H<  =۴  qp$C ', 	M6lš
-   D A  )  T áf: 3     B w  8 3 \ld v  L TX
- # d \  k[Z    0 ˚$  
-̾ 
+èóßŒµ¤°ó‹äf¸`0+
+ƒB¦o(ü¨>^Âê‹%8*…J1ð »>zo ¸ûò>¸ËH ¾  @Ö àB c@5ëH˜û6KÁî[þô¾`ï;ÈÚ¹‡ð!¬óÔ¹Áï#(üÎ”Ã/Tè›Qccóœ€Ç/ÎK &?Q1¨ó.?Ô(óÊˆÂaNæ£ßt5Õ
+?“¸àŠÒ÷ªÆ-IÏ{ôh/Õ/qxý°±Øï@óëÚ$°ý€@nF÷ãýÊ9É øÃ
+„?âoy;þ’¿»püÃ
+¼¿èïûÿö?… ûƒþ¶?¡û{þŠCè;Há–¹îàüCå lý»ÿ‚¡©" ÿ²Àúo;ò¿ °¬øÿÊC€ , ÿ®0\Í@ê-2,
+Ç–ÃP- )Àök"C$0ÀAkê
+â­ð+\?B@ÔàM@³!V@"Ç„­àBa¡Üï@AÂár@e $}@Úð%‰@½àL—À&s€§¶Íg
+†ä+&Ð€1 àa/É@3
+TÙ@7”ÑÀ:ðÌa>°êxFüÀ%©Aæ‰tÑ€´C0D*AF0¢xA"M2ðJ) g+ &¼-n÷ÒüÜ(šf¿Ò@ Êg)Äèº3ï3¤¼¬”ne) €kÍ¨À " 
+ø×ü.ÁXn àî  Àß
+  0!äB£åÊë$vÃî@O¬bÂ8 xÒƒà8âR8•aK>´¨ÎûÝ C‰$ &„
+ìºðÐ, "(à <€xŽ 8`0^€"@¨Ä€+à)±Ä £dÐõ’ OÜ!²à:ÄÔ?p¯U|^ÅXqV¬oÅ\qWìé€_1X©’ ø
+â¿WÃXœøÄ0m Èôª6Ö°µË04	U¯Ô«;ù°Q‹?ÐäRš=^ðÙƒáœB¨oÚ‹íP»eÝíÔ½pð_œ
+oÂª)é4:î¹SnzÁUP3ú8Ãjoä'Fqçc??«ðaìíV9
+îbzå„»Mä§£ƒ:Ìå´A€<
+FT2J=Æ¥dôõ¤:kªkÉê½*YÉ9`à   ÐT€WÃÐ	Ú;Ûíàs”µîÇøH‡p I£=,&èïê:‹\JÓ¼€ãÛëHÂÏl@$J0 ( ÖÅî­]4ì4A{^jèæÅ(‘R³W=†ˆj“s½ŽÑ&ÌÁœP§ié¾AÀ‘ é5r0n‹
+•½ðÅˆÓ½~QqT3Ã oÅÃ_Á‚Ñ¹£9FËgü¡ÂÂ‘·[ö|»’1¸‹UÇnOåD8k¹Ë§Ãm°—ÛwAÐñfGÇ¨Ïç®;÷ÊÇ›MÎ…ô K³%`ˆ w@hô›jìæÞ;pÎ‰Ó`@¢æÕØòî»¿kÄº¼FŠÏôË´îº@)épbê ãñl,JÂÆïy	
+¶Ñ€?=¹ñ¬¶{‘ôkòF4/1¬ïòESpcüSŒA®q\é G$KÏ"ß·Àq×£
+uFBüFbï£ëÜBºÏmÔqÇ’b<¥½Vp`ÌOG’Ñ4QFÒHPC¸jð¸÷^FÚ1f´½Aaï¥Û{,ÈCÎ€ŒêD´ÈQ-ðñŒ³%Ç ÜƒôAhÞ 6@ ` ˜G`Ð
+¸ƒCÄb›ÂêQ!¼û’ ÈÛýBÎlâè'>ŠlÜÊÄF… ˆl†H—	fRAöq\ð‚s`BxNJ‚} (›YH–ñ „ % —+êH<™ð=Û´ô¼…qp$CÆ',ù	M6lÅ¡
+ç‚¬€DËAßÑ)¸ T»Ã¡f:Ú3êì»›ÂB’wÍÁ8Ë3Ï\ld‹v¯¶L€TX
+´#–dË\ÃÞk[ZÐø±­0êËš$Çû
+Ì¾°
 
-> %ؽ  i   Y   v  	
-* ! J <  ҁ 
-@⁶     /j      &  I X   i (  ( MnTe B 1  q ϬF   8 MG )z 
- =4    #  ? m  G 
- s#S  Q^ģ(ć   C@N_ !#:2 
-?F   i ,ҕ B 
-R   F | I $kH֮ $&  O w|	      2  $ ґ q  .       [W kЏT 5 @f  <ǃ r H   y 2
-U    Y  
- H   mR(  m1  nj ? F  t  I  T  H  "tϞ$ oZ@JL1  K 
-- m  JLpn    BD     Y= q  oșr )H    jH`.t  B 2 $W$H Ҫ )?JC2 )G |-G ͘  I 1 DMH  \E  d*eGr  *gH r  ,aKQ2 $%)
- 1  "' Pp Q7  ` K
-    
-b 
-D   % ʄ   +  .	   u # + 1 |   ˍPy{   M/	 Ǵ ,8  `,;  T ,K r ( #   $(J ̲ L J_ %+I     ˎ  =L  -E̮fr *s   rL tK͑   :  q t- K    ҷ,! = 2 42 K  ۋ_ ?2     l   6K     nA  ^C    Lec       8@  Q (   h XB ` 
- K o   ¹+2& " H "  tB n < v   & / ? p. K    ,0     L ġ 0I
-  'L ׺ Fʤ QzJ    DFSʔ;   S̛2 -)(S   8̊1s| 6 3   AR  1wMS $!    .  ;     &S Tᚻ   1yL  6 A^ g*   l xL  Qؾ` V 
-k 5 ȃPjl/ ƅ0 ^     3#  r" + H  GZ    rfc"l G E  q 4	K Ӽ >M  ^  ǈ_ ,C͝ 6S  2 c)m   $̪ l   )? X   5q Z l5sM5QD5}͒S 4-  ؒ  2  c  +*O ձHC2_ R s M r L rNr t5Y c  z y/ \v :  @B   5@ \
-?, 4 :ꑜ >v #P/ Ʉ '   M 1  /N R8  N   D8KHsʛ4;=w 0 8+ˌS   Q 0/̌2  8G͏ӧ 6)ɖ  |93L 2  6O W  !]N  5 R` :wK    9 M
-  41O   <==   :S " 贇 Kgs \:  ]n  6U ϑՔ:iNS X 6 N 1 L  yЉ : 3    % X7 NF  \; ʶ  |;13  #@Y ̺3 ;  ͸S   7 "   3 >  -    Am {8%   h <5͉ ( Ls  ~ͨ   WNX   6H  D9I ׳ƌ=o  s  9+  E  S ,Au    @ M  2Qϖ _q e  < V  Ӆ<> B  ܃:K   < ʡp 2E g2 0 9 
-p'AS   J@ d7  U   ; 	   t/    	DE{    JF2
-c 0  `
-  P     KE JM $X(O m0  9" , J <A )s  @q   A;; ڔASPJt D[P   W T0 ,5U 2 AK ˓ 4E]OO  ,6U d  = N r BaG!ԩ$Ba(  c>_ Mt  DuMY  tB_И   6Ѐ  ^   v@   P 3U; P  u; H ӮD   /) / ߌCＶ  Q   5  72 P  s  U<  s pDO Rm<1J ]5y W4 D1mPS E9 ! 9/Pf  -!FR f Dy  ! <]Ї D%  "% 8O
-4 \EɖP E NfsM:[F_f|2 ˌ4]*IiЊ4mB ʐ    " \  O,F    .`  ځu B(?  : 7 L     ѭ 
- ' Q -  ;   \ ?Ń T   ф/( D   e
-  :    GP s  ,Ѐ ]@%  EB7ҩ3EI/ L   DoO t! =oP s%m1s [ 0 >Q SM5IL smLsO2I%SФ%UXz   T2{     O Զ4F? J4 = ѠT ꆰ  d) h ~   t( >@ T  J  zS 3'   S  J  s    .i| 5r .
- |~D   K!λ (<M    R T    $MB5  1mHqP   =eSϴ0EFS Q3 ==    Hyғ 	-PGN u.  4 \)m8[4 |I OiP& # M   I[ RtAUB   t? :   S zEs    'D    !  P   
- C R Rk + Q +mC  7,   P.  |Q  `F Q
-K   T8  g   RO  LO%N    S T/ 0
-R t$UPw  ' HS  4Žb 
- 25IO9   TL=P T@ 9y Ѵ?FMN D O T  # E  DM7T   E Κ     oP 9  S B  pS9NU:uN T    (N N59 " M3 *
-G   - 7  . ;IG  uT,5޴   T NU  cKk T  G  L O5N  -  эS$ S Q
- N  RQ L' > B]BAK 4T5A)ӓ \ VL5P P  H OMy  ?u
-WsSd Q T O. \* M&3D- F  4T; su d&YԬ %    u ^     p  ρ 9    Y Τ
- Q     L#5  ' O R  1w K X    J     QxVA B   T   VG   LS U  NeP  
-  #Q5   O >  Eե    B M=TTt ? W5U4j5WQ OT4 Zu [` I;TIu&m*[S  REX T UkeX V 2Um  uE  ]    &  ( Z w *   d 7E W d 'UB )  7   WmY O    V  pUW u Y Q q<uw   ]d< U s t@ SNP L q ļWiS  A   ք ]Xa  w=
- T 5/ W Uwui V3S 53 Sm  Uj L ³  1MK.\tmm<  `uMeH k&  6 kuX    
-   :
- j `SD@ /`( vx@q  Wx  "  3+
-  S   KY M  C ҿrXu    u~ _  =tYu
-Oյ< ROh K}]'  tL 4G 0       N[  ^ wML[X u  ] ׮52TO   u^ UEu_UW Uv1 ^ VD5E
-b W 5m]6  #s X K u [L   W 5 S%^ Ue(b  P , ģ R   K (     
-M`  s L?G  Vt    N  ^ Y \      K3vW O5 t]KO׶   KK .u]  / G V	svSw;1u %b פՇM_ Vp  1 W dxUHAӲ5^ ^'  \=baX,1 LYټ- {ekSU 
-:U" }TSƶ C_     u $T Ն ^= lo   Lc Eq   ` c     F%oT  \ $  e] X  M ?X%՝V 9'  l 7   R	LH Y
-  qK d F  <ED l Z ( UV>M,  D [ ة  b  Ո f X  i k h6  fV v }ZuR/   ]sXy  "f  ՘
-X Ne֊ T عi b  S y > X 5 B  * 
- _ .[`    	 @   ÜR M Ԁ-R x6 ]Y    \ 22r Ej    ~%        uMh/Y 6  h  > h     %eZSvkEe Wڲ  W?Z\ (fT  3E_[  j h ֎  5iA  { le &   Ak 
- ٜTiR u mf{ZÖy e v 2} W        P Z ` j   Ui + Z   J   ts N
-  2 L    ЍL2  T r   H    b A* h  !  
-  `   * §h  *PscA D  :     Q jp& D 9_-$' 5 1 JY  O0 DY  f5[  
-   h Z d   &  
-  e     _7\   a tL X85  *   j "  @ :    =    jkբ dj< !R&     ^ |  i{   S 5 K7  
-@U B 4Cm  P    # ^ r    4)1o+ s d 1`B nK B  U    	o     MoO    ho      0  U       9r$ MO   Cérz5   r 0] a]뜆  ` o Y ȿ mH  w 5[ ۡR 0p    rl
-31  b  JՕe
+>ƒ%Ø½„Üi¾½è¥YÇöv¬	
+*à!€JŠ<ø Òà
+@â¶àø€‚/jüææ°ÖÑ¸&ŒÅI±XÞè iò(¡Ü(¿MnTeúB­1óq´Ï¬FûÃÐ8óMGë)z´
+ð=4 •Žì#°“? m æG£
+±s#S½½Q^Ä£(Ä‡²ŽËC@N_¤!#:2Ù
+?FÂ‘üi¾,Ò•¤BÈ
+R‡äìFÊ|íIÁ$kHÖ®‚$&£½O«w|	Æ’Ùã ”2‡œ$ÇÒ‘’qºß.€¹½ºÐÛ[WÅkÐTî¾5§@f”½<Çƒ±rÔHòÜyÈ2
+U°ûàY´ 
+ÀH º€mR(ô‚æm1ë´njÔ?ªF¦˜tøêIˆTœÁH "tÏž$þoZ@JL1ÏãK¥
+-±mŒ JLpn¬ÿñBDè¤Äþñ¢üY=¿q¤ oÈ™rü)Hœ²«ìjH`.tÜŸB›2¨$W$HÍÒª”)?JC2µ)G˜|-GùÍ˜¼‘IÎ1§DMHÖñ„\E¥d*eGr¹‹*gHÒrØã,aKQ2„$%)
+à1ðñ"'Pp Q7»ä`ËK
+¼Š œ
+bƒ
+D‚ð­Œ%âÊ„—¡+“Ä.	ðë²uî#ø+¾1’|” °ËPy{Ùî„M/	×Ç´±,8¶`,;Äï±Tì,KÉr¤(ƒ#Ô ²$(JÁÌ²¶L¯J_µ%+I’¤œ€šËŽÒÛ=LéÄ-EÌ®fr¬*sÇÛòrLñtKÍ‘·üõ:ÇÛq‚t-ŸKÜò©ƒí¦ËÒ·,!³=¤2¸42‰K×ñÛ‹_È?2†ü¤Êÿl£¬í6K²ÇÌínAÕò^C ÷µ–Lec µË” •’8@ŒQà( ¦€hàXB¨`Ð
+ÒKƒoœ¤ûÂ¹+2& "·H¼"ôòtBþn‘<Ùv¯”í&è/‹?p.©KÊÌ“,0©– àˆLÒÄ¡¤0I
+ÓÄ'L½×ºûFÊ¤ôQzJ¥ƒüßDFSÊ”;È²ÃSÌ›2È-)(S“ŒÇ8ÌŠ1s|÷6Ç3§¤‹AR’¤1wMSƒ$!‰ÊÔñ¨.©¦;ÒÂ÷Ë&S¹Táš»³µ„1yL³Ý6“A^“g*•¹âl xLðŠQØ¾`øV€
+kÁ5¤ÈƒPjl/©Æ…0÷^À¿Ëó3#¾½r"ì+ÅHÌÏGZ™ÆÍïrfc"l¶G“E¶q 4	K³Ó¼Ç>Mµ€^¤ñÇˆ_Ä,CÍò¤6SÊÏ2‘c)mªÒÖ$ÌªÌl³˜¬)?ÌX³·œ5q¯ZØl5sM5QD5}Í’Sæ4-±ÊØ’åÌ2…ÁcóÚ+*OÆÕ±HC2_ÇR¨s£M¨rÚLêrNrçt5YÁcÒÝzÆy/³\vÅ:À‡@BÀÈ€5@Ý\
+?,Š4Ï:ê‘œ´>vî#P/éÉ„Œ'Ôï Mð1ŒÄ/NÀR8™¸N¯³ÑD8KHsÊ›4;=w±0ˆ8+ËŒSüÁöQ„0/ÌŒ2€ì8GÍÓ§Ü6)É–³×|93LŽ2¦Ä6OÌW³ê!]N“Ö5ÛR`¤:wK«ÓØÄ9«M
+“Ê41OËÒö<==ÏÔÆ:SÈ"Óè´‡ŠKgsÉ\:ŸÊ]n¹¤6UÍÏ‘Õ”:iNSÓXó6ƒNŸ1ÜL•·yÐ‰ù:„3À ˆ %€X7ÑNFÀ›\;áÊ¶óÎ|;13Áá#@YøÌº3¿;¿úÍ¸Sïíº‹7 "… ì3Ð>Ïè-áŒïÎÅAm°{8%ƒÅóh›<5Í‰ò¬(Ls²ó¶~Í¨×ü WNXóç´é6HóÚD9IÏ×³ÆŒ=oÎÏs¯ˆ9+ÐµEÐÝSö,AuÊÔù´@…MÔô2QÏ–’_q½eÓÈ<ÜVÈâÓ…<>ñB§óÜƒ:KËäÜ<Ê¡pú2E·g2 0è…9 
+p'ASà  J@üd7 ‚UÀüœ;ƒ	ö²Št/ëÍáƒ	DE{’¾üùJF2
+cý0¾`
+Å¬P£îÀÚÈKE JM¯$X(OÇm0ßÅ9",ÁJ­<AÏ)sÇü@qÏ”ØA;;ÔÚ”ASPJtµD[P´÷”WÏT0ó,5UÊ2ÍAKÊË“õ4E]OO”Û,6UÑd®ü=‹N£r¸BaG!Ô©$Ba(óÐc>_ÌMtôìDuMYÔêtB_Ð˜ÀÇÃ6Ð€ÝÀ^À´€v@  ¼P´3U;ÇPü¡u;­H¸Ó®Dø¿›/)³/ÒßŒCï¼¶û Qˆ  5ãÐ72 PÚÆsà U<ÑÈsçpDOÊRm<1J ]5yÊW4”D1mPSÖE9Î!9/PfÌçœ-!FRÔfäDyÎè’!í<]Ð‡ÕD%Òç“"%Ö8O
+4Ä\EÉ–PÉE‰NfsM:[F_f|2™ËŒ4]*IiÐŠ4mB¹Ê´í†ðÍ"à\ ´O,F—ƒ.`  ÚuóB(?·Ñ:á£7óL å ÊÑ­Ñ
+Å'ÕQâ-ì;å¢ô\ð?Åƒ¤TµçèÑ„/( DÑÅËe
+  :û±ÒäGPÉs ½,Ð€´]@%Ðë†EB7Ò©3EI/ÒL´ö”DoOŽt!Õ=oPÞs%m1sÒ[“0…>QÑSM5ILÑsmLsO2I%SÐ¤%UXzÐôèT2{Ñäî­—OÎÔ¶4F?ÓJ4Ý=—Ñ Tåê†°¸d)±h~À ¨t(Ž>@ªTœ´JçÊzS‰3'ïÊøSðûJëÏsï¬Ÿ‚À.i|Ó5rð.
+Ì|~Dù‘­K!Î»´(<M¾±âäRöT¢ìºÒæ“$MB5Ïô1mHqP’“ö=eSÏ´0EFS‡Q3==¶ˆÔãœHyÒ“”	-PGNæu.ÔË4ä\)m8[4Ù|IOiP&Í#¡Mäó¨ÃI[ÑRtAUBóÓÐt?½:¿ÍêSÿzEs¸¬ 'D  ¾ !€ P ŠÓ
+áC«R¹Rk¡+ÉQ‘+mCÑÑ7,ÕâäP.®Œ|Q£ñ`F­Q
+K´‘ðT8 ´gãôæRO¯¡LO%NŽâŒÔÞS¿T/0
+Rˆt$UPwÒµ'õHSÒ“4Å½bÓ
+Ó25IO9‘“µTL=PÆT@­9yÍÑ´?FMNÍDÅOÝTýô#¥Eœ¸DM7T’øäE•ÎšÔÉ‚ÑÔoPÕ9ïÓSÔBýÜpS9NU:uNÄT Š  (NÑN59"åM3ô*
+G„à-É7¹Ç.’;IG©ÓuT,5Þ´»  T…NUµÁcKk·T¡ÔGó…´LO5N¾”-èþÑS$ÝS‹Q
+õNÝìRQõL'Ô>µB]BAK‡4T5A)Ó“³\õVL5PPýÓH”OMyŽÑ?u
+WsSdÓQ…TƒO.É\*ŸM&3D-÷FÔó4T;Õsu‡d&YÔ¬³%ëÿà uÒ^˜ˆ ïÃp ÆÏ 9ý¥ÂÉYÕÎ¤
+ÁQöÓýü¼L#5¯¼'éOûRÐÍ1wÔK«X»Ó ÔJï ¶QxVA½B´…ÍTÊ µVG½¿ÃLS·UûÔNePñÔ
+õÖ#Q5ÒÙÔO>×ÄEÕ¥´ØÕB•M=TTt•?W5U4j5WQÔOT4­ZuÐ[`…I;TIu&m*[S›ôREXÕT…UkeXÉVÛ2Um¾ˆuEŠ ]Å´ˆ &  ( Z€w *†€§d7EÖW‡d'UBÈ)¾Ô7ÏÑíWmYíOÑð–íüV pUWšuµYëQ¶q<uwÖú‘]d<§UÇsÓt@ÕSNPµL±qµÄ¼WiSÃÔA Ö„Õ]XaÑÕw=
+ T«5/¬W¹UwuiýV3Sä53¢SmÏÝUjÅL™Â³µµ1MK.\tmm<Ôã²`uMeHØk&›×6•kuX«Ëï 
+  :
+ˆj€`SD@/`( vx@qõ¬Wx“í¤"¿Ñ3+
+ žS „KY÷M½ï„CÃÒ¿rXuÉÞ×øu~­_“Õ=tYu
+OÕµ<åROhõK}]'ÎötLå4GØ0µ„Öÿ´N[ßÕ^ïwML[Xêu´ã]‹×®52TOÐÁô…u^áUEu_UWµUv1­^ÇVD5E
+b£Wí5m]6ŸØ#søXK‚u[Lõ±¢WÒ5•S%^óUe(b…ÒPˆ,öÄ£´R´À KÀ( ’þõ
+M`Øós½L?GÖöVtÕ à‚NÍÑ^µYÑ\ ‚ûòþõK3vWýO5¶t]KO×¶”ƒ…KK–.u]¾ž/õG‹V	svSw;1u…%b—×¤Õ‡M_™Vp•‰1ÍWídxUHAÓ²5^Í^' –\=baX,1ÝLYÙ¼-¦{ekSU†
+:U"Š}TSÆ¶õC_¯Ø  ‹u‹$TÝÕ†µ^=ÕloÅîº¡ýûLcÉEqàØ`ˆcÑÎ€ŽåF%oTý”\·$ e] XÌÕM™?X%ÕVá9'õúlè7 ‘¥R	LH–Y
+¶qKµdãF¢í<EDõlµZ¥(¥UV>M,ÏàµDµ[¿Ø©ÕæbÕéÕˆ•f‘Xõµi…kÙh6¿šfV‘v—}ZuR/ö—í]sXyµ„"fŸÁÕ˜
+X‘NeÖŠµT±Ø¹iíb•ÖSöy•>ÅX¾5ŒBá×* 
+ _á.[` ˆ €	€@ÎÎÜÃœRçMæÔ€-R§x6]Y í\ñ22r‚Ejå×úÕ~%ãËï´ðþ€œ•uMh/Yˆ6…•h—¶>h©Õù”…%eZSvkEe¡WÚ²ˆµW?Z\ö(fT’¶3E_[¡–jÝh¿ÖŽö°5iAÚÁ{leÚ&Á‰õAkÚ
+°ÙœTiR¸u§mf{ZÃ–y½eØvÙ2}¼Wã»óîà® È€ÀP¨Z`°j•Ó Ui¡+¹ZàíJ‘Ôéts­N
+Ùü2ÿLƒøÐL2à TârÉ—0™
+Á¥b­A*ÀhÀ !€è
+î `Ôâ*ÖÂ§hù°*PscAÑDêÃ:¬»‹ ØQÂjp&ÈD‡9_-$'ª5ê¸1±JYÒëO0ÐDYÀ¢f5[£¨
+ €ÀhõZådóÅï&îë
+©ùe¼ŠÐÚÑ_7\¾ ÖaºtL•X85™†*Èëð–j²"àÆ@°:Ýö=  ¸jkÕ¢«dj<¼!R&Ú’ ¸ë^Ý| ©i{¤º¤S–5ªK7„ 
+@U„BÖ4Cm…ïP €Ž€#À^èr‡ƒ¶–4)1o+ÛsÍdª1`BÈnK‚BÀŽÄ
+¼Û ô“	oÇÛòö¼MoO™ôçÂho÷¶ÑúÊ0ÚëU²Ÿ†Øû¶9r$ÅMO èòCÃ©rz5§¡rò0]¢a]ëœ††˜`ØoïYÞÈ¿µmH´ w¾5[ëÛ¡R¾0p‡›—rl
+31 è¯b…ÿJÕ•e
 
- a Z   U   @J  % eR 8K\cH @qW'|5 T   
-  f ! S [1 ȳځ~@P   B`	X~ Q 
-r \V  ? ]n   ɖ oa +  OѾ r# *W<  ܁@ 5s G/  
-s 1   \     V6|* \ U] Q   p V  uO ں Ua   u ElY \ A-l ں   o ]}U  LW  4  [  Xv ]y ؖ  l   k l    P  d6| i M` ey ׋֥p7*k6xJ o    )i )   > `      U  TH 7  s   ;  4) \n   ѹ%K ^1` ޗI
- zYe5  ` a m, .  Th} DtÕ] R
-  ]I  @}loސ6  y S  [Ey  UOMm  ѝp ϗE}W۠  e  |A,f?[   Mz  J  }MA q
-t0 >]e    0 (  UmO ط  e W Rbm 8@  Ȁ$@  8   d\ ^ Vmw Z=6 P`G 5T  j 6 k M U  ~   u4
-߇W   ܞ- s <w  # [ ּE  ܸ) E% Bw <t ^]w }i g   ' a     K ] t  M  t Hv  s
-D]  z m  h7  hݺ  =p  X )i' Z   " 8 5Az B  
-yK P x v=\   =   CJ I   VVK9iJ 7o ua`V ڭ   ! 	   Y 
-( rT  M U  m  [ 6X  `/x  
- \{    X   UY  ~ 	
-&     ^   } `MH \  = [ W ( E "`x_ 7R  ^ 7 ]x 7 E$ ܉,K$ (^р
-         ıi5 d &Q m*et9 IL oU\X 
-   )R r    	eP ' W] "'   "'N  "  mFsfH d     v  [ Y  qd'_  u  ]b   B in     C  o x
-  N7 ߕ * U .  *Z?+5 y 2l P e    C J2 ^}_   { i. T D  ' ~!)Z U   =   |  ]k.H Fف J 6  |  ?C /  D&U6tE   u-b   * ^< / Q H E vE޻6ai׆ ȉ 4 '^u ! B  b#
-5p   w 4<  -  ) <x` x   =   
-  v 2uY`   |  sX_= c b    x 
-}  x.މ  K      L ) |q #x      q{I  	f" g "v<\  .~     
-  ,)  Ɖ b  S(  ػ 
-bpL 8   * ~^*>
-F  b 7_Ё b¸'&p *  .    Ҍ( 骮Z F߆ * v   %H. i    D `K Ѧ   #   b  U   U  '{0 H > w
-  I  Y	 Sc C$ L  : 8 V-
- Ѝo! ">u c`  Z   
-xd v< O "$   C  ܂   An$            
- Ð X
- , 	c  ߠۆ        aOd  ?      Oc x, ?c} ? v -˂E~Y} O򣘑w !Y? l d  
-  '8& /Q*    ",~ ۂ    x      FN5 +  JF     C   ǧ<    -Y8&  d=+N  ͫ:9H  d)Y  Ϥ7   n    :M ~dG'K  
-e  P t d   J. + * 	+ ZDR   d  R  1 :a "F -`  ZE - 
-D  Abx5.   Hf   çGη^ P N֒)e  T  ^yI  geUMT& Iep XdG?     ȹq$ #=  #l z  ߔ /аd9 R A  @  } bY   }c  Y   as 5&   ` j  h䒲  XyN 1  v z  t ܗ [$ 0@ ,1Y Ҷ -nk`Nl  TK  e    e 0>ی   xT    % '·QI  ΢ ֲЮ | L+~ Vù b%iI bS   1	 > 'ehy?֘udDkQV A 8R M   h   @  Z P-  g + 8    wa i    )Y      ; ff  *    
-  {Ag F> a C      b  d  m  -k   f  l l  K B  -yi   f'q p  " h>   ȹ&6ǂf  d     P֜Kb Hᔉ v  X}  ˹h.   ]1 I    $9I  d Y: g  *B ) p  'P y i  V @ ƀn
-   t   ΁  X   (	 v7     Xz&B;E*dϬ  M.r m .   h     vv:%- < S3o
-#  RIӤyV d.nV   I ^  E   Ё W jɀ<&     
-,| # I (;9    :_i]˹ F$gt mY& 
-T \A?   f 3&V;8I ϓ C  '^N Kg  n^]}X.p G ְ q PC{ # dɘ g,  ) s  rɗ@~   / ĵ     *  F    Z  ˺  f.  ^M  
-# H  } ] } <} ?6|U   6 w G  j  |h  #  a  7k 0%`J h o    `hhz  ^ `   ܣ .>J z: eF+
-. G  d& 
-f   ,Th UE   	v6 T V    ). m z8ޜ i % h` P  u |ڎF } 0(Ġ Nj 	   XD[v hq  J ⸸   h\ .V yIs I ~} X   >T4"7   i<:: wM
-a    0  'Ka
-   p ֬  [a  )h   $ J|$ )
-  ͙
-  `=j zp    {^T  l6! 
- 
-: C~     	   Ē k vZt  iٷ@ե ^ sm  2`    e a ( c c کE枺   j 7eF W AO 3  &¬i   Ⱥ    N_doi ˢK -Bc  s 
- k 7lv  e yq    z 
-s&`Ч~z   b  E ?  }   
-          5 7V P   8&HB਩   h ޔ  Z @ 6X  Ե  z H #hKL   ik T D #CUz   =h| f 9 &Y ^   : q     V^hZ    h 4.W  C&B* rh y np ifZ v Q ؈V%af) v  &ڬ~ a 93A j 6 VX 鏀         vU3   k[    *Z{X? {    o fK ;ƺ  U ?3M*    8 F 0k' R  "^ȷ% Е .2?Ѻ   H: {U 
-$ e b    FDz حE [,    : + {6  ]Q    &   j      485c OIL   j :    j , .  l      Z:6%} hz   
-4%  n   j  }b Z nnC;  $    	   *4k
-f   =6   a   % k,    c?A  
+ÃaõZ»–¯U˜ü†@J¡Ð%´eRü8K\cH£@qW'|5£T¹¨Ø
+ÆÅf !àªSÌ[1€È³Ú~@P Š B`	X~¹QÈ
+r‡\VŠÝ?µ]n×ÛÝÉ–Üoa¢+ OÑ¾›r#Â*W<Ë±Ü@Ë5sÃG/·­
+s€1·ÌÎ\˜àËÕÿV6|*Þ\æU]óQóô’Íp‰V •uOóÚº”UaýÐÜuÖElYÛ\öA-lÿÚºµ¥•o¥]}U•LWÚÊ4°½[“ØXv‰]y¹Ø–¨…lØ×kålÏö˜åP¿×d6|Õi¥M`µey…×‹Ö¥p7*k6xJ o ê€öÀ)iì…) ˆ€> `äØ À·•U×åTH­7ßÙs­«µ;çÙ4)ï\nÇÚñÑ¹%K±^1`¸Þ—I
+øzYe5 Ý`‚a m,µ.µ±Th}ÖDtÃ•]ûR
+·ã½]I“’@}loÞ6•ÝyëSÀ¶[EyÛãUOMmÜÍÑpÝÏ—E}WÛ èÕeŸÐ|A,f?[ïõ Mz«ØJ•é}MA“q
+t0×>]eÆÓÝñ0Ù(³²UmOÞØ·µåeØW¯Rbmô€8@—ÓÈ€$@ è8³íd\×^–Vmw³Z=6 P`G£5T¾ôj°6 k M˜U‰™~«ßáŸu4
+ß‡W °äÜž-°s<w´Õ#Å[òÖ¼EþÜ¸)ÐE%ÝBw<t¥^]w‰}iÝgº‘À'“aÒÕ £™K·]Ët¥ÈM×ît¥HvÇs
+D]þöz¨m Üh7ÑÕhÝºÆÕ=pµ‡X¹)i'ŽZ÷Öí"Ü8è5AzÝBâ×
+yKÇPÖx v=\¼ Ä=Œ’ÝCJ½I¤‚ÉVVK9iJœ7oÝua`VÃÚ­êþÖ! 	°°€YÀ
+( rTàìM UàmÉæ€[¬6XÀë¸`/xÞÅ
+˜\{·ÞÔòX ËUY½Ò~¯	
+&‹ƒ× Ø^û³à½}·`MH¹\‚Í=„[²W£(ì€E¸"`x_‡7R• ^7É]xá†7ÍE$ÖÜ‰,K$Í(^Ñ€
+Àê ™ž­øšÀÄ±i5ýdÖ&QÆm*et9¹IL„oU\XÖ
+–€õ)Rërœ¬ˆÁ	ePÛ'âW]“"'›©œ"'N×–"§™mFsfHàd˜›ÝøvÆÄ[ƒY qd'_öåu§]bªòBÜin¢­±èåCñ´ÍoØx
+ýìN7Ñß•€*¾U’.«ž*Z?+5äyá2lŒP­e´ ÀœCŸJ2ð©^}_àóÉ{i.‡Tæ½D±à'…~!)ZºU§‚àŠ=Õ¥õ|á]k.H FÙ¸JÀ6®|ïÅ?C»/ðÀD&U6tE—ÂÍu-búöÅ*Ë^<Ò/¯Q¡HÝE¡vEÞ»6ai×†¿È‰†4‘'^u !êB±Íb#
+5p –ƒw˜4<©Ú-îä)†<x`©x×õ‰= ‘Á
+²¨vè2uY`ýêñ˜|ÈâsX_=‹cùb˜ùŠxÁ
+}Á±x.Þ‰ëâK´ÂÕ×ðÚL–)–|q£#x²ÀŽÝ Àq{IÀÌ	f"©g—"v<\¨˜.~ˆ§ÝØ 
+¾Š,)›ØÆ‰åbÿêS(‹ƒØ»¬
+bpL©8¥¨¾*~^*>
+F¼àb 7_Ð£bÂ¸'&pÃ*Ÿð.ð¥ çÞÒŒ(ãéª®Z¸Fß†ñ*·v˜žð%H.€iŠ³¨¦D‹`KÉÑ¦œéÊ#–‡ÃbÔ×UƒãU—Ù'{0 H¾>òw
+žâI°¸Y	ŒScÉC$ÎLÕã:…8³V-
+ÂÐo!¬">u¢c` ¦ZöÀ¯
+xdÅv<ÖO "$ÍáûC£úÜ‚ª”An$ÕÙ ¹¤òŠ›ãñø¦í
+¹Ã‡X
+¹,â	c§ß Û†ƒ¸Íãü¸ÎaOdòÂ?­Þø·®OcÎx,Œ?c}•?¦v¢-Ë‚E~Y}äOò£˜‘wà!Y?Öldìæ›
+¢»'8&’/Q*™‚úµ",~ Û‚«ˆ­ðx²Úüô¶ØFN5¸+²¬JF’£ÌÜêCÏäÇ§<†’Ïã-Y8&‰­d=+NŽÍ«:9HŒñd)Y²í’Ï¤7ÙÞÒnŒ•Òê:M¸~dG'KöŒ
+eöP¦tùdÄÀ¶J.æ+Á*ï	+ªZDRŽ’ÕdÎÎRÖ 1å:aÚ"Fª-`ëÚZE²-’
+D¦“Abx5.Ùä¥ìHf»‰Ã§GÎ·^¾PÙNÖ’)eÐØT†à«^yIþ•geUMT&”IepÕXdG?µ Á² È¹q$‡#=¬­#lžzŽ›ß”·/Ð°d9¹R’A¬¼@Äâ}übY™°”}cøY®‚Áas«5&º®Ó`Æj²Ìhä’²¬ŸXyNæ1ÛÈvè«z§ãtç”Ü—×[$ 0@¢,1YäÒ¶Œ-nk`Nläç—TK‘©eº€Ìò•»eš0>ÛŒáåÎxTž—íá%é'Î‡QIµÀÎ¢€Ö²Ð®•|°L+~´VÃ¹è•b%iI¤bSþ˜ù1	Ù>–'ehy?Ö˜udDkQV–Aæ›8RšMæÎ×h¦·å@ÄÔZ‚P-óÓgÞ+²8€àÕšwaùi–—£æ)Y‘†ù©ç ;æƒff¯™*þ—‡è
+û˜{Ag¹F>™aÚC•¯ž´Ù×b•Ád°çm„Š-kèØÂ’Åf»™l–líåKÉB®Ò-yiþš›f'q–p‰å"ùh>›‹ªÈ¹&6Ç‚f ™d’ÇæÌÖPÖœKbæHá”‰âvÙÞX}êæË¹h.›±Î]1 IŠ¡„¸$9I‚”dãY:®gèã*B®)‹pÆ 'PÖyÒi¬úVÜ@ÆÆ€n
+îÊæt  ØÎ³—X€(	Ðv7±«ûŒÜXz&B;E*dÏ¬ŠõM.rîmµ.‚…ëšh™µ ìªvv:%-Ÿ<•S3o
+#úÈRIÓ¤yVÿd.nVî ¡IÚ^ EÀ  Ð³WïjÉ€<&¦ïšÀìÍ
+,|œ#‚I (;9Î¾³¼:_i]Ë¹ F$gtñmY&‰
+TÏ\A?Žïf‘3&V;8I–Ï“‘CçÈ'^NœKg…n^]}X.p™GÃÖ°«qËPC{³#®dÉ˜™g,àÂ)Ìsõ‘rÉ—@~‘Œ‹/æ˜ÄµŒ³—¥Ã*çšFž¡ç Z™ôËºèôf.¸—¸ Mž
+#×H–}õ]Í}§<}²?6|U˜ø«6æŸw´G˜Òjà |h©#­ìaòç7kÉ0%`J­h÷o ¨¤í`hhz ^`“ÞÉÜ£Ç.>Â”J‚z:¡eF+
+.Gæºd&
+fÐ…ž,Th—UEÞÅî‚	v6¡TúVêŠÿäÚ).¡måz8Þœ½iÌ%–h`éPŠ—uô|ÚŽF }0(Ä ¢Nj‹	´èÉXD[v¿hq”ùJ¦â¸¸Œ¾“h\Ú.V£yIsúIŠ~}/ ŽÞ>T4"7ÿ•ïi<::åwM
+aò£ÓÜ×0 ð'Ka
+ºæpÀÖ¬ ü[a³Ú)h¤ïè$­J|$é•)
+€ÈÍ™
+“ž`=jzp¥ Öë{^T¢–l6!©
+Î
+:‹C~²  •Ž	‹ úÄ’¥kÂvZt”áiÙ·@Õ¥ ^šsmŸ2`šŒö©eèa…(¦c°c©Ú©Eæžº–jç7eF‹WæAOšî‡«3™ &Â¬iÓ›¶ÈºéÏà›¶N_doiïË¢K‚-Bc£¥sé
+£kÞ7lv§‡eÙyqž§—ãzš
+s&µÆe Ð§~züõ§bŽéE‹?ãÙ}º¾ä£
+êåŸ“ôê÷«¡¤5Ø7V¤P…å¢»8&HBà¨©£ àhä€Þ”àÍZê@µ6XëíÔµæ z H©#hKL ­ikîT¹D¥#CUzƒ®©=h|á•f«9°&Y¯^ªÍè¦:æqŠê»÷¨ÖV^hZš¿ò¡Ïh 4.WÚâC&B*³rh¦yªnp…ifZ¨v¦Qç ØˆV%af)¬v¢â&Ú¬~¢aã93AÔjæ6§VXÄé€œæ¢ëÇ¶ÐîêvU3®ªµk[«—¥ë*Z{X?×{úë¤oŽfKâ;Æº´æUê?3M*¨¯–õ8¡Fõ0k'ñRÂÈ"^È·î­©%êÐ•¢.2?Ñº‡á“ëH: {U°
+$ eÉbÖ÷ÕÇFDzàØ­Eé[,²¡Êá:ñ+®{6›š]Q®åäÐ&Ïš÷j¢™†æì†ê485c¡OIL©¶ªjî:ž¾ˆŸjö,ª.­lšÁ¾ªËì Z:6%}°hz¯ùª
+4%š¬nýÄêjšæ}bþZšnnC; û$«Ëé	ûœæ*4k
+f³áô=6‹ÿêaŠÀö% k,…À°©c?AÃÆ
 
-2  n  ` S @3  F `i|N ^RJ   el(   n X-8  U; 
- B
- Q  B P{!   #{ N zmb    R  X>b   ` F  k x   Yc  m   ) v  l : v  g[A   ?el  Ʋ   Z    儯    k~  >} m     }   4  As   C{ N  i  F  V  ֶ 䩘 V ,  ؍  r M   P     }7 ^ F  ĞYm    9 |        ~ 5j a  ҊU(UF  DjR   ?z`H q&  F R  &  ^n  ( ̲  j6 i~ o 8 nu  8 c     Ll   Z A  "5 s   s.    
- mjZ     %Z.ï a Z0	   +   n  И       q  &   { Vvn    :n   
-B u  UKn~  ֟I ڡ  7k     -k 1  iZ;  ìڬc  >& ˈ Ӣ zJ  Ĵ  JK# 8q  ޹ =    } 2 
-  4:  X  4  hR ޴ [      Ns O   I\l^   ҍF    i      dЋҀ  T
- A   
- @ E
- p  D  >K$   (S 1R  #!  9b 
- Uu I " ?w  }$J hё%CHl 
-3s   ig 
-%o    3 УE   s`ӧQ V * ̙*sĐ1 G +r xV _ I m`  լ[  
-8 ؒ'    -\ t    ,`  VN{U 3b lF{    s xv   c 5$3f 9v i  f B  Cǌ (>      s苿 =E  9  0C N*QQ[%  3yԸQF 1n 
-  z  ` =  s '   <1ޠ 6ǌ   $
-`; 7 C   3/ 12<#*A, J<C   /5  #85  j 7 P
-  x 
-  (B *   Fu    
-  Ġ :3 PÍ  Ѓ&aAFဣ
-bT ɇ3T #ʰ$  B (  & B & <* $R 
-2  "
-+ P`  b|#8 X   /  fc 3) r A
-=4Q!v  Ɍt  , O  4 .B n  6    "lrR  U)u X D ,n-TW   :  6Ub%5־W3U #9ow\r 5 \ >    5W v E  $ ( { w_  
-@_  ߁&X` 	>  % A y#  ^ +  $    7  ? 74 O<   ʧM' N0$Ғ 9  #  |   o=
+2ÖÃnŸõ`ùS²@3·ÀFÓ`i|N^RJÎŸô¬el(–Æî¿nì«X-8­‰U;´
+½B
+¥Qµ¥BñP{!  â#{”NÓzmbû”¦”RéÇX>b¥‘ë’`ÊF¦ÍkÀx™–´Yc³Ùmñ²Á³)©v®Çl¦:½vª“g[A¼þ™?el›„Æ²¡æîZž¦ñå„¯«¶³ák~²¬>}¹mÚõå·ëë}››´4²–As«ÇéC{ÀN´íi»ÑF°³V ÒÖ¶óä©˜ÒVÃ,íÊØ–’Ì€Mœñ´ïP»üµûÌ}7Ä^˜Fì¦ÄžYm¿ÎÕÆ9é|û‹œµÿçæÖ~¤5j a×îÒŠU(UFÕåDjRµç¾®?z`H¶q& FRñÂ&»¢^në(»Ì²¶¥j6Ûi~·oé8Ânu¨ë8”c®š°ëûLl°áì¬Z§A³«"5ûs™Ïë‰s.Œ×ë½š
+ïmjZ¾¶¯éë%Z.Ã¯ýaýZ0	´×í+úà°n¹ã–Ð˜Ý  ƒ¸ÇèqÛÍ&³£ë{ÑVvn›°F:nƒáãž
+Bî’u´ÞUKn~“ ÖŸIìƒÚ¡¾¬7kµ  „¹-kµ1¢ÒiZ;Ší²Ã¬Ú¬cŠŽ>&ýËˆñÓ¢´zJÓåÄ´òñJK#Ç8q øÞ¹½= Œù½}¦2æ
+šÚ4:”ÃXÓÌ4¢éhRšÞ´ë[ªšÓú˜ÀNs±Oƒ¨ÉI\l^µ‹ÒF   %g  x•   d`ÂÒ€  T
+ÐA’³ 
+˜@âE
+NÌpÑãD‰ >K$„Ä(S 1RÄÊ#!œˆ9bæ
+±Uuæ˜I¡"À?w™Ä}$J€hÑ‘%CHl 
+3sŒÌÙigÎ
+%oÔÔéù3èÐ£E’”çs`Ó§Q§V½*æÌ™*sÄ1ÂGˆ+rÕxV¬_±Iåm`êêÕ¬[»í
+8ÀØ’'ÏŽúÂ-\¹tíâÕË,`ÈòVN{Uë3bìlF{ø…‘¸sÍxvü¸öcÁ5$3fŽ9vÌi£ÆfBÊì¤CÇŒ’(>ž˜©£œ¹sè‹¿Ö=E¢ó9¨ç„0C§N*QQ[%çÍ3yÔ¸QFÏ1n€
+ÑÃzõÌ`Ï=øäsï'ÜËÊ<1Þ ‹6ÇŒâî¶Ð$
+`;ÎÂˆ7î€C¨È3/„12<#*A,‰J<CÄóì€/5„ #85èØj¾7¨P
+üÚx
+À(Bˆ*„ ÃFu¬ƒÇý
+‰Ä Š:3ªPÃ¨¨Ðƒ&aAFá€£
+bT±É‡3TË#Ê°$ŒBÁ(‰& Bˆ&à<*´$R 
+2Ú "
++ëP`Ñòb|#8ÆXƒºê»/¿ýfcì3)£r A
+=4Q!vƒÑÉŒtÒó,ÅO¿à4Ý.BÁn”Ð6Òû­¼"lrRóÑU)uÓXýDŠ,n-TWãèˆâ:«Ì6Ub%5Ö¾W3Uö#9ow\rË5×1„@¨¢0(J¢ˆ¢¨!‰&è‚w z`Ü$J7€Ëíw >7€xÕ
+k^†%jXá‡ˆxb‡+†Øb‰1¦Xá£Àø"=xäæ%ùd”OA"
+dQ` $Z¹ä#l ðÄÃJ+®|ÚtBîã@"-¹œÃK:RèÉ‡øøÖ£Ð`´ŠÞÚ0ƒ
+;âˆã7.«€Ã®ˆ3î:è ƒ8È`ƒ:ŸgU‘,¦®úê¬·Þ2Ë¯¹¢z«eh»±·KbÔó„­cnÕŽ…•¿»r®l
+3ÈÈ:ªáŠ;.é¿9S°¥@Š—B¨ô*B #„#Ÿ "„:žnAÐÑtÞ°£6B£
+8æ Ãt÷ž´]VÀ;%kØ÷¶Zˆ5ò6£‰áKAìËÏN{í:Z ã2ÜŠë©Óþ5âÿ
+8Ü¨"
+SË¿Œ¨´ŠÊ	:ÐàÐCßß¸9èGrÉqAº
+
+fà…Ì,!•Èp:aÅE@j0”åÈ¦¸Lõç?dðŒ`  'DÁ3\èEÖð'Á¤ v³{`ín—»Ýõîwdž†×A²|p !ôLJxÂe•äÉ›óœ = ñDyfö¶×½ Omâ3ÝöÊ×‚*¾ 
+VÊ²R‡ø™´éðõU…‚Ó‚ÃÜ?«`ñZä¢¼H¶0ŽQm8c'Ø†#ìDrÜÞåbÇ/æ‘Œf|Ä`Ã¸®fdÁBìæhÈ.&rðÑãÏÈ¡¨ Á8„¤ã!ïÆMŠq‘||Á¶Rç€v¤CiE	êJx‚$ šÈoW3ƒÕÈP‡Ù0iÔ#›ÙÐ6Å:Ø2pò°€DüÐÄ d¨¥/m£À’°k EëÒ—”¦¦ñáe?»eID *(!Bx‹È€(¨ø`€|‚Â¨àÍîŠ›b:Ü0 ¿(™u"ö0«Í8î* œÜNŠ9€
+&"žÝDG:ÓYð<ehÐéQ²Øª:Ó*úPþø'¤ck;§y„ØÅ“usèÁžðÂ€6`Øé
+ê ‡8˜Á Jp©H_` š!`´Ê<óäO”–d£X”tòø5Ç†fHN=ï)¨h§x›#‹½xfU¹Õ.{iSã•$a°+@éD–
+X›Ûì&^ãD¡”%V±‹eì@
+€1q`#q@¾$+/‰DÖ­¸Ôü…ÙuI$°Ñ€e'ë‘yE_±¬Á 30€}ö\°-Êöj2Ðfìb»Õmo7æ[—·¿%®pË1¢x¹éƒÈÒÙ£à¶\¡75/åödÎå,`¤›Øï6V¼ã=Ù:X¦ÙÀ¼4û%bÉ{Ú¦W`éu­¹nëÝ%7¿a Wß{›ðJÄçMï€ÙûÍ9ýw ñ%ØÁÛ“Ý×/ëØ~Ðß—)¿~‘<8\RÒp \ßÛœØ¶¾…õ»Ü
+s·Ä¹=J-<á Ø˜Ä@S°ŠgKßÃ¸Å,–Hv¿‹á/0ç¸ñ¿˜¼ã÷È?þ0ŽG&a%
+¹ÈFr’iL”Y€1€|16b¶–¤³}ÊØ3¿‚S
+@kÔr%«´ùÍjÕ
+ÉÒY;_ÅÍŠ‘¦—=âcs!úÊD®q+ã.zÈ#
+æ@Þ9Á¬6 )YIK^bÏ0 *¬Í¥=rÚ}aš,‘mÏ{" Æ†Rç¤›bÀ 0l#8!¬qy¥Z»@@ ,ÐƒÄ)ö¤qC–ædkiKSª‚VÃç˜W
+_ÙR€>74”¨Â:ëX±‡ÞnDÇáŸÓÇ%²=r'b*7|äˆ(7Äa‰ãÑYó]èÃÊy4wCé¨±n¦à×ƒ\? ë{nb"SÄ5h:|K|˜
+7¬ŸKâxÊ3ÖuÈö«y²pµ;ÝXäo2µÐä, –Ï‰‚
+¬ÚÏv<ˆòX‚ F>ª7@%Að‹Íè ±ºçÛék(GN…’Îd±²ÊlpË£Â\^óÀÆ“ˆ/±(g
 
-A  
-3  # 8~ 
-8  8 ި 0考6 cyV B!衋>: - l +   Z   $A=O : V XX    ʦ0       nn  8[
- ( x) * "2B8 	*B     T)  
-; h#1ڀc:(w I eu S   <m  X l3    . ꫳ  2^   ԩ( : _P#  ߀Í* 0   ˈJ    
-=  C|4  
-P   8 e U2*6.  P   2՟   s! +n6   w@ 	    %oyAr֠G  M  |A  0d  3 h   ث    3  {Va JxB7 Pj,ta
-  C 
-G؉z < % *$ 
-c $ A
-oh  ,|·QD!   "*Q  
-   JQ +<c
- x \a+ q D:܏Vd      'x7dy  V43 uH o&< Q j    &
-H - Ab@ @*2\ +I dV  }	g*  J  @"TPB  5 QP A   )P d  P)  = n 
- 0Y π  ߮   䚆[fI" 8 Mr   S   唇   1      ͵l %9  x  9   O(    0  u C  % ӝ/0    ZŗyJ&=  E)@'/ ^s h   S b  vf 8 L sg "=
-	 C&R    @  J:   $ )S9T)Q bS jU      ] ʪ $VԂ  `c5XYÚ0    d]kZ J1 0 _ J J.  U { :4    "
- T :    \ 
- V ּzD`
-k @ z  & 1 _ Y ~Ѱ e c UڊAV    \ JW e /   ,<    6  qikZq     q%   ^V  L-n X 87   p    ׬    b \  v  x   ; 9eֺ\  p  [   DQ.x 
-wY 1@` +Z   d  
-  Õ!5  X\ Z  +Y   )  $ ? * V '훮 ^  - j            ȁ r    JT    3hE
-n#c ld   `\9    o+ &u  A0`   G$pBX  "rw 
- `1 G     A"I Z  P $> ,   !  L_: 8 nn#:  zx=.IM ;    CD !  f*i ) % @  F#꥛ t  @ O ғ  ȴjR.Ҭ~䩡 Ӓ8a  lr d  k  y L]39   s    "S   0Y   ^  
-PI  b : ǥ     9 ^S! 3 C  r -f  %) #s ;  d l     h   >΢   $
- #   U   F  o  o \ j؉  %    k    N2Mu9fI  py4 
-  ѐ 4}Ϛ <TT    Кh/h ꔌA   >    ́K  s ޹  r; C   SC"  GF ̺$˜팞K _q  E (e)Qyu  G   6- 2  dp3  H    
-   Ӡ2  y 
-Hy   c]d_  ` X 3 y    u U   `  (7 / Z  ]z    x-   TT65xo  D K [  HyVm s  1 #mN   ;l- y|  h  D? . o cM  t    '}  < m     (  q-  ;  C b8 6  7yP  ٢  B
-    :I   3: @  c [      %   8@z   ?    4?، ' ڟ  ) ? A
- 9  7P +B#/`  诋@ 2  'L  	 @ 1s r { ?    " 0<{  :Ck+5T+6D 5t 6L     `1#  # C=<9 23 3 -?  @L  D (ğ   p     DI DǠC P3P  z 
-  p ( { D  ā İ Ľ C p (80 ^; &   HZ2(   A@ I dȲ- D  /  W )cF "=y 5  6S 7c4Y E; E\    '!7  ?
-  =bx   U ?] A; h"   &w 5~   	 o  p     i ǉ+  B  G	        k' a \ 3R @d=     u 3Q  5  H1 +)   R2%x421      ; B *P     A\  [   =  $ &  (    )  +<   BǸP c ˮ C LC      " é ed-ED e43q C  `D pD   I  Jd-L    B a   D ER c1  ȼ+W$
-X n 3N E] \G^t ; ` X I0Fd䲆iF& ̒E B  F  F8
- Z    q  I  5  =3      N 	 J; U ǿ p1 ǺxNI 5񴵨Լ 
-   8  8 $ ORE   	     
-   <: :      * l9 A 3
- O t 7(,: zzJ JϺ %      J  J+    B    * 1  |, r 8|  S .T<B  C L  Դ!    Ki|D ,	  <L H       , 
-   ^  # &  v   H ټK/ h ' i,   k  m  .M    $6h  =L 'u   A   Nz  PHuR8 % (0UJ  Gy Qۛ Y80 ɽ T 8)  5;  Y!< 6mT   <mUz  P    
- O 3  P 7    QЏQ9    
-  ù <  s@c      ?  J  Hy P  R   % ' B RѯlѰ      = {5 2   ׶  ,+ Ks  !  "  #%ҾTS  &  7  äR  Ks R    E= [̃qڱf`B
-p >  g@ 
-  5  "pS D3  ߴ   XoM '    8    q     (  '#Ւ 
-  :)  1  q"Nz       p  Aq A	G3  +  q'M 3   S2h   4 	%  hu7" I pU jP e:   E  Ո |K  ̓ i5P [rZ 
- 
-W -	rUʠ]3     ڈ ܴ ڵ[ xͅA! o  }LNrdά S P  ޘ[     4IVU 1  ]I  \f
- Э x, sAWUW dW)  dQ    K  ״\ |-  W C ظ 
-R U CDRA _CTR݄ F|į RJ _    b; ŭsE X    ,\     © _  . /  R  %  )  18 <  P R  %hY   fD & ;8 Y H :
- ; XB `&  'a!  ~  #;) !x "  ,` (8J(    <Ϋ?X ?h[;A 	 LJ    ܿX0 e ^Z      +    ^q GyU   ܢ=6H7  8v   9 q  c>z  ܑ)$ VV 4N  
-p   Z0 5  cI d30b  <jɋ <X Cn 
- ]t1Q& !'    "9 $Y   QM͍  ԩ=]b   d? )TVe$fݯm[ ]cf   C G 
-S  k d   [ \   V/^0 D)j c  c{. xR u   D  ܁r )u    t^ B  g mcP      mW ]  - \-/    uߵ _  Q  _5|    _ >  %Ć]؇MR ] . 6`     M( PF  QܔR  -jp9Ꙟj 	̞ ҟ Ҡ /   { V < "#J   ' . b  qk  R L
- R       k  cn rB_  f	 q G WȲ bL0sX
- ,  C4  i (ir)ã   rjȾC    ,
- _ U/  Ͼ  ̋ j$  <m * ˦  zm n ۈm     k  
-  m   6  ^_# ͬ
-  9  $m    `nw nz ^ fm FK VK  Q ~i _ `` ~     C n j     N   n  -    >
-     a ^     l p#Mp j  pǸn  
-	      J 
-   No  o2|  .   o    G/Wp   7  ~  n 
-  Xr _p  q q#W1  n?
-   B 92   8 X Y !M <M    
- [! )UhIK^V I     th  m    &I b-W    *  / ri 6q    37 oq  t t *      
-y`  hu(W P' H /  S Q$     W   " ~tZu[ q\  #  $  zp gv̞ crQ uSWvTwoU t @  (    X/o  v| Φ d q-  8 p t   r s/v Vw f lw f op   w   j 
-*Wn nf u   W x c w }Gw}m    n m  W   jj  t x"   u   2   h  0 K  sqiM !    /z  y      @  ? z` #z  k  k   : p    
-     #0k V . 1    멌k' kq   zL K9){   
- 1  Ć v P @ Cq l   q}O    d  m  w_   mzii  (   }      gx - n i} 'i)W l |]G  ? 
-       z Ox '} 6 vw  '
+ÊºÞ‡SÃNX¤!°`#ÀúÎ+ÍÕ‘¿á
+Ùµ÷îãÈÛu —`â*®E@s(BšÀxÌ4Õ…ŸXÕyáÉâ.kZãØ3.ö%**÷ô|~4nµ´‡w®n"ÙU@x¨	ÆB‹yMæÀ¥¥‡ûz°]IªÙÀÔáks+]¹Ú×ÊÇ~ÕS»ÛÑÌ¹´¦Éu´\U@qàœüÞSSP×Ì&7y?I½î†—qn§<–-í9P[Öž·
+Q9#ëóYÎ°U@pT†!t™*–‚}ð“‡ÈZ«{rr>ŒÀ_Œß£¾à¾âÓ¥ñSÀg+	 7¨Ÿƒ{¤¹‹‘ƒž¾cºëiÞ°ƒ<,n¬ø¾„Ä“'Å³ŠÆS…Ç«ƒÈ»9Ês›¼’ Ì£>Í«›ÎK°››½4½#ÂÏ››Ô;a¢±Aµy=¹š=¨½¨À=×“«T€<@¤‘¿ò3>/œ@L3y ?Ê@4è©¹ÃÁœ;Ã¬S‚Ø±!üv
+‘»0B$,½|[¢&\=øh=)d¬@yð€œ’';ü€C¹º»®Âaâ;ô‚@|BØ6”«Í"@3\«¬#Cä“ÃÛ+¸zò“4VlÅ :ˆ2»„(‰°E³ˆ„~H¶É®™ãË² Ð!›²DCÆEã-g+®F{ÆãŠFg”FãšFk¬FF
+ ##ŠHkÅ sEpGo€- „HN ƒt‘“sô‹| vtÇx¸‹ Š €¸ˆ€ Á¨,‰Ø~,È‚tŒmüˆhó¯Ø:¿@1q¡®²®¯À..ã.‡
+ˆ|/aˆûã9!°ƒ…Âš£)¦WƒZ£‡Ç
+ A@ I dð5`“aÃ­b³ W[»ˆf;3Áð‰˜62¨¶k
+É‘ì¶’<I«Hcz¥#»
+4·`Ã
+$†W€CD³¬¹P·ó((«I…©‘ƒ©ºhœ ™¨È©¨Ê¡©4EË+	ØúœÐ+(B¡‘G©)ºT¾’š)îñž\é6…+DH¤ÀÐÈØÀJrC¸Pø!›`$:°’2H&Ê&mêJÁèÂBy½S6DM²h@Úë§*PïpLÁ ÅPì³S¿»
+Ì¿G’E‰˜ÅÏÂÅ @ÎïÒÅ àE_Ü²*FÇ˜cT4r±ÎsÁ²ïºFhü­G6þ’1VüFáˆTh†
+Ð{$69ðmlÎ` ƒC@x€¨ƒú¼ODÇ H_Ð€0XO¯<Šp€nø‚õü‹Hü
+ƒ4H„´°…Ì° FŒÙÈÚÈ à¡ë‚NðŒ1P‘U
+¯Ž$‹¥ä6h*I]”„Ê•tP;‚—Œu˜š´É`Ë¯d	±ÐJ…	
+UD?õc¿ºhQ’´ƒí’§TÉcâ‘Ü3¸Êä@3À"Êì7ËÜRÖ™~;ˆëÊ¿*	R
+ 7²¬‹,Í·‹kSŽÎ <¿ È»ÖAÝK¹×\ÅÌH;“<=œÑ›ÒK5mÓLd½(ÜSC”«¡jÄGœ¼8Å3
+®ZÔ¹±Ä7(LT½'œN¬¹Ú«RÔÔò,™X ãl0äTN¢`NçÄ1`Ä˜=°êTÆëôÕìt4lìNaýˆ„ôˆnÏV5OwHÏ%
+âk¥P!F(iàè‚æ C(ÇûÌ‚@ðVÿÌ@×Û˜
+âË†A0×Mûv
+?×%
+‚ŒP~œPHÏe
+€-‰Iå«,tQì1ÍP#€Y„‡v „ HÅI 5¶xÉz-RÔ
+@øTÒ£\¿k³=.9ÓLgbƒÓ
+ü7¹âT7p%:Ù8ˆS1•+E¼ô(5ðG\¢2XÜtA®z”,M¸Æ¹¹ƒÎÜ‹žÕ*Ÿ¹nÓ¿£o³9L•Ùœê6=9Ø,	!¨ÃPT²áŸÍàCDMÂ•5@&$UG}ƒ¬MÄR¿,GlL:mÁ’`ØQ€ä¼»QT–%B;\ÛO,ÃßdUÁœ+	\Þ¬KyPÕÝä±~=â”E¨Å[´0[íE\M/éÜ°b”ì—Ï-íÌ-î¤Fbõ‹cÝ®GòGþ$GsôÏ Èv
+…'‚vü—rÝŠØÝû´]Ü]PÚåÝæÄv
+‡;¨ÝÛÍÝ*+—y-‰Š½W|Õ×MÖ~ýW“ ÉI‚¥Ž’Ìƒ‹
+µf˜E
+p>¹†g@‚
+øQäÚÉ" Xf»Xº•‡@ÑX¤œ7'eJ¼(13•‡»³ÃøØŠûKÄY2@Aµ¹EDÝ¶á£}
+*1 ª‹²hz€‚ ²ŠpâIÜÂÝAa¡/å`É¹ž‘r¦n³ÄQuBW£:Hø£¨€:£#Ðt©½ªLáìãÔEY"Õ0¢¯KÎƒ½i5PujàÐÐMÄ•3ÆÍâ(›¦»C·ªºÙƒ
+~Ûî
 
- } Z  G  Gyk     G -' d    ~Y uا   ~7        w ׿   1 q 'q   p '
-
-O   1  tޏ O"l k@  5P  4  @
- `  PL h0  | L f0 A {   =  0  j m  = W  ZZc{m
-0(   
- B/ 
-  (   
- B. 
-  (  `
-  t   (  `[J   j+       T  'P       {d- + 0   V  Y ǆ $[  _      ' ȟ  r   q      
-,    ><8  \<
-}P ݾTA^XXnt   
- g  2vү    	  c~        _            ~ O dB    fc D ھ?  F  +     O 
- /T    ?        / « 
-EZ3      ,([  k%     c  + ye m  g E(  p  {  A> ۏ   G  "E(xq x | 
- !7  ]0 ս g  !
- a 1 @3x f  SkmO Ï  
- @ ~8 $RU   @>  V ā ̶ 끉    @ jbȇ< !F,*     Q p
- y   P` (
-  7  ` A2~ J   7[1z q    ZH &|ٰ"   ~   o :CH Y A~  
- b 놫  8\ N' xːz     G8   bCd8  K  1.;Ř <-w 2>>Ɉ. Z   JB
- â1  eѪ   h͟ ˌ P  :k(Q!]\  2J  
- 0 `a  C  cn^ c ~   0m   L 0e  L 0] l  @    D  q XD   " B{4 yċ /       J  TM M5  D+S	_M\l5   F  O j    5$L q9E)7䈔J BFDX b   {`d ,Q& O# \.{M  5  c a  >8xr  Q|tp,    Bc   o6>   aisu   %C hY o  6fH x n     F.  $ \   / F X&  kL  1N> 9# bXo N    H'  6l U 4BB0 = |      , 
-G_ t   K  0  \{ XRPRJ= % _ c  R3 GW  > &\    ;< "ۣ <
-,Nܱ Uy
-# d     o( df /=Nc +u 2  [rP  C)#  Q<,     p-   ԅ rR J'I*       Q   x \ ? 4鬏U Ӛ ]  
-  AF  N 	 $<      	| &ݤ t  +t n @1H)[  $  « H+ Ŧw n[&Ɋ11} /  sVN£ 밥    N  5 ' %j  ~ a˛	( e | S6 K ) E vزh  + *;!aDv@ R  L     -  5K  3  d c Z{ -æռxLs a p  &       H67 d\ Z K   1Q&Q  N  M YѦ    \ B    ?   l*<  7ޞ<
-1 ʃs    :$ ~    W@^a ye  W   +c *  W@^ yE  I &QĂ4S  G  A n    =   $B 	 ـ"x  I    &z g5 g  "ړ"  q  <۞6 zF    @  r)B  (+g   ó*   9X  @ + "X     g g LhY81  ܛaL    $ $U  prM  ; c Ė P P
-z@-h  OsfnЋ ek S  N: L   ʯj1
-(Ŵ wS   ZCC 
-    YzKg @9 ڜ E w~M @
-Kn ;Sb P$:* h  Pt ˙9  : 
-`u: u   z m   U 
-  & S( |  `  ^hg0  ѽ0   h$  
-    G  %0 )  .  (   ̆S LV b   @" ī7 <$  4 J  d /  + k > @   B ,,W   bdA  
- 
- 6pf JLh    @
-   <   e@   p hpJ QȝUpwrQjI" )7u '2 H )4
-V  ;h  A 9z '  +  &'uh塑 "JuZ./ u   S*Ba ܢԉ Э) < A  ;T  P5)9c  d D4 <Ƥ(- 
- 
- Wb t 6O%   % VT~zQ )J- U z  ' #  1   ř PSj  A  * $A U Y4mZJp D  8 3  % t   i / ~ T  D   1  #   A! b)dO A
- E      #@7 B7e  ԡB p & gX  t#  2  #`  	 H F        G    4   PH e     >eI $   ԳfR? I=) *  1E q [ _  MQ\L   N  e4+  	 &   n     8 jIu T  T *U J|!  K  Ԅ O fF   Ҕ M A     U    j8*  -   T  T  O%   d2   8# !ՊF, 8a%M  *U  C  _{jx   5f  Rϗ}ݰ m RX  - F՛  Ƙ0 U s  B J     L	  ~0]  kD  J  o  ֦ Ҋ @a%   #   ^ @X
-Ҁ(<  P  p  `|;z^  D  6X  [լ_0   nԺ <   DA ~    GHD
-  'ܥG JA | 1@*i   5  H  "K\j_   > 	^l  Ik C  g `  (" \ 넽	V  W @ +G   Z  z`煫 tP Ѷ      -  6U[ b-Ͱ6 J U kE# } 	t T K_=B   c ]  c _M*    6      ͯ     [o*Fؔ     d -ǭ -   ȢW  * mŷ  , X  7O        { )C  } [  b 4 a  w 2 F :m 5  V ^Kq -?.O=  6 N\  k lv  (   Zl O % v p  r q d% $0`   + 3 `:AG W  VR  y  tQ r"  r ,݁     8?
-  ::i[pEn M B ҡ f m Ǥ s Bב o).̵ 2  O W  w,  .K  $ n   p  :  p3 ]   v׾ RwqK.͝  h   YyY  ൙  ی
-y        J\  Q/    ( Mq :!  ͻ     o9oQ o  M׻Tݭ   5 bܸ n%Bߤ 3  L  r   ݼ     I        \  _gm ]R 8bN 9 js C   ~W 
-   =
-     ;Ёp       	,\^ A/,0Z :s   B  N Z    b
-k
- ( p  h J @ea    T n Q ud X ]C 	)ү3Rp   5 C Fp	v0 4 x \PBp" 7CX @   k       O      p 6  A    -      [) E *n  c \ +{I ­ o     ^+, % $W  [ {_9 G  i Uj_ʈ~  N r  b K  n6  r    pl>
-9   I    ĳ  _ {T WR   x   
-\.9    Q   9k W   ; 	V) qXt 
-X	5  
- .L  E|
- hG  $ B:   # 
-   B@
- ; G      L , l 
- ^   - p >`i8 N  z    Oy  7 M 0t*cb (&CiH>W 'm 	<  ; 0i l  ag b;`z,/p   &      8   v   5K"-:  S U 3   i 4   tE{
-@U-  k  a*o  w U  ދ  &6Ũ7  gk	 0 M     \4, k/'&
-*  b׫   "N =Y
-oW 0`K$~ qY  b     M      eI  0] j '
-^    +6   F  ,|' T - W fU  1 y  Db + @P͕  dZ31 < g و'      X T    @F 	# >T   ; {{Jv  G'{<? _  Ъo 0  sJ  
-  L !RG  #I <  p   ]"#@;+  ԝ;Oj  ! 9K圜  T  X< of   iq   u
- /   fʣW./f < 71 d Uy,_  ] El   p  Z ; s  _   k     G  +Sb  { g+ ) - l
-     , ݺ   2 v #^  c4u] '5 b +  ՅF Y9Ce=.m4 >  7  b IF;0W 
-   n  |  c c$    ^P < 00 vso   Y i7m @p iZsgc       0S $ J  *m Y: G  .Bq & $  4  H  'yx 0T  
-   90BT بn   r    ǆ Rp b  c   yC  7[b    JF7 SR I 2sUʃ  Vi {5  
- @ 1  |W knІxi^ } (*ָ 0 Lԫ̣ 2 . zK{QR8 [t_N $ ^wk    r   ͣ  lͯ   ւ9K  F\ qb    07lo   5  Ҹ J h  1v   B 1 k  sg  ZuL ߣ 4.B x'u 
-  @ 	   (  IP kR  - 
-G i@    VxL z   0    ~Zhэk  S \  : -  Ζ     1   #  j> Y @ X\* = @T  *~܅; :R w #UĈ  ;  Y  P+ ' f m    F   6@is%  ^Q  [ضL T \  ǖ׊Wd7ir  Q4 V  \  l  5,>ј   wM -v   ZYs | - u & !{vciu  5n &_;^     I  Vސ 0 #
-    F  w n}    . ~y ^  DU  ش  ]U 
- u1 
-&   G ( T     ;6Q H  MX 
-H)  s烂 	 桅t 7  @0  jpD ͮ Rkd[       V   6   ^  b  ll  3n +     |& f  Rf  #+ 9 + ^x   yHS i k  K#j h#l@"  ̀] ց`Z  J쬂4 RG 9 Ωi _    SÀ@ l :C  `̪  E     z (, ! ټ?:  ii / .    < Q% NX! m 
- S L3Ft   7   .  v?  
-  ¶  6, l+6 v   |j 2  # V 
-l  =|   ʑ n  T  g^ [9 6Ѱ w k  W $    e أ B. h3`z   < 1  N   
-   
-   (         (0<d;П  {  З` I    	7 g{:  6} @hǑ#
-    PW   8  ՆVks   R     Ot(` a  q   K p  U Ԥ
-  +1 8  .  d p   !  ̀ s4Z  #s Nmv R pU;   z   PF K 0P  6rPE 婄     JT
-  c     @x T  $+/   {[s:, ?- U  ^ @z ®  7 ؘX n +  oC4ǖ ݈  s
-oKv ؐW  on ] 80 0 (     n +  o  (v   ܀#p     |    wr  9 sn}uGl  Mx+5  (l `  	b(4   p: 19\˝   -   I |O )p   ) ºs "$    K     .Г    l    ޝ 9 #  <
- ݷ 8~    `gP    yH 
-M uZ 7 1 @ȜB@  Qçb    d. =    Gݪ Zn e       R  3  በ) 	  Bb I4\! s    `Ts   l  bJ/f~   u  H  3 ䷰ x N 5g&_ 9  i N Â    T" 
- F^ g &  (  @  F{  j 3Ї 6f 
- < > Շ;j~ڙ _s͗ = B  z   q6yNpհ:   a H p[    Q   D  1  kt"   X	L 6 t pP:M  )   O   8  = a W   ӽ]  z ~ 3:Q ٗ   қ      t   s p >     dQ`c  ]  ֏       ,܁c 
-R  @  d 
-  c
- 
-z   ~ ٣w O s  r@   cg       Ʉx &uA~ - E? f'    E'pk + S  CrH c hz z. Vb r ^1p䂫  y .  B P> >( D    b: 	T  C| |g     7 D}8   8r[    Y    "i8  VSF 
-0%<  ǀ        W  ) B    1     C΀s Ť ӁE  C  J     / H ެ$@O  R,{POeŜ  | #  s  $۪$    '{x   J sc~/G < /   p ? < <m   B >2  Ӟ    8 a T ˟     1     #    	   ~f  [ ;S  8$}  8 b Pό ! c \ĸ  +t    C  _&HP6v= .IP  &    +   'X  P  & E J( 
-x(     \$   qpa- 
- ]?y  
- @ - 
- 5  &   L 
- p[  1;   )f  ? A<@  ǂ
-   h?)o   6 MH  Bf  %R  E
-@ , n M/ e&    d>; W E  
-R  Y0$; , xf   %(%  C [ 6` 	z  X.   7   
-Kp4  R  `> gf
- ZP_  K %p h 4(    @Ls    Tp
- &  a   T . " 3  T& . H  a V 5 @}\p  (  "0{ 1xV I0  `   j h b   J  rq L    ?  cD  !@   t @q 8 :x=
-   ':P \^   ۠ A  Z  0Ch !  )B  "  C * [a  pC X@ 9`L 4x  e@ @C 0] A ŝ  <A a[n
-$
-   # K[6b    e 'd  03( \   V  0D  9  !  1`! H   o3 [ЃTE8{dZ  P 	 D ӣ'  v  I@   & 
- 0 ),	 Q p* <    08  J X ~ S ̐3 W  uK &C p      ,  < M  4;/~   /p ( . 6 
- (.
-	 7  <   8 G   B  <  n  
- C  j    M  $<+ ޻ B= 3 ̶m;
- =b>  5D ;   0   N 1 @   <r  [ 6 c38AR աuxȬC PI!. {N #  3: 3س"    `   1:      k cf - 푋䄂Kk/    \8 ƕ^ - 1  !#  @    [ʊ<sMp: ҵ   Ӹh9" "pH>$I0XO  : f <P  ' '$ D	  MvK    X
-׮  bͣ  <-5L D/33 D ۭ   b  -4  2  A"    p+x  ` xt8n [| A t 9 =d  .FQ| 䈬 @   "Q "   3 S
-
- 4 WK)6  #  x M>  tf s < > ـ:  %  @ ="
- ¶   < 65  <=D
- . CEC 
-  	   ȳ$n    0p CHў[ B  0  W<  ˉ   oǐ Ό| P _  PP9qt  6Ͱ   D nrZ`r$ 7!
-R
- oZ)  4aW  Ŀ      a x*x@cIv H    < U$  ` sR   
-g@ E  f H R    " l qs W <  s  TcP  trY!   `     qg    C V$   z# 	`  k   
- 3 ؀ElN 
-2 ^      [ J  0 Q `; 'N ߺ    ꂁ 
- )    W   9 B,  n Ms 6# %p   0)=u .  <A
-p\ ñ
-  Ā R .E S  ' ` L   qX2   d2FcF8s΃Y  8^     8$
-    G  	 o=    6   JiZ8flQx  hLO  Ȭ>%   PE  3&Ʊrl<  @xL   1Aq  E	  0 '`!<Ɛ    B ?   {|  8   M@    w " B   ] ִ7RI G o      _tu  m [
- F{-@ǷA 2C    [A=  / \ r^, @HeH n  6 pudH l  B {1  GÁ ! |H |  з4Q   l mD dCo.ϳ >  l  .2  {, x   
- - E       슸 r  p3  GNo6 }</ s  ޷   O    
-  ƽ`s 
-  K  S5  q     C 2  3n	FҮh$     $튂 I$n	Eґ $  - 2 F     h    S\   h   ( XM S% z;l     qT!F    8@ `l     Q\$߀+   0
-   W  ŊO y  < &    >   go  3 F   # < 
- [ I c0   $  4 ` 	 xq z ' ?s     # 5  T    yvp ܃QA ' I   '#     7    B       о   +4 ! ڀ   "iW☂q 9F   '#J2  [ Fͥ h      H i  '  W @>F $ ,   n eB  
-iA Q1 X@=   i `  A5@g <   T   F3 h 	    t I C  )G  i d 
- 5   `  glʹ D')ʐ  m%L  `S y # G0H+  0p 
-Z U-u 
-P < ހ eD f 1 IH V F  ,Fʦ      K      (W ml! FoML 7%   7 P4 
-   `  $5IH  $W"[E X
-2] Q&H0!d 2 Ir  . KMR `@  'c%   8O2( "0Q z  C8 ~* P8 Q     .  U   ;P& K   d ?          F Q   <  
- ,?.  126n r 6 .  |V >aҶ/ <;      6 =kY
- CR  #7 Cr6@$    /;I򲑬$ 8   $/KL ; bj1  | v@  6` 6 i "X2  aq) Fr  3 .1   & /p |r  pB  /  @  A(   G -E  2_41 
-   /?   S. 6 `6       
- 9γ6    r0
- r d 4  Ꮤ2 E ɨ0   r)(sdBҏ4$  J Z
- (  T -/1 l#   l C ( /- b d/WM    J 6yL 2 $ 8S :5t
-_ ɨ  ^     s)P       0 ̙&ļ|   Y 1 X a 	F AY l ?N P&n, J            ' 	  uq)87 v3 P       7!9G  t dp  Yw0 $M  Z B      t 1  3c 	 P ɋ    L R   I  5,! Z ` 
-r{kV6 7n Y   R   	      K <     U A Ds B ElA5$ s SQI62  s ΦP0$
-N  Lɠ3z    玍  VP6  A C ܀     A %q;`.|   #  |P   Ըƅܒ| -+ 7M    X  z   2 t"kC( # $}LM    ͯ  t 8ͯ#  #)L  O 0  
-3   *    <5   @ |0    YiZ4   C -e  Ѝ Դ J
-   FG 
-0 r6O t    M 0   Ť  Qd%  L   <o	 3  J /̳J  ?+  _D L /  !  ,2{L    $ J* R4 JJ R& 2  A=   Ǹ  > c8  E.qЎ  "     х-   F(S pҁ/    P 5 ] 2-    HΎ  > ,k    4 L1  l3 Ù ( 3 9    O Ё. GȌ). &   <=  
- . O r 8/) RŴ1 gӿ<  H: 4 L03  E     `@ ̌a) /  ӑ >    { jM  ;> K( #0  P[% \8     y)c 㾗 @  
-TOkӳ 0)- { .S+  4o0?   $MDʯ C
--  t> K 2 \    ]  / i B   >      <   r        EGQseӬŮ " j{  Q   1P 7e  w   Ec4  2 I N |9 LԈ yH7 cB <'t <
-     (( P  -Ca+$# xQ
-S \D  FԳ D s  @ ."c DKMGԏ D   E  Q L  O ;$
-    # M R   ́   	 k  x
-ҜȻL$q    $   r
- 4O
-[ ;X
-  0  HC-   +V"e␂    K BC0]  KC D     
- +t  Ӯ 5l k &5J  ,) = ,  \)&% q ip  2  + I@   ]          P |#! P Sc  c 
-
-N    S , 0  A  1D   GH
-3  Ŵ1}L Q D ,
- :  S  /  Q  3 Vd 9H2  ja +3go  [F = 6e   -` t M }0(   w    l 'ZS Co bSh p    oN ӕDm ?  $ 
-    9 	t ]a N  k S P8]Iv 2 ;]0R
-攭    #:  J 48!NF > LC   ߠ# S !:5O A  ?  K  | d mc     B "4 ! , J3  4)-a   U 8 QƨE(d ab 4`3   xp\ C 
-   4 
- 6 A    A T \O 
- 
-  $   c J5[, T; X   u &  ʛ J V % f$ 	`T /   @ 
-Tl= N'  I ) TA M   Y$A S S: I5  %5t0T  Ari*h  Pu`  kQpJ '      VzƓ g> ޲4T
- R b  FT  9B H>ST Owa  9CUt +B ȳ    ĸ 4 İ 礲   tm B Qd$ C S     ]V R    Jɫ4  J Pwt ¼PAt'  $     /-   " H J*!5@]̌ M5O
-    BLET  G5Q
-3 
-  J i$ Wt \  թd  V9 LR  V] I V!  U g)8E MΓ* E;Iv  d@ 
-{   \  D JD0)d @υq 0 :Xm   G@	H q x  Ҫg XN V !  T D"; ! sZ  G0 K  ('  qbx  v U  N `	0  +@	  :ؠ
-H   4  ޥ3'^Rs    ^  j 
- U     V l[  * lU BU3 &   !%   V dUzZ     =% % Λ  Q` ((E7V    % K?  BN  " t= U ԏ `    
--    % >C Ia z$  S 55ţ y      ,   ,5 H?2uU1  Q$  5vLj   ] ˋ bu    uYMV]MP K  ϵ  X)   .MWcus ]ʜ 	c8    ` ^ R  ( _ R/ Y%E  V)(>  _Q    2 A73VR *VD
-   (bV_df 
-6@ ` tV   \9   E\) W_%6ZNiu  # u Z  n Z  $k [ ְ 
- 
-8 m V V^*N   U貗ޖ  j a V}Ɇ ZqX u  b  a p<C.R W q=
-   sT K;7 hm` 4sTs  F  " ~ F  B= C' 
- ON M ^5 k ( y S   D˜>  j$Z C
-  B    b P w%>	2    = # c   z    ìD ـ` G {u/k( L   $ >	  0}   _ '  r h   U@g QDvHWQӓ 47 '    Ej%u.[  ӏ I PD  En 1   lX
-0H` 3   f    ~b`   d  +X H  +    E9!  `K  r   RH    z%  b  RU/ 9 ғ*DZgU 3  -c 2  m X4 ̴   [ r}dYթ" ` \*0v%h X# -̌     -sP~v  U <)  ZhiUV .K    P?s  U-OΕ 
-
->WW  p> UsY 5 W   -j 
-   bҁt& _  [֜_uY r f U= " 5  ;  ]8Yϊ   ,  UV C Y    u 
-  ؔt)((   @  ]   5sidCI V{  M3Z=V g Y $!   m$    t5JUWŶu]
-^  Ev0   Uw CV   9 Pv   8 , w      TP   i <3  h/ Ocp D ƞ +͙  V6g [ O w ] 6 Ag µ 1\+  2  K 2JhB<  <?! 6  A[     nPp  d3
-ڈ M"{Z   CG <. 0  ZFꏫI9O   ]   ջ| ٌua%/=ֶͬ  ^ :  + &Y[3  d 6 `X< X  j     \8sO,t L5 Ѕ uf ه  -  ^t l- ۭv &   t  .G ? Ep ?4	 H02 Ye8 Q'   # P c lE  ! -s,͜  mp   C  R yᛕ t 2  T  	 (,N  (D
-	 2J83Z A@	: TNy  UioH 6q%cyP i n lҫ iC  4 N  %T  B  ѡ:   e  5    H;; `  
- N   ;I    lA 
-oit  *V <u +6 =   Τ<"%Z p \ RW miUU VW-G L5vn,   y&  $y ?kx E `    Q"L G N3 XA+w =^ ]Vs R ^ EJ  w$  r; d  M #    ' ! 4 , v  =) ֍{2 ׿v  c  KR  l  
-1 -l
- c xf Y   Em  
- ,C' Ejs D1LϪ  v    U  ]   0Qq Y 3W 8 Fi 1ā3  `
-   	^ Y  
-T m_݂v 5Zi]   kn  6  $x :  \b i"    n      g V N P3X*     }t  H7 0 ] :It  ST z  ObϢt K 9 =4]d   ( N/O u
-! Vl 9S  ](   ˊ]   v  -U   ׁ    v^]7  <_ vWMc     ,4=J  . C2! G P {Y/     v9 R3 d d    
- 6M=   ?  5 ,5C^   ̈  ߕ <
- (  DIRD  Ee;ц  4 W?  U^UMw)h  ( j \1    =  F ~  L q     G P}   G ݀  
-}  lw $9^j  $ ߯  c (B  f+ md  JVּ  ,Po b `I  O M   @  ` j^: .h)C v  yO 7 ȳ  @W0 ;      
-   8M S   Bs@    ns  V U\    ϭ
-   @  (  x     =   r X`   \ [   +_] lu V Rx\ G B -C SV  W      D _   xm ( /%w P  \kA_  
- D ߪv X ̂ ^   l  l8E SC = a 
-   6  Ba  m1   ¬
-d A  E YE ;  l cV k$ XY   ksҽ6  wo     J `IK  `  ) > Q a I     B   5    tЕ\ \ u u ۲/ nX`   3 x r^f  &Tu`   .H Π ^ i X F  X5O = 5jX> g]# 	 \  5v  
- 	!I }.3  cuWW ́>5  ?  1 `Ft
- =+M8l~ H U^  b   BQQ  {-V U U   I =V  f  mU    88    Oق  D
-R@! ~   ! ~ m7    Hڳ 4  @ 0k 	|   $ [8] i  U  ]_  %&  $ :  ʃP  8 X 	a >  m   5 !Z>e 
-h 
-h  9I \b  e`ɑQ *?  ^0֓  Y| V  )  x  `1 2 y a w  O{  iy^ քՌ   Ӹ i P, #Ђ5O x %K Z# l]\ & Dݸ.  d    &vd : . j' r  4W PtuZ:
- Usn$Q>  l  0    yb   脉 O  (s6 U    |  YD5  C       Mw Ѝ   S<n4   a% 6 ͊ ĥjq  l    ^5     d 9 l Ŋ`    _ؾKߥ6 8 1    8h X  ᛷ΅   V   `  (  a W mZɂp y W wN%0%f  0 ?c! vY  aʘ E *_Xw          i   | YW *   +  - 
-b &   
-o=r  2 m   }T  v  a _=   K '~H 98Ɖ  ؾ C    # X  
- 6 ? K́1 Ph?  
-  H@@    ev!  /@QV  L`
-   $0 S       W W V    { _N 
-e@  /  rVWWi5         n *z  \x   b\x  m?O cC20-  YG䶸D kH#ϕ     #G_  /   b Iݗ % Δ`  a       p i      Q z  E
-  wX ڇ Q~9  
-+O XKX  WT  O    E  )4 mq Xd m$     	ۛ ` C5E< #F    7 M   ~u t  ` jf@x\ J  Z `     X< c q  f V \ v6v_ ^ T G R  x+̉   .%bY          .7+  LV SښS raE4 ,   ![ e ̀  .`    X і a  ]i èh   ދ       [I   L 5 v +q  Od    + ƀ   f   c  "`   ? 2 +'Y   s  
-  Y +' ?     d  O c r  / 7   [ P ! +& V  \FP bu    sXs    dHN: d  2    s=v|k   _  Ac 6\fg  W o  'tK v ;n \D DD*  CLd   R E   >= M N  ) y  ׏ڏ fh  
-篶w
-O > #PX X  T)  (v [a W   3  s  = ߥ  1  ؾx e 7 }r  7c8 | 2 ue)ۥ N    B   /w  s k  /   8 
- 偀       Id DΛ \ 5v  ^  #  az 틇 tY.$  9 ]F     y   ÷I|f   m-r6	~ -Z 6E K  . iaC Y 
-  <  M f5  wX    oUr `? LF  U58!  k QņV    5O6w c    N   N    D !   ` _ v+bK "~ mf Rf6 a    $Kh b ` G br    \ p QDW    
- l  V % $  (7  r c" ~6    kO ,  &a    # 8+ de 8dz 
- u Ζ  m  m K {   9  ^  e 94   Y 0 s  3 G $ gy gq 3	v [  b W՗  ~0@  ` woƧ        ) `> ;  ٯ d   
- "    UI \ 9:6J-I x*   Kҕ >=i   Ew% vS"P8 y XU    # 7a 4  I-ѓԻ S~eW =>q      S|jق}N ,a  މe wŝ !蛚 d k t n ˅   o  +f2% &.         fzo g#` z   E   ݢcd  fO  Z +j4:1   ;zΣ  o 2V  F 9 
-6j EΧ   oΨ5 *aF  Q  
-m d h  j P    Bw a!Cq4QC  6ԙf  P  Ɠ U  M  U ڦގ  F ;    7a6`k 24 C00nW^   j n^ ` X*  
-qS" 7 |ݬ_ M  L8=\ysu 77RϪ  B Mӏ8 k Sĵe  xs  꼚     pz  ,  PH |y  p  f.: ~   {   k ր֢5 穬   :  G 9y        x     Z n y[s  i e Z     ? m o)ϓ |ƭ?   <4 _K    M 7M5RL ] }  F  4qEM9  X
-N  z  6        _ 9 6~u     5  nW     ԪY  ٳ # XjSЎD lKs  c c ? roh wa?ia 2 |.    l O     W  ?>@  { 5(ld       ܲ r V   c 8  " 	 
-  @ cd v 
-     e ګ     z  k  t   |l%n  l e =   )٥    &{f Z  I6  gv  v M  y  o _Z" U Ee   {   ɥlOiwἤqiZz"  ai X  b)E    /\ N ̮ ڑ؏ T =     re]+f X Ι f s 嘅  S  g W֘ n   m7    g ~   CJ
-B]G   c    >F_ U ơ ];b   f )   6Z
- j SB 2@ /`( vx`  k   D ]쾹 f  m?   Sl8j䶝 |, ޺M	 z    a ڐ1O {  e Ԛ֨ h r   'Wy ƨ  3   ]B  PM Ѯ %  -5[ _٩ݩ L" ߭^ b Nf  c=  p  ? #@1  l  WaL S! kSM <$ij Ԏf   3 n$ 콂 T         X vq
-n  ? Dim+ Aօ eY ְ 	 d   < U 1 !    (   f; z  gy{z |    ڞ m/ ,h0b`@r 	  ]V   5 H    #    o~  >
-    f   }z  A  `7  \] 2   ' {O6 H y @D N@Q ,"   b .B i        م  W k ! ]  p [ PXW [BYM$Vo   E     Xib  AN   /W    o    /  3      `      ƻ ] ǻG+p ۟  )k ,  h t9
-  m     r{	>   t _9 -p          _ ;  . i QjI \ x9m     )\| d EUY ~h+Q\& #kP|
-  9 0   
+Fa¶‰ IZy€AÉß5I´œÒ¨´Ò
+Yê UøâÞ€áD(Ä¶ô‰4I¨…º1Ž&ÊÆÌ×«bÂÍ¾-öÓÇ=˜È…ÕÉMÎÊÍE‰¸Õ_Ô\N‰èÕ*;Ñ°]rÝ+]WÎÆÔ•ë5´ÖuÅg|”}Ä´~lU`×?Hÿüˆç•‡è…P|íeÔµ°_à®é£E3›.Àª. X€ ‚ðŒPÞ×Õ
+€dûˆ`T¬XÏnþfbL2ì
+Ø¤'¸:+¨5h¶<€ƒP R „%X_ˆm_cC‡Yl@‹u¶ÐH‚¢L¿eRÑi>v¶'|â	–2i*šRK3•³È’+‚'(‚üË–ˆ‚Ú„.ž¦üÂæ
+C›“>A	½¼M+ŒJvÌÿ}à;•§¯
++Ë¸’: Ã/é±z”©uã€õBòé¹œä ¤é+Â»ñ°I›†¥±z¸Z³jèµ>`éŽJUß´ä¬Ó+*œ®ê«6ƒ…vg²j%ÍTªÌ¹UêùÍfPQI7%`’2rñ Ù!)’#I’%¹‘¾ÞuãÁáªš•à1&†@ ª©j²Jëµnè4î`nã—f–Ø™Á´–ê«8kÆì¬F«-Åk*–d#@,–+ÂäªÊÎi²jÛ.‚’R‚5M+Ö–«å*ÉÜÓ&+¨³ÔàmÕ^‚¤Bƒøm7Žé¾dZ~ÕX­YµÜOÆÜmÆ±Í°Rö\`ÝñÝb5]ô~åÓMoX¾ÈnGê¯×½
+ue×(pWâ…Wvü¾ÏÀƒàM	•ˆˆWâ…>`×ÿðˆ„'ÞhàyHz}P¡Hfe‹q€
+•°¬Èª.Ï°HnfÈ øpp		IsB¸PÏ|ƒAp… pñÈNˆñõ„.‰ ñ!rqk8lèŸñA€…÷µH…F8r¿ ñXXò!O‡f8òb>æ
+Ofê=2~ÇyÙ¬Z>]ŽÍÝ°‚' ‚F\¸ q!s¿xVÈ‚õŒÀ‚+XP˜óõ‚H†1XÏX0bôt	I ôõDPôt‰ƒ?7ôˆ†?pô†J°ô ˆDÐôpPO'GÏr
+ ïrnüòVµPÁˆ™X(2FìE–JU¤5:h–  Ax*ß*o@a³ ôª2ah÷’²Sv°ò^ålt1cuo‡ï°°aO/
+	fÇ}/UvŒm,‹®ö>q"UV¿0Æj¯2c4öl'¯n÷‹v¯o']ÀØðYö2òÜ«sÇ±½R÷.Ööeçö÷öf÷êUõ$#O;ˆ|ÿ—„—_ó_
+{÷£xÀˆ÷VžwhwI#Ïé[xÑÊ­÷¬ˆxw'yxx-z7øWŒôx… ùcÿ/Šÿˆš
+‹wxò\ù÷&÷°Ð4˜ MÃö~gw“Ÿø£¯x”Ñ‹àùh÷ù£è…v“ú€+úñºyøJz¿ÈùfÄxqGòt—©O/²¿zˆGvCe¤Oö[úÏx± ŒÒ*û*«{´‡2šçúCãû£ðúónz¹g]À05
+ ŠSã÷iŠíõ¥œã(=;®Ñ7BÄ"£eöÈ·C†ÚÏÍ9Í&ÒÕWpä€ä€õ¹hÅV[±Þ{·OÆÜ_F¦V
+|W¬åx2c£z'K{ä÷÷ÝÿÕåÖ”ÆïôòžßxÀ‡&“ë×{í7úæ'ïî7ïçwvpz§eÀ ‡ëô±™WþµWöïgöð'xézê÷‹zHÿ Èö_÷¬÷{ñÿÆàcF/¦àM?óç Ez
+pû=Ü÷þ¨Œ$úÀúWþì`8 ÐøI„ø -K¬-°V@¸ ö ýK€aáè¿(WÜÈ€¯ ~
+(þ_Ø#|~è¿(EžÚ;ó¥Þ†HÿRÜ€~!è¿'(ƒŒfÞò>ò¤ATœ{~Á8™šLƒTKp	0!Ô$ á·øˆ‚œ£sîÎå¹±çÚà@ðsšnÐºõ„è4£ÓtNÓQ:M‡é4§ót NÒ€p ê©HÈlz©@.Ø¯Â\6p. 0 3—æÖ\¨qs·ÁÆ·~Åí•#ŒP¨î#Ô»ò$'0á«Ë|L$Ôp€o¦ë A¯»)(»¨/džÿ/Z/ ^Áƒ‘Ÿùë‚aÁÜåÂÎÕÿ°^/¼Çèž¼ù7Ÿ´û{úoß™öÇý€!¿h†Aö>•7
+¡Q¨ 0½”C)Èâhà6´‚E0¦ÀeÆƒŸË3‡UÆ|£7I`L1Ý^ÀÃß'©!Q¸IÅ/½D˜‹/\0þp |Ã¸'ÇáG0>AoWÍ‹|¨©`ób~ìüÃ
+øì$âýÓH’MÃiÈà§9ƒi0<«0 ÃBð  `@¥‹|°bâ-ói ØÄõ”ÀNÜH	à Åt‘ 
+ QäeüÈÕ+A7
+Ú@…„ËAÂ%È‹¡˜«
+–pò4§æ”€Hã„o0p	ð2
+<hfDáî¤B|à ÄG¨)¼8NÊs	 Úª¿à@¾rHÌ èl  lµ àAU”^¥+žB– 
+%ã{aŒ¤0#™BdÃ‘*4s¬PÍ€W
+Á®r¾Îî3ƒHìvá2l,ÑzDù µ`8‰-ð(Ãô’î°!/lÍÐ5zC€ý²¢<xJÏîé»Õ˜ü´¡;ä†ÏÐ1@ÄÇ˜™`qô
+è05âë˜óÞrä‡µá7þÃh‰a
+÷ð8†|˜
+ÿŸs$
+ßñ!G8‹áQ(ˆA!Ž@…˜2\£{DðQ$®@âØòüBED†Q#*Çõ{ìzþqü‰C’xþÅI,	)qz3HkÐàmPƒaÆ‹°ÛâGx‹(§ØÅ¼ *	#> 2 tö=B¼À6Ä€ä R†€) 	  * *ã–{„ñ@>®Iøü*a™ó=™P,’EZÓ	»âd…z•ºSU—V¤’]²±ISW.£–”ešqÆ&é5Qhºn&•ÆZ(n¡þ+v»‘52–ýèûcxŒˆG’<ÞFý§”zd†²ïÊjÈ'É$9ã’çYÃä˜QFžD”D:ÉH8«c=ÄŽé‘7âIß¨'/e@ô“š²<rJô˜3âB••0*JL)ÿ$AD•÷ÂSÞÉÅB)¤Àƒ•¤2SDŠ¨ÿd{ù”¹²UîJ$è w`©–›ÌÒ0Iy`!;M5Ò%VG@c™	H ±h(y¢<2Ñ@á'‰ð“j˜Ì’±2NGSÉƒWìŒ`QŽE6'%ç%`˜o`×S !öJ8P»à3€Ì%Qˆ? l‚õ4àœà
+X2±ü‰Ž7 ãL à†À>vyÝ¥tl”^Òd¢ŒÉÆäÈÜ’R=+Å/B(=@c€PPb¦k‘a`ØÌ>·v¦_: h¦‹H 	†æ%,HÆ(‚o°ò !Ø™)Ó1²L‰ÐáÂã¹àPª"mAY)%
+«›f¯®……B€ë€À à´» ;:)·c‚dŽí°;@e	6ßeÉÔ0ä‰Ú!Ãk‡çf¡D–©LTæMÚÈ,'¢GÀèNnjGºy7m «œ‘ˆ3>ÕÆ&ø(Ï#xtx«òá¹¿ºÙ)'pì•ÂqoºÌ¾	^ÐkxŒORž]:ccT‚§s>’Cý÷Ìì$‚$œ²sAÎçh9Ç£©<
+/´Ýù:IFì”œÉ²tÆGÛ9+?ÐC†COpBÎÞÙ<
+çèäœ´SbNê¬^Ð³zØsnD+Ó}'¯›ßSqFÈv¡ÿÎžù‚û#6GàiÛ§x„¶‘(à½ ‡÷è§>Ú³íåÏù<ÿã¯\œÁðQŠð’@‡ì-ž34Ìµ½"ö€QmiFQ)Z7=ZaD 
+8'Ð™BŸ!#ˆŒ'”>ÑDšZ€êÓ¬ÏõÁ¾‹RÑp¥ýLŸøs}:Ïýé 'ÉD
+Føyâôˆß =ô~ÚÍ'ú½'ÿŸŽò(d¿ëø/°(%–è“íµÇÃ©@d-1äiýeQ‰pF]çàì”“?ŽJÓIDoçGàht ÔÑ5ÊEõã±ü¡Ð0ˆ.JÅ7(`p€v”ØÜJÞÙFè¡\¤‰òbMFYDÿ
 y
-    ^ +.dד   Y4<  v      $  V  o{Z ޣ         f      "  n  ? p     o \>    |^ o! ~  lɻ Ά o˻ U? Z \H [U 8. h?{ r _ g^|   / \{/    Zl[ : u 
- n @  C@	  ;g  i m}
-   Z ;p fva
-    X  S  ,  {Y N  纼//  V    7"  \jH  ڃ( Ȁ <'Wʥ< | 3    ̣'̧ |'_ʳr       (   r + ƚr   k6 鴜* 'ꊰ 'g '?   Nu   .' ) 7  ^|Y G< $q  o  p      mN W <  \\ȥ   r { #H  T 7  | 0   6,   h ܁ *   
- 
- Y    @ :  "z|  .5   k  z  ۘ *Ö  Y   ! +z݆  nJ e  q        |2    E`i i  &r0 =  2 
-4 	 6 Z       M =|B  5pϽB^E>  s \ X  GA?@w ;߾N  \  +s 656 Rss5  ;s  3  Qf  j iq
-	   \QP | hXtE   مD`F    h F  = Rt  G   e  k   i   *  
-   fҙ 83ځ~@P     Χq9\%    Z   #  zQ~ G E     nٺ9  X4 -   D ؾ   Qɓ  f  
-  1 };D/? l@ 4 } KFf:    E  ^   <DC7  
-   l(  ;f`  	  h   յpg r2  =  3"d֎a
-(         K O x{ힷ qL  Ja Eo   a   b  s GFǍ  ; I  yp֩ - Z $ ' :d zW3 [W   n 0 t * u p
-    ^    [\w   - 0    ϐLwө
- Jƿ u1ݥرs!  ̃Z X\  a1 F l4   X  .B ( م  Se kv G8	 3 A zS 4u  )R Y~   M  XF X   Hǰ j )To k  C7 (  @     xu8 K7  tJa   t@]1   d Yǉ |̆{ u] n   \d  qw|   p	  ǣs
-<   s a   ,[ ΂e ۀf JZ  e  ko } jԋ  "ܻ E.ai k1ewy,w \bh AMd  |y   f/   P } I  s  A  t ݏυ  
-Xw̽s  v o  I;_ CX =  / ,:   	   ?	
- 90: 1   ś Q ' ԫ- {N     6# " '   - \0  Ek U   {_   ]PH 4 zj߽  ]|' {  z *   .I  ?  ]
-@
- w  =g{   D" \ T! ! 	⌈Ns  C  SU$ ) v A   &  <DP    <r  ' >   #u   C   b   X &^ Sst        1  `c :v  _ )    Ʌ      M ro,u    y ( 6 s uG  v/=  yw+   p  \  1\
-   +q$ wo  vbK܁ #׃n֑  ]su 5 = W #o=^2 * 
-n+   n  O ю :      'v    < XOޗ zk     - 7  Ɇ  x	<    <[ z  xE g E U M  K  ç 5 ǆy%      S~   )p   r 4  guyK  Z mwd /  
-  `   g~n   Q2   f w Mx8>' m _Ǔ3 y'mʎ   ϋ
-  w 9/ޭ+} n/ W/:  b wwl O   t 
-   t/f  7 z  k Ѝ   Z _y = '     
-,     ݕ F~  ï b J  tw>n  Gy +7q +t پ     ?  c ]O΃h ݅/L zj 
-  w	;c
-(E`0  t  ?  4  h|   yy   h x\  ' w       58ݔ         xBL_Ki/wX   o ^^b h I\v ۥ ޠد g   {r     v }J       , Qk  W wB}p/    
-  G   p   U\R  k  @   P + ~[ m5È>a  E  aU F 
- $   a8 nR? ? F F"P   N P    f c ʤ x7 r     ,    mh     U `w  G    o z̞	  Ez        ( W ! }  ݻ   - -r D~ g    ޭ/  { ͕  zĞ   {  §    ^Ɏ     ?  ަ 5  ^ w՘4|     ȸ ĝ W _{  1~ 2    Y^C D\ 8 @ p ' ] R     D  H@  D   
-    
- I ,aqo ̗   -n >    
- L  {" X   2޽  i ] w %{h  ' 7  ]   C X~ / 
- A          {?xs   |   {w
-   g    _ }  7  | <,` Y#_N    ~ͯ c   yW   =_ů Y    ϷC  /8  =, Q    W ˀb? O }E ` Y x   
-XAc_     > Dŏ  \ W yx     q =
- *      0   0 u"@   I II    g J@  w %?$
-X  x?X }z_)Kҁ _       {YCś     v     { ךg 	|P  o I}& -  N|U   2}}<҇  wJ    ]~m> w s    }Zo  Q M߆Ĝ _ O  zC oO |    W}     +     =jK   c   B   Z   ˅l        R    p V Q  " w   C"h   x    H II   ]HX     %  ( + ~    H$ ч| ̾    ;!Z  Dz     j
-  s    W  { 
- g   Z   } 
- w  ~   1     {~w  _   ?į  i0  O a >  } b  ~~  w  y _ ϱ%Y     /L   [ + 4  =       Q|    ={  a{     e
- ?    }  ݟ ')  O       _* `  ] xh
-  
- + G c   0d 
- &@     2\= 5. w # 	  ~D R  $      S     / g ˼ {>     G K Q  7@`    
- mF   _ O     I ~E Ɯ   Gߋ  R       M  yE    쇙{    
-9  ^
-o   +  6. 8=  \  c   eR `  P dEd x D    y   y@vA: 0
-       @
-       6@s  9    @j
- W'< 1 .z >      p J@   O    nl S  _ f          K  o ً Q  ?@\` / 7  i p* _     Kf    =   O    
-  e:]  
-  y }  ₴  8fq[R S[ j g
-   >  9 \  ;|d ~  B 0
-h ]  " ?  xR    @ / 
-H X> " `  * 
-   )A#h     *  o $T(   D  p    < < ` D    '  (  < z D  	R      Rp 'x  )    Q " k    K  ܄   <a.  sÂ  Ȣ1Ƃw  pEU 
- W / x    E@0  8t  P0@ @ f  U         /    r Ax   | H^  XԼ)  E  aS N    e琠eΤY   6  z  L5  D      %NڷMJiڻ $ I %(5 L a @&  ;
- 1  mM \ vF 	 A!L   Y j &H b/¯D  H X   0 ڡ
-
- = v ˔ A  ݐI ` e   FH Lȥ  F  `$pP!KvQ .fͼ <M3 i ]  {fi G ȭܻ    	+   ˙	>  a    |> n    +Vw{   g  [@ ދ   `O  	  08@    #  d  !zJ    h "?  `     	     "* 0  6Bj  N&  R E   A     ;   "P  B * 2 {6 - 	J ; #jE r7   . k F rܱ  ,b " LҦ% s ʚ  (      $  8 s*l 	
-4 	 4      z@#o G=m s _\ (i4      G  $ &# T.Q pW %j gźһG  L 4
- & ޙ 7&ؔ kk     +F<}  FZ	 q @ -TYޘ     EHZ  
- Z  t[3ME |D$ M b7W:  UO`   A  )Y   N   -   ҦH 
-+]ޞ  ̆ 
-    #r  31~W x9 7 {? Pd
-5U o }R9  qYa ( @  h x h      ܝ^   u馉}Zd H Ѫ        k  F fn Nw 9   z]  Vn u    
-y_ +F &  
- & k2ػ  D<g4} X芙 XN]1       n}  w7 * 7 	J kF[         # f  6    x s   s G  ߾   u _ J  ~  J ^s       '>}  J   L e. |(Df 4B( T:C  F VEC  ZZ p   NO K  ֹ  
-!zC  hR @\!PZ^|73y
-L
-@  F UN  "a v  މ_)ݲ ؤ Q* 5 
-    \ C    
-QgE   Ļ5    " 8-+b - S۴ V 
-r?T    C^  Ca     QRo,X 8 o    y C/ M< bD R 4   R   q  rMV    &_    @ `  A	ꩂ #ó Y σ   & xDz   +%"  P 4l 
- W   R[I  H  Y  #    2" N f L TBq  , #?yE( rL  9{ Nb֎ :k  =5aiUC  1  ؔ  c H 9 Q Ad q    % x   F  қ	3 h   Q    !  Q x &  DN  3gL   8@	:  29    { ' zZ͟* a)  $N "  e    u , 0 $ cF   \[;;HP  c^  
- w 'E  H    o Q  T j    } +B  ɼ oV +V 'H  p  4 =  OŪ jl   "
-P ),C $B  י4   j  U{Z =@% bs M 	 N$  x  My ä:5 o 4 .  3   ^
-! ,  ~˔𮗼  w [ z       k^  T&6 Mr*ϝV a F 0 B T e{     4{ +   h   e a ؔ Vc   7] ^L Tv Éͭ8X  K  W ! _
- Z X E,s \  y  nF [ r ?&    bf Y#C  N 7  %߂  &?   ] m  q. R %  ]       Ŭ d   :  b63ѧk Zt ( :SY Heʅ7ܽ &t  3s k h &  L>   |j VӸu         .  O dHsn  m rq j{/ F  e    ׽  c   XT'   - k   }҄Ώ  n^ s &5B J L  u >A 2  s  : AD y :  \ s     ~!`<3   8    	r @ @ eQ  8\0  xb   `A ҹNVn  Lx5 y      L7  to plB  A X3 Bg 1ϴ} R  G;;      	=   b,9h r:~֙  t   O   e ; z T KH   ;B( 
-aHC   |   .T& , S  UO    X WwKc RJ    B tM  al  &er Jy 鬫 w  c&٣q    l B `U zU    ڴ ߪ  M 7   (&] y% Pn  V  Jxp  \ O I hS K  ?.   j9  Ulvn     l&}   k S $c=n >~A$ J1 8  b Y 3Y 6  ?i 0 3  ;26 i?7c!     `@qô {@	  ˿	 = 6 :?D=
-t<  < 7 i  ;  > `A      + ; k     +J       7 
-5     _   6d     	B ; M{[ 5Cj3=kK  A) 4* <+|7L  C i4Sɶ>l b{ @l ,     ) 
-& 3C
-  /"sB q  [ | 5     A  +C 
-K $; A1  kC ;1 \2ɋ3؛3 > y ݈ / ;l <t& 
-%  C׫B 	  7a." 
-	$ ; #% 5O$ "#   CU  F  T  h	ƣ H $O !YDFZ 6 C=\T sd n3  >vw BlY     D_ 2  S D 1& - [4[ D ~,E  6TܦUl 7BD   <    H q'Q ER$ t i H 9 s  " [   0p2qEfL3@  Ґ  (  (5 _    ?  
-   a - D \ 
-|ɿ ) |F4@  l"A    !Ʒ 3Oc*     * J O\F  G  Ho 6   VD  s
- J   C} L 7   N$ 2 a4   I   u   ;A $D8 F
-    ,  ~ 3 * 1  2 LMS  G  2MY+DլK ح 4 Y5^[<1 Bg M  HÌ?J  wL:  
- 	/ " G    / bI t  Z  @ <OJ|ϖ܍ *O=;B:  0   | ݌ M \ Ä e3+   m G  ˢ  Ϭ  4P쬒 2 <I 1   ? T8     G< G -G
-   P  Џ ˒   t +cM>å D ߣ  ĠC  p L	 f,4    Ω NV NYB  3  )LRu"RN8$   ǳ  '  (e٣R+; =  UQedQ=  P
-] E 
- e 9\ɠ A      %-.3 E K  S `S KL \N\  \ C     &  ?   J \ 4 Q d t# u  v#   y -{÷  LM   ̀ ́+            А8       7   Cև#9 p  {  0 騹  9=A; +͞ X    iE  CM     p r5s St 4 ehWi $    <  ;{ *q5;   :      
- i *k K􁐱        S X   @    i]  z X 
- |ՙ} XS h(   V&xY( Y   	  
-	  Ľ  OE   Ne tRF=EG Ӽ Ɯ>  
-. zS=  ͌ T ԩ hě  )5H =oɽ  - + >W #  q ʹ Z%  Pm Qu# 9  %]    (   TC=  | O ¶շe ŽF B (y\K dZ9 K:  -\ M  Q 0 j ۫l#,Q K] J&d M    6=@ M   RUP  )kP
-Բ]    } -  է ŔT  ]ZM ߵ\  \ %\  S      _m O C  5 T_   4 Z  \R   <  ^ [P  #
-  C ][ MG U^ m^MM 	 # ;   }  H AA l ,     . H T4 S} I  \t Iu _   *` %
-c   _M _ a	         ] 
-z SLmZ  H  E=\ M U    a h n     J? _  \ ` c  SK GJ  )b\  $  `؝` ` v<M  @ EIȼ  @
- ]R U ^# a@n fb 'ܥcN O e = m]  c6  A  & D9   L   I TB% ˕ [ a D      `(    k   ) /O  ?  -   ]1  b7 b8f
- tfy}ބII ō      0M   W %& YF :]Sh~    ּ_\ՓI   L0 Env]   3 ѫe,H XW\ 9 Q  ! ܬ (hڼ  H4f< l      ` N.N
-N   ]v *^ U N5 S$d%  eg*  ~F  |    R]m / tO   AO  #mO6c U  $b  8]j    5 6 `Y d[\F  4 J   $-iE   i4e Sk1 P  1u 1 ñJ 1 S  OL^h %kX  H 4   
-  
-h,}   d  /Eh_   gǶg  h I ^ ܲ ,{   [Ϣ " LU L  o k  S em $ t .    > N .P 꽦 6n Ը  +f     Q  S
-  fLJ5e  㯆 Uko iN~    [\  ˷8 U
- V  W 8  վ  { 7   ټ+  d   	 
- H " c ϰ  }`o C 80 `: h Ap   p  p
-O   L
-փ     9  # Eq h A   ]7 g s    S     q   N q  BЂ  r# X {% 
-& E
-  d r
-  
-+ S .  4'r/ V }p@ m 2    WW  @ l q6 pGxs P \ *> ѻ!/r< 21   !  ?  @ 	w :G *4` p  NǆIߌJ s Z $ t 0P /   Q7t  D' 8 Fχ    u0P k    0 sx ]  _ 9
-   򶈸b 8 F? (     g vp o  u[  .  x
-^w m `  R' So.C`t _ |h9p  Z  
- & }O  9p@    x]   8   ;  KW   
- N eH pH  g k
- #  L *  0 }  t  wl 5 ' F X   z3hx!xZ_ ypC 5 0 	 G  Py [;I   GH b  z ? MX$    w ; {$   B   ¯", Y q +  X e@      lj {=ׁj  uoOz(_ ) p=`t1 O  ׅ }5  y    q8 w   1 *Bzi    1`tGPx        t=g         } '   J`tx   ~ w     w   +@ x  *B &  X qg 0  h  p H xX~p'  ]  y   .   _ t o ?"      W $  ' ]  $[  M h   @ ` a n@ = `t `X   "ЀJO     : # &    ~߸ k ѕ    4  =  W    >         nA@ FG< T 	   w˟ }@	  HB<z[   x 0 > 
- A'x    u  A+    { v  10.A)xb      |  0
-j  7 Ă  ̑ G8  &   h;  D!'   ⽂ A      T   h b! r  t!- t\    va"D[  ;`h ]  0,Ђ~0 4d    Bh   :     Bc b 6d  Ѓ/P ;,   Α? G 
->h     F M] CO  J` A   @ g /   ! By ! bj  "   F   p
-  6  GT   f 4 
-q =$L      KL g  X
- ! 
+†´’êQÏ9)ù¨ÕŸS´O2Pøùb !¥˜´Ä0Ï(:;9×'
+›Íò"AC
+KMé:ì£ ´–vÒU
+HQ¡%
+QÐúÒYêEá_#µ”Â³fÎ£ð¡¥´\‰ò+0€
+YjúUýbEñ ”Ëõ	€3 ŠVÒ˜aI‘é+[iyJ’ qIªš4i/Ÿd¾4‹“q~špö‚ VSbŠÓèIÝÐ¤öQ“¬‡M€µÙ	ÜfC’“¨1èÕÉAY,
+*í¡öÅ˜’ÑÔYîåã¼žÙ3•þÎ[š@)>•£Ò³rnÎ÷¨)¨t£at£ÆÑ–9G=‚uzÙ±¢žOúEmžIõ¤ºÔLNRzR
+"Už#ƒ¡ÊTÍyR‡hJõ¨¡>VOžÊFI*1mˆÜ3¤
+Õ:NC©G éeX~N¥j,KªSÝ“PuŒ¾Oÿ	ÎLâ2ƒÓ’%ZKYc"ø˜0LØâ¼‚ d š‚l°	<æ}2FáàºuÕ0  4ÀÍŒ`
+@LcO’M…—ÒN^z™N@XÜ„Q²†…×Õ
+B·D¨(c;IŽA$À ë)% îS2à@–¤
+á1,‚õô
+Š5_1VAz2u«óò¦Z.LªLq1</Ù>m@h
+>€FZ
+ ÂÚôõ0T]¨S;+F$”Š4£2ÒëêHk*$
+¤’ô½§Æ‰ce­®K5»þÂóú*½ê²¥aõ£Òk˜Pw(«ÜªLõ½nWŽJT‰'9¬•Á¥ÂÔž:LÓëk°¤s½êÍŽº_?‚y4¤6˜ÆTËI5*~E©e²±FÔŸ×_…^RÕ£š´¾Øî™K¹ë.-£€¡ªV™«jAOé&½¨ì“ÂU
+›[¿+`˜d•f]HjÙÓj¹˜q0Ð±šÝ`Ì­:xSÀœ#Ûšá*l$E’õ‚€ÈÊOÕie}¦ú²’
+#Û//B.¬ œ.0Nêb ˜
+v  ì…6 ˆ@ H³{a6¨¢ÖLN³eöÌ²Ù pRþ	ã †Q„ÜEâsRfCÃù'kv äŠ`DÁ-ˆ» 
+$YÌ¨_wë¤=Vseæ×ë]Yq•ÆÕP‰äúÍÖæ'p®§1ºÒéÚD³êBe±
+UŠŠXLËd‹jxÓ©ã•º*Túj_ßèC«È´˜êÔøJ^qíý°6¨¾Ø¨šO]©hÑ°ÿµ~Xhl·W…£0VÖ*XÀ`ƒžƒ}©Ï–;¶Ø’Gmym{õµÓSÃÞG »jsí€Ýµb”½JU÷zN,ŽI±åU«êZš
+k—lwU©ÐìY¢ÓhYV›iµ|¦ÑÔ1PÐþ¤aÀ7Š•`´Ut‰-›jmÈO€­Þ§ iq«¦u”Õ/DÙ4Yï%”¬²—U±p¤fºˆ
+`ÈÄòAìmN®`|ƒQ4îˆ½©”ÖçbÖÞ
+Nëm®?÷½ÄÓyºžB !7q Pf 0
+E3 5ÑYÇÅÎµŽ»LQ®9â&R‰C°úìÎ²	°:m
+Ã`Ø#ÔP> h\+p®
+nJWŠšn#'¸ÝžöÕÀ"Û¯JnÃçQø›Ön¤Ðoëj½c¾oîSðòÒ^ÿ…­Uµv¶Z ª]õ­µå·³ö©½`{kç+±Å·âÖÝ–ÝLÛo%ÂêD†­3yª[ÒËn/1b¥Ê¶~<ª;åëáeµÅ–ïÏÓ›8o‰õ
+Æ3½ ÏÝ
+mu_éõ»!¶ñRÑ^;x	¢þ£¹ˆ×ò.OÌd¬ð…·åÖ#ŒOdX>»­õµ¨Š£JÛ_»}/gô…¼áì½wªwÇoïe¾ ö©Þwk{§êE  ÈP€Îß.
+a£íïÅ¥Ï·ö&Øeûo‹™«"u …‰ ™ä ¥c4åƒÞ1¥ãi›fÒL`àó­ÐÑ÷BASM}«¯õ=2º³¶¤Àãã^OÊ)¥$|ù40Á-4‘=…nh
+¾}ò×ÐüTí‹_…h²EÀ·÷6$Qd¸D0VÝ»æwr6ßû»y‰°¤5Â ‹½-º„3éåõ½Nˆâ_Ô{mp 8£AO¾ÞëëS³ïÛ
+¾ëwøbØ£PGƒEÃKØÃÖ_ô«^Á0÷Õ¿ñVNjØBú`¨î»ö·«îa7Ü}¥ïG¨¤Aï’jáÛ…3oúEÄEwÿJ„QôJ)$¦¥y˜Àzâ¿+…¯"n¿¯òÞ <ˆ'ñÄ5ÄÕv
+§^Ï‹¡ *fÂåwb<aEqþ-Â—8 MP»ipìY-¸×²UWÀdb°¸÷¿¤°..ÈºH^Í®Kb}žÇ
 
- P
-CS   =  GQ( B   `2@  pi,  "AH X {@   U   P+ m  !Xĉ P {x  >  q - A X    H + 
-  
- dz ڂ@
+ ×IRY¡ÐæLnbI 7 Ëú§e³l¨D/Q¤`
+„b˜Æ!4ãû”ð±Šôâfƒ}ì@Ø MàY›yÐ ¸î¾ÕÆgZ×úOiœƒ“ÁÔú«¸é€aï–½¦WýZb?<$/­íœö–þvd(|ˆwqî¼ØÖÀ‚Þ¼ëm›ð-n·ù˜.â•Úl9¬æÂx8Û•Ì‡{qHÞ©:•Ûú`™l‹#ìOÖ¼xãªÞpTâNFÊ÷%·âqKŠ‰oX˜·ÿ¢Þ[Žì‰kr%¾É¥8½PÈ€{cÍª3
+Ç·ð‘
+Kð	—“9>²ÃL—%³^bÎQX³pì\ÜEºh è2’­Æ£ðßS†ÜsÃ'7>
+Þx ˆÜuZ=¡¹0H1`€›É1÷ª² (ô£—!5fÛËøÁÀðƒs!5^Æb/ãÏÒ
+°9oC6ºµÙf«8tkHnUœ¶ŸW‰<‚“‹“¿¦—T›Š7rO¾Ê ØùÒÞ§‹G²HŽÉä×ºŠåÙ
+î¯V†Ãé&kä4¼”	±-uÎQØ)óÜ
+;H7eî¥ÊIù:3eôZžUòyÎÆŠy¼'m{<Û³u6¯ØÙ#“eˆªž3¬NE·îÙ@[eÿœ’]ñ(îÃÞWÞ
+Ëê\y•ò Ï:£gK^ÈS¸ÌCÜ¶lŒ‚Ì<¾áìÝÖ(P3sÇ„¸y œ–|$w@ë¨W¤Ù4£fsQY’
+k–Í¯X“S'«$¡ìCþÆøR2OÉ‘Ñ m ¸‹¡á”æ‘f™¦’%´dVF°$£[‡: %@°à 
+^Õ«w/4˜Í ‡²mfÓÄ77ÆK›˜Ó³+òÍj¶‚Úgª\ån’+µÐ#ã]ðÌ“±¯$ÂA97hœ|¦s2,É`™9'h¬Ü†ys¢æœß¹QÞ°ŸY±|^Ð¼˜
+ûâ ÀR‘¡³åÏ¥ú$CjN•µYVxö(h	ýž+ôLýÏ†zR³ê
+K ÷s¬îÏšÏj LŸåt†¾Ï&B êª|ª}õX¶Õey+KÈ|	Q¢ÀýÐ:Všú…Ù6¢Jói>tH±æ0h %>!Í„`âÆu €¢ ø ;ð2Èôfö ½ÌÉ]TØ@7uPÖø·bãaÍq·2c&
+ŽyÊiË:™ã\À¸¯u ¤ÙÙpwÎ€8¨> ” ‰°Â$¸Où@lì~©eC,`»`(‰`fU=ð `f„t 
+özŠÙ3»ž¾iRˆ˜g³}nÓ”ÖÒWg½‰ôo6º!ÔœA0å*2A5ÎùRÓâL
+¬§­‚VÕkšRSçZ¡•óLÏ·8
+ë=§g¬FµÔyTP«aBÍ†mr€Æ©ëÙ’j^mª×-ªöÕ_ûB×g±­¡sjƒÝÕ[{B/ßH½¶Ùï³¦•ºZUFbŸ,µ)q³fÛc›+ë§­|`âöÚÏY;Cß7, ¡µƒjyàZëƒË/í2È¶Ë!nØ©Û,É^Oób)À1–í²·,+°Ù‡–v;l<±%Â. 1À ¬~Ô
+é›t§iO
+‹—U9sCû`“Üple?.¹`ÝïH"ì…Ö»_ö‹\µ›{{oˆ îN  ŸÀ Ðª;¼9¶2Þëû#¤ƒQ ÆkXPÝÕy³dÚÜ³îÏ&ºAÛ!\ˆ,È>ÜÑÞÓfi?×¦
+¨#÷rÔ”»PƒmÝ’Çð¢¦¼~;YÏíeå†ØåÞAJd
+«1¸âÞÔuÛrop¼M¬Å
+ÇÓÉ‡»gðZ
+ÁÕô§&ÊùùøöíZ,«i²¿x*çjCZ åvïÕ$üWWnó|·öïÊ£,„ñ¨½Ãc¸Û*ÜƒÓØhÝ¹…ñZÑâ šŠh¢ðºˆ·GˆYú6ÄGP½	‚D€cfV{_„T°
+ÄÀÍŒãs|=éne# †8H>@¹
+oí¾@û&ÌýÚ0ÿkÁó÷b~²2ƒc/.½»±è¾´À nŒ!X¹qÌ€›^ (_OñÀòC÷Éof,H¨œf¡ W Â€
+ˆå1 x‚ÌLr,Àåë)ðrw¿…2
+×ß=›ïfÿÝªÎñ.r¸ÎØ5Ü‡{Ÿ˜ÓQ€«D
+óCí´fC•»kR$¡`âJe}éæ’F‚rŽ*Ap‰u´Ö…š"0YšÁ ÀÎU‚Ê‰ã¬ŸxÜVÖFœYËðäý£Aõf± ú¬·l&2–Àº=Ý«„¬À×fàa²OÖù5÷pˆºöFWÛgW‘óì+þDþé.\˜Rh$>Ÿ©øGÏÛÅú!eñií¹«5Z½ÖaDW™Í²YnkÙ€žJíßˆŒÖeO€x9P6€0xÌ@`[ãèr!
+¸€° <gfp½Ä%a6§C€ièÉÇñtª d‚h 	fˆ	Pú`Ì àÌAVŸÒuý"°
+áxA10€dPÐÒ€øc:¯ÒkoF6¿ÕâƒV‰ ðÔÏ cYS™Ùí-3<Âzb^ À'y}Ø!®/
+3¨1T~]áüu»Lá<Éœs²°àÇšºg£-…š-0Yð !`ê üžTd˜œ‰8Ô0œjKêdî¸A‰«›mÅ5³òl[z½‚¶ï„þ%¹9:àNÕ½ò ó«íJº!ï‚8ñJñã.¸3wÛ.‰œ;¦oñÏMÓC·_pÑS ÄcàÓTPçÌCý3?ƒ^îZ$;ÉÈêQ ø£ÀØ“;#ÒŽœ²"ì’«°[5•4Ö›"ÍmšÚ¯äj§ZºÉÌ7
+¤»Gè ]  \ò„!Úï“Pì™Å´£ö:7
+Öb}é¡fÜe~~âŠÞÌ
+¾q³"Ø®fÒyð#%ÔðƒÉr
+1°ç1Ÿãá®b_¸?çá:/:»d®nA}îuXqE6S*ˆ|vGC= $å4!9ÀHlx%k'X‰9°ÎÅÈìKl´®dÍ’SÈ€•4@¸£ÃÚÙ˜ÍÁ;®>
+ã=è•wN|Ò¹»	Oâ—û»+ï1Ì¡¥u…¤Ö9V¾¿eÆ "€9øé%!Ä
+ä+œp€"°ÄÇÇîmÜÈ÷#‡ðÑ{¬{„€E
+c`·F]»ðAN0XË,£pRÁ(6'å‚rRÁ¸5•e û àøÒ!¸5[‡Pû ð‘´!(6Á$pû p À
+·FÜ§€@Pl>Ò6 Fá$ÌfÏ1ÂUGät¥[ñ$“_0g!,AÐÖS  ¦“¡ ,Â§þ»øî¢¡þ?áše³5Ì•·Ä7çÐr¯¸‡Akb[Q ¹@  d°
+®¯ûí§ö jíáÞÏÑ{àÐ¨^s‚Î5Eè^¾pAà ™ÄÒ°SÕ…³d·@1å?°™À¨Š[’IÅ¢´02ŸuèŒdzlz‰/åÂ:äÊˆÀ0À«Œ ˆö(VI¯ !raê«¥‹S(¨VÐ7û:…¥ô”ðSp‡\Qq@2-Š¯‚I¸D{éÃêÜþ‘FÀ
+€`Ä<¼€1`CèŽ\tð_ÁO,JÆQnieÐ mÂ@¿e^[$ÌòŸýR’4–Ð
+`ÄÍ€*à»eÀàmä8‡: OB? BTÍ=$ájô	(ÍAµé“ÉïÆÒÔßGýÖÎ«µ‹^û²þÎixU½¶ùµY$Óõ—3ÿrº‡‡Êàü¯„DÇè—o”Ãù%¿Ùé
+rgô‹þÐ¿¦lÈ
+@r!!Àäÿ ÿöÿÍ€Îäì€ýd?ÚÏöÃýt¿€ àý8ßï
+ þlø`ø+þB“|BHþ¬“Ì‚+\`
+á 80ŒðF€"ÀV7Ô:@a¸t;à˜ðÈ¿Ú °	`"€
+¨Æ!@	hš # Ð§ +@Í‘+¬ž0+ècpI¥EÈ´(€
+*œ Ø€	tc¤»ðsa‚¦b
+Ü˜^b|1„· *8Ô pŒþhpw€9Z@1Â	  !°Û ¦€,`Iè|¬€O®	Ï C(F@»ül"ƒ!K@j˜6ÁMðÇµ“æù@'¢7F™ž¿5/n„»àÐ
+æìéBL£¥‘+dà±
+"º¢q)?¤;à±c(˜å
+<ÓØ!
+Œ§@Ø€Ð'ä
+:cQÐ·@# 
+ôC¾[°¨Q ’ÀP%>8å
+& vxlÖ€	†Œ!*h@60zp
+8éÀ‘ãÌ9ŒF®`î–°  O„9€
+X¼€ÍÀxÌ P
+h¡°»ÀG°’† XÖ  ük´Á
+‚¦ÐÀ8p¬¡	qPÄhB€ r€  ^  °9X€@”³`€lb˜bV ÓdñDb î¯üxU„A1ÁE` C Þo<Ýƒ6° <R ô@!°
+ @7&Ì<ä£ƒä
+N€1 @
+3„`&ìB0'LvÂ p,«€µT ÈÀ
+a{æ _p`Wpš k@0f<˜­AlC¤hçê<a³Ia>Ï†®ADÌ¼•¢*¹L,:wŽG€a•AD®ðË|Ì€'\€@)©V—0D ó&:ú &Ú 1 &TLÃòo3àaÐƒ¦%O‘jZ ®0$ù
+#™±Pp‘+„
+×Æ¢BC¯0*
+A»04˜>®	€°àó´»b.7Tô&7šÐó}Ôöf½‡Ãß°8ü
+¤c,&>Ý°9=dÑ»àb¾næëîÔ;îìæ«Ü;JO¦³ôŠ±«
+s‘v•t à p7h
+!ø þ/ÞÊËÍ ¶*Îµcï¶ÀÁ¹Ø)	ï( ¨ò"Ø:
+2 ±;
+ w Ëj•ÁŒs£Dn†ƒôœC’aÔ+õê"GàÖð–Æ€BÀN€cÄB`hP×xxÏ0zB]£õnâèõ€b`>ÃÈá#
+¶¹Ææ"˜>¼9±«CçÄq.Sªq/#Ždò6î-5Ü€É"àî€@°–ÏÉsÚ ;.ö¢Û‚Ä®‡kí~8‚Žhñ‚žïHìL0KÐÃ„N°3pcïOgó°§púÓá¶;,ˆq³ùØ»B¤£Å¶°®9côT:GïÊ‹ô`ºî¾›éÀÃšn\È‡Rg `^ì;	ªØ 0-›Çê± àÃõ1L±Ã2L‘Ø ì ˆÇ2€  [O<E¤ØW5ÇJÕûê³ /¬ÇòÃÚÀ¸™Œ‘!È;Èd;¤G_X3¬¹ÄŠÞcí<<*‰ù«È…Ó¢[æV?I™¹hÎ?!ê6&àU´Ú„“!qúò/Ô š|à¸Š_ àT€–ïOCµ`>>msàþ<€.9léV8À€ CÒ
+%L¬ <‰ þÛ<ì†%MØR $ÀÿƒBšˆú¯ "Ââ<{ô 1a'(&€Aáô)`Èƒ¯E	`¨Ó'°Z Ð/+,J"˜< ,cx–[pöÀ=Âà IBŠpÈ`€Ógmy8…9à§Pm˜0Bb|",@
+`ÆÒ¤8Aô€µEº‰
+[‚‘ñ j¤‡†Q¸ÿ˜ˆÛp2òóP ïÎ8‰DŽ(S, ÃôB:¬ëE:Q}ºk¾õN¹;¹Ã´ÌPüC´ðpDÛHžEfS|Æ
+’hSœæˆä¶ Ü´1g³÷ÈF	HeÅIOÊbõlEI®1£äÓŠP˜Öhâ?‚jî#`ôÀÌ+6Š
+SÌ¸”Å/>Ô­z,q¡¾“U:™…ÈzE\€`Žu,’¶Äø†9©$‚ÎÏ¢5<€ã €4  ÜÅ‹€9A5¦DŸ¸ë¯Ä”®SÓñ½Å‚<!è!Qô‚ÚŠ;*oŠ
+}¸X¬‰¾2L
+|´ÿDëQã+4‰`ÐäÇ}NDÐŒ»Þ0_tGP?Ô©üÇ.<CéÚFç ;„»³€!Ð©È òl# ¡(,±ÑCá˜Å*LÒÓâT¢CoLkƒi1IfÒ”ËMÒH¨Gñ¦
+ Ò€| 
+¸@ oqÐ‹¼U¯VÄ‘4‘(` ¦¡sÞÖ%Ý>¼÷äÃ#»¦Å@ ™»OŒ”/£\¨s˜€ wë¥¹·êÚ ’²AèøÇe%\”ÆE°Á=@®ž©M Ã n>` x( 1à]Œƒw€Ë;µ:² ò
+ ê?" ÎS¿ ÜÈ·FWÏÚ †Ž>Æ€ÁC®ØZè¾ˆ±Q°!Ø!xLòÈôa<BúÈ:àÄ"v€ˆcKPmÖ( jj„ FÒ=ò
+<Rt)É?’‡áF€ý¯‘`7C;d”Œü€®1ÉøëDú,ÐkìÈÚ€ ã|’./ùBChƒÑ©IU…q€$Ý IÒ@%‹	Æo %‚§Ñ2¼ ÂŠÀŽ,&˜©‘,8ê¢ûÃk™ 	¢°HR ¦Ti–Ž²¡%Bm¢
+ô @´[9œÑTxÆûcm	¹Šúh4ŒÆ›àŽT&MI­q’l;*Ih‹ØÀ F°æ1+
+U%ÁÀnIË¦”Œ$OÉ…2•¬%©¤yA0Ø, ! w°6	ê¨‚ƒ²	¨ï +A
+˜8x‡îÁjP€< Þ fDˆ@“1áI(þ"`¯/nÉw(l<¡
+Tû/ÐÆ*CmâØÆ²ª
+Èo‘pÑ2ínôâÜ2¿ áª!y}À€Oª.i±.kŠz™òAN˜7ò+šgÈ}‰¼XP0Í1]x"ý“Ïq¥ú…ƒÔâj!’¶ò},Ož•3 ›‰QÇ|@W\t8l€Æ³ïþ…,`p,Ó…àˆ,#¦‚DNÈðËr tÍRÀ)HÇç«0HÊŒÂ‹lU€kúh&¿ÈpŒ˜,8M@X  €M ¼`KãÉû¢¼ÐJÄßF;1nÔÛü‚í1½èù9ûQæ{ _-ýQÐs+‰²Ï èáM¼GÜ‚\#H@q‚tc1
+ò½Ã ½Ê/.oãì²j ¸O¢  ½\­` ùÒ?I èK÷Ò?ÉâËü²"ˆêË ø/ûË  	0þ2;0ý“L  0–³t£"G¬î¶"—7®®y›Ÿ7ºòÊò
+¦H¯$²jGÌeÆ  òS ›©,P.d‘#ø?¦Ör‘GJÈáŠQ‘ô=  Pøì1ì>Ñ!.Nâòÿ±€l³Kr@U„­ EÄ´‚EÔÊ0®Š\¯HÓÐ1¶ H®;1¢P )À ‚†xÌ,Zƒh6æ X` î ”ÖHèQ˜ ½ð1½ƒ³C<çcÎ€tá´x.£ËùÅÐšÑÆ€±M9(.…Åa-	©;ŠÂê‹K. 9±p™mì{ÂMY7BFB…uäÂ5„q8~Æ$h¹LJ(‘ø|(Íº0
+€>;ÍÕØ6FŽ¤Áï¸v‡ åø
+b˜#
+H78;À
+xÐ
+<o•`}2 @°6Ãª kEÊRó}šJ³Q\€*q©º£¸éR•ª.wIíÐYÆ:´JÓ ç;ÌŠ½$0áË 3À/ï“ûòÁÜ/Ì`Á0åÍ“Þ"Ì 
+ 7ÌtßŒ2)ÌzÏÂä1ÌÇ†Ü0çÊ#­®
+NÁ0([Ì° 
+Æ<GÎÅÇò
+‰ŠobLåpÆx]ø‘ Ä ÉU>ƒ¤¯Ô+‚k‘Zd2 `0z€€[*"³Å­[”2Î}k›S—æL€ËñšÂ¹ëÑBÙ9H”¸dK¦1Ô°- G ø  XÞEàŸ‹3…­ôqz<.ÙÇªÍ…ä%/‚æ§£7?¼l­KÃWË.‘¡íÒÚ¤*éÌï²zì:¯Kø±Êà*ÃM¶ì«ãÀ
+m Ó3FÖ“bâú'ý-ˆ#¥Ÿ^Ìûdðœ÷ Îeq¼$8 úÐ#°#³„†Lð$LÂÄL,üC¢ @I @„s8Î}‰D·
+åì q<Òá992( hLÒ{,1ä h	ï) €*à	*F</Ô@(–àP Þ@àxqO…A¸D¨DéÑ^,;åNäîÇséÚ»o3rì*ÅM½S½$f0ÏÎZœc€	 X˜žŸ´ãjš ƒÄU¼9•,ÇÓ—É0ãÊz	á¬<NI#ý?oãCÿÄ¹s¡ö"5ŒþLœ’)¢ o@Ç
+ƒ„Ð , à×LÎÊE …´È€‹>Þ £í™r ”
+9`à   ÐÔH)Qƒ>­MlÓªÄ%W:Æ±Ê?—;–!˜,Îž?‰» DÏúÈ, 0ì€ÝAè às¤@43ˆ» >ÀB€ t-BÐ$T®°(yÐD9H¸‚Vr÷ì=Ï4š+z³Â mBÞ ¸
+¨æ I2SPü¿:€‡ô 9TFØ
+´€h’"Ô&@Â è µ‰Š0›¸ó„ƒµ… °æÂPä ÕHC×Ph‰PüÀF†‡éCQÌ„o.Àn²$À
+±P3TýÑ¨À8˜ÑPÔ  [€I´6ìC1“ ÀDUM‚q (Cë ä@ œtM÷£•Z9@4]EMB7æá˜EkQ¯•ÀEÉ†FtýC÷PJÅ åjJÀ"4 ‹Èrš
+ìµ!L´áš,²I3`›”+¶ŠÈÁ'ÂC0ÍÍ`õEç¾h/‚Y
+Ë˜r”ï¨ÑÍÀm‰/ÂŒ"L xnî‰OÎæˆ'ÂŠí@3QóCPÐFß€â.È&ôÑœæž¤F×–+TXHM‡T…I“ÿÀžL&ÒµåìQ fFòàžp–[ÃF“ƒb4*8FŠRt•FC€…TštcTRD”%unQ‘-EGÑ™ô"][ìÙÁmYY¬
+ÞÁ‰,Ð‰G$†ðä
+W‡úpn‡'Á ›X[b›è&¬‘iµÒu¹N¥284K‰Ã¥ràÃšÃió_¨6ÍkS}Ì6ñ¦êóN”·Ê`ì¼ä>ÓË
+òûô Ï¾±Èüù‘À‘âô
+l
+t«+8»ºÉ’»-O¢ 
+#"Èýs9ÜVˆ‚½2õ
+BÇÂ3Á{?#-º“ºÉŽ§ÎL&2ðL<çÆ €G1ã
+ÕÔ?Q<ù®Ör›S)8’3Gü9yÄ S"¸MyÎ‘aHl@Ì€Áoê
+5|€fÃPÒ `8Þ´‹r>ßÈè‘•KÅÒf3¹Ä3ïR€ Kœ»ÅŽ,	Â@¿ÀSøF.á.Š@æ	ÙÀ`?- 
+O€`	0¨ +@	 Œ *°
+¨Œ€—à•3Ò lƒò^ ªò©R2°f=maÚSG>•OÁ úÔ>ÅOõSþ6øOÔØ§…ù(U±¹ÔÅò
+/ÌµT"hKMÔ=‘ì¤8”Êì8‹
+P¬õÒ¼“/%7
+ÿ3 `X–¡O8´€Q kN.EˆëÇÌÇŠÌ!ó>Ð‹ Pœ ™ÈB(äT»C®ñü!›¬ÅTÃŒC.2áô0mº$èÊÜÍŠ”‚À8ø€a€(xš¢&R3kÑü;’0(ÍS“	v´W*SÙ»¡¿
+ÛñY«M¿.ñRš)	|Î±G›>+!­±5¨Oª0Ni
+ät ;Ø €xN£Óàòêä.qÓ5Ü²3µÓ²Û;Y†ï´‹ÊACòT29Oƒ‹ÂA•K TÍ 3©âÓùÔBÍO© .Ð i Ô)@@-?Ô
+òqè:(ðòÁ,ŸôôrU/ Z
+‘PsÕûtWíUU5ÙüJmÉ5ìªt6IÔ*ì"8Q ‚·tX|;yÃ_lQ{SòRFÝ>kT°2,+‡85]¯bÓ`6/o|5 P<ñTù3K¥?%«.õþüRÏ…ÀRýÄ9Å…ÀÔo|/ ±ŒSA¤RßC3u”A“†Ó0
 
- aD  ŀh   0J 0N?xX  X ~A C{ 
-   J 2 C       3
-   "  F  ̿ V "qa   @  j kD l 7    V  	  qF   
-  cy!@ % F 8`  6 F   "ʱ  ;   x L n Q  G p yd m ٽ   B K` ƚ  o\   9J \Z q     @   zr20z+2@5 u̎61휽 H\~
-rd  u   (gD    Od  Y 	 Ȱ`!I  ܐ9 A    @ L 3   bi$J  B   d %fF6Xp 'p s146Ő8%#$Ah P n  d l " C
-H 
-PA D V    $H   A  P ( XP   =I';   1     "% L F 8<3  B @ 4  )   <  Q0  M #;%B  ۱d H H  l (@UJ U <`  { S*EZI   ||
- !TS	^ 
-(  X =   c     +&KPy+_s     j *   q  O  sP&  & $O/  e5 j  	   Z  I   ]    L !
-*G& ?  rd Y
-  5 tP&k  \y  K bP%P   eLV .i䄱u3c    ,;ft  L   #8   EG @v &  0st  ~E3 9  b Ѓg@    L +3Ӵ̡Y4EV# W  
-  e 4     @j ˔v f
-S h  +@ b  z0
- &՜ ڒm
-M  5 P T   	 /  = {3mΫv9V   rY  P  'd    q K  7  f G   U  Vr iN
-  =4 B1  *)  &݄   e| k톯 V  [3(dK      [|Ý M I)V v  H = ny
- *h  [  o    ۇ  og Td& ID o ,    V  .S  A L. s< <#G 3  ϧ  P O{ _  qM( v qs  z O  ? ;m=  E t  u  Hz9  6 $  i ̡M   >K :  kR O$ A{ kۭ - J R j 	 됵6tf8R
- d 끞  6BR*  ! N RZ!s
->  !   Jz[`뭁-  Dh l  M     A/Zs ^   P0   hSB  s     ZhsmT    ? h U ׄ E  u¾ l[a   ݶ Y Ƨ re      }    . F9 
- c (  
-'J h!]. [<1  X( e_4I 9j  h5ko, j A >     =5[  ȧ ե    O H g 
-v fQ  J h- kʔ   \Z;w)+=6 Ԡ Ѱ @ T# m ) 	 f  h۟ )·*E	h!Ӥ    RvM (2 b
- 2Sq L   *3 I  @=]T  j  vPQ     6T= P g, ,   W d   g 4y.z <*C go   S$GR  ]g`   wA%   d$ > q L
- -iT  F $Ӂ#h 4   K <sZ Z3  xa h
-D f	  O  `4   2
-G{HV5a  Uag	 g AS Y;  ) :9	  JCG)  ir "U :S hXU ( SSQ   Q  ≠ 6 `    j I 85 Z՚ U  ZM   : ,jK    UU T bͫf ˊ&Q       U  ?7  %    ReC  *  Q MD  r a ﴳ 4  ZklM  T !   S  >  S  T vzլ g   -  T Hak X J  2UY2 ^ kK) u l   VC[HK U mW *[ q  t   R6 x jUo    0 ` q]  7 Vli   ne  u   _FT; |ݰ
-   VX \ jE# O& rV     {c 
-ֻNњ ī?  &  & [  7 m [EUM{   5  	` > X d ,  pe EE  n      HQ`  5`   s  8    q  30  @  t`     A 	  (, Q) A 	   &@Z P$-   5  H& L   H    E = 	   fB"`9    Yid/ ,y  
-d P P% 0 XW5E'BX
-H    p%$+SH m a $      ܗ TR  	      2   
-   ]&m M >'  ު  A  x~Ngn H  W      m6 K  ,      U              D   D    Έ 0   C:\Mes Projets\repo\avsp_server\src                           
-        H0Р      #     $$0  A 	
+Î‹ \#
+$Î†óù²8ÃŒ3dU2Õn†Qíêü‚oŽì²X	U-1ÉØ§¦E& CÃ1=
+ø Òà
+@âwQNÀ×æÅú1.Õ:ëÌüq]}YKOËT¢ÊÚŠÖsu,EZ‘ËmsÁ»>©²­:…K[P¸“EÕÒ*LT;‡p¸¨Õ‡JW½UR5«ü:YWlUQ·N³sîL;µJ@*«2„8·ómZÉR¬Òë4U8C
+}üÖ¸Ók-TcÐ¼ÀâèÆwµ‹³Q1=rc¥¸"VÍôrƒ-LÈ’Ucµ\yHÆ³u¼RSÈr”+
+Ö2uVÏµÒ ü3å<
+V 0à XÈÏTP|\x")x2E¶¦Uü„2}¦h@²d]ÄiQ(œ0'VqÊdW©›!ÑøpB•Pc h6 
+ÀH º€Ÿ•Sµ:UP­Õh•>ÏÖôk…6ëÎÐUáq¾Äòµs,¡	ì@|.0f5yaäWh"Zm"jVF¦C•K>TÏ
+Z)KÊ6à¤ÔAš€Ã£uA1˜M‡ª.U.¯V¢`\
+ ÊU)o7”Z©Ï¾54ÅÕÊËB‘Fu\ãÕ£`^µÒ.‚b`ø>y¬ÇôOŒTÿ$È¼O’TÿdIå]
+Ì@ÉÄÚ<ÝU	€2¾Ú\}+çO…st½½Ôé­¶ªLgŒÌ4âÚLÿJÀ aõOVÇÎuw_Ë“F•rTàUxÍFrÔŠ5 r " BYQ
+G<TIœŒílÉÂØŽà25´LU€Ë|
+!ÃZç™Ò šV`°š<éÔSÍ[§¼ÂU]_ãÏ*Œ ƒ ÜÈôu_:I‚#ÔôR´ÍÐ)üÀÜBÌ°öá4;›FÎØ‹ZMmÖè6bÍB¤˜5Û€Z³7¸5…ƒ\s×´|M`³:Xy„a3’¥u*:Hv•Íè”M	Ölå[¿UÌm;].É ‚-.¹Vtõ–M[ýÖ</7½Ã½”ƒ%
+<ØÀXãT’¡_ÕW
+ÏãuÃ«R=WÄ•iE×ú“tuõpÅ šå}Ï“I5¦È¹ìXõ7²ˆ¥@ý+$Ö/Pb×ÊöyUÖÏ•y…–è6Öõ22Fk5ÄfÃ`
+ˆ€o^LA‰Ör:f'XÃ5fd :–¡
+è3ƒI¬sš4ë B3í+úÊf	…(Ø’dõh4) þem™4C•JSœ[îv’¥
++Ùòƒš¢JDME3¢ÓLÍ£¦M5åŒ3
+“59`Í+eùdCY—×t*tM<×DeÓ
+!@kÐóBIµ¥†Ñ
+{«E6=TZ¶ÏëVÃWnyb	=iSO4é°®Õ=\]TmVŠ­ñ²Ï
+rƒW÷N¿Ò
+J@Ó‡p¤\Ø£@r­­rX°u‡X{Ønö‡5XƒXqaZlˆ 
+ ¶	]„Hõ1‹L–3a VÂ|êòI@‰Î¨û¤†½amÎ&¶õ„kmOq¤O¥\²L
+#PE ïUÄSbµf)VåuÔ9 ×ÜtŒ»ÊØáiè”h‹Gue,ÿnV/.˜,
+   €uà hháLîUÎ$:ÛZì–¬µhóÙ1Œ £ÙUõ15ðW&B3”´À^6„EÉ;¥}­ö¬­e½ËŠÖÊ+€¸ÛpµUka¯²•¾ÅNØ
+vn][íÎ¼Ô®Ý`ñÚ„K"@ìê»)Ò rÔsaúÈQgNsv5lÓW-Õ‡¥<KWü³6àÖ,×•õÌb™ÃÅBÿ´p—•–š¾jƒr6Š=¾X
+åY$<Ã.ßVGtYÍØHCÆ•ÏÌ…!±áa*In2¹,O  Ö€èvº}h_>¨UoícÑÖªÕúä™K–á»u,8ÚO5ëoq0FÆ¼®€ÉUoåŒöVƒ:Vá[¹$ÒŒ>ïÇ½5n-K=÷oõ
+zÙ•
+Uý¨;³T-f½Í»™½k½ÏnqˆU\UÏßõ^ÅY Â}q	Û³ö…dLcHÅ–Ã=X×KqÄ"'.À²ÈdbíÙ
+ÓÁ]m ÐŸËÒ•¸^£LWuÌmÿMN7àôtY²mNÇ5áZVàøqu÷Õr¡¸ÞÄ: à‚\ h6Î  €EØé6DZrƒ»±ÓÎýo©K¥ÇM\¾~‘e€(?“^¶ÜE¦¼½
+"º)`
+ˆýÄ\¹¢Ì5VŸð%¾
+kç61Ìãi ¿¾PéoÅÚ´
+Ê½ÛÌÚ‹6Ú¼
+èÜµD]vµÍf—ÛÜs	Ï>×nLf\ˆS¼à<?‚WÐÒÙºìÄÝŠ¸Y‚5ÒýfMW#S¯ýP7e€XMÖÀöºæÝz·UÁ]%Ó6ãí_	ÝÒÖ	8t3/EW„ B ×3›ki\y Q½q‡'ÍóOäq¡¥é”˜D‰†Pn¦€ (bWÉÍc«ÛŽ¶»îEy÷Åo1Z…ÇÊuhÃS¡„,ÀvmVÍð
+à4´‰ sËq·Ó_ÊÝ4÷ÝÝZÿ¶`ÖÍÝ¨tI«uÊåe÷[óŽkÛwéÒ ×µï0ØÕÀÝ ×qA°MbÿÚw¶·¸\7’ÌUã$FFVÄ1ÕµR³YÖöúŒ</‚Æ´ÕëÀYrÁ
+àR€G1PpÇ<èó½™‚+ ôMÂ€G`Èå.Þ
+ xO  ÈJ_ @ H €
+ø^€FÀá
+KÝrÁšp)ÓJ
+äàZÝÅõ`€u¿¦¥Å™uUÜq¡y-9Pcè
+ 0- hN“^cwé…h
+YïõÎ%Ï„Ù(×.ÝeiÐª¼µvµ^x‚ËÕv1
+…´	
+0Ü-PÏ\´ÒT{Ï;ñ×BûZá^)wMku*_,ý^áV
+6ÏU[å\#àÕ`ÿÞ°’dpm9ØvÈ*1!/Ú¶Ç3~!_PWî|%‚Ê—r|õ´‹`2¥9W €Ü£@Ô=b'.ÎÓ÷½dPWûÎ 9
+÷2/øõh€€X!c^Éeæ¥ÌtÓDuy}~ÓØÈñì±îtÝò Z5–f@º€ h ŠÝ7óØEÎ’ÝùöéMZ¥^˜Kd¬€ëµn g îÄ¿ N<ÿØ1@PÿÞ€ °ý{ƒ‡`îL¦ "Àý
+ýÞ¿V²þK(™ˆ:xðƒ@@˜éÿa àƒåŽØOŸ( ß‚Ð4Q {¿¤Ãü @¥"ÿ› ?
+pÿ
 
-Mock_AcquisitionSignal.wdc
-PCS                     B      9       j                  01F280051n                  57l'A ө ͯ 1: o Qw   p
-:  (      "      >
-      M o c k _ A c q u i s i t i o n S i g n a l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               PCS          	                   9                         01F280051n     x              >        
-                                                                        Έ #   Mock_AcquisitionSignal                                    / a<&  j    Ï6l ٻ      t3Y  $)8Fǃ y q0 b               
-d ' @N ^A  bӅ  b 
-*8`1 ƈ"  ,    !  2r쨡   8o  A FL f  	a獙Dڈ C L  2  Xu I  PDT    H   I &N <}  *  U XO  Z 8v  J h :bƴ1# N 2HɤC  Q:m [ $  o   ͯ  R jY^  gԼMz kرe{ $  k_  * "I
-@ xH $ (  o貉G X  }   . :6  w N}    w    V T ޾  V <Ѵ     	" P 'Dc     A  ć   ; R   
-   4 , j* J4 D  c   "t " 2M    i 9  c/; PЏ   ! . .   h   h?  焈☃%bT) G l|Gy #Z   3_ M %"2   ʈH   J  @ $A"N؈ @   3 P [/     2
-`   T37I/ t l  0шR SAѭOLѽ ( tS : / "*  w4 G R X | 8Y #A  h (M3  +  r 9  L]{$ L   V  tN: du ;  sψ dP % 7Pc;      L =w  
-    4F㙥M.  ~c먣 أ7 +5 #Q TM\  V8<M  V3 c j   x    I $.R  Ȋ :  g F2m  ` ! ) (#K  8+'ĐZ*7  #
+¶Þ.wÛ-Q¨ôÖþ-VÍÞ9&ÿm&Ô\ëÔÉíu±\òÙyÃ»qßåoeá»WD-X¹ws£kÍK¿÷Ò‹€Ç…iQ ^!bÁ0Ž 3¯²Ýl3EÌI†;Û ±I6€=àH,Â¦ä?e`G7ÃMl7Ü‰·Ãu„Ý€1F@,àEªmóUÖt/¸d
+i–5=)ŠÚÛ,µÍbýÝVäY‘²Ö²=a«áNñækeÑt! ºáõäU‡‹_øÔÝp¶¹œK\~Îæ×BÉˆ¡_qAú5›æ‚êw² úg` x®`¥·Sez³Üë¶í}rµ[û¶°%Ê¼[õj½vÛßl·!…› Î‡þµÌTá À½ý^ZÚs—ÿí…¿°5—Õs¹SÇ@®{Ù^ŠÖ­ÝnÃàv•qÅ;\@÷"xVœYoó¿È‡ŸY$ŽNõÎ-¬ë0Ûì1ò"
+Æâ°ø½€‹í•
+øÓÕßtà‹ 8pøÄRœ†QØ|Óþb @ dXy‘.®ˆñYÆù‚
+Õš—Œe~Ýnæ¶2ƒ1WÂñs¬€Qè,è/@  Ô–¸ûu‰¿ßîµ¿õ‚Á×¤2ï½XÛb*7ý½rÍà¦
+!…ßß 
+Àœ +@({§‰²×@}o]aocÿµ{³ÛÖ—…sõ^´V¤£{=¶V&®o¿–(ã{WX^½Á¼X\0F†ß¸ñ½m“WÆØ.]?às*-¦%ÞË—âMp…áÿâàõ^ù¦.^^w«yÖ¾L÷Z‡•¼ØxaLûX·å.,cå—¾yeÝä÷µãy%‚Ìx÷ÄØë Š  (³`ï—Éh«Ä‰Ö–u{`b*Îò¬^	jUÝ‰)÷×'Îwã"À7&Šb4WÿMŠUãY»¢ZçÝÚiþwŸÃçx:¤‘Ï/x:F;âî:ÞŠ³ãv8fP^	óñ^IÎS÷\0qdÊ8òõ€!^ÉÑ›mÕáÚ@O­
+&àP½€U* fE2VÅ·ãÅt _Ž7·`|‰‚Ä—¯Ä/€`Mæ1&6bÞ”H‚±Oà2>†Ž ×úˆ€A€ 0Ü,x6>5dð÷G~Â¦O!ù¾ÅŠ±¼ÅÔ ‘±Ü ä6V‘ ( L…Ý˜àÿEŠ·UÞ–Í‰“ã¦x9~åÚ¹— ®s»àÅK||kïã
+Ò]=’aíxaó
+rG ÏQºHÒr†ý-_9]`9,Hˆå55H’eö0 HÞ ¥+H–ÅãoŠÃsboáx	KæRÙãÇ”KÀä?•(mµÃ@^ŒW]=™º)@÷ã‹—0/þã4™p\<_löŠtŒùä!¸ÆÝMÕ|Š@î“#ÇÍb¡!Bs`² ˜È x å«wQFv›\e9ÎNa]–ý:9 'V_É‚¨”¼•FÀÐ„ú”oÁP™Ü•ŸÑ¬³ˆ;•/fy;{ŠÏß˜¼{•£ãª8ê•ÛåAQ+ös¹â¾”\hXÍYÆ‚^–“ÓxÕïYv¹Jî€ÃOôØ«S9L v’ã±~!i 0Èå
+˜Äì÷ú¦G w\—AÓ8×A“æ5i>
+@VÍÕMâäÊ³ “æ~92þm'ãá‰n.1„Ó;÷„b€ ž¤5æ øö€`€  fê5>ƒ9äëÔbpAd
+–n=UžŽYQoåŒ9E‘ ¿pÖ&~ã$e>{WæØÐA`™Ýÿ7G‘iæ{·G^yaÉ™uÞ™æ"ÙVþ™‘äeö½(|]`jNmþX5ÝÅñã›m×
+7j×b«¹Ü¼¸€(ˆÿb„XÈTˆûctÉ"HØ (u=	1 W 
+à&b’Á,v]Þ“×w-m€•—[dˆ™d¿ 
+°ø†áaÄ e 0„¹9A®›mÞXWÒ›5[7Ï:ð<] LÂ1t`² ,?  Hç–x{uœkcàÔC~™'ça¶rpÓW
+`ð˜etEî‰·Ý!ðÛê_PùþU™Í]Rù kQåZXfÖ‘Eä9Wvž*igéØ*®‰ÝÚHÞqå$¹\|åYÂ·â,xáä$Zdå\ñåmyêsxØ/UÃuL+Ç‚m;~/ÚYâ°Å&®6?Þt—æN—lfŽ_¦€ÆpÚ$2ÉèŽ v P~à2™BýgÈ€Æ›d;YÁ( qÝzöâçpo
+€m€‚6-hF95æ¡sfš˜:¶‰ÉWŽy„ÎzK‚¨449¡G 
+ˆNf„Ôtn…QgUó—¥Š5èHÙ,¢à<ÑUÎw•âÚ™ßƒÍcJ¹.p¹8Þù#ð`SÜC>¾èã/©Ž€4åÒE‡·äI7œ‰
+,r6@$šÉ¹ ÐšŸæd^æDóY™ƒ231€8î“k@h>iSŒOHÁ˜ÈÄž×“T€
+èž¿a7 ÈglÙ·r’YÝ;ºqüå"¸] ýèy  G‡À¹e i[` ˆ €	€@*hàn
+¦˜ae ùCî Ëf„Îœ#æÍ¹üèœ7éúow[èUX8>Šah–Þ…z#i±q•Þ‘shWz®˜{hù*¦¥{æa8ƒ-†Åµ6 Ì<8&˜ˆÙ@ Æp¨´"„¤t†GˆLt±iaÚüí¸¼eµ¸j¶‹7: @È _ /R©çM1VRåe‰ 0 cÝ(›ˆWÑ?¡§·•ü4?y"ò$Guy«Ùlùš¢ã|š_Î£%cŽwÞ“áãcHÜ,„°Á Ft‘ È€ÀP j—obÞ×Ü¥¸»‘giZ™ê56ft9é¨§	jJÿHó¾6Ïõ;R Ÿè½óò<{bm	nLkU@Ícý	ÕšlHÐ äµö<Ž‘EAójkÔºõ#NWkâ`.ð­õ¼µ¥´®mëÔú¸Ö­d(àA^®ckÊïÌ;­×<ãÚÍËŒgÎøº®oRíš¸æ®qkéš+©Eç>T'€­Çë”:¾Yeé²VlT•ŸÝôY¼Š¡c}7–Æ{)gŒvæsoéøŽ§|—jî8Ä-Ö
+õÙ?¡pE6µšÁ{tN-9\N¦¡]Æé-ž‡ýUÖÑ=æâ{™ŒVuÍèUYÒ@/††~!]^M…E±xÃžf—d¥9¯ÆmËc|º›ÉˆIÜ|Ä@ K¥[Ò8-~Çq¢04¨ýfƒ  Àè&ë‹à´ ¦ÓÄØ‘ž©!iºß{`·øi½¬cá¸ÍM€/ê3úƒÆw¡Ðk¥¨åÍúv6“5fªŠeXÀÓ
+eýµ@HƒÃ i
+Þ‚Ø@3ØC„ì	<ÁG&´!èƒ6Á‘+nà@Ã2À³
+Ã°…Ï ül@ÛmÉimG1•kä¦,fž¤qá³ŒÀÎ »Ï ù"€jD°˜ð„ ØhØÔÅfMs 
+€ðuêYûžæ™Gw`Í’Áe,º>Ô¢il‹×#ÀxÑç“ÁhŽ›?Ä4ª†Û´¬Ú1pSÎ ØºŽgîj›ãø’4{–‡¦m/ãÇ~ï2Õ&Ô šv Ð€" ŸihìˆZŸÛ²×^ÂÓ^Ü0æ™™ÍVÔ&ª‰gF¥}hIÚ¥Î¨Çìô¢Ì†KeQRÆ·‡dÁº–®ˆF©ïüu·K8‹úùÒ·l!ZàýsCm‰ u¸°75ë„dÒ€w@F{ìJ’ wØ
+ô€` À4À
+ø #@ Ø!óÕVû›–“}i¢ 	8Ö_À ¶4 
+øê#Àåþ'öäA\9rc;cØ¨êõø˜¶°Ùb¢@	3ŸiÅ¢ i»èÂ—3…°“îx»_££d¢`h6yƒm¿vk-G$
+Ëô«ïä²) ¸øª™Ý´»9¶Q†áIí&¬÷fhéì‘
+ö 0 ‡)#Ò,JU™
+8@ è &€²–éÇ³ö¯Ñlò×Ê¦aã°À;1åùESÖ f
+ ¥×Û’@”¦Àˆã¤ô– 4ïm—ó¦´€Ï[Î`adÒ»'¨ä
+Ô3Q½Yï‘ev¡Og”!­½G€)@ØTè¡˜¤.ŠÍÜ:íMŠ[•ùú¿N•íkäÙÞEökù‘¾·kêš[¶œ;ícVâš{jÇ 0óÜá­[!^Àv…\fÄ…ú†x¹oÞç>áoÞ€ÁÑ	œøÛ¶•±Éã¦yÍ^ºÑb+Úò}º›çËó"`WÂ 4Àþþ¢’>ÀþfiåN	 „ C€ÈÌ€¬üN¿Ã•óÛw‡¹îZ8Á “B?¿9ðoÅ/Úï÷²¿‘]òoiÃ¿tÖ ûÛ ©€x@(p&h»ëÚæœjû¬óä‚‹ñn?™h@*‚^BZ ’  àïE:Ý†ò¸`{Û¿Å¾ómíûƒ®¤5g‡j4¡mÖðV•OQ±÷EF¾yoå;†U¥ËÌzÅUŽ£oòµ•¶™_éã˜¦f©%å›ºVö™½ï\Ú#Ø¥í2ûFxWà û;0Ä!œáå>™]q \ÇO$ñ  }q Ûx!^ŠVm;ë)ú°­¢Ïá+z†± ‚ýF(€\ÛÁœ ‡?aÅE ‡]‰p
+q`f_Oq[°—óÄYÉ¼xD@ Èftƒ@`>ÙOøJýd}a3©|€ÈÎO–3ÄÞ¿™f3z›C"‡[ŠÏn¶qwìLi‡œ
+m»â;Œ† o‰Ö 2,`ð
+€\  ÂeÞˆÊ&.
+à…ûˆK¥`©:&
+(8,¼¿ÖÃ«lÎzÖÕøí*Ãß6W­o-|ûpP­"ú$aCpÝA4
+ç`õ¨Æ ºÈix "@X[9£"U íÓ 5°|€DÛ°³åŠ<$_hKÓ;MYPr5 5P
+XrÊà*0Ð˜\PÉ
+¹â›¼É{ò %ßÉ[ò^¡DèÈoÁ˜\$RÓÛ(?É‘r¥|%oÉólœvš0F¹B$ö˜ ÛÉåŠ¯<5,?¤ÆPðçj¾}aM-U¥»pVÚ‰¸`"ºwb
+pâeþ&^€  çGT‘Ùà÷1cña&0§ÅóIGÂq¿qþD1ßÅ!sÿ$ðÅAð×yªÀIq<×–<µh\<¿qÊ|ÒÁÄé Ó0Í__I< ÄWsá…]	4ñÒ6y‰]~qCãu9À œÀQÂjƒ`|õõ"
+ Šà¼êy
+â2F‚­½"hÚ€Ü…N®XÚèqO˜¬éÜ}Ö0Ò.y áY"ê2 á ò€y ( 6s`ïfî®
+&æÆ»ì
+Úv¶©Aqòµðª2§ê{Ê¾¾r~|î¦¼%-»QfÈWãÈ» /¸Ç0„9ª·r*f6Ðýo,Û#`½Ò
+×«ñæ²óñNòîÇ#t1w
+ÈaéÜAW³¯ìÞµxÒB=÷|‡Ïóq»íA'Ñÿóé‹@»™ôýœ Ñ'oV9êÑÄ¯üüÌ¸ÓìùÜ 'ÊÞ/d(þšõó†ÜFÒô*¬ÿJ/¢åI'Ðn
+Ý?ÏÑõrCŠ‚JÑï=IÑ—t½DºõŸßüH÷Ñ5ëýFßÐÅôà
+C†²°=
+ŸÒ¿lx;—·Ó(ýç³ÐÙí=÷Õt+}Ð
+
+ä0dˆÛÓÃ_?VUëôÌÜÿ
+©Èm•ÒcåE½JWº9tHÃzÄâtÝKç ušÎÄ¡MŒS ÑôOÝRïº1õ –
+zd)þúT¯Ñ¿ôì[Š&_}©  ˜ŠÕópT]>¯Õ'å1ÌBq€wêqóÀvØçxìïZÂqÌßËÒZÖE^œWRóp`Z_PZs7Ç°Ši
+×6Å÷ÔÛÀ aÁý“÷;¿Á£=U<ð óÇ0?aó—÷]_Ìmñg]ÿ¶§óeú<‚–ž‘ãŸ¢EÀ  Ðõ#6¬ðáòCçÕgõTÝEÇÑu ÝªàòI½¢¦ÓUu;ÝQ¯²ÖCàFÓ½ì}ÜuÕ_êP­…“©Ïôñ—J—Ø×t}Áj[ñðSÚS÷Õ¹p[=¼³[q¼õßÐ)õ/P¿ÔÙô6[§²ÈßðÇûGOÓÁôýJ7fµÏ[ÙÀ>†åOv@Yšà‘Ê4
+hê×"—Á4ö‘Ç['¦™nªy±%ÀéT‰ Èfìü[AÁÇI|\8×iU\¿éËUñ`À €×
+y]l'b=PCY
+*‰>á.REè"ÀŒÀ	 È¾¡A„ð–>MžÞ4ÖµÎZ
+.wÉ]„ ³Èš`"Pè¬È}hˆ16T K»Öµ¥ pçdè,¤¥‡ŒÓèr:
+Z2F ƒ
+Xƒaoh/2{Üa¯Ùçô’Ý†nÔYuF-è¹Ø#X9h Òuˆœ(KÐÿ…yïÔ÷›ï×q5±µÊ€Û|öŒòvÙ…öUhÇfö•=y×Øƒw§¸c'Þwö¡gÇØYv0JVfÚ'vûq3Ú}÷91QÖ8öá]|ç¾¡ö!ZjÏ•çÚ uØ
+æövþNÅk—0 ^ 5.÷u=Y'^Bþ^wÖ;ñX›_ÒÞÍ<âuº=sÊ4'^"ÀOÍgóãÅ6¿OHøÞü6H*  œd  ›™üváDä,Jø t xœ;…X]+³sé1H„€
+ˆtîý30HŒ«ç ñ¦ø À
+ðŽ9¿~/ê4]³üû§ˆ z`8ÏÓóÝÝOëÝtYÝf§¯çw˜ÝiÏ°t)~WÔƒv6>P¯ß±V2w™Yô,‘y¿Þ·oÿJeŸŠó÷¤Ï³Kì;ž(°áì!I]Ž·‘—v?~ƒ×ÙÏ­FÞ|÷Þ7ö—ÝŽÏ¯‰ó1ÎFãv5ÞùÕì;Àí¾ñr¾ˆ&àQñü&5r€Hœ]qÍXþ—Íis·Z…çÌjùõ!øH<wq‡ßeÁõ©Ùþ”t¡nû(PG¸örA˜€
+Ä'HÆéÏ±Ù>ðüá–4 €€¡8¸yFL"x€Z  ç'oþœ7Hê•D  ¾ùtÌyÓ’6²€eà?çS€`žWç×O˜-Ÿ‡ç ‚D€ðço¶ÔöuÏÙ…“:-0ä€äšƒ àæ z ãvÞ]åÞù©Žä™tP
+ ÿäwå’ÇÙõ*ìyçœôî]iÿÞëø¡=fÏÉØ3šïÒov‚;L—éÇw£¬’ŸÞKú—þ£×éÝx£Š’¯é÷xý=ÓÎäcz¢pµˆôøK;©·ù÷“=£¾Ë‰uPü&–ù×÷3Kf¨@@  ‚¥`š_Æ+k^Â¼O¸z”ž%
+²u¤«o/„yÉ—l7æÓá
+û=†]VxÀ„¿åSxÙ¼¯+·àÜÃ– €AÀ€O ºþ¿8ç ‚tÞµ8-Æùrþœ·Ì"û!^"Hæ}>]PGúµRØÈîÎ¾"è þ z~­œßžmO\¡Géû•}Êøp$â
+N  Þ‹¾ŒOàÚs3Û’wé1yð]}÷ßgXãª‡Ã
+y9ü×â•d²-émú^}ê›vŠ¿¢éË÷Ÿþ|¯Þò?þƒ^äqŒW-Jçèã3“>§§îysËpÃîÓxê}
+7ïé÷M>XºßŸ{¤¹ÿÓaúð}§ÿßëZ\:/×¥µh‰6ŸÆy"¯ýÛ¡XÌ¼ª—°Ía¾Ç|õúÐü>	X Ò¼¿ÖÙ•	?–'^fyâ%Ã·åGx\~ àÄoóŸ”74û  ³?5Äyr>µß4H §&F`  ÎCÀÆ?â)3€>˜wÝ6ø~‹¨ïPÂ8ø§¢z Èí‹³…½²–¨×mDÝ¾Ÿã—÷“¾y'_Ez(_doÙãsé¾Êïî`•þ©béÇ{†¸Çï…{ý>¿î ùúþ¦ïòßû6¾º—Ù{ú£>ª—ò÷÷¥>¿oê£2£~½ åÛ{þÜd7ñ‰÷NþhÏ CùK}¿¯ãZ9À>å±úÇuj Òªö ÅéB0ÂhJ`iº
+ü]†iê‡=ñø¼¿’;ø[ûƒ×B|„—üz°Wõ{óþ6HšáÜ1€ 
+{ÀÝû÷ÅÏñQü jü}Þøõ7’L`Ø·ñ àØÿ$¨4 
+ öbÀÙ
+r ,`Ú0a€c‹§ÃýõØ’A~%šƒ WOèy`É·ÈÌxþ}÷íGv3ºò™{cˆÞÎòvíÞ½·Þ%y\-ÌïªÆüwËWô¿}ì]ßÕIú|?ÐÞüR¾(ãÛêüãÞÍå©úA¸ âì#Ÿž½ êã}/Ÿß ä=ùÀÕ¸¯ùx	òÌïßÓ|[úÑïïSy,}ÏM fþ?©"™( „qY4 0Œ ð @~j»j[1¿Ýöô;nGmA}‹XÔ‡šíú
+„ ExG<5pÖ\–—Ä§~V…ñ!]^´¤ú{ù  Žù'úÔ$à
+px}òâ‡¯…2€žÉ.¢€B`hÔþMg(Øþz ¨Wâ€ ` Îù@¸ûÛ~€ ‰÷ Z€îhÁ?ï7F´	ÄŸîì~¼ßÛ¯Ž[Ýü1Çð³€
+ßZoå7
+_š“ÄƒÎÿÃ×ú]ý)5ƒß«­üò¤
+0ø
+%ˆägÀõ·Çð yÀ°ýí;s&à PâÝ? À€g`÷—ñEüß¿ö§‚ U€ø7þ
+a#è €Š hþ‹°Ý)²Æ÷õÕŸ%C»:×‚Mì9¨í’`ú!ª™‹O›Y^Í€ðÿNg€ŸêëB'F6Èå‹6csì’Àê9:þ*˜!„¾’A"  K    ¬    / ÐÁ rªAx ¡„|–H^ „XÔ¼) EÌÐaS Nœ ÿÜeç eÎ¤Y“ ‘6‹˜zäìˆL5ÃØDˆ  Žš’%
+›1NJiÚ»÷$ IÎ%(5¨L€aº@&²;
+ 1ÂÔmM \²vFÀ	¦A!L« ¡Y´jÙ&H b/Â¯D ÒÏ…&± Å	j`®µC({6íZ#„
+'–)5@ƒšœ	º!“ØÁ€Ëv
+,â™‘M¿åp1Á8Æ FžìÂ2ÝÌ›{/%ˆš¦êÓ©¾Ž-`öLÓ·	’ {ù÷ß—
+;ùÅqÌš	BÿÞ¡ó™ÐáË„N®lÚ³ã+vw{¦Â
+e +OÐKn= õ{Oºæ €=Ê'‚Âà ¡2hËx ’I„è1M"šþ£É‹üâ¢ÅîÞ
+/$h
+„òs‚Š¨HÃŒ6Ú©
+4j:!˜HT$J)™Š ˆ‰
+dÊ(y‹ÅöL‹`¹h (
+	ªÄË îá6E$HÍîNdŽ(Ý#èÅÜdj²»°h´1 	Ò‘G²"DRI›˜\îÉ*kš2¢ØkðÊF“  ¤êÐÏ©°AGD,Ð $ Ó*“3€:¸ÂrTè	 H¼	`‹÷´)NR]„‘M¢f¬ñÔ>ø³Çƒ²HšŽLr9E{c@^ez”(î 
+Ëï “L3	ÚTXš zg’0ß˜€S‚°µµ&\M£,óü5×k%hGb=ÖÐe{k–·gÛ‹¡imªVàkÔÖRnÏ<wò±D7St«]]ëtË×=ƒ6Pc	Ev&e¥B´¶;m
+˜·`Z–’J›$µ6,u{ƒîÒ2¦7 ˆ%FˆD‚LŒèÍ[ÑÌÞåíØÞ ðyÐB“=ôÔ%ÁuÊåZæå…Ÿ«”R onØ[£	êyâ +Æîâ²xw¢xÒX¦.ê‘e*™êD­ëÞ´æ:Ò¯!œ»
+à[Ó<åè „N—hvÛ~{Í¸çÞÙc„ìÖWd~O¶8åšV~Kp›
+®éàïÀ®2qÓü™â¡-f
+ã9wÍ|^Ó8¿Ð»÷•º_Þþ}ËôÞ&Hu¯u=JØÉæ;F‚ —<€šw.úÔË©gŠcºÑmøÏ£&yjý>ðÖS‡YÂ(Ÿo°{^M3
+üÍë&?dóõF¿xõ¹yVr_×fò­sD"2% A
+@ag¦ÚYª&4z¸*œÓD Ü¹Mw{ºŸÒÂç7Ïñ/oÙ[úHGÓâ
+AˆóâS8š5è[aÒX ¬§¶ÚÜÎr#<U	åÆ;„øn|ùRaè˜@'±¯R°!Ppì½e‡áš]Új·6!rˆ;3¢æz§?&âÍ‰.\”“W@j]1‹n‰ÞâÚ¦
+€´m‘âºV4ÄöÊ„ù_
+Õ8¼¢¬“‚£Áä8Å™|#®àG·ØÃ~1ˆp$ÒŠÈ—#.­û;äùˆ÷ã	ÐtÔûhÂºåÈ¯7ø
+Î2%½ $0 
+@€NpOÄ^‰2€
+F£ƒâû`é·É2"±^£L£ðL™H ½p&1œa
+]yCç®=´ÜAÇ8.Vv#'ÅHûÒŒIDãÓ¬é¿Sº%•Qdd+
+IPb1Jµ$S<b—N®³˜¶sçÎžIByfaOM`ZÄ8¸Ak 6e2@5rulx@< œ9Ã¥zv¢^:‚ìãôfâÌ1Þ	g¤¦=A‡È'z! µ‰/ 3’Ž“ æÔY“ âG(ƒ PÂÎ²×ÌNÂÍƒò”&Ÿê¼Ÿ^3¨‹ŒeXŽ
+¿I‰ó;ƒXj niÇéäsm'MCL,‰™¤3ÙöNO
+2”'üXûÇÂÿ¡ŠD!*s ¢¤**'œ9l”-5å!„Ú# 9À„ßìŠ¼‚r¯Êì«ß°
+X­~o<E!)ï‰Ø|2eŸŒ]eÕÚäOÂMV  Z˜†ŠI…^õ¯3y¨j KÈÖV3¬øÄ¦{„JÆòö› ]“ZŸH-õ†+ lÛò—Ivnò;ßR©aÚE>jÒÜÅBx‰Þë	—)äuïyÕéÅð®·&õ(ïz-Ù]ÌÝ7½ùµ©LpH›ì”ž=5ì
+	ÒÂŽ’U`®d«$Ëöü7®ð­©ö*‡Ú wžÓL®OûàÄês±*«íÆ(üO
+ÇÏº ÍO-¾˜©ð*
+ˆ\p°˜4UoràÀ&xµ
+.qƒ9ªØç º	ió.<cÞ,Ì²¸Ô%/…ÌR
+SUÆÔ _·F‡Ž1žÕ=.k
+[>   ÂP–0$#Ë ÝÎ‘)äd¦.K.ÃôËD&Èg	Z–™´gn¨»Ô¼'“øÍM*¯F]*VÏW¦¬R™¢a{¼
+mçöÒŒàšDÚ«†ó“Uå)§úÅ¹åôn_×ct¿¤ï‡OäT/YÒsíraÛÜ\ÁºÅß›5Ró|E™€ZvŽ/åþbï-VÕJ4äkQÛª)»Ÿ4¹3$1ÌXà¿I@M„‰ 80S~r€OÃLsý@]ÅÌN½&s™¦Uñ©ê#—ûÜ%/?¨_˜Ï¦0@@ºï A‰”Ë¢Ê¸`B3ñÄäÇØÁ‚2§ƒ,¸üTó±0k\›„_g“Ú©xnüƒiß $˜Ââñ(È¥2»nt¬LóMÛ§.ÖÑ~¶ãó° <2y@Ñ;>(=ÆYzÐÓ%$uü´“çÜñÐžà£@_ßØ7
+ Ó@}Be çÞR¡ \(CÂå‡ì›Ð]Ë·¡2)®`G¼ê&·ºÒ¾4uË=Ås< ÙåM—¾ÄCi#”M-r¨ošÕk[ØŸt)™;ÖÊ´ÜLo–¿³e7ÉŽ
+@¨FæS!: ¬r¬dUÚüœö×©u|W¹]ìË9Å²]qé–Ý«*ÏÄâq³u¶xÌÔÂ‡k\åJ`~ojG£:\«¾r£?çW×9–Ù·â³yû}–úØ4gãpé•Ÿ~`[¿6c²Öó6éë—Dš-ûÔÁ-g«5=£µÐ3›ˆÙ£jc(ô;æS²¶ßq¿8k¡¬>º¾™h@rÓ4¿ƒÀðÓ?„à?jë°ÿÓÀÔãÀÇk?
+AôAqË—¡¿±›™î[Ì¿{ã½þ#0Ó30ÔË6t¾¯’<±²´¿aÀ tÀ‘²¿[{Á{K­Q;?_À
+¶d=bAW£¾!¼»´ê4èÁ5 µà²¶ÓÃ6åÁºœBJ«BÊ»BhyÃ”19œŸG;•móC×;6ØD7ÔBš@ úb ™2a
+¾1K´Ñ¸ä.2L½5Ã“3ÔA'›<:‹½åé&…QAÚ+«CìKò¤0ÄC'ÔChâ*QŠ¼?|=+\L+·íKšXäYÃ;ÄÀ1´ÁlÅEdµ^tÄ_T¥q›	aLªÛ£ÃSÁ#=ZB^Ó¯#{Â=ìRdD„?6”¿7’DíÃFH’$J5¢Åd,µeÌx‚4ö3Gcû6dS@ë«FiQÁa4®"œ¥¶z+J4/Kü%0CCC•MŒœc8äG‚@2æsÆ}„ÆFôÇGFiaEé‚18$ÂL¶:§:d“ZTÆk[>QÔÇrôÈsœ¾pSGVJA“47Û{‹¶2(\š6Ä°o4²ŒÇ\d3@À8Ó (ñ±(ŒÒ¨5ÌIUœ?v¬?,©“
+€”Z)–$—ò²K|H&¬A|,êH^üÈüGÜ&”	!ËÊ!D˜b|
+>5§‚*©
+ ª²*[G\d´glË›·¾iC+1+B|ÅäùI¦`«•RÈ–ä7ÓD€3+‹d´LË2À>´É~|Ë¤Æë"=ž¤5C<È#ËŸÔÒ,Îò¬#µ€33¿B³P„B3MÄ,Mt´JH ÛZÍ lÍ”t„ð­¡D¨—´Ç˜d¼1ŠÂ],@áÄÉÅÔÉ*¹<wLìZŽí’‰/¤¢ïªÇ^“EÚè¯÷šAÿs
+úbH
+¤Aø\ÏJœÏ÷ä
+þ’Î>CÂ–ôF1ŒÉÞG]$¬4ÜÁªÜÎ«LžfC+”¬”	¤ÇÄÌ¤,L“BÒ|?í\
+ÆŒ¥µ2åt;¿±1vÂ±ÔÛ1°ÔŠ[“AL˜ÌC™ôMÑÄÐàÔPÅäPîÜ˜ÇüÎ,Ã¿ØÌ¥ûlQà« ‰Ì EóDŒ!¥„(¦¤Qì´Q¸ìÐJ™=ÕË„ü3 •O!…ÈÛÄ#íÄ‹DJ%µP2*PäzR¼ÑÑÉÑVìIÈlÌ¼t
+>³‰EÆ	}Ñ[ŒQmÒë<ÐSÄT,NµË“ÄK×ÌF/üO÷<KPdÆ=%EàDÓÅÑµ’í»Õ­hÓÆPsIôLRL½µ¬ÉMÓ(eSì#TŸŒS·H·u#ˆv£‰w#Œ›·zû-|Ó· ÀÌMŠHáËÍEÛMÛÚ™ƒ«¼ˆ# ‹‡ëŒÀ 
+Ñ 8‹
+ ˆ Ž‹7„Ÿ¹¥cÖˆ;¹Ñx½ƒÖ0€éÀ¹©Ó¹=Y;¬SM 
+`à‡¹³ÖA@»+D²‹³³2´£:µã€Òºåó:yM‚z}SêÃ×¾
+×r­t=u%GvÅ´ð‡ Ø°¸ÖªÒÖ»O§[Ø³3×´Û9e³‰¥®ðˆ€wˆ×Œ„%8Ø*É;	aØ©Y~%Ù«“X€íðÀX€¸V&€Ù(‘Ù|í;
+±	 çÌ½ûP
+SâªÎßtR?¥B_D‘”=Ä<ÉVÎ{
+Ï
+ 0IÑçì¡Ñ£OÞtT;©Ú>ý@EÅø«ÔîtÅ*]ÜûÝã=ßËD"e'â{•XAR1
+UåC«…Û?ÍÚ@ÝÚöQÕ‚¬C•Sü
+K(r	 sŸ …ÑÝ·]¢¸Ô¹ÔuDÎ-ÜÊqª\\•Á¢¼@þÌÓÏ%ÆH½ÚhÉ&T$ºµ	´F»åÂï8BËÝ¿
+„Z<%L=]U\¬•FDÕÌBÔÑ8œ\¦ÞÖ-ÞE=ÊÜ­Ðä¥ÝÄÝÅuÞÆEÍÀ‘^ßuÓ»½^Ö=Û PÂíí\Ùe[ð
+ÝnËN5])eŠÞÈžŒ\´^Þ¨Ó‹Îôô\ú½Pû…>S=M~DUEXbà· `;¼ÓØEÞÙUàåßæÅ]­5ßÇ^L­ÞådŠÆãHR•T¹MÇÝýB\È—jÈ™òÛ»*ÒŠÔM‚[[ÐœIEdK&]T¢¡6eMÖ!Ú˜G;5JùÕà.S>íàû…R ¦­`$Èõ%Šc,àO-Ü%ý¤)>SÛuËáTPÓÝÉô#àÅ[N5
+nÄOFåaR?Ä]`5laât\¬$a­ÌTê‚ÇJâT&öb>àùíáf¤ÉÚeÞÛ5Íi|àHôã’MbÞºR.
+Ò²$´ ðU>Ò0í^©Ý`)†Ôð­âŽd,I#.I$~ÐK6[Ô5'ŽZÃ­F>ežÔ5}áT¥d€Ê¼V])¡œe	­åãõ^RVá¦œ¨Šº¨ŒÚ(=Fc>>Ý5v¤6“B©òµ±´MvÑVæ(ÕFöàG>cJMc¢¨K`¶WXö´þ´Ü¾Œª©ª*µm´rÎe<]Æ-Ýj6®³¢Þx^+L6æ‰àÕ=ñäÍ‘ÎÖÏ¬ã ¼c*Þåi^ç€¶­“]žßUÝ9ô³ðë!Úì¬ü`hÜäLþD:n<ë¬è<â=aÅ:ÎkvPC=aklNÂChCFæq–Zê´cr<gTæeý…ÞléÚ-î›ðÔ®š(Ï@8ÏCNR›ˆÏ–cîý «nÏ×Íçª¶Où4ÞŸFˆý<`
+öÔ©c2mi2vd3ÞÐ^fg‹à¥¦£7†Î/å[VÞ¶Fç·Î_Ý•kf£ël†¤»1Ñ±öõ±íŽ-c}VäG=Ì þç!Îh%l^-ƒM,
+4ÆÄ!½avúÒ‡ÞáÈ–èäg—ögiaI¶³Žäl9h&K‡äd“öÒVÔŽèfí¾.ê‹ŽkÌ>âä´dy¦Ó»¦eØEd(–l¾v³2NÌSõå»Tú¨ëOkîc~nP
+ãæëçñáòíA}g	6HœàMMÔ
+‹_[osÖå—¶ì˜Fokö_5ÙöþcšxÕ ˆÕ™˜Õ‹C[õ›{Ë·}£«^íRÑ:m•VÓ(Ö„f#ˆe-9Ð°ˆ„}€n‚0H€70º<'€Yg
+ q%1Z¤µ°¸¨o¸¿ð“{ñOÒðˆ?NˆŒf	âXiq#àñç»íÞ4
+Ÿº7Ù
+×ñÿðS
+!< -`q+wq,or…}òŒr»˜rRÔðoV2 q;„ˆ†<èr±8Bà1‡ó%/sp•è88dØ†kXsšÈr}¥QÖ7ïVŸóŸ<
+uÈ©*ôkX½Sr&t+ôé yl@ô™Pô‘Êð*÷óH÷q„ˆ*¨t€ N(€(ulàtÎðt@g(šMóQW€_ 50ó H«cõGßq,—ô:ZÏ‡‚  v0P„mõu õ:€‡q0vdWöž³ ¸1o‹‰ƒv‚ˆ+ õ€p qÏöm_÷7dvè pÓˆ‹W  18ö71÷ `vuwõg‡õwßZ€[ðx1Ðv’[÷O vA§ñ `‚M(x%Ù.ž  :P‚Ð•ß¥“€¥
+ Àë¹ðh»vEˆÐ 
+h‚ÈP†D‡ ù‹ßÖ¢ur
+õ©€{P30øD¯‰Eï9…çVg—s‡'[C õ9€…~x€¥7ŒOrÿõvòw‡ TX§oGšˆù™Ššÿ9·
+8°‡ày±p„t †@û5{xn:³º x‡@¸ƒµGóAH‚(Æ Bx|+Â‚Qwƒrø‚Èp€X0ü; üõöv4GzÀ ¨]HüUOwª¿r«×ò:GZƒIð„ H}]ý×ó}è÷Ž ÷q8„w`}ñ‰z+šznÏrQØE uGPx€á Þ_~àu v ~ã÷äÇ
+åûØo~„‡lp÷€7˜î·þ|gønçxí ÷+@„xø~+Z9*ovÐX€vwõ"Á (.ü' î_<¸~ë ò;Òwô;8] ÿ}?UÇèÆŸüc~„Ä!õ€¸	À2Àø éÈÞ&|+(.Lhð Ö€’È€íhªÀòç›S)bÁŒ
+P `àX)°êý¾å¶ßX ?`Ö„˜ü\ßòswLKôÀ°PR€? Lð ÁŒÇ³ß·s`
+4Á'øôBø[vSüu@·P±”„À  3ØÁ ØƒIPØ;%Àœ 
+DlPê¹AXÃA; ƒgÀ ø ¿ „}Hþ‘ÁƒC	aLu…°õõ¿…‡á`€hNÿ€š‚ð€&œ„aPŽÁÒ·ýÆÁ&$„kð¶¹V'
+«`ˆth;  fa+äƒ¯Ðš¾ƒÚÁ „‚žP"B]xõÂÁ8 ƒa  ‰a§{ƒ°P‚»G°9aÛ²…Ïö¾?—ã`s" '.2Ð‚~0@8Ü†½®ÃoxúÔ8¬…À&<hxwá& ƒôà
+ƒ°ë!:Üxe/ø•A|À›a9´±*B~@ A%0 ".Dì‡•`Ò3î€ªAx
+](ˆÒPs¡¸9@ (‰ ñ^ÂXîZÀ;8‰"JÁsH¥!5 ƒD€	Ø°mbÄ‰ùðàìxÐÉaJ4‡¸Ðÿù¾]X4â°  *.EcØGbLQq2ØèúÂUL‡£P1œ?Q@ Á€%¸  ,‚Å#è
+ÇâÁÙf±¦ÅØeA §€Þm€@_Ä‹•P/þÁ28È8‹§"êÄ øwá: ƒ¶` ‚ ‘Àä†LÑ!Ö¿2x ¨ŒàO%®E–x¥a1 ƒö€ • i´‡¦‘>Äƒc	:k # %¦E
+`ÙB€ƒ‘l €âZÁ8	@8îFJ¸'ÎcWd@å€ë8#AÕq†=GgY¾:wø ˆÓ‘XÇáÈc–Ñ‹+'<
+€ñØN.ãºÚY¼¡g}õØÇA#€Ø±c§•!ãÁ)„`	Ì@ãè©b;JŽ™ÑÏ1GÃPƒ /ˆŽ‘Áô  äJCB îˆXÃw‘â‘<RD¶#÷np0R,|È "¤|,zg.®œ‰_ä„Œ‘Y =„  ldXø$@G’H¢× dœ‚D†£®@&Ð£ øSŽmQ:8
+> W’	”È›x1á¨ëœ KþÅ×r¡`4‚ÐAm@¸A h“g2;¶ÅY@.@o2Bj%C_P¨V16jÇ) sA‡
+*`p€@(ý¤+49'2P ÖP€¦t‘2ê‡œUùæBˆ\`IKy2e¡ä‘R’>BÆ•C*…¤©D¨Ò<ªÊ "Ax•–ÌÊMY¨<V
+\9Ø P–Ê©x*+™Í£X2¼Jð\@p–É2ð-Ë‡Ø,Ÿå®Œ–½rZÊÈjIb@À–/àpKZ%ñÎ­¬’‚’œƒ7y¬6Éxyz¡K>+ G0N@ Õ*,L‚ °À½<“#§šœg•r^Nih92ÿé‡˜ó­kØ.¯a  ƒ7ù°Ø°L— (  E	#Àu ³VÎK¹i‚Ç™3Pd8j‰²†:`Y ,GÐ2½åè‹+hf€M€/m&é(’
+’¸pÐ3‰ =x iÍù3fÈºšK“‘L	]ÊAÏœô XM|ù2ïU‚´0G³kÞ¬Ôe²úã[ {aÀdÈ 
+èÁ4@›X³G²M™É5•&ÜdtçqUb—Gp7#C4  Õ oªÍï0%Û¦à™L“?É 
+&âŒôà<Ny¹6ƒ]
+ìK«,­¦¥·ž–|Kf@-Šá §„ ’ßJÑÌ¨¶ãæÊú›0[\6ï–ZÒV~Jm§¾‘·É`Û*ãZê«°!ª‡¥öÖ§è=¢Â†–‰¸ŒáÒkâ
+v:³¨Í¨Rq;jØ-Õ" f†(s"fMEüd®Íå7ž9“n´+v„Ù™jçø„iÔL¦í7‚¡Åž'å’e÷Æu°ð¶ÖÜVk+oìy™O„Ð¿¨óÜl6c±PíÕÕˆ'p£Z3
+y¦³tÞ˜'Ë@_ü-¹4#tAÛÆÍkhIµÝ :Ü,Zz ‚&HPŽFAi[
+mŸî
+~iPÈÆA…ZDŸ´S|J³þ‰Ñþ'ÿ*¡ôkîP 3ŠYyº`>mÎí5ûYDõç½Ù©!”šFÐn„*(¸ª‰7µö½DÌý ù!ìO$Šßü§~Sc&Ô¦ÕVÅ‚Û“lÔ8ÚEËµcåæ¶³Üv=Í'Sžé½ÐEÆG‰Ú•£J½1o¢C•ÛxYbx-­uO2ÅÌüè3›Jqôµ‰Ðdyh5FÔ¹yµGºGÕbÕ¢o”‹’OÜ¹DC
+äân3AŠâª8&Ö®¨÷üM£4|–RAšléD»F4J²_ŠK
+YE£ T–²aL(2Å¥^‚ÒU
+E³Œm£
+ -¦$ÒÑ†=K[oãž.T–F“ú×®#Iãd¶mRÎ”ÌhO«¦î4ÍÒfv*þh ¤Ýt~SfªÔœéÂéOSTQÑ¬Ö¨ê§ƒTÚt‹rÓ$jÜtif{géS ­O¦°Í€=àÞL“¡Ó
+KsJ¥nnÍº]±TÚÜY-a(!õP§•üÒ=gÃ”LM¸lZKé-Í¨åÓ†bVSÇ(€ LýéG¥	…v*v[„Ki	ôš²µ–ê×^ª*‹©ÆÉiR©…ZÁ<[Hó$#Í6i¦“æÐªj%eX• U7ü5Os'ùª÷Ô¦ö¨Á³O©),N¯³˜
+U‚JT+©F¥£u«'y­<ÊÔ6xzj &ª	SªÖXÛKXc?m«*¦.ëãh¡½¡¬ù—2ê¾Î(_E`ÕñXT[ŠQ «Q«²F³‰SèéPãDŸ£Ì¯Š&Ô:TUë)hu°©·^ú[‰Jl2E5T.[D]i”åÖÀº[Í[o-¬•¦¢9ØJ@ûSøl'µ†¥ÓEºNA™#PQL”Ö‚ZTsiuEnwTkÔV¸k&ÓRá¼J$ñÚH!šJÍG’º¦×Õº^Gè«¬ÔJu7è¢WÑšµªmõ¯
+TRj;
+ª2E¨A»ÈÈ”XíZ‚­ü”´&2H:ÙòÄ¬¼õ²ùÖ^qa•å{ýoõ½I
+YÙê>Ã­èµÄN×Ë^Ùu¥.¼ó‰8vãnà
+‚£7
+®m0¸]åà„c3úõ·½‰
+ ? ÅXØd,˜²0áLE 1 !ÐœÀHQ`À5`ê èsÀÄ8ÐÄÀ q Ð30 î@žít`”°ÄA 	Ó”(,€X'ÜÏ	 †Ö& Z‚P-£u´5Ò
+Ë`°heB¥•X@*`gp(‚E 2N`Ç¨–0ÁËá€-Ë¸Ùæææ:$! P 0Ê@ J € &Àë²&à\A¬Í!?½#°DØr
+N&Pø°]”Dd Qm.g _8i µgÀ&      2   
+   ]&m¼Mó>'ªøÞªÈàAç x~Ngn¿Hú–Wƒ‘‘ ŠÒm6ÖKÖß,      U              D   D   ÿÎˆñ0   C:\Mes Projets\repo\avsp_server\src þí˜á                       
+        H0Ð Á‚    #     $$0ÐàA„	
+```
+
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\Mock_AcquisitionSignal.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 ±57l'A¿Ó©ÚÍ¯Í1:®o©Qw¹‘Ÿp
+:ù™(Ï     "      >
+      M o c k _ A c q u i s i t i o n S i g n a l                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               PCS          	                  9                €    ¼   01F280051n     x       —      >        
+                                                                       ÿÎˆñ#   Mock_AcquisitionSignal þí˜á                                /Æa<&®Žjóÿ£§Ã6låÙ»øùÒñôÜt3Yäë$)8FÇƒó‡yñq0Öb’Â    ˆ  «     
+d 'Ä@N’^AàÀbÓ…‘b 
+*8`1ÀÆˆ" ø,‘¼À!ÃŒ2rì¨¡£¦Ž8o¨¨AóFL›fèÔ	aç™DÚˆ¡CÇL€î2‰óXu I“òPDTÆÌ›H•À”IÓ&N<}¶*•ªUXOÆàZÇ8vê JÔhˆ:bÆ´1#ÆNˆ2HÉ¤CìÕQ:m§Â[ò$ ®oÆôÍÍ¯’ßR¾jY^„ˆgÔ¼Mz¤kØ±e{ü$ÈÙk_äÛ*ê"I
+@ÜxHä¤$÷(ƒ«oè²‰G÷X±¢}¶µã.þ:6êÑwÔN}üíðwÎîòàVTÞ¾ÅéVë<Ñ´…ˆŽ°â	"ªPŠ'DcàžÙú»ïA£ËÄ‡À ƒ;R°£Â
+ÿÀ4 ,Šj*€J4±DØàc¯¹ç"tÑ"Ì2MƒˆˆÈi¨9ì c/;æPÐ‚…!‡. .ÆéÃháÀ³h?æä’ç„ˆâ˜ƒ%bT)£G¤l|Gyœ#ZƒÍÉ3_ŒM %"2 º ÊˆHÎøªJ ¢@ú$A"NØˆƒ@·òÈ3¯P£[/¿ªŽ«“2
+`¾  T37I/ÕtÓl†à0ÑˆRáSAÑ­OLÑ½ˆ(µtSû:ð/«"*¢¯w4£GûR’Xˆ|ˆ8Y•#Ašôh¢(M3¡Ê+ÉÈrË9ºL]{$ÓL×ÐìV¸ØtN:ãdu ; ÊsÏˆúdP×%´7Pc;¯Ðô—¹LÛ=wÒÁ
+ôÁŽÞ4Fã™¥M.„†~cë¨£¨Ø£7í+5«#QœTM\ÕØV8<M«ÀV3ÜcŽjŒÂÉxÆÀ ‚IŠ$.RÀÈŠ:²ÈgüF2mˆˆ`€!„)Ì(#KÕÞ8+'ÄZ*7²¬#
 8
-A	  0 3*XbÌ:^  e    ; Z ( )   E  b
-#B {헫%s 1   ,  4o7   v    ګ     3M  "   
--  " + C  )k  @ (c  -W tX    }  t {{  x     G]1   u }  > l e )KD O  |
- , ` :  Qt 窦      "!  KA'8	j @( 3  g B z  HII[ZӞ   M 
+A	¥Ô0ã3*XbÃŒ:^¸Õe˜Ÿúø;ÓZˆ(Š)  ‚EŠ°b
+#Bð{í—«%s‡1à€£,Çæ–4o7„ˆv ¼í»òÚ«ì–ÐÞöí3MÛ "¾Ÿ¸
+-Œ˜"„+æCÅ)küä@Û(cíÊ-WÒtX×Ð Ü}Þöt {{ƒ®xÞóý·èG]1âÞÿuö}©·>¢lÙe‡)KD‹O Ê|
+ë¥,í¹`ã“:èãQtçª¦¿º”³¢ "!ÚÞKA'8	jÈ@(¡3‘Ìg˜BÐzæâHII[ZÓž¦Š¨Mí
 U
- ղ   uM,a[0w    Z  \ LÂ   ny [   B  ap ;\ X B ee   ^* 3 Pse  < :#  t C  X D  .   ݸ,R  +w  S  40 ͋w s
-  (} y Z^ T2%q '
-    4  C;  7 ; ~~ M NB   rfC   p Q A  B  , 
-N  @ ֬    Ls V AzPk\    6 Q2m L .[ EӤ  vÛ    R u؜[ #)Qi n Q   <$ m  WR 7`    \V&Ͱ     U $́ /H|  `9 `1 ; X  qN&M dd ` s KmhÝ>v  \ ;1M" 1  /S ` A  )(p
-B  %q`JQnrK:$         I x  | "*  $  
-Dc Ĩ  JR TTeex 
-  Ԉ   "     ő2 #+IVPZd   ^A J=   }G=   g  Ző d    fv8 B 1  I   0&0   Hv     r   JViAWJ &T ,AHK  e&5mZz  5 flaKNfe
-Ü 1m([5     5՚  ;ym^@ : EB 𒘬V 
- y?  4"	XhCEQ    Y  E3 Q x j! (
- {  T ,  K K   V )N/F    e 
-q *# *  C-   T  H      Uܮh `=  Z  Rw cA j H   H P  Eq +  WJ +  #Y6  WA p % 5dDv  d ;   m6 R  @   
-f      CX  - ]  ̀   V  = x[      m Ǥ     U  [ J    nYԜ _    AD [ A;Z lFtt [  Y      Z 7 z J K 98 
-     ]TnpD 7ֈ ث%^  ˼9  ؔ ^  bYG 7<.$ ~L D     zO⁈Tauݳpm #Ċ I&@9P A b  S FN   "[JQ l+1  1  ̳a    C;W  %  
-k H w  1C pr;  d
- g@   n YqADP jV !   
-^ 2  G &  Bn=q͎\ ζ wMoޝѠ 61  s  K  K+  Vh 1  ^  . 1Y q2 n  }Վ@)  r *} ^&  v $ } D      .y8  M 1T] =A~     lCGR+ 6 K         (  A        2   
+ÁÕ²¦Š­uM,a[0w¶´õ¯Zÿã\·LÃ‚¹ÕínyÛ[ßü¦B´™ap…;\âXÓBÇee‘Ãá^*§3œPse¢ë< :#ˆŽt¦CêX×D¸¼.‹÷‹Ý¸,RÛý+w»ãS¡þ40áÍ‹wæs
+òØ(}ïyüZ^“T2%q‚'
+Ÿý˜‰4êC;‰â7²;Ä~~ŒMþNB£ñrfC›‚¤p±QÀA° B¿ˆ,ð
+NÊÝ@ˆÖ¬¬ ‚LsÔV£AzPk\óØÚ 6²Q2m’L¢.[—EÓ¤ †vÃ›Þøæ·ðR‰uØœ[¾#)Qi nàQœ€Ä<$ÁmˆÃWR°7`“‰Îì\V&Í°À ÎÁ¢U¤$ÌØ/H|Ö`9Ž`1«;ÊX ™qN&MÏddõ`šs¢KmhÃ>v± \Â;1M"Ò1„à/Sƒ`ÓA–ü)(p
+Bðô%q`JQnrK:$î‹“” áÅÚÍIŒxÒï|·"*Ìê$ˆÈ
+Dc¢Ä¨ðËJR°TTeex˜
+ŽÚÔˆÐˆò"¢ÂãÆ Å‘2Î#+IVPZd‘Œ„^AÝJ=öÉÃ}G=äü¤g²·ZÅ‘ò€d ŒðÕfv8ÃBó1èÂI€˜Â0&0ŒˆÂHvÌÏ±ˆšr¥ÉJViAWJí&Tóš,AHK±e&5mZzò“ü5°flaKNfe
+Ãœ¡1m([5–°†Óû5Õš¥µ;ym^@…:ÌEB„ð’˜¬Vƒ
+ã y?â 4"	XhCEQ‰žõ YÙÁE3ºQ°xÔj!ý(
+Œ{“¢T¥,¥ƒKƒK™Š¦Vêµ)N/FõŽ±§eì
+q‚*#¬*õªC-ê„åáT¨’Hª©ª…ªUÜ®hª`=½ÂZÇæ™RwÍcAÛjŸHðÁåH¢PçõEq+üêªWJÇ+†ð#Y6ÛÚWA˜pÒ%¤5dDv²ŸdÕ;áÀ¡m6 Ròì@”ÆÊ
+f°µ±Ìè CXËä²-Ì]‹ÚÌ€äáÞV ¹=‰x[ÌþíÍÁ¥mœÇ¤‚ì ¹ÙUîšÕ[èJ—ºÖÅnYÔœ“_ºš¦éADî[ÍA;ZƒlFtt§[Ýë¦Yƒ‘®Š”úZ­7ÜzøJîKê¸98²
+ í¬Óó”]TnpD€7ÖˆŒØ«%^ã‰ÕË¼9¦øØ”•^õøbYGÛ7<.$È~LäD¬ÅÒæõzOâˆTauÝ³pmë#ÄŠÀI&@9PŠAŒbÊÑS FN€Ù "[JQøl+1øÊ1—¶Ì³a¦µ»ÜC;WÜÁ%œÏ
+k‹H©w¦á1C°pr;œ¸d
+´g@ƒî»nÒYqADP­jVÏ!ÐÿÊ
+^ 2¡G¨&ƒÛBn=qÍŽ\¸Î¶‚wMoÞÑ Â61±Ñs±†KÅÐK+…ìVhû1ƒØ^÷à’.ô1YÏq2¸nõ²}ÕŽ@)©µr»*}´^&„Àv«$Â}ÌD ú˜…¹ç.y8‚ Må1T]û=A~•Ž‰“ÐlCGR+ë6´Ké        (àA„       2   
    
-B 0g w !o O pzUISO  N   6  Ai  * I  
-p                           
+B™0gúw !o…OÐpzUISOºN‡‚Þ6ÒÄAi©¹*“I¦ù
+pùú                         
+```
 
-Mock_ClientSocket.wdc
-PCS                     B      9       j                  01F280051n                  ̨   W,Q z K  S 5  5   d        "              M o c k _ C l i e n t S o c k e t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         PCS          	                   9                         01F280051n     s             >        
-                                                                        Έ    Mock_ClientSocket                                    /  <~  -^L    {  C       X \ 4  
-  y   2             
-d  @0 %P ҅  b 
 
-*8`1 ƈ"  , <  !  6j̼ C %3uB     3!`  C L  2   t I  FDT   5u * )  ͖9 *e  #ԓ1  1B  ;{     1m̈  LP2i {  إfϖ<Ɂ 1ruά#sⲊ 2 ! 5o0kI  i ?D	2u  e v y H͸  ҷ  =ʠJ 8j  =V hAk w >M@    +    E  s
-7  S |go1 ӎ D |p +O TQ 	f Im  
-40 , X2  ( 8lp \ p t,dp      Z
- K$ 4    [ ȱ 8  "" x  9  C+;.Q  ( |r  `TQ=   :  so$ N ( 9X"F 2z    qG3zLA  L RMO@  X. 2"   ( ~)E t  4   m; C    {    T, GH/ )ۤ   " 5u H  	ȁ V4IլPG-  ; 0D L4E " 4SM
-쀾 2    ԑG b  !a  ȇtVR 0 I &-yL 2K2  r    q 2 83M ֌7   HN *   ^  s >  P %  Cgc    у  t J c ^ 
- S <z5       c tb B  ֨@  G]K [_/Ƙ 9  X3 ct ʄ  Ɂ{
- +6y P  , !"   0  -A{#+5l + 6   - H  B *&  ©    ~   " b
-(  F "    gt  a8 hc˙  L  9#! ǻ    ; w V  
-":  +  )B b1԰\1 oF    n }+ 7  
- `I
-o C jx6 7  ~= T  Q   _uw {Բ B  ` |S  p     X>  `      I   9*
-DDx 
- f@4  h  ^D     j֣RT `5 i k    ֶ  -mkk ۼR    DWM/ΰ o    ı0'fp $G9Ѽ0sQ  @v C  .f]JG  E%uY] ^    vf ]   ;	j x ^   (A*" 
-  v7b Þ H @ tϋNA w* ` 
-Ǳ u *Zy$ h    C  T z#   ) x e    W)=  5 ;Ɍ Dѥ   A ~,0i4[ 5 Rpj'A     ƃo[B 6U  m[ J T T2Q [t
- R0  
- p K\   '& MQ<   Ʉ 	K C І8\%;p; $D q T 
-|@|r 3 [ܲ  !t<A`j    2   8E   3"	Bڠ  r    G8   4 lw   c D0E P 7  Y! Q R  Ёrb   8 i 4 מ d<䩈
- : "  pƪ *̢   t5WQa h կFD-E]cWI ı=sĨ%  ;V/ e*_ 
- \x B     ɼ u  Mp   q k<    9B&o  \!8z c  } O9  Ū  Y D        (  A        2   
-     & 	  ~9    Y  }  |SY   _K  C B  l XY                          
+---
 
-Mock_SignalDessine.wdc
-PCS                     B      9       j                  01F280051n                  >_5 a
- s d Ś UVn       y (     "      
-      M o c k _ S i g n a l D e s s i n e                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       PCS          	                   9                         01F280051n     t       _
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\Mock_ClientSocket.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 ÏÌ¨³»ëW,QÌzÙK‰¥S•5£‘5’ú¸d’”Ñ     "      ¨       M o c k _ C l i e n t S o c k e t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         PCS          	                  9                €    ¼   01F280051n     s             >        
+                                                                       ÿÎˆñ   Mock_ClientSocket þí˜á                                /¼ <~‘-^L¡Œ™þ{´±Cƒâßýâï´X¼\‰4ä¶õ
+—àyõ 2ù    ÷  œ    
+dÆÂ@0ð%Pâ®Ò…‘b 
+
+*8`1ÀÆˆ" ø,‘<À!Ã‘6jÌ¼©C…%3uB˜¡£ÓÎ3!`Š¡CÇL€î2‰óØt I“òFDTÆÌ5u‚*)“¦Í–9‘*eêÔ#Ô“1¨Ö1BŽ­;{†ø¢Ž˜1mÌˆ±¢LP2iÄ{”ÎØ¥fÏ–<Éê›1ruÎ¬#sâ²ŠŸ2–!â5o0kIÚôiÔ?D	2uÄÕe¿vêy HÍ¸èæÒ·æ¿=Ê JÛ8jÝÇ=V¬hAkè®w—>M@ùñØ¡+ÏÞúºEÛÓs
+7ü¶Sâ|go1¹ÓŽÏDä|pà+OˆTQå	fîIm¾ö
+40¢,ØX2¤ó(ƒ8lp \àp£t,dp€ àÌ‹’Z
+ K$Ñ4óÄ®¸[´È±8Ó ""àx£§9ì C+;.QüØ(¡|rèÝ`TQ=ŒÁÍ:‹Öso$ÎNˆ(Ž9X"F•2zªÆëÈqG3zLA…ÑLƒRMO@‰ˆX.€2"ªó¼¦ˆ(~)Et“À4Ý €m;í¸CÔÁãÂ{¯©ÞðT,ÅGH/ )Û¤­Òö"á5uŒH ·	È–V4IÕ¬PG-õÔ;ü0D²L4Eò"º4SM
+ì€¾¨2ˆ¨žÄÔ‘GÉb !aÐÇÈ‡tVR‰0äI&-yL¸2K2¶ìrŽ ÅqÙ2ç83MÒÖŒ7ØÜàHN‹*º“Î^ Òs >ýŒPá%­ÐCgcµîýÎÑƒ…ût JÑc‘^ä
+ÔSÏ<z5µµ‹½cµtbÓB®ÈÖ¨@ŒèG]Kä[_/Æ˜½9«àX3ÜctŒÊ„ö¡É{
+Õ+6y P§Ü,ª!"‚†¦0£Œ-A{#+5lô+¨6ÄÁ-ëHŽ¿Bà*&ÊÀÂ©Žõè£~¬Ž³"Šb
+(ˆ F‘"¬˜Âˆ·ûgtÏÜa8àhcË™àÕLÞË9#!¢Ç»­·´’;§wõV“³
+":ü‰+ ÐÂˆ)B¸b1Ô°\1ÌoFÎÞ ð…nß}+ý7€€
+€`I
+o C jx6ãž7þá~=ŠTÅëQ®¸©_uwÓ{Ô²ãBÍÒ`„|SÏßp Ôÿü¦X>Éå`Ž ™—¬™Iø•Ë9*
+DDxÓ
+€f@4ðãhºÙ^D–†ƒøjÖ£RT„`5¬ikªðØÄÖ¶²-mkkÛÛ¼R“›ääDWM/Î°Ào€á‡¸Ä±0'fpä$G9Ñ¼0sQ™Ê@v C­€.f]JG–½E%uY]ë^»ÙÕîvfÉ]ÿÜÃ;	j xÕ^ñþ„(A*"Í
+€ôv7bËÃžÄHÓ@‹tÏ‹NAÙw*Ò`À
+Ç±Žuä*Zy$³hÕûÎ CŠÊT¨z#î ‰)¤x¨e¸ÑýòW)=îñ5ÿ;ÉŒ¢DÑ¥° ºAƒ~,0i4[ 5 Rpj'A³¶µ®…Æƒo[Bˆ6U¨m[éJÜTùT2Q•[t
+¸R0ÃÀ
+®p‡K\¢ÙÄ'&†MQ<‰•âÉ„À	KÌCÌÐ†8\%;p;Ñ$DÜq†T
+|@|r‘3×[Ü²Ä®!t<A`j ”° 2÷„â8E©Ýè3"	BÚ §¹r — ŽG8“ƒˆ4Álwø™ð¢c²D0EP‚7  Y!ˆQèR™˜Ðrb¥Àˆ8ÍiŒ4ó×žúd<ä©ˆ
+Ä:É"²ÌpÆªÁ*Ì¢²Õ t5WQaãhÕ¯FD-E]cÂŒWIÒÄ±=sÄ¨%•½;V/”e*_ý
+¾\xáBò“ ý²êÉ¼öu¯¥MpÁ ²qäk<€Ž…ß9B&oõ²\!8zµc¥€}êO9•ÚÅªç”áYÄD        (àA„       2   
+   ë¬ã&»	ˆñ~9ªÈìÔYç¹É}•»|SY¼Ïé¹_KÚ CŠB¿àlÑXY¢                         
+```
+
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\Mock_SignalDessine.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 Ü>_5Üa
+ºs›dÐÅšªUVn°¡À°ù«ýyð(     "      
+      M o c k _ S i g n a l D e s s i n e                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       PCS          	                  9                €    ¼   01F280051n     t       _
       >        
-                                                                        Έ    Mock_SignalDessine                                    /3%~5   * 0 M ai6  HuW   ?r    >!#     =    P
+                                                                       ÿÎˆñ   Mock_SignalDessine þí˜á                                /3%~5§ƒÇ*ë0šM×ai6ýì‘HuW“”£?r™ ³Ž>!#úôË Ž=    P
   W)    
-d A  $  H` bӅ  b 
- ,`1@E    ,    ! 5hވiS :jޘ	q N;;Ci#     e   Ȓ'GDLcf  :<   I &N H 2}ꔤIy" љtiӲ	ĥ[׮ A~ [6 E } (2 a 
- m     
-O `  -   yo s\ /   O  \z a u m )䁒] ~z )   ʳ 'D (   -S   7ϒ`ȴ  J  s|   n&     a  c  _   ڱoG^߿.     "" x  :氃    9qP   `ȡ
- 6 ,D$ r Ȱ N:! 8 ` U p  Lp  H   F +D  @   2"* C  ( ~ +    ǈ  h  \ 2  ` mDǐ|* /q
-@ ]  2 @JE 6 ʠ 8   ]6	/ͻ  SO "J    {/    0= ?1 ZS  `   4      0>    2  4 AH BCڸ ! FS 
-ѣ -QPT ]  'TT  !   P  1 !8  F \ I    )e   , U  @) R\'   D  2w  s b (  Wڻ|  WN    }jѤ C
-   S >F#
- Qy?- ^ *   L  4ۈ D ^   o8  B 9 pÌ z qD3E :$ Ñ D  M@ Ȣ C
-m8#"   0  z+5   
- 
- H C *  j )  ^x9 kv֮_Sry
-(  F "  Bx[f  M  4d C	7 @ ߂ .Vz  & (! hCI    1GK   # ;`VC 1  % xBq w Bx B  (  P 
-5 `ь  + b  "" ,= % b Ɉ  
-R y   n  ʗ- P?Q  h g?   P   4 2  k2 X  gxy d L  @  PCS&v  $ ";  f  
-d     >peh   и9Kd    5  
-  C2  ?   BÈ 摤 j8  Ӣ6    o Z V 6U  lZ Jھ 6   2  
-sb  n  AD  7   o 
- aF   o Qv 1 mX  G _m " z     .fj8d\*   i B  r /e/    >   
-+ C@P b4  0ٛ[ R    &꧀	 b  +   pM   kB  l   	 'K]  $ Bif   Y3 | шw    . 
- 8"   8 iP  Ta )V1^â v   
-,m 汲N3N  e  ǽ  o k 7! Gr  d!'  DF oO  ` )  
- < YtM    ( "JR> \R  @V  V"  ) f3 Tˌݔ w  o&!J  "  H.!L $"фH6!N  " H>!P $" HF!R  "1 HN!T $"Q HV! ` c  3f   r]   yf4   Z  SU 6  . EÁt  V  h  $ wz+  G=# D  	 | ? G 4lc;h      a! i Z5Rn8  [ 2:  -w'ͥ i͐3  '2 G i   TH   * 
-h 07     # IHU     ێ  ȁ   /  L @  F 0  \ > !ё b  A V׺  Nv ݈ ׆  .xãC񎗼 5 -  l  S Y  j`>ӝ }    g?!      ܾ E 0G
-       rc r S4X2[Ju R
-    = `   Kޱ / )h       4 t 0+8   汞  ,) Ka   fqihz T   P  j Y ! h @  e I  n   ԯ   ~F j - p H\.   U , i  ,kDˉ G ұҗ n "l   29  Ezz s   "* TI *'5 K  >X /W3 Ru`\Z  "  Hd    "  Hl    "ɁHt     " H|   "	 H   !  ") H   #  ϊ  r /A    ? hin L  R #  
- 
-b     %  hh 
- f:taC )H-s$b  ] = %    "     n l  . v  ? AzM= 6\Ժr h  s 
+dÀAÅÀ$†ÖH`óbÓ…‘b 
+,`1@E‹  ø,‘¼À!Ã5hÞˆiSÄ:jÞ˜	q³N;;Ci#§™ ÿÜeçÑéÈ’'GDLcfŽš:<•À”IÓ&NH•2}ê”¤Iy"žÑ™tiÓ²	Ä¥[×®ÇA~¼[6ïEÀ}ãª(2®aÄ
+—m ø©Œˆ
+O¦`±àŠ-èÓÛyoáˆsïŠ®\ú/ßÀ•Oïý\z aËuÓmÚ)ä’]ï~zÙ)ƒµ£Ê³ñˆ•'Dª(òÄ-S÷Ÿá7Ï’`È´ö˜Jöís|×ÎÝn&ìå«Çý a¸‹cÅ¤_Ÿ¾ÝÚ±oG^ß¿. áÐÒ ""àxƒŽ:æ°ƒŒ¬ì˜ã9qP¤„Ø`È¡
+Ð6þ,D$ÒróÈ°³N:!¢8æ`‰UÊp§LpÁçHá ùFë+Dÿì@‰ˆð¨¢2"*’C‹ˆ(~Ú+¿½“ÀÇˆ ˆhµÎ\Ã2µÝ`ómDÇ|*¿/q
+@·]û²2ð@JEŠ6 Ê Š8ãÊ]6	/Í»òÁSOó"J…ÎòÚ{/¾·ì³¿0=òƒ?1ZS°á`ëˆ 4ŒÌÇ Õï0>ë À“2ˆè«4ÃAH†BCÚ¸ð!ÃFS 
+Ñ£‰-QPT‘]œƒ'TTÕÁ!ÔñÙPéú1È!8ÒÚF“\²IÔ€²Ñ)e«òÊ,»U­Ü@)óR\'ˆÓýDŒ–2wãÚs b (ˆò½WÚ»|ËåWNø ñæ}jÑ¤ÜC
+¾ˆäS´>F#
+àQy?-«^»*èÒLåÛ4ÛˆÌD³^ŽçÍo8ˆŠBŒ9ÄpÃŒÅz‹qD3E˜:$àÃ‘ÅD £M@êÈ¢¡C
+m8#"‚†¦0£Ùz+5¡žŠ
+Á
+ëH®CØ*¦™jº)§^x9æ™kvÖ®_Sry
+(ˆ F‘"¬˜ÂˆBx[fšMŒ4dŽC	7Ä@Ãß‚¶.Vz á&ˆ(!ÚhCIùŽà’1GKˆˆš#„;`VCŒ1Úèš%šxBqÅwÜBxŸBˆÃ( êP£
+5è`ÑŒ”ä+Îb¡Ö"",= % bÒÉˆ¾å
+Råy ¢ nüÊ—-ôP?Q´¬hÌg?¢ææPþ ¶4—2ÿ¥k2ëX»®gxyÄd–LÊø@–ÅPCS&vŸº$Ð";Óõf³
+dšêÞõ½>pehÁ©ÌÐ¸9Kdƒ’‡5µª
+¢áC2ì ? ­„BÃˆŒæ‘¤ùj8ÎÈÓ¢6µªé‡oØZ×V 6UˆlZáJÚ¾Â6æÙ†2¤¡
+sb¼æˆnÃÉAD¢€7½ñÍo€
+aFÆÞo¸Qv‚1ÀmXÞôG—_m "ÇzÃà  «°.fj8d\*ÁÂ i B¢¶r­/e/ Ûë–÷>®€Ü
++×C@PÐb4¡§0Ù›[æR—ç ƒ&ê§€	žb‘Ø+¦±ˆpMæù kB€ŠlˆÈÈ	ÿ'K]®ð$§Bif†æñŒY3¤|°ÑˆwÀ„ø.’
+Í8"ÒÀ´8ÁiP“ÕTaµ)V1^Ã¢Ëv¶®¨
+,mëæ±²N3N±’eùÜÇ½õíokè7!ªGröñd!'ú”DFäoO¸´`„)„à
+“<©YtM€“¹(Ÿ"JR>©\R¢Ò@V‰®V"õ•)Äf3ÇTËŒÝ”©w‰„o&!Jˆ¤"±„H.!Lˆ$"Ñ„H6!Nˆ¤"ñ„H>!Pˆ$"…HF!Rˆ¤"1…HN!Tˆ$"Q…HV!€`Êc˜æ3f¯§Ìr]Žš”yf4ß´ÉZ“™SU˜6åá.ÔEÃt÷¸Véàhµ¸$ˆwz+ž™G=#’Dýª	û|¢?ºG4lc;h½²¶°¼à‹a!­i‡Z5Rn8†¼[Þ2:ÇÀ-w'Í¥ÃiÍ3´¡'2ÛGÇi ã¶áTHŠ „*æ
+hô07¨¡†ó# IHU˜¡œ’£ÛŽ†£È¬´¥/éLÅ@ÉèFÐ0™Û\ç> !Ñ‘ÎbÃÑAêV×º«ÀNv¥Ýˆ×†Þý.xÃ£CñŽ—¼å5ï-¶šlô¦ÇSëY¨Üj`>Ó¤}ï³àýÒg?!“Éòàý–Ü¾üEØ0G
+Œ ëâÊêÀrcrªS4X2[Ju²R
+Å„…=Í`ª°±KÞ±/ì)h…Á†½ºôê4Ät˜0+8ŸÆÒæ±žÚì,)…KaŠ„ð´˜fqihzÖT±ÉìP í¶j¢YÖ!‚hÜ@šæeäI‘ˆn ¸ýÔ¯ÀÛ~FñjÀ-›p³H\.¢í¸¢U®,iä˜,kDË‰ªGÒ±Ò—Ön³"lÉ‰Ù29ÝéEzz½sÑÝ"*»TI®*'5ÜK…ô§>X¯/W3ÌRu`\Zà›ˆ"‰Hd ’ˆ„"©Hl ’ˆ "ÉHt ’ˆ„ "éH| ’ˆ"	‚H„ ’!ˆ„")‚HŒ ’# ¶ÏŠýórÌ/A…åî¢?¦hin»LžúR—#èÙ
+€
+b°ÃÌàÝ%ÄÁhh•
+Žf:taCè)H-s$bä¶]õ=ð«%ÀŠÿ”"­­øµánÑléÕ.óvÞóŸ?×AzM=ò«6\ÔºrÜhÎîs 
 
- o @ = w  }o| [F j; կ ;     50Z F: s   > 	 Es  @  _  f  D<;2 .'N1   b#Oy 1S._s m Z   -[G 8  ח #?_|· I \? C  Sw  L, Fˏ6 T  kJ  e    Ϟ /  C ST~   0 l ;  B3
- ˋ c c 4sj     xX 
- ,SÈC   `5  r X Y# ຢ +.]S(0r    
-  [  C6  L `     C  z c 9p/  / # œ ƃ  h˥ ;   
-;= H 
-C  i  ؓ=    	ܻ  =恐 j   l+   T  o    ʲ :7 z  { 4 5	6 6	7 7	8 8	9 9	: :	; ;	< <	= =	> >	? ?	@ @	] I, K @     # Ct   '  EC  FI , 	  	 !8   
-0   @
-     pH    _i &⧭ -%   µ K  { j     a . (     G5  }D (d 8 $ C    < 2  > 7   {Ʀr F[  *  ɾ Œ EƸa̘  F 8F PƘcƙcIb$ P %   ȇ&  d`  I   , ɢ,  ;I     O Hҋ  ?    t  ,  f    9?k  8  TèB  H  J  
-Q          (  A        2   
-   ݦ < s  4     o 
-B   ҏ 61O a5 :  e R  V V_                          
+àoð”@ß=¦w½í}o|ç[FjÍ¾øÕ¯ø;ÒÿšôÙ50Z F:’säƒÝ>¯	£Esáœç@÷–_ÃfëD<;2Ô.'N1ðÈËb#Oy–1S._sém²Z×Öñ¶´-[GÈ8Ÿ’×—ä#?_|Î‡ßIš\?éCùSw·¬L,óFË6÷TÓ kJ»ÝeÁ ´ÝÏž‘/¶˜CùST~Íòó¦²0¿l©;•±B3
+ŸË‹‚cžcÉ4sjÑ €° xX‚
+À,SÃˆC º `5Žœr¢XãºY#§àº¢°+.]S(0r›„™Ñ
+¶Ï[´¹C6ìœLÀ`ã»ñú‰¿C¼ózÁc¯9p/ø’/À#ÁÅ“™Æƒœ‰hË¥Ð;‰ÑÃ
+;=¦H½
+C‹Õi½‹Ø“=ÚóÛû	Ü»´Û=æj¾›¬l+¥¡ŠTŠ¥oˆð ¥Ê²©:7óƒªz¿õ{Š4ð5	6‰6	7‰7	8‰8	9‰9	:‰:	;‰;	<‰<	=‰=	>‰>	?‰?	@‰@	]ˆI,ùK”@‹‹óëš#¿CtŠáà'ˆ‚EC¾ÌFIá,•	Ÿ–	 !8¶Àèº
+0ª’@
+´À¨³ pHµ¨“¬_iš&â§­û-%üº‚Âµ±KÁ²{j¼ÆÄÉÆa“.´(¼®º»G5ÀÆïŠœ}D¤(d·8ì$â£Cã³Ãäˆ<Ü2£ê>Ö7ïëñ{Æ¦r¬F[·›*Æ÷É¾àÅ’ûEÆ¸aÌ˜šƒFº8F•PÆ˜cÆ™cIb$ÉPÉ%¨“²È‡&¨“d` üIõˆ‹,ØÉ¢,Éø;IúóÈÉúO™HÒ‹àÐ?´¨€˜t€°,¦è±fÀ§¸È9?kâ‹8 TÃ¨B‘äHÀJ¨»
+Q²û        (àA„       2   
+   Ý¦í<Ís¾§4ïúô¾¶þoá
+B»³éÒß61O§a5ð:ÚîeÔR”í¶VËV_¬                         
+```
 
-Mock_SignalEnregistrement.wdc
-PCS                     B      9       j                  01F280051n                 M   Q 4?  \Ї ɍ5K  2*LS R(      "             M o c k _ S i g n a l E n r e g i s t r e m e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         PCS          	                   9                         01F280051n     {              >        
-                                                                        Έ &   Mock_SignalEnregistrement                                    / ZS ?    RT_\ t> ' h    X    ԩa   vWu           e    
-d "  \ zH` bӅ  b 
- ,`1@E    , <  ! 5hވic  3h Щ Ӎ 7uB    3!  C      e   Ȓ'UDLcf  :I   I &N <} ujիI  ! 5o R +  _  =~  ค/.F   @ }#O 9n  WeDT      W hA_aԆ!G$  5h fz aձ<
-  _̫ n Y q   " 1 <
- XyB  (O  cp   dr
- Qd  ag1 ~  L#Χ F     <w`Q*U 0    m8  S0  K     
-   #,; ؎?@J       KЂADz-  X{☃%bT)#ä$  '
-1 #    
-  \ 3     **# 'M (   G  4,2	   nC-61kӍ7  LʫL    ;2 4 - % {/ |  s dX 3 d į , <1     ,pM    9;p * (/4# 
-  0 B|(2M  AT h"J :Ʉg$  q
-  
-E   + c1 * %   g)   +i
-@KJ  -"0 * Z   Li   Έ ԌEe     mw^;      T I  Rz4 9"  
-1  I2 c' ԘpC^#@ 1$hB  Ե 9
-:     Ċ.+"   0   z# 	C(#) Bp  :Ҁ  Ɗi  n i    ) Nx   f  4  " b
-(  F "  ~U i3v :$~ va8 h F  
-,ٸl g  pz 8  * ; C
-   ف   I(  ʁ  2]q   0  S oG  mM  / +e  Ѝms     Zۨ :d ;  AA( I{O w }   ]/v  k6!6#,   zC
-^ 2$p c  y  =b œO Be ] Y   g1t  g 	 ,EC
-  ´  {Qc      @k\   F $p{ic   6! ɍnv [  r5  n c{   #L!WP  ; -KI s   & @s   ; yKt )  P D Y #   r( +F$K  U   A    jL& H 9%O ێ  *FĊY   N  D!ab I 6ԉ   e   7 8 L +    &Яe/ Y^     L=  X B  M-Jc 
-  >  }  
-&ص  mle;%    n8 Ȑ5x%H' a1s  L "	B @%! ,    s  &  	S      &IA .y K`z!x
-@ 84 (mk N  J!E _ aD &    *Ab :*lJ  
- H   ' h  / t+ 3  D < K c    D < QܧE     Q  I	, E    i   +j@l   2  ƥw ɀ4  t "jdc   7 T  {  "b2| E z  `jHH  k0	H  *   Ȉ  V I @V6    o _2  N f1ZZ   :   b% Yљ U  9z #cy  M,   Y  #3 a(EQB 8 Ŷ T 	   *    l    A
-3 
- 6   My !      Ѕ0 !
- ٫ -`Ȥ 2/  gnG    st Mmrӛ 4 8   6    '橆z   iU B O ӇR$h ʘ  5 ϩ E!цz   (G%R &Q6K$    ǝk    *Sߩ') K   2uA `q_\    ^  󰺮 mU   Dp D aP  à  d4  <    9  n  t 
-   A Ȁ        (  A        2   
-   (m"   G W  a%   ts  f ;"~ 2d  IY 3 i +                            
 
-Mock_SignalTraitement.wdc
-PCS                     B      9       j                  01F280051n                   dlAr s    \v 
-   % ΞeuW.      "              M o c k _ S i g n a l T r a i t e m e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 PCS          	                   9                         01F280051n     w             >        
-                                                                        Έ "   Mock_SignalTraitement                                    /   .   i @T R   .@~  1A#   :/  `  d  o, &H            
-dP  @f VH  b    b 
- ,`1@E    , <  ! 5hވiSe 5u̸1 N3t~ yc& 6b  1  L <NY 䉈
-Ҙ  Ө 2i ĩ  O P R HҤ Ϩy 6*۶x     CD    {  ` q     qD l@  r ę5    bE
-    8"   7 PX  ͮ f@1罏 N6= r ̵ { < ܈V Y x  "U @ybW {     { \^V !3  ,> 
-  { |y     }      7   2t c    X`ȡ
-ӯ7 ,D$  
- 4 ( 9X"F 24    @3LA   p  kL   2" B  ( ~
-l    /   H  X   n+ 8ʀ j +
- Fͮs   d    + @ 4  ԋ =q O ,= RM :  "*"(	4A:  bZx !   R 
- У  t $"QDMaP
-mq c F X 3   "} 3 ! |- $ \2   h ]c   *o J7   2
-_ ;7 JE jȠ l   ]6ISZ  W\ <J [  Lo=  |O- ړ   SAwc 9  9 P     0 	T ş$@ H#z֢ ,    0Ʋ    B 2F 덄   
-   H C +  j ɫ  xaP7 
-x n .:eT    
-" Q + 0" Q X` 
-F   x1 ƀ 6F IU     ߸= 
-᎟   U| 5 YG 1 ïr "   X%   c E X 7 r f  LY{  w  K7}  ޝ3^y  Y  =1} rM  uBZ  @5+
- A(  q-3  c   䓢  SVe _ Y  k 9  򹬝z  u[i nzU n zꪯ z  7C   . 촭 m x      
-DkO  ` )  
-}3  f    " KU   W  ^ D  d /    L ' m	t  ag  e 
-ݢJ␭\ ![ b R'x  u   p ? " ¿  5%QP 'p	, x  XD2  h0  Ӕr 0=  Let ^ dF3U g_	K  4󽠊7 b   * `~T ִƵA^qKA  :    J r$ * !f ¿*y L - 3  r # ٪^ `     1 V j B p b   w  ]   O    k< x       i tj   R  9q S  I*    mТZ  `8 @ x  dL
-     )yxs $    ׾7h/w  u Ǳ  , $B< Yϻ  -M  i Gţ L     lw +F  * EB      ee  Lܠ   Ah
-    6   io	 @B9 R ʥ   HO   ,    q   e  a-uu  D s j / d   -Ŝ E  ^И  f x N  " * }  $ i  a`   z$z V8 .k}   
-@6    C  )'  L Rh}
-U 9     O@         (  A        2   
-   tV <c k,%5{i;4^   ZF  ނR  -}  & U                              
+---
 
-Mock_TreuilClient.wdc
-PCS                     B      9       j                  01F280051n                  Keu D  f a  2 Z  QBy7 -  l     "              M o c k _ T r e u i l C l i e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         PCS          	                   9                         01F280051n     s              >        
-                                                                        Έ    Mock_TreuilClient                                    /Ū!     s^ ?}  L$ _    E      b                
-d    j \ !҅  b 
- ,`1@E    , <  ! L 9f iC  3o 0Cg  7fB C      e   Ȓ'GDT   5u * )  M : .m  #I  "D<   X f ʥ[׮ A~ k6 E } (R a 
- m     %O XpŊ  強pD}CS& /   O  \:   u m  ) 
-\ vj    ʳ 'D (   8   K   $V l >0҉`  M g  W  [w  )      !$ 0܁E   /? j   xS . KK     
- 氃   9  ) Wr   -2
-i  * " c  Q 
-    :, P 9RPṻX    @   2"  D  ( ~      .  h5 J#35 ` ͣ    5q
-@ $w[ N   c  ,J >  P   + =
- , B}    /     ] HN:  4 <)     
-3ܰR   XD|ȰP @ 
-Yѣ 4E $d  q )S+LH!  
-I    7& r "( Դ + D- .5 R   4  oUC    $  ;#   ,  "  . w H@  r  M {  OH   K   ց8 O ;h S c  8dc4|    pF4l^        MІ""`a
-3ʰ  7 Rc   
-1Bp  :ҀC   + : ` 
-3 x! K    Z ( )   E  b
-#B l  r 1  
-sr Hц#!   2 C+ [ ٱ n   ~ 
-( 0b   C5  KڧH x % |2 )Y 6"+  RKy   r#:3  vgW2w jsxM  y zOWy 5+ M GS ^Q 21 y # e B# tb+  M 4 ~  Ӣ "! ֊C'FC Y   m y
-   f! YZ  3 Mh   ѐF5 9
-jR   n   q k   "w   li[[  7 q kvS   7U 탣 T jq c  7 Fkr 3  2   }.tA4  沾{U+   L Z   `v 
-׉ % ܍i]  ݂ w  c9^   E 1 {  D  D QY # $ 
-; /R'  @*U1  /No c_ w
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\Mock_SignalEnregistrement.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 M¯»ÎQˆ4?©û\Ð‡ÛÉ5KìÐ2*LS­R(•     "      ¦      M o c k _ S i g n a l E n r e g i s t r e m e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         PCS          	                  9                €    ¼   01F280051n     {       ü      >        
+                                                                       ÿÎˆñ&   Mock_SignalEnregistrement þí˜á                                /»ZS‰?¼åÔRT_\Ôt>×'Âh²Œ¬„Xàþö÷Ô©a†úévWuòÒÉ    í  e    
+d "ÃÀ\‰zH`ñbÓ…‘b 
+›,`1@E‹  ø,‘<À!Ã5hÞˆicäÍ3hÔÐ©ƒÓ™7uB˜áÂÎ3!ˆ´C‡Ž™ ÿÜeçÑêÈ’'UDLcfŽš:I•À”IÓ&N<}­ujÕ«Iš”!â5oÜR+·ï_À=~ˆò£à¸„/.FÜ×î@‘}#OŽ9nƒÊWeDTÐØóç –W¬hA_aÔ†!G$€¸5hØfz¶aÕ±<
+˜ò_Ì«­nØY÷q¢­"¸1«<
+XyB¤Š(OöŠcp¯ñÀdr
+ÎQdñÈag1~¼ÅL#Î§F¾û¸ÿ <w`Q*U€0ÀÀ‚ëm8ÎÔS0œ£Kƒˆˆ€ã
+µì #,;æØŽ?@JÈ †º ²…KÐ‚ADz-ÁX{î„ˆâ˜ƒ%bT)#Ã¤$¤°'
+1œ#…­þƒ
+°‰\Ð3”ˆÈ **#¢'M´(ˆéG Ã4,2	‹‚ˆnC-61kÓ7å’ËLÊ«L“¸ Œ;2¶4çŒ- %æ{/¢|šÐs dXø3€düÄ¯¯,ò<1ýøóï­ ,pMà”ÓÎ9;pð¤ƒ*‚(/4#Ã
+ûð0‘B|(2MÙÈATôh"Jç:É„g$£Æq
+áÓ
+EÍÈí+ò¯c1½*É%› Êg)²Ê+i
+@KJ»ô-"0 *ÓZÛÆ÷Li—¥´ÎˆÜÔŒEe‘„¾mw^;¥«¿ˆ„ŒTÀIÙÈRz4ð9"úÔ
+1æÀI2ä°c'°Ô˜pC^#@1$hBÄÈÔµˆ9
+: ©£ÕÄŠ.+"‚†¦0£Œñz#â	C(#)¦Bp£Æ:Ò€ãæÆŠi¦šnÊi§žÌø)¨Nxá†¦ƒf½„4ö¹"Šb
+(ˆ F‘"¬˜Âˆ~Uúi3vâ:$~Èva8àh£F Š
+,Ù¸l•gƒˆpzã8ôð*„;æC
+½Ž‹Ù˜´ÈI(ËˆÊ¬Ä2]q¹ô’Û0ÅÝS°oG÷ÍmMü­/+e×ñ¿Ðms ‚·±ÖZÛ¨µ:dß; ÝAA(žI{OÂw }÷¨ß]/vä¦k6!6#,µ¥¦zC
+^ë2$p‚cÎÙyƒ‘=b®Å“OªBe–]†Y™©¶g1tæÙg 	­,EC
+ÒÖÂ´ìá„{Qc›Û‡¬çà@k\óØÄF¶$p{icàÔÚ6!¸ÉnvÃ[ÕÞr5º n c{Â  #L!WPã¬ö;ê-KI‘s´ •&Ì@sÖÂ–‰´;ÐyKtº)‚P‡DÕYÎ#­³Àr(™+F$K×UÒ …Aå Œ‹jL&¸HÆ9%OËÛŽóž *FÄŠYüŒõN‘D!abøIÒ6Ô‰×ÔÃe Ð78‚Lí+ü€÷œ&Ð¯e/‹Y^ô ´œíL=û™XÈB´³M-JcË
+ô¨¸>âä}ñÛ
+&Øµ¯…mle;%·‡“¼n8‚È5x%H'Äa1s™çL "	BÚ@%!‘, —âs„‘&ôï	SƒÆÐœ±„&IA.yéK`z!x
+@‚84Å(mkÃNðæJ!EÇ_¡aD³&­üð*Ab–:*lJˆÈ
+ÚH†Æë¡'‰h ª/ºt+ 3 ÁD‘<ðK¡cŒé ÓDõ<‹QÜ§Eâø¯×ÑQŠžI	,ÒE«€ã i ð+j@lÌ þ2 ŠÆ¥w¶É€4—Žt¤"jdcóö½7ÅT¦Ð{Ž "b2|¥E…zùË`jHH¨Çk0	Há×*ÈôÁÈˆ¼¯VÏIè@V6ÉûåïƒoØ_2ù¿Ní“f1ZZ’¶´:¼ ¬b%«YÑ™ÖUöí9zÉ#cyÁ²M,•¥ÃYÓù#3´a(EQB÷8¡Å¶áTè	Š „*®õ Ûl¦‡™¸A
+3ƒ
+â6·ºÝMy»!‘ž£Â °Ð…0”!
+—Ù«ð-`È¤‹2/×ÌgnGšÔÜçst€MmrÓ›à4¬8ÙëÎ6¬³ïŒ'æ©†zÒážÛiUôBÒOþÓ‡R$hµÊ˜Èô5 Ï©èE!Ñ†z´ÁÕ(G%R‘&Q6K$‡‘£ÒÇk¦éó¯µ*Sß©')þKñŽ€þ2uA“`q_\ äíç^ó°º®émUÈÇÉDpê‘DÌaP™Ã ² d4†ª<‡Œ  9Äñn‰ét•
+¸ÆA´È€        (àA„       2   
+   (m"ùøÐGšW€Áa%¯°tsÓãfÂ;"~Ö2d¡ÉIYŠ3õi†+™á                         
+```
+
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\Mock_SignalTraitement.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 ÖùdlArÕsµ«“\vØ
+µõé£%ÉÎžeuW.í·     "      º       M o c k _ S i g n a l T r a i t e m e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 PCS          	                  9                €    ¼   01F280051n     w             >        
+                                                                       ÿÎˆñ"   Mock_SignalTraitement þí˜á                                /‡·è.…¼‘iÜ@TçR¡¸¶.@~Ìþ1A#¢ú×:/æá`ðÓdÍæo,˜&H¼           
+dPîÂ@fÅVHÐçbÓÁ‘b 
+”,`1@E‹  ø,‘<À!Ã5hÞˆiSeŽ5uÌ¸1ó¦N3t~Úyc&‘6bèÐ1àŸ»Lâ<NYòä‰ˆ
+Ò˜™“Ó¨˜2iÚÄ©“§O§P¥RõHÒ¤¼Ï¨y“6*Û¶xõîåëñCDû²ý{Ñð`¼q ŠÄËØqDÆl@¦šr Ä™5 ˆŒ¸bE
+ú ¼8"Á¨7¯PXðáÍ®—f@1ç½õN6=Õr Ìµ…{ì<ÜˆVåYˆxÄÊ"U”@ybWƒ{ˆÏçÞÝ{ß\^V€!3àå,>
+Ðý{÷|yãöõû}’¿Õ‘œ7„šÃ2t²cëð¤„X`È¡
+Ó¯7û,D$Õì
+é4å°(Ž9X"F•24ê¿ ë°@3LAëúÊp¯ñkL‰ˆð¨¢2"ê‘B‹ˆ(~
+l¾À“€/Æ ˆH¶ÑXƒ¶Ún+Ž8Ê€¤j¾+
+ÎFÍ®sÌ òd¼òÈÄ+…@Ð4½·Ô‹ˆ=qàƒO¾,=òRMï:Øï¤"*"(	4A:èƒÁbZxð!ÆüÔR 
+ÁÐ£‰òtë$"QDMaP
+mqŽcä«F¼Xå“3 ÒÑ"}Ì3È!‹|- $ó\2·ˆœhÊ]c‹²Ø*o¥J7úðâ²2
+_–;7 JEŠjÈ ŠlÙÊ]6ISZ‹òW\Ú<J…[òÞLo=µì|O- Ú“ÜÚæSAwcŽ9Ì‚9ìPƒŽœÔ 0Á	TûÅŸ$@àH#zÖ¢ã,À ¤Ž0Æ²ª·¤ˆB˜ÂŒ2Fœë„¡£’
+ÁëH˜C +¦™jºÉ«³êxaP7þ
+xà‚n¹.:eT‡ˆ¢˜
+"ˆQ¤+¦0"„QýX`‚
+F¸…ßx1„Æ€Ž6FìIU•Û ¢€ß¸=¸
+áŽŸáÖËU|ˆ5€YGû1€Ã¯r "´øX%™öÉcÓEŒXË7³rÚf™•LY{£ÅwÙÑK7}ªóÞ3^y¢·Y‹î=1}ßrMˆ¯uBZì¥Œ@5+
+°A(Žðq-3¶€cŽÛä“¢¹ä“SVeå¥_ŽYŒ™k¾9çÅò¹¬z÷€u[i²nzUånˆzêª¯ÎzëÐ7Cý¤Ç.ûì´­­mªxÛûâö–¹
+DkO¸´`„)„à
+}3àßf·˜Áî"‡KU€ÆíªWú•^šD¹Ãd®/˜ëÎæL˜'Ïm	tÝagÃÒe
+Ý¢Jâ­\À![éb»R'xµ§u¯ë’èpè¬?É"ˆÂ¿ÄÀ5%QPÍ'p	,ÀxŒ¹XD2öh0 ÎÓ”r’0=“¡LetÉ^ÎdF3UØg_	KÏÈ4ó½ Š7ÁbÀüÖ*å¬`~T³Ö´ÆµA^qKA¬è:À¨‚­Jr$€*è!f¸Â¿*yÉL’-€3àr´#ÄÙª^ø`¹ˆ”°1“VåjÃBî¸p—b–˜wÃÐ]æ‰ÈÄO ü¤šk<€xä€Îœ§“Èi tjëöRÆØ9q™S©ÝI*àšÁmÐ¢ZÐÕ`8@ÆxÌÎdL
+ÌóØó°)yxs $‹£õ°×¾7h/wôÞuÖÇ±üÌ,$B<çYÏ»Àï-MˆÔi¿GÅ£ôLÚ ¡èlwì+FÛð*¨EB„ †™úÏeeÐÃLÜ †‚™Ah
+ÚØæ6¦©Åio	Ô@B9ÊR¢Ê¥š”ªHO’À ,°Œàq¢ÊÀe–œa-uuËÃDŽsÂj/¥d×á“-Åœ¡EÐ‘^Ð˜ƒ©f x¸N‹ä"á*ì}ŽÎ$Öi‰çœa`«—Ãz$zÈV8Û.k}¶±—
+@6€à¦ÇÊCœÖ)'¡¥LÒRh}
+UÞ9¿âåƒO@         (àA„       2   
+   tVõ<cæk,%5{i;4^ý»©ZFæßÞ‚R¶à-}­&—Uªõ„íö                         
+```
+
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\Mock_TreuilClient.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 òŒKeu·D¢ëf£a¾ã2®ZÌèQBy7æ¸- ñl     "             M o c k _ T r e u i l C l i e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         PCS          	                  9                €    ¼   01F280051n     s       í      >        
+                                                                       ÿÎˆñ   Mock_TreuilClient þí˜á                                /Åª!¯ÀÖæÁs^¿?}ÿœL$ë_…¢þ®E £²äÒîbô‡¯    Þ  ·    
+dÀ§ÂÀj–\ !Ò…‘b 
+Œ,`1@E‹  ø,‘<À!ÃL•9fì¨iC¤3oê„0Cg§7fBØC‡Ž™ ÿÜeçÑéÈ’'GDTÆÌ5u„*)“¦Mœ:“.múÔ#I“ò"D<£æÍX¦fÏÊ¥[×®ÇA~¼k6ïEÀ}å®(R®aÄ
+›m ø©ª‚%O°XpÅŠôéå¼·pD}CS&à/ßÀ”Oïõ\: áÊuÓmüÙ)ä
+\ïvjÙé¶£Ê³ñˆ•'Dª(ò®8÷Ÿ©K¦µÇ$VÎl²>0Ò‰`ºËM€gûøWÂ—¬[w‰ ) ¤ðéú !$…0ÜE¥˜Ê/?»j‹í¶ÈxSÐ.„KKƒˆˆ€ã
+Ÿæ°ƒ­ì˜ã9ü )¡WrèÃ´-2
+i´ƒ*­"Šc–ˆQ¥
+…’Â:,ÄP¦9RPá¹»X¬ËÈï@‰ˆð¨¢2"ŠòD‹ˆ(~ÚËÀ½“À.Ãöh5ÎJ#35×`óÍ£Ù”ËÀ5q
+@·$w[³Nò c½ë,J‡> ÊPñú¬+“=
+¥,ƒB}êŸþÒú/¢ Å°¾]ôHN:ñô4€<)ƒˆŠè©Ç
+3Ü°RúøÐXD|È°P©@ 
+YÑ£‰4Eë$d¤‘qŒ)S+LH!‰´
+I¹ ý´7& rÒ"(¥Ô´Ê+³D- .5ýR¶ˆÄ4­ÌoUC×ÐÉÔ$÷Ä;#‚ó±§,ÞÝ"Á×.èwŒH@¤ñr ¥MØ{ªßOHý¬KéËÔÖ8µO‡;h SÝcŽ˜8dc4|Ž‰…€pF4l^‹úµ ú™MÐ†""`a
+3Ê°±­7²RcÂÊª
+1BpÃÆ:Ò€Cé” +§:¨`‰
+3êx!ä‘K®´ÈáZˆ(Š)  ‚EŠ°b
+#Bl’Ír‡1à€£
+sröHÑ†#!¢èŽÉ2à°C+­[êºÙ±Ÿnƒˆà~â
+(´0bŠ®˜C5þ¦KÚ§Hßx²%›|2€)Yß6"+ ÂRKyÑõÌr#:3ÝÉvgW2wéjsxM÷…yÓzOWy‹5+›M‡GS‰^Q¹21Âyæ#ÊeûB#–tb+¾ØM‹4î~·ŽÓ¢ "!êÖŠC'FC¡YÇåÚm•y
+ çf!ÉYZ„À3ŸMhª šÑF5¦9
+jR£šÕn‚µÆqÍkñ‹Éü"w¤á°àli[[ÛÞ7¹q°kvSÞôÆ7Uøíƒ£ÎT²jqŠcÜÖ7¤Fkr•3Âå2·¹Î}.tA4‹éæ²¾{U+ ×âLëZ·¦Ø`vß
+×‰Æ%¼Üi]®ñÝ‚‚w˜â¥c9^ú’ Eœ1{ëËDæè‘DÂQYÐ#ö$“
+;†/R'™Ô@*U1€œ/No„c_Úw
 $
-#;J&  ph   >0a I  $    P  #  p    mhnq     =MQ  V 2  \P'/  *yI3d   NF 6  
-nr+ 1߀I: `v8O|  ` < U H "   n   !  
-V  *p  
-d8; H v   Ach  X"     <
-B  *q(
-8 @5Сo/x  ( F [     -n v    q    9Ái dzȴ  K  f@   4"1] t7F3! 7g4
-  h 6FD} #U   #  "y@  2 U % 
-    Qș  .Q # ꚇ  wq  t    H"f   Z  s
- ^ غV   ( V  3 S}kS# NS fM dO           (  A        2   
-     u   f묥  黴  Z  \\uV    6`  -   *u mv                          
+#;J&”žph£‘„>0a Iì $êúü…P€¤#ôÕp€ÀŸmhnqà’¶´¦=MQ›ÚVº2“š\P'/˜ä*yI3d’‰¥NF¨6¶¹
+nr+æ1ß€I:¤`v8O| „`Ü<ÃU€H–"‰¦‘nÀ’ !´¡
+VªÔ*p‰×
+d8;ˆHšv‡‘©AchÃÒX"†‚† Û<
+Bðœ*q(
+8ë@5Ð¡o/x©Ö( F¨[®ÈŸ’Å-nÉv¡‚¨äqŸ¬à9Ãi dzÈ´Ôô¦K‹¹f@ƒ™æ4"1]˜t7F3!•7g4
+ñÖh‘6FD}ëŒ#Uû’#ÜÑ"y@£2ÐUì%¬
+ƒØ åQÈ™š¯.QÍ#­êš‡€¬wq’“t‰ä€H"f°¹Z¤®s
+ ^ãØºVü‘¥(¦VÚä3 S}kS#âNS–fM—dOú”ü        (àA„       2   
+   ô‘ÖuŒ¼ãfë¬¥µûé»´œžZÚË\\uV¿¾‚Ò6`­ý-¦‘Õ*u—mv…                         
+```
 
-MutexHelper.wdc
-PCS                     B      9       j                  01F280051n                    Y Ƀd˩ +    Tr n} d) P "      "             M u t e x H e l p e r                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     PCS          r                   9                         01F280051n     m       H      >        
-                                                                        Έ    MutexHelper                                    /4  H Ur 0M +v`     E  s` cu<  fL  k  i> Z    9       
-d   L+  !х  b 
- 4`1@E    , < ةc&O3m☙  :! 1 H1t 	  ]&q  ,y @q樹CL բG . HҤ (x  ʖyl A& 5< " ڵ   ĝ   ȿ   !"ȏ    X1׼E֝\9   %/ !   ǓA_ hA aԈ7L` kƉ   X     ^    ݜ= &R  D k! +O TQ I_ //  ; <kV !s c*7    pׁE HΧ?_0  :C  )    "" x 9   %;  Β   ! .   <   : H "  $" 
-2 *   
-<  4   : %    - xR   Q"  F r !$q H  $A%'  j R8Ҭ$  1>  Jο P""Q+# 53 (   G ĀCl2	   jC
- ?e+N  B   
- ?  #s4E    @ ȋ \s #H fiE   `  : t R?ӴҢ  꽈        N
-,             :u h?X Q    ׿  v <)    	FtL  p j(|h n @ 
-x   & uHL EYA\˝q   *   
- ʴ  K & R  ( % L4=    @ ΁ s @  3">  s  ^ 8B  7    Z C#N8_  ǀN    S     s> n /Wy   љ{+NXb EVYfQ Z ^ 
- ?   g #q .     ID"Z  c  ֪    :    J     c ] f  f  &  .ǖ2  `gq o؁8 {          (  A        2   
-   /X  m U  Ƭ e JdJc (#E {/ ,  W @   @  -                          
 
-ServeurConnexion.wdc
-PCS                     B      9       j                  01F280051n                  cv  w>r I kx      U g   3!9      "            S e r v e u r C o n n e x i o n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           PCS          	                   9                         01F280051n     r             >        
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\MutexHelper.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 Ì ±Y¢ÉƒdË©Ö+´¢œžTr¹n}ðd)˜P–"     "      ä      M u t e x H e l p e r                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     PCS          r                  9                €    ¼   01F280051n     m       H      >        
+                                                                       ÿÎˆñ   MutexHelper þí˜á                                /4öŒH£Ur´0MÍ+v`±Îìó¿ÝE šs`Õcu<ÂîfLÅÿk™i>íZ    9  ¬    
+d§ÁÀL+¦Ð!Ñ…‘b 
+¶4`1@E‹  ø,‘<Ø©c&O3mâ˜™Â:!ì¼1‚H1tè˜	ðÏ]&q•Ž,yâ@qæ¨¹CL•Õ¢G“.õHÒ¤¼(xÇÍÊ–ylâA&5<³"åÚµ©¼ÏÄ»µîÈ¿öø!"È„—¾ØX1×¼EÖ\9¢å¿ %/•!öñçÇ“A_¬hAßaÔˆ7L`ôkÆ‰ƒŽXõë ‘ˆ^Š¹®æÝœ=ã&î‘·R×ÏD¼k!â+OˆTQåI_÷//ÞÝ;ñ<kV€!sÛc*7ãËÿƒp×E£HÎ§?_0ðã:CýÞ) æ¾Ò ""àx§9ì £%;æÀÎ’ä¢†!‡.˜ÀÕ<³À:²Hã"òê$"’
+2¬*£Áž
+<°Ž4£ÁÊ:‹%—ÖÊÉ-¸xR¡¯ÖQ"ÚÁF´rô!$qÌHÁ†$A%'‹°j–R8Ò¬$óø1>¿þJÎ¿×P""Q+#¢53´(ˆéG Ä€Cl2	›‚ˆjC
+¶?e+N·üBºìÐ
+?áø#s4E»«è€ @´È‹Ñ\s­#Hà¸fiE“òÄ`Ó :ýt R?Ó´Ò¢Úûê½ˆÀ¬¯¾ûõè—áN
+,ÒÁîª ¢€øÁœˆ¢¯:uµh?XŒQ¥ µÔ×¿€•v <)ƒˆŠ¸	FtLˆˆp…j(|h²nÝ@ 
+x© &ÒuHLœEYA\ËqŽ¾Ô*ÈÖî
+Ê´ŽˆKË&ÓR˜®(·%ÌL4=ª¨Í @ÎÎä¤sÑ@ñÔ3"> òs¶Ï^”8BÕÕ7®¨õÈZC#N8_ð¨ÕÇ€NŒÒîŒî´S´ýËèŠØs>­n¥/Wy âÕÑ™{+NXbEVYfQÎZ¿^Í
+±?Ÿíµg¸#qº.£ ŒíÑID"Z±ºcºÖª­ëà”Ú:Ú ÒäJíÇÀ¨Øc“]ÌfÏæf¥æ&¬íˆ.Ç–2¸×`gqËoØ8§{©ú        (àA„       2   
+   /XÊçm¬UÝôÆ¬¸eÛJdJcÔ(#E{/þ,ìüWæ@¦ÛÄ@½¤-Þ                         
+```
+
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\ServeurConnexion.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 ëcv™¥w>rÎIÐkxÅçÄè»ËÅUÑg¹’Ý3!9Â     "            S e r v e u r C o n n e x i o n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           PCS          	                  9                €    ¼   01F280051n     r             >        
    
-_                                                                 Έ    ServeurConnexion                                    /   Ac@\ 5+ g Qs M  ԏ t y mt _ W   ä m  > O
-       |^    
-d   @ d 1     b 
-    E	 | H^  T ̹c  "p޼1 G  f  	a f"m Сc& ?w  ud:pdIy,"*H RM3! ĜY 曠j̼ C6f M  iǧ&{LCF 5t ~͹3  x   ʕ M e  F ] H   K $  u TӆN_ U6 mc k ōۉܖ Ÿ' Ɖ /mӈ߄P  1d  _; , B 8s `Ec   ᱗L% F,  :y QG̘6f  	1  Y5b  u   eϦ  [5p n  M8 #  S    {-  rC 7v 
-2  . Xr	&  ˾ X
-NA b   3 xc  j Ec   " ȣ-  "s  āBzM   42 # DrI%   &;Zh | r +     ,  F0otr    q 1 4o J  . '  h   < L"߂ ň ;n # x  *   X   h H4 *    	B	)L  @H r"    B>J Ǝ  M	 # U x)  0 8  o  4} S <MA v p  ^  +[4s? J H  0 
-}x6   	(   ZlM  Ad' 0 +  xVCi;< e ] 8  V^3^  2ί   <B	F   
-h 7 C     S  4  6U 1 5 s (  e  t ΩNβO ;* K   8 k  5  \Y 7   g  | f9  Sϣg :k     s    2 l [ z _r 赦g,   z    p" o\    ~ o      | 2 4q   9 h|   ~+ +* <        C     3u  F O  & -  V   ڦ2" )S<ƹ ;    p)
-_ # q  mߗo ?̡  " v  2 z Q/DeH z H   k   y  { ֳp u  8׬ ׌{   a  ĠB  4hh ^p   EI  b  &   UR02 D{x I  š t +  LZ -;`%>0 FЂ ! 5Q 
-J     8   r   ' : w      D، %!   JA  D D ,/aWt$ +> X  a "j   a  % :L  W|C   .   c=$9  	 *C| H@7^!"F 
- B E0Z  y  s  Ghq w $ uF <:  
-& 8  
-i، `  !
-4Z H   )A   h5 Y  "   ʈ$ iuH  Z  ==mN1#  f68       >7[d MɆ  Ϗd    k0 {~.   <   64  ( 7S   $	 g b  
- l K p   )"(h
-" ,o {˛ ~`  |! K E
-   L 1  D uv R&  @    uoC JDN . m HBu @ 㾎L$~P1 n  ]  #T* UI" b 8cH   N  `7(  ype U^K ~  02a!i^ C І8D, Z& BE  V2#&  ]QYi 4UW    : ) AU D 
- 6K Qme BҁPA
-h`L    !;  ,i) 2<     1 ̋43   4 MjϚ  8  MpZ) Z'  YN   NΜ)    `   g |: @ + \ A_ ."   ~? V  iD  %  0 B   H
-   
- ؄EÆ  )  E'{sg84  ՒJ     M  &Д   Wک: 7ŗ  3	݌j7 a i #ė  | u I-`  ft & H    $ ~`  Q   2 Y C  YH̀& A[  (
-4    G D  MgF \7Fy ܊ P uZϼ  h^ֹ E  
-U B 0 ) 6     P Gg6 J|     4[Z]  t ?j 
-*xbt g W y3  f iN{Ԣ    Z yd   Ġf    
-   k '
-S1B*   V 
-   `JpC&  d      C     ̾ s :: :  T ` '\
-Z t 0 <,| B>   
-]I  M .v F ]3 /Ӯ4 ,    Uo i       8   
-   2
-  ` l3 !  '  HX   d EM  r v&)  ܑ <G.    SM   8m  zl8no	 ŤZq(! + :ē Ѡ  V     .o $R	   ּo+ ^3  f G $   ߪ F^-Y i   џ ǻr  DA 6m #-  3 ؗ u o     %  = (V       k l\ Y &   c?{  F zg  1 l[/     #  O  W 6 ǿ  s     $ T s W л = z 75 7 @?# U 
-}      ˊ   {? 2  Q  8   K¸  9     9 ) i:    {
-m    t      9乘 9 A · '  ̉ Ї#     a  	  I   	D 8    ?  JC 9 m
- E0 p . :y :   B 2     k1 0      {; Y  ȱ  B  x     ;   5    Fi J 2  2; 2   2 " p z<  J !<J 	$
-  # @
-   3P `37S  Ak)E
- ^    : .` P 2 x r 
-   u  Qk%  
- p ʃ$0 6     ʃ՛>   e $:xN! T6h  b v7 x   <<=
-  
- " 
- *=9  3W Ĭ f    0 !h, Y  2h |  ,%2   E  !       	 j         ;k #@   F2П:h ݢ	 2Ȼ      h	 $   4  Ȝ    7\Yb ,% <.[:I  F  Ɣ - T
-  F/    @        Km#B! ⸱ H !( Wɏ      K 1 ;P   @ IIA7@ x  F  ꌼ    AF(  8AfJ  09 S"Y"   	 W*   ݤ ތ  1 ئ  4 ܬ>ϊ       9   A  |  L r  $ (- $<  ;  ʅ-0 )T @!     B d mʂ. O <     : ?0 >4 81    T  /I  ܲ  7 $ k ~ ; 
-<P +    *S A  
-(XE2#=5 
- Ef  M    Eb E` < Ա  pp 
-q  r< t̡q  a*" >f xr10P
-0hft |  j Ư ƛ   t  \   + dJZH 
-     Љ J  ʬ ʎTK):K  1R  DI l K  G p%* G  G* S5 PY,%it  j8*  i    ɜ  F}R <?     ˾<U  N *y   0L  Ŝ;Ё
-  ȜL    _	  L MGM      D ֜  41̮ ڤU      M  ⌈ DW  3  &  y%  N      bĞ  噧  x R8O      t8  4     |8 p_ =C  B eXV x    Ⱥ )Ц :%L   ?t) ᛳQ 1 N       Py     0  !m> Dy(5  PĈ       p     `  WC3  H U*  # "  : 7 +U & ˛Č : є2P  +⊥ D  
-  #X	7 N     (\[*  ۡ T  % \ 9H2Z >  4Q ) !x " , #  DY      P     
- BZ 4Jޚ+ 3t 
-98H   ' 	:  `ԵuTy 3*Q  =^   h  H    ]  }^   ^| n4	nS  1  E "  ! +  &0   8[   P[  _y8FP * = J 6 :    \ Eˑ : =  
- ]N D    T       ^ - (
-  
-   Ua - m  mLYL V CAm   ͔㮕 . W6ab 11   b)  { ڭ   ف( }  * 
- g   jhl h TPjȸ HuP^ 'h0 l  G d m  ( 3( { e  Q  M 9  " l  	Pd K8 p  _  i( >P W0 MXs  5p < 8  {   d( . Y3 8 C C 3   =E      BM -e  f^'     ` X  ` r :  ! Z
- ,눬U ؘ  3 ͟ FOK n`   t   ( _ 4+   	Q . IU  n@*  r	 ,  -%    [   \,  Ɲ   X   
-C  ݅ 9  
-*H6 7u 85= z  {   ʋ ȍ S  ܴ hC%I2J E  5	!   9z J  K    E  
-   ۬  jK  M    $` j j 0 6  Jk  S    f ~  B     ɿ.Ub  = a
- l  [%bn- #v $  {ėsb b| l} b L;	2   ;  *4m  M1 a eY pفh  Ô  L ě ✅ <d CԙE m   աY>n6on  p*y O  * lpuf   : eŬpn{ n|&` r e6"  h\   ɿ   h   [ 
+_                                                                ÿÎˆñ   ServeurConnexion þí˜á                                /…ýÍAc@\²5+‹gÌQsãMÿüÔçtÖyÝmt¦_ØW»ýÃ¤•m¼”>ç±O
+      |^    
+dðáË@òd1ÍÁ†‘b 
+•´ ¢E	 |–H^‹ˆTÌÌ¹cÆÎ"pÞ¼1“GÌfèÔ	a‡f"mÄÐ¡c&À?w™Äud:pdIy,"*H³RM3!”ÄœYóæ› jÌ¼©C6fêMº´iÇ§&{LCFŽ5t®~Í¹3„»xõÖùÊ•¦Mœeô¼ãFÍ]£H•¾…KÒ$©uæ¸TÓ†N_žU6ãmcØkâÅÛ‰Ü–²Å¸'éÆ‰ú/mÓˆß„PÌØ1d¶“_;µ,ÏBÄ8sà`Ec¦µðá±—L%ÓF,ÙÏ:yúQGÌ˜6fÄØ	1”ÎY5bŸáu«õ±eÏ¦åÙ[5pÉn£çM8Æ#¼’S£¥çô{-¶¦rC‰7vã
+2²Ò.•Xr	&™ãË¾ßX
+NAÊb‹ ¢3ÔxcÄáœjñEc”±£"úÈ£-ªñ"sìèÄBzMÈ ˆ42¢#ƒDrI%›¤¬&;Zh |´rÈ+³´¨¢Š,ÐÇF0otr£ÉÔÆqì1Ç4oóJ ‹.É'£´hÊ ª<óL"ß‚ ÅˆŠ;n #¬x‚ˆ*”€â‰Xå ÏhŠH4…*ƒˆœ	B	)L@Hžr"ÿÀÔ£B>J€ÆŽˆŒM	ä”#ƒUÊx)«ÿ0«8ì oµ¬4}ƒSï<MA…vÀp¥–^Êí+[4s?¨JˆH¯Œ0Ù
+}xÂŽ6Úø«	(¦ ¢ZlMªÁAd'¬0Ê+ÖæxVCi;<íeÙ]°8àýV^3^‚´2Î¯Ìââ<B	F¶ÆØ
+h³7î€C•º×S÷4¹©6Uõ1å5á´sÒ(é”ùe¦ tòÎ©NÎ²O;*ØK• Ò8Êkìù5–Õ\Yå7­Œ“g¦è|Ëf9™ÂSÏ£g„:k®»öñŠsÀ¢ü 2ûl³[¤zë_ræèµ¦g,®‚ˆz â  p"Šo\»©«½~ío«Ý€áâ| 2Ä4q¦°Å9Èh| ´©~+„+*¿< ´ÇÆüì †C»ôÑÍþ3u€°FûO°Å&»-´ÑV›æ Ú¦2"È)S<Æ¹ë¾;ï½ûŽˆp)
+_¼#äqÞýmß—oª?Ì¡Ò "®všÃ2°z©Q/DeHÌzˆHê«ÎÙkÈÄúy¢‹{¡Ö³pÕu³ç8×¬²×Œ{ïÍÁa®¹Ä B†ˆ4hhÎ^p…•ŒEIÒ b¼‚&þÛÞUR02ÈD{xáI†¢Å¡®tï+¢áLZÐ-;`%>0FÐ‚¸!†5Q
+Jö–¢•¨8’Èêr—¼ì'õ:Âwô ™°ÄçDØŒ¦%!ØÁ„JAÇðDÖD‘,/aWt$æ+>´X»äa”"j¦…Ÿa¢‰%Æ:L±ŠW|C·ø’.ÚŠðc=$9’æ	›*C|ØH@7^!"F¤
+½BàE0Z‘y¤¢søèGhq“wÜ$ýuFÚ<:ƒÊ
+&ù8¸¡
+iØŒÊ`ÉÔ!
+4ZðH‡ü°)A”ÞÎh5ñ©YæÍ"òª¢ñ›Êˆ$iuHÚïZÔÍ==mN1#§“f68Ü®˜”ÙÚâ>7[dáMÉ†¼ ÏdàµÀçk0ˆ{~.ëàç<™’64Ÿú(¨7S  …$	ˆgãb Ñ
+¤lµKÛpšÝå)"(h
+"©,o {Ë›Ý~`¼|!†KŸE
+‘›žL¦1œæD´uvÀR&ÁÔ@Š íuoCJDNò.óm€HBu¦@Žã¾ŽL$~P1ýn•«]…à¨#T* UI" b¬8cHàøÀNÐ¼`7(ÂÿypeÀU^KÊ~¥02a!i^¨CÒÐ†8D,ÏZ&µBE±ÎV2#&‰ƒ]QYi’4UW›Ñ×Ù:“)±AU D«
+Ò6K´Qme BÒPA
+h`LŠÐ×Ö!;€¥,i)ž2<¶€ëäÓ1Ì‹43 ÒÝ4 MjÏšÁæ8 ²MpZ)¼Z'–ÌYNõ³NÎœ)ü˜«÷`žèg |:@â+ø\”A_ƒ."¡˜Ä~?‚V ¸iDŠÁ%ü‘0¼BÁ‘‹H
+ñà¡
+ŠØ„EÃ†ÑÙ)…£E'{sg84¥ÏÕ’JÀÒ¸¦öM§á&Ð”œ€˜WÚ©:Ì7Å—ÆÕ3	ÝŒj7ˆa›i”#Ä—˜ê|Úu¦I-`€œft &‰HŠƒ’$§~`ÅßQ“¼ä¹2ËY„Cø×YHÍ€&ÙA[¸’(
+4³’ñ÷GÒD…„MgF \7Fy ÜŠÃPšuZÏ¼ Ïh^Ö¹ÒE… 
+U€BŒ0…)Ô6ÅÑÁ¶ÔP Gg6J|ƒ¤‘ìç4[Z]™Þt§?jÏ
+*xbtªg WŸy3•ºf­iN{Ô¢þéœåÑZŽydúºÃÄ f»ÈÙÝ
+À­ëœk '
+S1B* ÎþVÕ
+ª’´`JpC&¨ðd¥‘¼Á•°CžÏ²—üÌ¾«s::Û:æÏT¦`„'\
+ZøtÎ0ž<,|ÇB>š œ
+]I—ºM±.v•Fµ]3›/Ó®4Þ,•—èUoÍiîÑ»—ãíä8Œˆ„
+¬ ¾2
+ „`‹l3™!†'†£HXàèÞdÊEM¢årôv&)ÖÀÜ‘ƒ<G.†±ŒóSMû¸¦8m¶Ézl8no	¨Å¤Zq(! +:Ä“åÑ ¨é£Vþ ™´ .oÕ$R	³­ìÖ¼o+•^3ÚüfGÖ$¥ˆžßªçF^-Y´iý†ÂÑŸ•Ç»r«„DA˜6m¡#-úÉ3«Ø—¦u²o­ñâä %°—=í(V¿ ÷±Þý±k­l\ÇY×&‰Áðc?{ÙÒFùzg¾±1l[/ÜÃÔü³#òðˆO¼âW°6¶Ç¿ÚòsÛÛÀ‡Š$©Tîs§Wì¦Ð»ã=ïz»75È7Þ@?#†UÀ
+}¸¸²šƒ‚ËŠƒ‹…{?Û2‰ôQ ô“8Š›‚KÂ¸Ìë9Áñ¸ˆ ¹Š9Ü)¹i:¹íˆ¸{
+mŠ˜›‘tÜé²óÊÁôº9ä¹˜Ê9‘AõÂ·˜'¨¯Ì‰ˆÐ‡#üœ ˆ„aƒÏ	ˆIˆÂÏ	DÀÂ8ˆˆ†?àÂ†JCÐ9›m
+ E0Ãp .´:yÀ:Ú±­B2œ¯³ˆ°k1¨0²‹‚–º›{;øY»È±óBÂ xÁ¡º®©;ëÁ»5À¬À£Fi”J2©¢2;´2ŸÞÙ2ø"¨p¯z<ü‚JÜ!<J	$
+­À#³@
+µàÔ3P`37S…±Ak)E
+€^ûŒ˜Å: .`ÆPƒ2ð‚xrË
+¬µu±ÀQk% ±
+îp‚Êƒ$0ƒ6ˆƒ•®ÆÊƒÕ›>…˜ŠeÜ$:xN!†T6h”ÆbÆv7¨x„©ð<<=
+Â 
+²"¼
+®*=9½Ô3W´Ä¬ fä‚òš0¸!h,®Yª¥2h|Œ’,%2˜¹Eúè!úÃÀ©ˆ¶	™j»¶—” ‰¡˜›;k #@³—°F2ÐŸ:h‚Ý¢	º2È»ú…†¬²½h	Ü$‹”Œ4äÈœ°‰Ð7\Yb,%<.[:I„‹F“„Æ”ì-–T
+—äF/ƒŠÖÚ@õóÀ‹³ƒŒ£Km#B!’â¸±H !(—WÉ»„¶³ˆàK 1;P²ô @ IIA7@x¸FûŒêŒ¼àŸùÉ©AF(ÁŽ8AfJÁˆ09´S"Y"“ Ô	 W*¨ÈÍÝ¤ÞŒˆß1¨Ø¦ÀÞ4‰Ü¬>ÏŠÁ¨ÁÎ‘9äÁìAôš |ŸLùr€è$”(-ø$<›º;›ŒÊ…-0Ï)TÏ@!Øä÷ìBùdmÊ‚.¨Oü<Š»º‡ˆ:Ü?0îŒ>4‰81»¶¼íT˜‰/I„ÉÜ²ÚÐ7Ð$„k”~ð;á
+<Pä+«ƒœÒ*SÄA†ƒ
+(XE2#=5
+Ef¬ÅMŠËúØEbñE`Ä<¿Ô±òó¡ppÜ
+q”¡r<ÇtÌ¡qìÇa*"°>fìxr10P
+0hftÆ|œÆj¼Æ¯ÔÆ›Œ„€t«\ ¤´+„dJZHÀ
+´‹ÊÂÕÐ‰¬J„»Ê¬ÜÊŽTK):K‘Ô1Rƒ¶DI•lKéóG“p%*‰G„›G*¸S5ØPY,%itÒÕj8*‘Éi“Ìö»Éœ¬˜F}R»<?ˆãÀŠÛË¾<UøóNŸ*y Ì 0LÄ‘Åœ;Ð
+áë¼ÈœLýù¹Ì_	ÍäLÏMGMë Ó˜­€ÕD¦Öœ®×41Ì®ì‘Ú¤Uß‘â×äÄMá×âŒˆãDWåŒæŒ3çä&—¯y%¯´N›ÃÎ³ÃöbÄžóÁå™§ÇŽx R8O³¹¯Žˆƒt8Ø÷4›ŒòÂÂ|8„p_‰=CÕùB˜eXV„xÿ”ˆÈºÚ)Ð¦è:%Lœ• ?t)âá›³QÀ1ëªNŠÐÂô®÷ªPyˆ˜´Í0‚Ú!m>ØDy(5íÖPÄˆŸ»³ˆÄ“âp½ ³¯º`Ñ«WC3¤•H U*‘ò#Ú"‚µ:è³7à+Uð&âË›ÄŒÜ:ÊÑ”2Pƒ™+âŠ¥D®Ð
+Þ#X	7ÀN…‹òã¼ (\[*·ýÛ¡áTÃÕ%‘\¤9H2Zø>¸É4Q )°!x‚"ð´, #ˆ‚DY¢ýÑØ‚©P œƒŸ
+ BZ¢4JÞš+ü3tû
+98H•˜'Ð	:ƒæ`ÔµuTy¨3*Q€â=^™ˆåh´æHíå¬ä]Þæ}^¢Þ^|Ün4	nS€‰1ÕêEÕ"›Š!€+ ‚&0ÓÍÝ8[¥µP[´¢_y8FP *€=ÝJÜ6‚:ÀŠ¹Í\ÂEË‘ :Ð=ï»É
+È]N—D‰¾ùíT¨°ÕŽßþÍ^Ê-ƒ(
+’
+¾É÷UaÛ-ŽmòömLYL´V¹CAmÍœÍ”ã®•û.¬W6ab—11Í×ëœb)®â{•Ú­ñ±íá£Ù(}…* 
+ðgø€…jhl hƒTPjÈ¸ HuP^¨'h0‡l …G˜dèm¨†( 3( {Ðe è†Q „M€9˜‚"èƒlÀƒ	PdÐK8†p‡_ø„i(À>P…W0 MXs€ƒ5p…< 8€‡{ð€ƒd( . Y3à8”C£Cœ3±…·=E¥±’ˆž—BMœ-ežÐf^'¡½ž `¬XÚü`€rð»:‹Ú!›Z
+è‚,ëˆ¬UŸØ˜ŸÆ3°ÍŸýFOKÚn`áÚá¿t£ˆˆ(À_ä4+¨‚ä	QÆ.½IU¤’n@*µÒr	,­ƒ-%ƒÐ¸•[º­´\,¾´Æ ŒõX Ó†
+CÈÝÝ…«9 
+*H6å 7uÊ85=ÎzÈ­{ÌÓ´Ê‹ÌÈüS‹ÖÜ´´hC%I2JÔEÕç5	!Í¨½9zJÍÐKåÐøE¦Ž
+ðßãÛ¬¯ jKÑMÒê›ìªì¥$`«jÅj²0ë“6‰ÉJk¶ÆSÝêâÐf¨~­ØB ¸–‡ÖÉ¿.Ubäâ=ùa
+âlå×[%bn-ç#vÁ$€–{Ä—sb„b|Ýl}bíL;	2€åâ;ôô*4m³ÉM1ÙaÐeY¦pÙh¦ØÃ”êÃLÄÄ›Åâœ…Ÿ<d»CÔ™EÄmÁ ¥Õ¡Y>n6on‹‚p*yàO„Ð*ÃlpufæØø:¯eÅ¬pn{†n|&`Èr¶e6"½Óh\ñö³É¿ÖÛ hàÞò[À
 
-6 AE ނ;h 9   .?/ ; k J  * jKL   6    o R* \   :x 
-oa  
- 
-  - -pÎ   V!f meAoEb  l  Dʐ  Nk b l     
-  <  L $  ir 8<  `r a  r    8 mc W5  v g U
- r4  5?  6  Fy2I        KQœ 4	 Պ7  /F    CS         9uH۫@X \g# I2Z3x /l~q   c 7 (qDU        b* N!  Ў    y  /   /
- X c  ! ebx sW 㯏  k v
+6®AEÜÞ‚;h‰9¨ƒ­.?/À;îkáJƒ*¸jKLÑý6ï®ÁåoäR*å\ä‚¯è”:x¡
+oa¼†
+ª
+€ÿ-ï´-pÃŽš»V!fìmeAoEb ­l¥DÊÎ¡Nk¶bülÆÖâî”
+Ïá<ðûLØ$ïËir€8<¦`rÖaí¦ÀrŽØùÏ8„mcÞW5œävg U
+ìr4·æ5?¡å6¹ŠFy2Iˆ¹ çÁÃøˆKQÅ“‡4	ïÕŠ7ð /F¨°îÎCS ‚ ––«Êó¿â9uHÛ«@X…\g#I2Z3xî/l~qÅˆ‘cŠ7â(qDUâçÄìèÄõé¼b*¶N!ÏâÐŽ¯Ñö‘yú†/ø…Í/
+€X¸c°Þ!°ebxösW ã¯ˆk°v
 
-[    CY  C ;f NfFLD nm hP ~ iN   aϚ; )  F >    {7E
-   X u   Ht [ wtUwGI   t     M?!  S   uH7 .  C `Ry C  ~t Fl VW  h*bP  F l2z  3  Z        " yJ  ȂB c    1Ie       1`     zy}) HC &  yy @    x U  e 3    +i  xsq s` | e. = ) %  _j Y    26  RD< .    x| M F     l\U %8ط 8 ¸Q|~  '  ߌ    ( ( bP "   
- ҇|t }y    V  ٷE| E      c 
- |    Q     g   h &  . Ǜ kȣ  \2(q  `C    * t   Zܜ`u d U F h  3/ m    c rH *=j  D $ V"h,e F  z/  ug暂   .;  y  F [z5  	 54LA>  Q      nX
-#     "BëK& D  gq   R  ڸ:z@ p7baȀ   ,`  2 f@ D 
-Ҁx ԃIFE  4`m @U@ j 
-  <   l5 p T 9  U   0x 8g ( L     ^_AS    	y   ^       pQ lj5"R@     /  kCx  	F H 9    _  /<   g pQ  ~ A  Gc{ Q  }n    P~J @       _V 
-        ;p n      k   M CX A 5A3\ U  Ņ    U i i*  @ Z@   ԫ  0    Al?	 ,D0  
-D,7 TD  
+[ö … CYšC­;fÆNfFLDÆnm¨hPß~ÐiNø÷aÏš;) ¡Fñ„>— ¸î{7E
+¸‚Xçu–•âHtÇ[ôwtUwGI€•¶t—ž«˜øM?!›¦SÒ õuH7‰.¢åCï“—‡`RyîCõó~tÃFlÄVW‡Íh*bPŒìFœl2zµì3ññZïõÎþõàö×"ïšyJƒŽÈ‚Bà†cÿˆÙ 1Ie°‡ª·ˆ¡ˆ1`®Ÿ§±ïzy})‹HCà‡&øœyyÞ@ „·xí”U÷•e÷3‡ŸãÙ+ió xsqˆs` | e.¡=ñ)è%½¬_j”Y î—ô—±26 “RD<ï.Û €x|ºM‘Fç¬öÈéÈl\UÐ%8Ø·­8¥Â¸Q|~Ç'ƒÈßŒÉÿëˆ(˜( bP„"°‚‡
+Ò‡|tä}y¤¼î Vñ Ù·E|ÖEß –Š·Þcä‰
+ñŽ|Õ„ÃQì¿±Ýòëgà èh‚&ƒŽ.•Ç›ÔkÈ£ˆÄ\2(qê`CùÁ ª*ýt î°ýZÜœ`uÊd±UÇFãh“3/”m‰½¥c¯rHÏ*=jÆôDÛ$V"h,eèF €z/Ý³ugæš‚»Ã….;¡¶y ÍFâ[z5ðÇ	¡54LA>œ¥Q¤›‘€€ÁnX
+#„ ÈÁþ"BÃ«K&áD„ÑgqàÀçR¨ÆÚ¸:z@Šp7baÈ€Àª€,`ª2¸f@œDÀ
+Ò€x ÔƒIFE¼ 4`mâ@U@ƒj
+ÞÁ<¸ ¡l5p¶T…9Èê U ø 0x 8g (ÔL˜éÀ‚^_AS€Œ®€	yÀ³Š^ÍŽ€àÿäÁpQñlj5"R@£ù‚ÙÁ/¸›kCx”å	FÃHý9û ¼Ÿ_àà/<ˆ¿êgûpQŽÊ~Aº€Gc{æQîÛ}n­±¼èP~JÅ@ ©Þ©èþ¨_Vˆ
+¨®¤Ôò×ðø;pÐn‡Ýà§ßêk‡ÀMÅCXåAˆ5A3\ŠU„ Å…Òñ• âU€i i*™Æ@ Z@¼©ƒÔ«€™0“° ‚Al?	ñ‚,D0 ë
+D,7±TD¤Ä
 3b
- HQ
-qK.D|0  d!  4 ϐ   _  \P  ׸V   ;<$<r x 5 i7 14أڕ hZ ;8 :  БPP     g   ؂   / 4 
-xa_P-l E  a   r   d Rd t#n(9b   Q_) ^ z ` IC@.:    
- d  Xa \  ` Ѐ`o L`s   Y J`9 H     G @8	 
-    X 
-҆&  c  , ; ZaEE(  @bJ< 4 !ƒ x{ ^ aM  	{ B   Ml  , K B;fD    
-`?1865y0  
- 'ԋЈG {  Q
- B   w|b M2(
-u# B*B Dy  Vċg q%DG X c0d *1@  H    [ 2 HG8- /  Y ^     
-A B  G`  ; 	 Q  ea" @  
-  ; G  "  j& ? HK )"  +J I  p Ϛ\   A> . "% T R     .d	  \     Hr"  s   =^ &t] 〜 v@Di(eg[  E  X'%夤 -P 3U % 0     Avx  M  y (  q  B+M," dB @~  b  f   )T MF Zy O ̅  汞d  a:|   F    " U j a2?   daPt i '  clX   E # e    *N      h` T -5  X,    \   n6 I   A  +q!    hB ߸ [˻K */q 8.+勸   ɸ=  fл 9 i '   rM U
- } 1e  Dw JS   @  !R  t趕2* R( =0"   3c  $ GkDG 
-  G    =  U  #    \͇  B< S3 ( ) F8 ] #ĂX 6Y  p 63nʖe8~ `<    4Q4k
+ÐHQ
+qK.D|0ƒ–d!üµ4ñÏßûÃ_ñÏ\PŒø×¸VþÓ‚;<$<rþxÑ5ìi7‰14Ø£Ú•’hZª;8:  Ð‘PP±”˜Üg¼ˆ½Ø‚ ±äµ/ò‘»4Ã
+xa_P-l†Eâêa ôÐrœèdáRdŠt#n(9bã ½Q_) ^zç–`¼IC@.:ºØî¢
+Édµ–Xaâ\‘‰`°Ð€`o’L`sñ®ÎYJ`9‘H…¿Øä×G¼@8	 
+¶€¸ÏX´
+Ò†&ªcØò,ã;ûZaEE( Ÿ@bJ<‰4¡!Æ’‡x{á^œaMíå	{óB€À„Ml©Ñ,ÇKàB;fDîØÀŸ
+`?1865y0²´
+ñ'Ô‹ÐˆGã{ƒñQ
+ÈB¹×¿w|bàM2(
+u#©B*B‚Dy°»VÄ‹gÏq%DG‰X©c0dˆ*1@ÄÒH ãôÊ[Ô2žHG8-Ä/¬ŽY¡^¤È™ œ
+A¤BÑ‘G`Ñã;¤	êQ÷¡ea"é@Œ¬
+òñ;ÐGûø"„j&²?ÖHK )"‘œ+J’Išp Ïš\üŠ±A>È.ù"%äT€Rý¿€ú.d	¤“\ÌæÁ¸ Hr" ¬s´Ž™=^…&t]ã€œÍv@Di(eg[”ëEÎéœX'%å¤¤”-PÌ3Uæ%Û0¿ÏäÁ»Avx›á›M‰yÊ(µÄq£“B+M,"ÖdB£@~‡ b¾ìf€™ð)TðMF…Zy¸O¬Ì… ƒæ±žd¸ña:|†ëÐF•¿ë "ˆU”j¤a2?É÷üdaPtð¯§i…'ïclXŠššE„#§eÀ†ÕÁ*N…†¦À¸ˆh`ÀT-5ÃâX,‹¶ \´´ˆn6„I—Å­Aµ¹+q!«‘îhB¶ß¸Ó[Ë»K«*/qä8.+å‹¸“­çÉ¸=ÙófÐ»€9î²iÀ'ïåÊrMU
+¡}·1e¦¥DwâJS‚ÀŽ@Û€!R Òtè¶•2*ëR(•=0"ðÌá3cÄË$GkDGà
+¤ÐGˆÑ  =´¡U‚Á#š ¦\Í‡…äB<àšS3Ì(°)å¨F8˜]ó#Ä‚X6YÇØp63nÊ–e8~Ô`< úä¶ú4Q4k
 E3b
- 5R̭ Y 
-~T    l    *fV@  v c 
- .  4 GhZH  Y  l        (  A        2   
-     ~   y      Q A 6 %  (   WC  (8   'x 	 z                                     N   N    Έ J   C:\Mes Projets\repo\avsp_server\src\TEST_ServeurConnexion.wxt    
+ 5RÌ­ëY 
+~T«Ž›lÕò ¶*fV@‹à‡vŠc‚
+¤.·Ô4ÚGhZHµØYñÉl        (àA„       2   
+   ƒô«~“±àyö¡ ‚àÌQÿAå6€%²à(œŸá±WCÂè(8«”Ê'x”	‘z                                     N   N   ÿÎˆñJ   C:\Mes Projets\repo\avsp_server\src\TEST_ServeurConnexion.wxt þí˜á
+```
 
-SignalDessine.wdc
-PCS                     B      9       j                  01F280051n                 ¯}h  n        'H͕  k  sc$1ޒ     "             S i g n a l D e s s i n e                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 PCS          s                   9                         01F280051n     o              >        
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\SignalDessine.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 Â¯}hÆÓnž¢ÿùöõ®Á'HÍ•¸†kàâsc$1Þ’     "      ×      S i g n a l D e s s i n e                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 PCS          s                  9                €    ¼   01F280051n     o       Ý      >        
    
-\                                                                 Έ    SignalDessine                                    /S J} 
- D ufc֓c 
-) j   5n !*F   (
- Xn  2d        4    
-dP  @	:%HR х  b 
-*8`1 ƈ"  , <  A FL "f  Q  L uBر H13   . 8 I  4)EDi  QS f  JV |sfM3
- E  #ӓ.     1q ^Q3  3mp    & 4b  =j lɓO * , M  q    &D  E
- X^  gj. 9 өU   !"H  #  X[ R Er     97 Q   W V bE
- ^O  { j ͓  8 9w  - λ Y⺕_,޽E J    B #V        3 3   2 a0ȨΣ `      4  ; 0   39K       "" x  9   *; Џ  ! . 
-E ,˂Avˎ  В焈 2 Q  oj  :b ьSHICՎ4ML
-@  p. 2"j3H  ( ~)D z      ͻ  A ȋ/)  D（ 
-@ 2 ;  H     B  L#  
-/̐,= с  S;H " *Ki QC  1 Ox| 7W
+\                                                                ÿÎˆñ   SignalDessine þí˜á                                /SïJ}Å
+ªDŠufcÖ“c‚
+)¹j²çÕ5n˜!*F³å¸ø(
+—Xnà‰2d    Î  Ð4    
+dP©Æ@	:%HRÁÑ…‘b 
+*8`1ÀÆˆ" ø,‘<©¨AóFL›"fèÐQóÆL™uBØ±‚H13Íøç.“8I ’4)EDiÌÌQSçf™›JV¶|sfM3
+ˆEªÔ#Ó“. ¾ãÉ1q¤^Q3§Ž3mpÒÑÉó&™4bÀŽ=jölÉ“O * ,ÆMœ·q¥îíû&DãÁE
+‰X^„ˆgj.Ë9 Ó©U¯öø!"H¬#º¾X[¶RÐErÞ ÷ïÁ97îQÔÛÉW÷Vî±bE
+ú^Oí{äjÔÍ“Óþ8½9wØÚ-æ¶Î»¸Yâº•_,Þ½EæJ„ŽèÙBÄ#Vž©¢ÊÒ¸‡µ3Þ3ðÀæ2ña0È¨Î£ì`ÐÁ ðÌ‹4  ;ä0µôÊ39K´ˆƒúšÒ ""àxƒ¯9ì Ã*;æÐò„!‡.è
+Eõ,Ë‚AvËŽÄâÐ’ç„ˆâ˜2ˆQ¥ŒojñÅ:bœÑŒSHICÕŽ4ML
+@‰ˆp.€2"j3Hˆ(~)Dz“ µÞ ˜Í»î¾ôAåÈ‹/)ààDï¼ˆØ
+@¬2“;ÔÀHø°¡ÁBˆ¢L#õô¶
+/Ì,=‘Ñ…ôS;Hñ¤"ò*Ki´QCúÈ1Ox|¨7W
 @ 
-1ң   ̄&  r *C UK[ $-L X5  4 | MT s :    4  ?m#t5    u  Ԣ'UU  "       f    O   )#Ұ O6U$  .D  (
-1 rÌ,  ՚j d F J|< Q0 $ U   Κ2""`a
-3ʐR 7 R   
- ܐ  4 pZ+ \ I& lzd I  d   ,     b)) AӐی pC4      4L ""j4  ㅘư F   +  BЛ  (ÇB`! <ga B     , aء ǔػ   [C !#  R :   Wl  v3Z   xX   _ }v 㰝    } ^x  2^ ߼ f ^z K LI"  1   ߃   %o k
- 7=0U )    ͥ.wɋ F   #`A ڔ 1i D   ,R o}kR 
-@  t I]   / lgP 
-E   +\ 
-׾D  #* #j S Y B 
-    t$e) 	  Dl  @,&"  I\< Y  	Q Mo 5* HWdǚY aos    ;  &uX T .
-a  P  3; #/  Gv    h AZюV 1 iP  * f  lEk^ 'Ȑ \d# 约  "QP  7 I
-  4 !  T  K 
-    6H      *q     7 "Hi c{
- p 4 o!   w   d  @':ҙu   ٚ    dU  T   :в& ;      yH A x'Qi4p l "2 7 z J P> .  "a  x    .   ħ   /ԡ x F8Q B  G # QR  T3  	  ,`  ISF3  Qc{J  6   cg Ԩޔ R  I #fZř  f  `B 
-p %e6   #
- b ˳ x 	 +  T  h6 &  Zծ&ˮp
-,/     ^ ( f  0 ٶ  mn %Y3Q i ̦*  Z=  $Rg R  E  Vi ;  y   |fj-  Ѝ΃ K ̓x ~   ,8 &EIܹ c"    0  MH   J .xiC~  нs C0H;  I
-  =   % f  ~ "R ʃ  o+LA  n    <  )  Q Z w/ |-"8 zƤ    -a
-! LK ڪ   rE  t: : 0 "    ڮj55C 2kzh  u a& aۨ %  I HV \ L ! \ *)v I  Qa!dѨ     $\   δ   @@j "  E  [  ` d @h 20qXj Mh '= %5  D ,f i U !j  e ƕ } k    g㞝đi[l 97^K   [sb  m 
-  %0AU mݦ  %nP" FMkbS    7
-zD  	^ Ȩ %  -   '      m
- K +LŚt :c|ek s 
-h  N) vdo 	   % +y   b  Hw  B 1 'ծ  0;  /  P#   l # I
- 
+1Ò£‰’ôÌ„&ŸŒrÊ*C˜UK[½$-LìX5ëÌ4×|“MTs :íŒÏâö4­Ï?m#t5ð ÏÐu‹›Ô¢'UUÛå"äÞÕÄë… fðÈÁÿOà µ)#Ò°ÔO6U$ùÕ.DÏ (
+1àrÃŒ,‡ÂÕšj„dÀFžJ|<—Q0‚$»U ª¾Îš2""`a
+3ÊR´7ªRÃÅ°
+¨Ü²Ž4àpZ+–\‚I&šlzd‘IžÃd²Âô,¥§€‚b)ÂŠ)ŒAÓÛŒÔpC4Ìø²ìÔÈ4LÉ""j4úžã…˜Æ°F Ûî’Ÿþ+°ÇBÐ›ï›Ô(Ã‡B`!„<ga„BáïÍÆô, aØ¡±Ç”Ø»ï’Ã[Cð!#òÈR°:ˆŒ˜WlÊûv3Z¡…xXýÚÀ_}vÌã°óš¹ï} ^x¸ª2^ä•ß¼ïf€^zÖKãLI"ÂÞ1Èà’ë¦ßƒÞüã%oëk
+Þ7=0U¯)ÈØâýÍ¥.wÉ‹øF€†š#`AéÚ”À1iÌDÜˆš,R‘o}kRã
+@¹ tÁI]æˆŸ/ÛlgP¢
+E”¨Ú+\ø
+×¾DèÃ#*¥#jòSY´B»
+ ¦šŽt$e)óˆ	Åó°“Dl £@,&"‹ôI\<ËYãÀ	Q Moòµž5*åHWdÇšY™aos›È  ;¨&uXÚT .
+a ËPÀæ3;Ò#/À™Gv¦¬¦ h AZÑŽV¥1ÍiP“š*¨fµ¬lEk^éš'Èò‰\d#©çº¦ä "QPÛÜ7¹I
+—„4ƒ!©ÈT¾ÁK¤
+Áà ‡6HÉŽáü°ã*qŠ»¥ã 7‚"Hic{
+ÄpÑ4¦o!ˆÂ×wîšŒdšç@':Ò™uª‹ŸÙš¢˜ ä’dUÐÛT¨  :Ð²&â;ÃîòðËùyHØAãx'Qi4pßlÊ"2¶7Üz˜JîP>Œ.‰ "a ¼x‘†‹….¼ ôÄ§ˆÄ‡/Ô¡»xèF8Q©B¼˜Gî˜#ÎQR¥ªT3 „	½Ë,`”‡ISF3šæ©Qc{J¨ 6 Ž™cgÖÔ¨Þ”©RõãI¸#fZÅ™¼Œf€¢`B
+pÃ%e6±ê#
+àbˆË³¥xÆ	±+¥ÑT´h6í&¬œZÕ®&Ë®p
+,/ÀëØôªÏ^º(¦f¡ß0‹Ù¶·Åmn¥%Y3QÍiî š×Ì¦*¶¹Z=’ô$Rgâ¦RÎÇEŽ¶Viç;ã˜yÖóžù|fj-ãÏÐÎƒ§K Ì“xÀ~´Óó,8à&EIÜ¹ßc"³¿ó¦÷0¡ŒMH÷À÷JÐ.xiC~ ºÐ½s C0H;ÄÁI
+­‚=ë ¶%¿f Ë~ó"RðÊƒöÃo+LA½ünèíæà<“û)´ÙQÑZæw/Œ|-"8ÖzÆ¤‰Û® -a
+!¸LKÌÚª²ª¦rE¡›t:§:½0†"š¡™‚Ú®j55CÕ2kzhå¤Îu©a&³aÛ¨Œ%™IöHVÙ\ÕL¤!«\õ*)vÆI•õQa!dÑ¨œµ¤­Ê$\‘Ôç¹Î´®òï@@j†"ˆáEÛë[€`Âdì@h20qXjÒMh¬'=Ò%5²D³,fùi™UŠ!j…e°Æ•­}ÅkŽô¤™gãžÄ‘i[l‘97^Kš”Æ[sbë½î³‘ mÃ
+¨%0AU¢mÝ¦éÁ%nP"ýFMkbS›Üü®7
+zDäÀ	^ðÈ¨ %ªà-Â”…'ÈßÔÉ Ãm
+ŠKÎ+LÅštÀ:c|ekîsÙ
+h¸ÛN)õvdoÐ	 óò%¼+y¸‰›b°HwšóB 1€'Õ®ƒÆ0;Àó¸/€ÈP#”’l­#øI
+·
 a
-   ޠMw  x 7    9? T  / < M!    #   (  u	{   R +    *e  i    YRh: 	 5*e Q m~Z b9< 2 {  -1g  c6s \ 5
-> n i&  ) $   D H  գ ,y8- Q xƣYE   x&V 6      y  
- A3D    g  0 I |NJBªMyYT Z O u+_ ٬ V׶   cx%1  ƌm2 Rk ] w Aۉ0  ۷	   hj   ?π  R Ȟ Q$  0 0!h(  pҿ : ! 
-    W; ǀ;~ l  i   7
- 1 (    l = X2oq  Z<sA,   *üȻ   ,;   3ΛB 
-5C =6
-  ˆ1 = HF  C  2 "6   ې2⽤гU  2S    A# B 3  =9" Z    ݹ3` % 3@  y.  @ x ^    s؈ ȾS
-6yX k  k   ,W XJ \ %k Bd CLDl 6p b;& 
-A B4DD g 
-h  W 6k 6m 6oFQ,qs rËԭt ߺ  X;  x     H Q :x  A|#  8 ˛2P   A      y 5 z œ   ػ j 2  ]t (0$  왰 ' S; 
-³  D '# { z< &T. B=   K4 8 = 3  |  PC ! 6 p $            X ;<  +ɨR4  =   OY     YǱA>\1.  *  @ Ѐ<   [  % HRb SJ Y+ Z  Yz   ʐ      j 0 E ;6M ˪   E P o &b  9ȶm  | f$7s   [ x yS0  7|S} : ; : Ay   8 Z     k Gk   . ڮ § S m 8  {4  Gy    (  s90  @    : ӹ  9  m: < GI  㝦{   -@  ԙN  ή   
-;  A k7   u H&;< \!(+B+ H$ %  t  s  C+  C  #   T3   # & Pʄ  #  3  B  O 예xRy:q` ' ~  . S@ %؀ 45
-0 M 3%  Q ? \  *?ZC?\{4 Z 5 
-K9g *a'}.  ? D  
-   + '(  "0 (  0 F{  9  `1  (/%: ;	 \    圂 ď    P	%  S (  @ @8  9 ӆzT: S  SyH  @0 d0  0 h f R Z@CU >} ?
- A  O=  p    E݁SMU.ŝ 
-  # (I   R=    $nTLet  4  L   V   
- dN5h   N  U5@ -e U}  9fz  ֦P  P t?T5 tVv  V7 AdV  R Z5NfY  z ^[6 9LTX  T 1 V W ŊMM$;B  NS5Q 4      # $d =P  y B*<I }  ْ$" 
-= OA ѓ= ̀$ P Ȁ  p ˀ =Q Iݫ  I$ ֤ $ 
- xU J  #
-9J}A ] (l  *P
-/ O   [  r  
- D  
-\  <   M ( +J AP  H p\ H: ܁H 
-p  *    I   H LԎ e (ʲ%
-  m 8   5  e[ ȓ  ~ 	pJ՘ W P S
-	        (  A        2   
-   ?H   \ J Ė   ŞE @ 0; +  <L 6 v 0  =                                      K   K    Έ G   C:\Mes Projets\repo\avsp_server\src\TEST_SignalDessine.wxt    
+†´‹Þ Mw¸ßxž7óÔüæ9?ÃT¸ /”<ÇM!Ï”  # ÷Ý(‘÷u	{øßöR„+  ¥*eéÊi¬†º¿YRh:ë	Á5*e§Qî©m~Z¯b9<‚2ê{¾¼-1g¾Ìc6sÓ\Õ5
+> nži&°Ú)Ã$Â¤ÏD HŸ…Õ£Þ,y8Âœ-±Q¬xÆ£YEßùx&VŽ6ƒãê Ò y‹
+àA3D ‰ˆÔg®™0ÐI‹|NJBÂªMyYT¾Z³O“u+_ùÙ¬…V×¶ôèñcx%1‰ØÆŒm2ÛRk¥]½wAÛ‰0 ¨Û·	£º¼hj‘¿?Ï€úRŸÈžàQ$«€0òš0!h(˜‚pÒ¿ù:‰!€
+š•šƒW;ŸÇ€;~ÛlƒÔi¯üé7
+¼1Ï(»³ƒ¿lù=ÖX2oq²¦Z<sA,ŸŠˆ*Ã¼È»¡¢¼,;ª¦ò3Î›B¤
+5Có=6
+½ßË†1 =³HF ½CÔË2¤"6£³ÜÛ2â½¤Ð³U‘«2S«¦ˆ£A#‹Bû3Œñ=9"ªZ´¢‚Ý¹3`¶%ˆ3@ƒ y.ú@‚x ^ …éµsØˆŽÈ¾S
+6yXïkµðk¤ñã,Wò¬XJ¿\«%kÄBdžCLDlŠ6p­b;&Ù
+A´B4DD„gã
+h»­W£6kÃ6mã6oFQ,qsŒrÃ‹Ô­të­ßºÁëX;ƒˆx¢Œè‰ÆHþQ:xà A|# ƒ8¡Ë›2PÓ½A«¶¹Óy5ˆzŒÅ“¨ŸØ»•j©2ÈÅ]tÅ(0$°Àì™°ˆ'±S;ô
+Â³© D¼'#Æ{«z<ª&T.ƒB=ÜÄÍK4¥8³=Ü3ÁÓÂ‰|ÉäPC‰!•6«pù$Á±´´¦¨€ˆè ø X€;<ŠÆ+É¨R4Ïó=¬ÂOY´¼‹‚±YÇ±A>\1.ú†*¸ @œÐ€<Œê[ì‹í%©HRbµSJñ‹µY+ÅZ»µYz¸¯™Ê´÷³ÆÈjŠ0 Eú;6MÁËªŒ±øEP‚o‹&b¼¶9È¶më¶Å|Ëf$7s‹Èý[»xˆyS0ª°7|S}“:œ;´:ÌAyÈÆ 8ãZœ„›ƒ…k¸GkšˆÃ.€Ú®Â§ŒS§mê8ø¸{4’óGyØÌ ˆ(€–s90 †@¹Ó:œÓ¹Åá9Ÿºm:ã<ºGIº¥ã¦{ƒ§ó-@Ó¸Ô™N›«Î®›ƒ¯
+;ãÔA´k7™‚Éu©H&;<þ\!(+B+ìH$ª%€‘tÂÉsËC+ÍóC å#•€¤T3ÑóÂ#Ê&°PÊ„Å™#š¼3›¼B–ÄOŽì˜ˆxRy:q` 'Ø~à .€S@‡%Ø€°45
+0ºMô3%ù™Q¶?·\ÆÍ*?ZC?\{4ÒZÑ5Î
+K9g‘*a'}.ÎÉ?ûD²µ
+– +‚'(àÉ"0‚(èÿ0ÎF{” 9‚š`1‡‚(/%:“;	Ÿ\Œ¸©‚åœ‚ùÄäËÓðŒP	% ³Sƒ(Ò@ô@8…Š9­Ó†zT:ÈSùÙSyHÔÅ@0Ïd0 ƒ0Ñhƒf’RèZ@CU’>}”?
+ÔA³«O=»“pÀ ‚EÝSMU.Å 
+¬ð#°(IíÀüR=òŒ€Š¼$nTLet‘Æ4ÆÈLÆêê«VõŒ€
+ådN5h¹—ƒN™óU5@Õ-eÑU}ìü9fzîìÖ¦P‹ÅP€t?T5ÕtVvåœˆV7¨AdVõòŒR€Z5NfYŒŽz¸^[6æ9LTX†µTÙ1ÈVäœWôÅŠMM$;BµÕNS5Q 4¼œÂÿ”²#ˆ$dÐ=P‘Éy©B*<I}ÐÍÙ’$"Í
+=ÙOAÃÑ“=üÌ€$ÐPÈ€ ½pÒË€°=Q™IÝ«Éá¸I$ùÖ¤ø$“
+ÏxU J¢¤#
+9J}A ]“(lŽ*P
+/ê²O±æÀ[ÎÃrÀ¾
+€D¨½
+\³È<øÛÀM†(Ü+J€APÜÝHƒp\ÎH:ÜH…
+pÜý*­¾’ÄIßÛ¥H–LÔŽ±e«(Ê²%
+µí½mØ8‰ˆÔ5¸e[¥È“ÙÑ~ˆ	pJÕ˜”WPÅS
+	        (àA„       2   
+   ?HÚ÷Ý\…JÄ–˜•«ÅžEÂ@Â‡Ü0;í+ŽÜ<L‡6ðv‹0­´=Î                                     K   K   ÿÎˆñG   C:\Mes Projets\repo\avsp_server\src\TEST_SignalDessine.wxt þí˜á
+```
 
-SignalEnregistrement.wdc
-PCS                     B      9       j                  01F280051n                 pR   *=:098Vpm" _"E 
-Dʄ g   
-     "      K      S i g n a l E n r e g i s t r e m e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   PCS          t                   9                         01F280051n     v              >        
-                                                                        Έ !   SignalEnregistrement                                    / D 󧲛 X   !  n < z  ~}A  7   +:  ZOF$        2    
-d0f @ ,%R х  b 
-H   E	 | H^  TԠy#   7s̠QC  L7f  	a f;ō  F:f s I\G G   "  4f権3T J .aʤi  :K >  q   W :m떤 W  qsD
- 4j   t(`1 ^	 ˶ Ի F\M# M 6f  !   9   w ѣ    5   9sf O  C    W!d ة U
- 7`[ yA & "B |x : ߤͺ ^ u  Sf ̚7        0fJW5 ao    F p@?  #     T  
- 	  0 0C7|  ; A  K BM  "
- 9 E=\M@ S, E d0 S   Cl
-D- 4 i4 (2
-":'  B	( h  {<CI0 g Bn`  IE
-SR    b  0Ȉ* 3JV s       PDU H  :2  *  J   @ ,;  ʎ  c    ! .   "!Ũ   ( Y;! 8怃bT)ԡ4} SO  5    ȴh/7 #ϼ  3k= B a  Jיִ      jN ͌ jLٺX "   #b ^ HZi (Ｒ c    %', Ì6
->  # r   c : @ !:
-*   q P""Y-    Xnu "
-  d 
-%P B"  ;ot0 D1*
-U h e: Gi%Y      Ѳ O;K!  *B#24QD2 _H   $#        p ?  (j Gs:*  
-2 : Ԥ"* 9: 4Ե  Tx0A  
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\SignalEnregistrement.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 pR‰ù *=:098Vpm"È_"EÜ
+DÊ„ýgû
+     "      K      S i g n a l E n r e g i s t r e m e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   PCS          t                  9                €    ¼   01F280051n     v       ¦      >        
+                                                                       ÿÎˆñ!   SignalEnregistrement þí˜á                                /ßDáó§²›ˆXÎñõ!Áïnî<­z•¶~}Aü´7Ž« +:ï•ZOF$    —  ž2    
+d0fÆ@ð,%RÁÑ…‘b 
+H´ ¢E	 |–H^ŒˆTÔ y#¦‘7sÌ QC§ŽL7fÞÔ	aÆf;oÌ„ ÒF:füs—I\G¨G–”·"¢‚4fæ¨©3T‰J–.aÊ¤i§Î:K›>ÚqªÉ WÕ:më–¤ÉWßÀqsD
+™4j´öüt(`1Ä^	Ë¶®Ô»òF\M#æM™6fü’!Ì­à9‹Œw Ñ£¼•åê5™‡Ø9sf°Ož†CÀÎ¢ŒW!däØ©ÉU
+œ7`[¶yAå&˜"Bª|xñ:Çß¤Íº†^¾uÒÈSfìÌš7ÍäÜÙ¨ÐˆÕ0fJW5ëao¯ïøñFÕp@?ˆè#ìÈÀ‹Tªü
+é±	¨ðÂˆ0”0C7|¬;’A® K­BM¬¨"
+ô9ðE=\M@ S,ðE d0ÁSŒÐÂCl
+D-ñ4“i4ô‹(2
+":ÂŠ'ˆ¨B	(žhŒ{<CI0¬g…Bn`ƒ IE
+SRø Çb±‡0Èˆ*¹3JV¨s€ ˆÌ‹úèPDUH ¡:2 ÔÂ”*ž¤Jƒˆˆ@Î,;ÈèÊŽÐúc  º„!‡.¨°Ò"!Å¨‹è(ÒY;!¢8æ€ƒbT)Ô¡4}ƒSOÍ 5¸ûÆÈ´h/7Ä#Ï¼˜Ð3k=´BðaÈJï¬Š°ŒŽÍÓjNàÍŒÙjLÙºXË"¥•–#bŽ^ÍHZiÍ(ï¼²Ôc¯Žè¨×%',³ÃŒ6
+>¸#´r£×âcŽ:Ä@Ã!:
+*Ùþ¬qÒP""Y-ª¨ŒˆXnu "
+¤dÁ
+%P­B"ÚÁ;ot0èD1*
+Uúh¨e:€Gi%YÁ§§¶úêÑ²ÂO;K!®”*B#24QD2¢_Hœ‘Â$#« ¢€øÁœp­?›×(j¬Gs:*À¥
+2ðº:°Ô¤"*·9:ý4ÔµÀ¢Tx0Aõ¡
 oU 
-     & 52pՕW_ 
- qb'G޶F /  RΥ"z   : 
-o<   ځA^Kd O<y  _t9 韎y  k   u><        D  O         T{F  Z  6
-i : g^    L e Aj-hK    6$  # 
-   f7  1}{  "   Qn#ڒ@    [  db ,; ْ  
-]hC @ %TվV5 < ` PБ& p5  BD`  L e  ~    (!  *  ߄ +ط   < 
-. pbxE , >  AD 0(  (  `    sx   d ` ! І|  > aU  T 2 ٌ v; A&)       f   	f  b	 # a+u   &y; LFwJP &1     !B 0* .* 	 i   4llF     \ 	    )Pe1> R +  ;  /暃oP C  j(öB E #hAF OE r    VA O  ` )  b C 	 HI	Z
- }*i0D    
-   F&%#P#C     q C:{  &  '@w P     )  P ,2A WX  0 6    U    ` j   E Α*G H j < v    2"-- Wy           Q P  @ & a  b  
-B CW.c׾ Z۫b :   ΄ dIC # FT Cr   T   [W l3  v JWQ      T   0R B *,  B`1: S6   
-\ ϡ4  , p   2 =J  !    <':өN>  %  nm    ]  IR'[2 t'   g     5	    g( SźR [ j S- P 0 G ] gB`Z  f  U@W     ] uh "cS W[qIM  0  ' C  &  *$  K  
-S  X` 8 82  q   bPw >   d  f ӌ  KbFAT M8 2N  +  9 f
-z 3 V   3H#  * T   &8u gr T	7 R 0 ޔr݊LBІQ    AY  ( 2f BZ q z(@  R  Р>U T @ 'Zыft  I&@  T  5ɗd+閾t1-  yi 0  W n5 `-       O:      n   \D  ? w k   R  I偦   
-w  #J1 ! ' x - $   #+k    &  ( ܓQs  3    2  m > --D y eD  \ 9   }   <iCr_ . ģ'] `::,  $ ~JT  ( \Qɦ@ 0PQ ` &@<  @ 	  S!   HS{  	  ]i N%)  zp 6Ќ p q   Ĉ6~  5I E)R   :   / q V +iѨw  ݾ  7 G= я d  ۘS8&r  |d$'.U  t      =S c]     S   C g Z    L 
- 	^;    n  ⪊ ֕    ZM"   y   MOv"THx S AD0\ 
- .v	 oz(    7 3  e21S 3ӊ   ? b3     ?4S   0y      )    7    &  * y *   + 2  q  ;Њ: >: 
-<  ;130  9  2  J  sB Ș    A  	 -Y    	.,  +#)  ?<+&B㤿p  /{   42  B  2      y
- z5 z W      󵄚7E|   x
-B4c C2 Dʂ  86 ¨  9 8 ~
+ ™°€Ž&ª52pÕ•W_
+áqb'GÞ¶Fþ/²ïRÎ¥"z½‰¸:ö
+o<©õöÚA^KdÄO<y ”_t9€éŸŽy ™kŽèæu><€ž úÇÇïÑD£¿Oºêíý†ÚíæážT{F êZÁ6
+i£:Øg^ÿ ˆ L e¨Aj-hK›àÜ×6$¯#þ
+Üèf7¼é­1}{Ùû"¿ŽÎQn#Ú’@ÂÅÉŽ[ÏÅdbâ,;ÈÙ’ ˆ
+]hCË@€%TÕ¾V5É< ` PÐ‘&™p5‘±BD` ƒLÁeèÕ~ŒƒßÅ(!˜˜*Ä‡ß„à+Ø·°µ“<Î
+.ä˜pbxEþ,ï>‘ÉAD¢0(Š(‚¦`„¼®…sx¡±£d…` !àÐ†|ÅÑ>ÝaUœ€Tæ2™ÙŒ¶v;ÜA&)Ø´Êšœ÷ê•fø¨²	fð°b	 #a+u –ò&y;ªLFwJP¤&1£™¿ô !B 0*Ð.*¬	Íiš  4llF ¤±æð‚\î²	õÒ×¸)Pe1>øR…+µã;ìæ/æšƒoP CÊðj(Ã¶BÀEò“#hAFðOEšrž ñ¥âVAêO¸´`„)„àb°C¤	üHI	Z
+Ù}*i0DäšÙÔÊ
+® •F&%#P#C€Ïëè‹q€C:{À€&üô'@w P‚¡¥äË)µÒPæ‰,2A WXÚà0ª6úâñþU­€‹`³jÄæÐE¨Î‘*GˆH¼jž<ôŠvèŠð¢õÖ2"--èWyž ‡³º¤ÈòÁøðQ»P…¬@„&±a®b°ì®
+B¨CW.c×¾ÏZÛ«bà:¨€™Î„ædIC•#žFT°Cr¥†œT¡§Á[W»l3‡´v JWQ  ›Êýò¡Tñ¤Ž0R×B†*,¸¬B`1:ÈS6´ùí
+\ÊÏ¡4ó™Ñ,©p©ââ2Ì=J€á!‘£Ùæ<':Ó©N>áÝ%“¸nmÜ”øö]å¦IR'[2ôt'·ùÉgãƒ „ÀË5	ˆ›±g(½SÅºRÐ[îj¥S-ÌP 0ÄGÁ]©gB`Zü²f…²U@WÜ ÷ô×]Éuhí"cS¡W[qIMôÅ0¾®'£C²à„&·À*$®øKø€
+S ‚X`ã8Ä82˜¢q‚ƒÂbPwÂ>¦ÊÜd» fÍÓŒŒˆKbFATØM8¹2N–è+“–9æf
+zå3¨V¼­3H#£‡*¯T›çô&8uùgrÎT	7†RÔ0†Þ”rÝŠLBÐ†Q«’ª˜AYÀ°(á2fÈBZ†qz(@¥§RªÐ >UÌTñ@•'ZÑ‹ft£¶I&@Üç’TŽæ5É—d+é–¾t1-§Ÿyiê0¢ºW«n5º`-ëßÔ ·ÎõO:˜ƒþº©ïn³åÑ\DÛÞ?Òw£k’ðÀRŽ×Iå¦Èä
+w€ƒ#J1¨!Æ'¤xÅ-®$“¡¬#+k™û®—&šñ( Ü“QsëÂ3Ÿ‘¯„2ŸÈm”>ù--Dë›yÍeDó›Û\æ9çùÎ}ŽóŸë<iCr_á.®Ä£']é`::,¶$ª~JTÙ”(Ó\QÉ¦@§0PQì`Ü&@<¹@‘	¸ûS!ŠèìHS{ó™	¡›]i¯N%)ˆãzpÆ6ÐŒþp qˆµÄˆ6~‚¯5IœE)R±Ãó£:·ØÅ/†qŒVÍ+iÑ¨w™ðÝ¾¯´7ìˆG=òÑ€dæÞÛ˜S8&r‘|d$'.Uª¤t Øþ¦¶¹=SÔc]¹éêßÉSŸîšÞCíg¼Z†ÔúLí
+½	^;ƒ“àòn–âªŠ¹Ö•°†ý½ZM"Ì ˜yÁõÄMOv"THxÚSþAD0\ 
+Ó.v	±oz( ƒ¹ê¦7 3øe21S±3ÓŠ˜Ð?åb3“À€«?4S³ý£0yØ ¿â‰Ž’) ƒÔÚ7‘’¶œ&ƒ£*Ýy¬*­ÐÂ+°2£q«¥;ÐŠ:ø>:£
+<ˆÔ;130Áò ­9¨Ü2ƒÝJõsBóÈ˜àéªòëA½Ú	è-Y£µô°‚	.,žÒ+#)ƒƒ?<+&Bã¤¿pÀÕ/{ó‚« ¾42ƒþBƒ™2«œø¶¡øy
+¶z5œz£W¢¾¢º¾ìóµ„š7E|Ã“‡x
+B4c²C2ÀDÊ‚¨«86‹Â¨¸‚9ˆ8ˆ~
 A
-    3X<B h '8{  x" c8  '  8 , C   ņ 3 ( *F X:i         렏  #9 1  @9 Q i  # ;9 [Ǟ:wdǠkG # 2:   i ǎ Ɂ"   ˂   Ȅ  48H  
- 3	 k    r   D 8  1
-     ٛ    1  8Ƌ  Ȏ H	    
- \ B  -     d x ă   ZH   <%b &  (  * G71 " I0 
- j 3   I1 I  F 2 x <ڣ>  @ J  +  7 |     {KOj 1 
+”‡¬“3X<B“h®'8{óœ x"…c8‡«'ˆ“8£,ƒC¸ øÅ†Œ3à(*F‘X:i¼¸Œƒž£žŽë Ë‘#9¥1¹¶@9ñQ¹i¹•#˜;9¡[Çž:wdÇ kG#º2:¥£ iÌÇŽ¸É"€ºŠË‚ü“ÇÈ„ È48H‚Œ
+¯3	«k±µé r•ØD¨8 ò1
+ˆº¹›¼Ù›µà ¥1ø¡8Æ‹£ÃÈŽÐH	ŠŸ»£
+ˆ\ÅB”‰-Ù —¬ƒdàx†Äƒ»µ¢ZH™¬“<%b&¸¼(š¢*â¼G71à"ßI0ò
+ÍjÃ3ªƒ¨I1¸I¥€Fé2‰x½<Ú£>ú£@òJ°´+§ª7±|÷“‡ˆî{KOjÆ1Ø
 
-h 5 pKﳷ $` 5;Lа76P)l &   N+' $ TP]SC P'  'TkD zH > Ҿ RLa K  h \ٕ^ S    ˅ K   9H  (P 2 4  
-: M70 < , AQ <yH    !N   ? @ŀ;󻉈 " 
-7 थ ,NOCN dN ԎT*  аX  ^ " 5   Ky  ט>  \3 0*#  a  ' Z70 > l U  \  No       ԉ | Tz   /       Ģ=   Ρ   P D e u  $   Q    7hQ `  P ` 5   Z : 1   (# h  ؏  ǫ        ꉊm9 ę  G   3 r$G%I p  w G@      <:|4SD \@ l L  F
-     < Ȓ    7 Ɨ : h; t
-  G  T  H L bo ay -I $R ( 
-( d    Ĉp g  $: x ^ < ܼ7 <  J/ J  J/4= | q U֌  I C  
-$l UzK  ? r  z        sV=h   0  =GZ5 ( ) ?  0۱k& d ҇ P~A D  "M '{   2U  602smDc2'    
-  ®>  : 4   OD&284S-  ,: 7  4 1 p z = 	  	O:   + < O e :t  Y h tŽW /"  *   P & ,0  )x * eZ4 EGC >|L  4P 4qʴ 4  4P; T 4S7U r{5 @7Z 5 h7 SDJ    V  (@ zjFfc\  7 bM  ?4 ɜ)os pK5r s
- YS7 µa L L\ՄK  ă 	`LXV  D]:4U aS  8" ˙   ;   Aޗ  @  x|^祠A     ܝ H   Έ  =           ph  % \     Th    J]   ԧ   -" ` 
+há5ÐpKï³·Ã$`ë5;LÐ°76P)lÒ&—‚©N+'¶$†TP]SC¾P'Àè«'TkD÷zHÜ>¤Ò¾¥RLa‹KÛÁhˆ\Ù•^ùS›ƒ½äË…ñK¾èÌ9HÌ(Pƒ2è4ƒÑ
+:àM70±<ð,ƒAQ¤<yH‹ÓÎÉ!Nãìª?Ý@Å€;ó»‰ˆ«"È
+7˜à¤¥ë,NOCNådNçÔŽT*‚šÐ°Xš‚^‰"„5‰èKy°ƒ×˜>î„ï\3€0*# ‹aÀà'ÕZ70°>ñlÎUäŠó\õ´NoÂÎ÷œƒä„ùÔ‰ç|ƒTzË Í/“ ƒ« µùÄ¢=ŒÊøÎ¡ÏñÜPóDÏeÏuÏã$Ñø”Q¥ÏÑ7hQÖ`«ÓPÆ`Ô5áœÒìZ·:¸1ÀÐé(#íhÅ ØöÓÇ«©Æ ˆž‹˜žê‰Šm9’Ä™ˆ Gºˆ€3Çr$G%IÇp„Çw”G@­‹”ü›“<:|4SD\@€l‹L¸F
+†”‡‡<šÈ’Œ³û 7»Æ—¤:ªh;‘t
+¡¬G·éT•ÙH”L¡bo—ayË-I‚$R (†
+(dÀÅ¹¡ÄˆpÉg³ˆ$:ªxÍ^Ä<§Ü¼7è<©¤J/²JÑËJ/4=®|Õq‘UÖŒŒí IØCËÙ
+$lUzKõª?ör¾÷z˜ø¢Òù¢Ž¾sV=h‰ôÔ0ÕÚ=GZ5(Ó)ƒ?ð0Û±k&d„Ò‡ÛP~A–D´ÿ"M«'{‹­ 2U ²602smDc2'ƒ²‚¥
+×ÌÂ®>»´: 4¡ ¥OD&284S-— ,:°7¸¼4Ð1÷p°z¢=°	ËÌ	O:†±·+¸<ÌO”eÙ:tÙÈYÚhtÅ½W‚/" ‚* ƒéP‚&ˆ,0ÀÚ)x¬*ÃeZ4òªEGCÂ>|L­ 4P±4qÊ´Ø4žò4P;ÄT»4S7Uë•r{5æ@7Z³5ßh7éSDJ¼ËÁÜVªˆ(@ØzjFfc\“à7èbMƒ›?4¾Éœ)ospK5rËs
+ÜYS7¥ÂµaÉLßL\Õ„K´ÍÄƒÕ	`LXVÄÜD]:4UÓaS“8"‘Ë™‰ˆ;ÕÓòAÞ—«»@ýÓx|^ç¥ Aõ ‹ÔÝÜšH…Ší Îˆˆ…=°…„ €‡ ƒ„phƒì%™\ ƒõµˆTh°™ÔJ] ±ÃÔ§ÙÔê-"·`Þ
 
-Ոp  ( L%  _c  I   p  4 $     :           DẨ ҩ ;q H      nE   6
- (      }  a ` Q  G3  a-   N ^7  D	        (  A        2   
-   vP &.i q"' as-2  V V "W   `  #w  ( O ~                            
+Õˆp»µ(ÕL%Ôâ_cì øIñ‹ˆ÷pø4 $˜É¸€¬:†„“ºÀºÑèûùˆDáº¨ Ò©ú;qˆHüŠŠ¤•nE¡âÈ6
+à(À›Ü á}£‹a‹`©Q’éµG3­a-à’‰ŠN^7ŠD	        (àA„       2   
+   vP‹&.iüq"' as-2ÐûV¾V "W­¸`¸â#w§»(‘O ~ëô                          
+```
 
-SignalTraitement.wdc
-PCS                     B      9       j                  01F280051n                 x ⯋ V     ֚ pz WM૕  ʮ      "      w
-      S i g n a l T r a i t e m e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           PCS          	                   9                         01F280051n     r       w      >        
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\SignalTraitement.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 xéâ¯‹áVÕ •²»ÖšÂpzçWMà«• Ê®‘     "      w
+      S i g n a l T r a i t e m e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           PCS          	                  9                €    ¼   01F280051n     r       w      >        
    
-_                                                                 Έ    SignalTraitement                                    /{   J   .= TN  W " G LθF"?        }ڟq'    h       
-dPK @<ô  
-х  b 
- ,`1@E    ,    A FL *sĨ cƍ 7uB     3!  C      e   Ȓ'ODT    A  l 2 ̚7s&]  G & E xF  LϢ [  ] "     ދ   e;P  É#> ` ST O    -  ۙ     \: ྂ+    t  *         Sm#F g! +O TQ I\q 
->c  g  w̞ v  } ν    : j 2  wgo>     W  >@"
-   @R/       bJ=     r
-`  2     :h " x  9   &;怎?@Jh
-   0o ̂AD"M  B#n   2 Q   
-q :J<ьSP: v  J
- @   2"
- F  ( ~  ;       L S  b  G  hB x  5?  < 8`< e   "
-# G      c =0
- S    =<-5   KpA    $|7A  u :<)    IQT U pq.b| \ @ 
-  # lL $" H#  #(_I 9   ., J ֧     ƌwV  M5  S  ޜ-"9O ׵  L 7=   .@iՍ  
-    6(<  L .0S EOQ渿    S I A b:X   ف,  , # ^mc o  C;Ԡ &5D\ Ҹq Ji   u68
-B     3 k ""`a
-3 0ҭ7 1 2 "*7  #
-8 a+ \ I  Ī _ 8:饛~    r J p ( )   E  b
-#B    P i  ~C v8 0 s   *"j4и +    F@ Ĉ u   Ch# &  	'  (ÇB`!v Y  F  rtwWk   } 8 * ;     K  IL *ә t06  _u SDF  <PC	c  h /6    &#1 PLSv	 Qy  m8! 3   ' '  Α  , O 80D(# F"     f  @v A ʃ  ZP#  du s݊2ANآ
-8 ֺ6  El [ <r  E mn   TA7  Mob   '8 u p S 
-  -->or ۟  s  u s ] BpH3$ u  dG;۩w    B Oxs     ` &!p & 8  ]/ K B =  |e0   ȳ  )i  @H  +@A
-F B  ?RNq0 
-  ;#/yQ ^   &8́{ 3DA XP < H- Am  ]pg  T %p gxF04A 3     w Pp Hh   C 8 =J 4( 	  	& 
-  : a 1 E B  ~ !񈫲Y    'R  |MO  D hb I  B /   pD 
-L 1      ́  ^iK     %   [ T  i +  J/s  ʤ  B 2   Hzt #     L~+qX 谾 T }'C* 7    xfH a  <Eޒzs  _3|  A   8s|   c  e5$\         k:gDρ̝ Y.o y 
-F a   u  A   K ! 0 pTu E1  )ތ ^     ,Q  { K3VE  9
-j v  U ^B;\oE  H   ^l    a 
-    ] .T Bm
- HGJ P `Κ 
-;       %/ B  P!TA`x1'߀7=  
-j` T ̮vfed gʓ@r eP X   ~> I^P 1 av8   ( 'E # S |% x@[   d0 x  m B >PE _  |.  
-  L P8 !2h 
-T   m +  `     P   ` : @
-!XAR0   mTvÑ[=V @9 ul kM    s4 %MiKcZ ~ H bs%<'  |_ pB?  63avh L( vӷ  pH\  SaP.;  n Q l ]X   ՞Y  P v1:   	D
-   H
-$   @p  r7  T  :t
-' 0 *$ A?  t        
-q 9     7) r  ;" @ 弄 w= 0   )         Q  wǡjp 	  U%QK$9    _ ]+  #s ̜ 5 .γt 	ț2"0 ^   '         (  A        2   
-   q6   C K ŕ	     j ,-       =M 7 u 7                                        N   N    Έ J   C:\Mes Projets\repo\avsp_server\src\TEST_SignalTraitement.wxt    
+_                                                                ÿÎˆñ   SignalTraitement þí˜á                                /{¢æ±çJþ .=¶TNéóWý"óG‘LÎ¸F"?¿Èéñ¤ŽÀ­Ä}ÚŸq'    h  ð    
+dPKÃ@<Ã´ æ
+Ñ…‘b 
+,`1@E‹  ø,‘¼©¨AóFL›*sÄ¨©cÆ™7uB˜¡£ÓÎ3!ˆ´C‡Ž™ ÿÜeçÑéÈ’'ODTÆÌšA•¬lù2æÌš7s&]Úô©G’&åEˆxFÍ²LÏ¢[×î]"‚üˆ÷¬Þ‹ýÎe;PäÜÃ‰#>Û`ñST O¦€ñàŠ-èÛÛ™¯áˆüŠ®\: à¾‚+£æûÙt€Â–í*®ë´ÓÈ¼æíô²Sm#F•g!â+OˆTQåI\qî
+>c—Ìg€ wÌžÝv€Ž}¹Î½ûÄ Ý:ˆjÆ2åÓwgo>ûƒöàËWß>@"
+¡†ý@R/À  ®¾”bJ=õîúî· r
+`»Þ2´‹ƒáÔ:h "àx£§9ì £&;æ€Ž?@Jh
+†ºà0o“Ì‚AD"M²B#nªâ˜2ˆQ¥Œƒ
+qÄ:J<ÑŒSP:¼v´ËJ
+ñ@‰ˆð¨¢2"
+ÓF‹ˆ(~âë;¾“à®ÃˆµÎL£Sµ×b£°G÷ŒhBÈxÌò5?ë’Ï<Ã8`<ùeÔÀó"
+#G š´Òù²c =0
+¥Sò õ®=<-5ÔÿØKpA‹ Âî$|7A µu :<)ƒˆŠà©IQTÑUúpq.b|è°\É@ 
+ÑÑ#ôlLë$"’H#‘œ#(_IÊ9¤¤ò.,çJ÷Ö§¶ìòË ÆŒwVÌM5ÿ¬S¶Þœ-"9OÛ×µÉîL­7=ÿíÓ.@iÕÝÒ
+ëÐù6(<ÍÕLú.0SõEOQæ¸¿ˆÂÉ S—IîAÕb:X³“ÕÙ,Äâ,¿#„^mcŽo… C;Ô ƒ&5D\‘Ò¸q…JiÀ’õu68
+Bé ‚ã3€kå‘""`a
+3Ê0Ò­7 1„2‚"*7Œ¬#
+8òa+–\‚I¦¬Äªã_Ý8:é¥›~ºŽ¨árµJâpˆ(Š)  ‚EŠ°b
+#B¡ñÇÍPši§í~CÊv8Ú0§s¯¸*"j4Ð¸ê…+®šý¨F@é Äˆ¼uÊïŽŽCh#¨&Á²	'Ô(Ã‡B`!vïY¡…F˜òrtwWkƒˆ¾}ã8ô¸*„;ÏèÊÜÈK‹€ILô*Ó™Òt06ÑË_u‰SDF°Á<PC	c ½hÃ/6†€ñÿ&#1ÓPLSv	äQyŒ„m8!è3œîø' 'Ø Î‘ØÀ,ûOÀ80D(#ÁF"””šäf®Ê@v–AÖÊƒ¼šZP#æÕdu’sÝŠ2ANØ¢
+8ÅÖº6†Elž[Ù<r˜´Emnƒ›ÜTA7×áMobà›ß '8ÂuåpÚSÜ
+°ø-->or•ÛŸºˆsƒÍuîs¡]éBpH3$’u‹ìdG;Û©wìÓæÔBßOxs žñà€¼`²&!pÞ&ó8½ê]/ÙK÷Bà=ð‰|e0úÔ×È³¬ë)iƒß@H÷„+@A
+F˜B® ?RNq0þ
+  ;#/yQÈ^À÷å&8Ì{3DAÄXPž<óH-ÒAm¦“]pgÅÎTƒ%p¢gxF04AŽ3˜â¨øÏwâPpãHh„Žð†CÄ8Æ=J‘4( 	­	&±
+Ú‡:äa 1‚EäB‡Á~Ä!ñˆ«²Y«ÊÒÄ'RŸù|MO‘Dáhb¸I“B¬/ ÁpDÑ
+Lœ1 ö ØäãÍ˜^iKÂß·¹½%‚Û[ßTñ·Ài…+†ûJ/sò¥Ê¤©ßBæ2‰³‚Hzt¢#éòÊÔL~+qXªè°¾²TÉ}'C*ƒ7¼âÍáxfHÞa÷Ú<EÞ’zs°ö_3|ãÛAùÎ‚8s|ŒÕëcûêe5$\ú¼À¹ÁŒ³œk:gDÏÌ¥Y.oày–
+F—aÀ­uûÆA‰ ›K ! 0¸pTu‰E1ñ®ç)ÞŒ‚^ÁƒôÊð,QøÁ{ÓK3VE„‰9
+j vÝÒUˆ^B;\oEèH ¬Š^l ÈÈêa¸
+¶¦Ÿ]Å.TÔBm
+©HGJ’Pœ`Îš¡
+;éÉà¶½ÊÍõ%/ B“ÀP!TA`x1'ß€7=¸Ä
+j`šT»Ì®vfedÛgÊ“@r ePƒX¬î©á~>ØI^P 1Œav8Ã†÷(Ä'Eò#ÃS|%âx@[£ý¥d0ˆx«òmÑBœ>PEÅ_ó˜Ë|.¨Á
+âã²LÞP8¸!2h
+T°Ä mË+åÌ`„œ¨©PìÓÞ` :¤@
+!XAR0ƒ„ÀmTvÃ‘[=V‡@9ˆul­kMÇàÈãs4¤%MiKcZÓ~¶HÚbs%<'›Ž|_üpB?û‘63avh L(ÞvÓ·¤§pH\Á SaP.;íän„Q÷lÒ]X½çÂÕžY÷ÛPô v1:¸½ 	D
+”±²H
+$ˆø¡@pðôr7ø½T ñ:t
+'ø0ž*$æ·A?åïtéèÿŠ›ž ´
+qæ9ºÊÂÔª7)Ärˆù;"‘@Çï¥ƒw=0ƒÏÉ)ƒ «‡»¡ ƒÑQƒ¤wÇ¡jpú	¢žU%QK$9¬úë”_è]+ïË#sèÌœž5§.Î³t˜	È›2"0å^¯§¨'         (àA„       2   
+   q6ÕìÜC†KŒÅ•	›”¼þÚj½,-½ ¢ò€Ý=M†7ñuŠ7¤å                                     N   N   ÿÎˆñJ   C:\Mes Projets\repo\avsp_server\src\TEST_SignalTraitement.wxt þí˜á
+```
 
-TreuilClient.wdc
-PCS                     B      9       j                  01F280051n                 WZ ]kP@;%/. (ѳ  %e  q       "      }=      T r e u i l C l i e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   PCS          	                   9                         01F280051n     n        ;      >        
-                                                                        Έ    TreuilClient      %Lj                           /  n[! O       t  b 3  w"t6   	I ,~L& 4 R%     ;  m     
-d  @?
-8 D     b 
-  a1@E "  ,    1cGM"mԘyS' :6 1" :t   . 8 I  4)oDDi  QS    -_ƜY  Q J=2= j 9b  qC &N <C(   1mV  ڶf 2z Q#  ТGŎ-y  28騑
-7 ιu  -" r   
-  x    D    h  dy3gf x  mF6m n
-C 0b  Q7 Uó     vܹB   \  ͺ  >^: r  @5 |ijP   ~  u%H W L H^2 h   
-9  Km  hϽ ꌗp  6̨ 2  C ) ۩ :  
-3İ#  P
-1 ;   HC- T )!  B    C    	  \ >*     ,r # | OK   L <-S3 A
-Q3Θʈ ޺m        "  B0   : \, "  
-A "     !";  8)   $YR @   2갃 D J ܰ  +   :bU S l  Wr    kPUM_ju W  s +  )b   q 59S{  U -  d    ހc 7k 6W 4 R    c ( - [ -5   X X  :y  CT ȍ
-_i  55_ }  x @" ( ޅC   }k
- w  b -NV? ~  s M0̦   dm+ 8  Xb*  a}w v  9勡   8 Ώ  vGǒVricU~
-'8 |eVW  X  %% ujs v  \X[/= 0 m  6  Ծ9 #X  oZ_ n  -J   3  lTY  U h   꾛
-  @ ^ A6ky |뵂2Ê82/W    ѓ:z] ؅*<ް; r =  Z  	 F    pg|u OB*ަ mz 1K          t kR u J  + 7 ޷_w  n  \!/U     -/=&   Жɭ > S`jH?   B  m( ?S  n
-  "  <	݉ ' >  ,~') @   '( Q K   < Om    PI  M `   < m! èB . +5+   '' 
-p   hE, o  a n  , e s c xG< Q { # ""  t@) WD& @@  @DT`  4@) \d  :. t @D@ <v "  c) D   *[    2   e-iy W r   %/q K` 2   0 "I]ZD   O LhFS Ӥ&+R
- Ó   .ūj*E  $    n єʑ 1a Lf s  L
-!p    9  @ *(
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\TreuilClient.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 WZ¨]kP@;%/.‹(Ñ³È½%eŒ©qÖí     "      }=      T r e u i l C l i e n t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   PCS          	                  9                €    ¼   01F280051n     n       à;      >        
+                                                                       ÿÎˆñ   TreuilClient þí˜á é%Lj                           /Èæn[!“Oš® æ§óë tªŽbð3Ï³w"t6ÁéÕ	IÄ,~L&»4ˆR%    Ñ;  m×    
+d€Û@?
+8 DíÁ†‘b 
+ÕŒa1@E‹" ø,‘¼«Ì1cGM"mÔ˜yS'„:6í¼1"¦:tÌøç.“8I ’4)oDDiÌÌQS§§’•-_ÆœY“¨Q¤J=2=Ùj9bªšqCÓ&N<C(¡¢Í1mVªµÚ¶fˆ2zðºQ#ÇÎÐ¢GÅŽ-yÒÔ28é¨‘
+7ÄÎ¹uïæ-"™rÏÀƒ
+þªxñÈÆò€DÑúæ–hÔädy3gf»xÛmF6m¶n
+CØ0b°§Q7õUÃ³«ªóÆvÜ¹B »œ\‡úÍº‡‹>^:¬r²ò@5¯|ijPÑÀý~ý²u%HèWïL‡H^2ìhƒŽñŠ
+9ÓÐKm½hÏ½ôŠ€êŒ—p‚ƒ6Ì¨Ã2¨ªCˆ)ìÛ©§:Ä£
+3Ä°# è¸P
+1¼;°žÈHC-žT°)! ŠBŒ´Ü C‰š¦â	Œ¬\Ð>*ÐãÇ ‡,rŽ#“|‰OKÁ Lì<-S3«A
+QÂŽ3Î˜Êˆ¶ÞºmÄŽ¨ÆšœŒ"„¨B0ØÔŒ:²\,½"¢ð
+AÅ"À½÷šÊ!";Ÿ²8)­¢Ò$YR’@Ëà¤Í2ê°ƒ¥D•J¨Ü°²+¦š¬:bU S¹lƒ˜Wrü’ÑôkPUM_juŽWßÀsŠ+À‚)b¥µÆqÕ59S{ô×U‡-öØd…˜£—Þ€cÖ7k6WÁ4µRÍÖÕï¸cˆ(œ-Ú[Ñ-5©ô®íX­X…·:yÿ‹CT–È
+_iÓå55_ÿ}—Øx‹@" (ÂÞ…C°µá}k
+ wƒ˜b‚-NV?ž~Öãs§M0Ì¦âÃÖdm+¾8‰–Xb*¾a}w­vä’Î9å‹¡°£Ž8žÎ‹¦vGÇ’VricU~
+'8æ|eVWÑÔXÐú%%ê•ujsËvøè“\X[/=â0ãm¸‰6ûá¦Ô¾9à#X’ƒoZ_ónª-Jï…»£˜Ž3ª‹lTYŸƒUÌh£ñåê¾›
+šè@ü^²A6ky |ëµ‚2ÃŠ82/Wñ™æ ½Ñ“:z]ØØ…*<Þ°;·rß=€ôZ¸Û	œFÝûøûpg|ušOB*Þ¦’mzê1Kþú«³—§¨ÀñtäkRûu›J©Á+‚7ƒÞ·_wøÑnŠ¨\!/UˆûªÇÏ-/=&€ÊìÐ–É­Ê>ûS`jH?ûBâÔm(Ø?S¥Æn
+êò"†ù<	Ý‰×'è>òÍ,~')Ô@Ž „'(QÌKë©<í©Om”ˆäò©PI¯‚M¹`—ˆ™<ˆm! Ã¨BÐ.ò+5+ð¨Ð''¡
+p³Þ¨hE,–o†ò¨a n˜Ã,Že‡s¤cíxG<æQ{ä#ó""’t@)áWD&â@@@DT`ªˆ4@)‰\d  :.’tü@D@ò‘<vò"£Üc)–D¦ò«ˆ*[ÉÊ ¸2–°”e-iyËWær–º´%/q¹K`ö2˜¿¦0Å"I]ZDìéãOÙLhFSšÓ¤&+R
+èÃ“Ûü¤.Å«j*E” $¥ÇùÉnæÑ”Ê‘å1a©Lf†s‡ÏL
+!p†ˆ¤Æ9‚ž@„*(
 p
- 1G|      T4 
-dX @p  Vt1   (
- D@!  H8 Q   
-#=M6< R  a   @j i  T 9u2 	 ɳ  gS4"T  V y   d` C6 H & K G Ơ $t 8AD 092p\ I  ڳ<2  KMs 8 a>sx  ưB3 `dP*Z\b Ua
+î1G|ž†ÝÓé‘T4 
+dXè@p††Vt1ùÈÇ(
+’D@!£µH8áQ¦ 
+#=M6<R®a¤ÿ€@jìi€äT§9u2	ÏÉ³™ÈgS4"T ‰V•y ‡ d`ˆC6H¢&³K‘GÒÆ †$tò8ADâ092p\µIê–Ú³<2ŽŽKMsÒ8 a>sxÁ°Æ°B3¤`dP*Z\b“Ua
 \
-v   !, F W5*j  _ v .U  %b( FP 4$v
- ݁ʠC  d Z     N&  q:      Z R  ! K< hK   -=  x{   &  5 x] 7 ˝ X     3!  u}k  
-   OƋY  ,  ON   1  0  L     !@( /l & ֶ u 
- P     -/      f ưn7 \y s 魯H  w  MQq S  ص(  l    
-m s PѦ 0F h Pܾ   B 2    #y @  ӈ$ "  @>  O&R Id# r m   T ;'IL< R   3== S?/3 U>  	 L    I 0   & K2v h &"
- VJ.
-i  c =M\Q +h4e iM r / t =  @~ (  tLM"    
-pB s Z @ [ OQM@+e j6; J &  aC 3   H    J Y  H l CzӂfE Z  n TL y3¦  z J_  W   3lUB Z : V le/;e Ex 2 Xb ڦ  ^ qz4  {|*  o K   f )W  5  Ϡx j x W        㕳   |  ~~w  l M R l   0gr 뻮 :
- g> ݝZȴ  lB':  ީO#: HO  ة=9
-Ӂh  : I  t a 9  K  # ڦ   y  h' փv R   ^ :  .     3 _ f =b   ~1   OSC  x %Vq*;       &0R
-   "ezz4  S0  Uq  T NmC   4 !2s [ p       Xw (L
-D  " ` ) 5 J\w W8  s4   5 z  ;@     8֚8ɢ, ¯   x    8    
-   @y     ' (  
- +  ; Bò  2 ಈX: h   :4  5 6F   
- 8 :=  ;cR
- *fsA  ' 㴤 4L  ) O  , SC H  /  |    4P {5 
- {  X xj B<J 6 0 D   4< ˓' k
-_ 6   +(u    
-D; =
- o    >yk  B> c>烾   >  >  
-?l 9x Ԣ p  H  k   ?  7p  R      ?   B -yp      ,a$Ƈ3Ŋ Ǌ    &S2 r, B2' @g 
-  Z .  @  @u|  I 0 W   *X?&p*@$т(0<1' '(# Gֱ  Ǫ  U  H"Ȃ '  0R?$ ?+P & H    AD YA hA' #  A S d  2  ! :  
-B93 >2B 
- b   =e   tJ* ¹k  h4. +<  '* .  -K S   0L55dC   ŋ  s<Z#    &  HZ =ʼ ( a Cϫ6 D  P ' J<ħ <   kKē       x8p9   )(   J =   b 	  O    H  k> 1  H  >U@ V  Ua>20     6     5   œ  ]T? s?   0N 4  L5 ̩H R ܱ   	   J
-, Ƽ
-    
- N3z  `! [   0̃`  8 *    圃 ԯ 1 1 . LN͝ ˨L    &  K  :  : $= B ,JR: B ; 3 T d3̨d== J K 4  L :(C    4 Jv ʋ D  Ղ6<	X  8 K   A[  ˦  `D L
-ôҬS j Ly  ]   4" 7 %  p*M(  =   <MD+   ,Eʈ>T 	U M ܾ} N~+N4  5-7 S 3     E |P   6}S
- 8@S:    f|0(`O    " a| h O     4# ƀ  n     D1]D/  	H
-  BSEU3PU9 P A
-    1 Id    A պs- dK̥ K `L I # < 4 Ѓ! J  ¹  Ԩ$p !]K ݃&  '= 8) 3  D0E',= E ? <c  puJ   >u Ō xYvuB25   T3 2 
- /a      CL =         MR  A=   MVT  4   Qy ˜. =.k   E   T  ( 	i
-: VMr 1pU  + 2Nb    	 Z H \  0Z_  `    Oo<V #۱ 
- ۗ  4
-  [  Qm Ћ P  P ׁ  #  7K :" RZW$|Ѥ W  Wj   H  5 T8 !M "5 $UR֍ !Mx  t@˷t5'}C  R K6*m L; C   /    Ǥ C#S w    e<
- L Y    k DJcԡ}   MCE   > 5 FuZ  ^3Ў $T L    l
-   ]=ŸҰ ?   m keU - X UU շ     _  4b O M֡s  *P  *аñ ^B]` <  .; 
- b (pa 
-  s    a#(A  k   ~ kV# E E  Pb&       ␻  E
- _V`X %~ V(f 	f  a0 I5h\lͣ \P \  V ٟW  ܫ \Nr ;bQ
-] dżSi+]' W'
-     ơ ,  @  
-. U   L  
- >ރT P F* $  Z      ` \P   Ȃ    x$/ hv   y  x Gr   tC  R ,^  ؈ 6 P=  #    #    
- x \H #    q dD,  'D   J  ]   KĈp      hU  M }^  U   \T%  G 66 (>	   M- i.~ ށF   ~     `  # U  [     V -V *ያi y 
-  7 w 
-  ^ `  Eu9   c  jg jfU/ge  b   e= ? .h   > <  &VAt ? @ V/ ց   M3EJs R
-ӣ]KnW  ?# A ѿ a   @;  Qf lʤ  hUh4 fD  ҝQ ,  x  h  n Z  r    maFeT
- 1    &
- UX   }X 0灸    u^^El^ LD  A  < ^=  & gEY    :Sb1  y  	   [ `h    	AV߱  T 6Z FT      
- ᩎ ƒ    ^  Z sp     I 3I  hk?rƲ L	: E
- *  G  M~\ N: v:p <ľ E.  elt%ru Ȇ   XMvAN #b  @ eZ  V%  ` P e m䞭Vm * G   > ec3e 1e7 f,C @1  @    1_          
-   9L6  B    =   Xx n  DF   & t#      GҚZ)  4   8 3L ᫤  p   8 
-   8+5    $
-u } p 8 ^_2˰  GZ'   7p># e  j 뱲 
- _3 @ Ԇi O  h1x  a^w2:1  
-    h R OϦ $ (wcσ =E;   90 w|Z   &ȍ # wG  r'   v c}  "    9   U{G1 U     8(     k 7 v    +PA# .  :Ѯ6 :  g   r    ' P    ; ky W  	7k W
- U ~   2i8   X   z } *P !3 2 4Q ~S    n(  ^   h YA7% jB /  >Q|    X  )  Q   	      㠑 O  i      xc0    )    \ W   [ 	, w  o
-  h9c H " x    /   Zʏ ( +Fk {!H  7|  ݷ|Ka  p   CA1  |  }     qR P/ R    2  &   !4/  f  ! A  r 7   LԦ{d0 )9ɖ) dKr   I ǞD W # 1Sv >ǝ r 
-K   (Sl
-   98 @   Թ\f d[  r -  9   vY.#e=  8 stЍx rO S:	K\,H y8V :=  bY 3wH  F 
-  prVܦpq@B( 8,  # *) fY<e  "\  : %|  2 *  +Q  L`   =#   ^ 3 &'"H+ 0  D D  2P C
-| /j  ƀ h ܎̧[  K@   8       Ţ?1 لC
-  `"Pyt`T   a5n  8	>   g   d  / <] 5rI 4 'S  A5b:TP  ?T p , @    n	 0 N^    e  B ,   l Y X bA { @ N j8 2 Ë[ ]  M8   H)@  `   
- Đ~$dX   2 w
-1رD 4 !L G2 &zp$Z ?"T 
- 8 da ) @   A  L@X
-j"~ {X$ 8y a#恎8A"  $ $ D5 U N 
-.Q) ę j 7 %  c  
-  -` P "G Hǐ)z	8  b<;
- `*VE 6 z /VP#    a Ұ  85    #BlE=a   U ! .  >_ H>{!8  $P"  Xx9S #.  Hw2  * #/   `p5     
-    rEk8 ctl,Y1f T b    ) 1"@ţ J UTP,IV  &  @ x
-  < %ƈH {A QVH50 | ,I )  P   ~  Ω  >  H iT,  <   h   TP c6*  	  
-   C   88$ q¹ XT@H     X  @   EId5  "  %X  ENF  ѣ8P  ArC 7e  B 
- Fs >$ L
-w     x 
- H     br   %KU s  1L&H   $ < &Rd /
- $Փ   4   e   n I%    4 r  I! @H  q $  - gԇ_1,ʍ i 8 f`$&D h r [  'f` bPl#    ?)$ 8(  ȓ JU A   Z ' Jp *  z 6 . ļh+ b ܕ~ W  
-,     A Ʒ 5#g  D  J 7  Q  q m  # N n䄖 )      ?  $  
-   G / ƔU 	 KE)?v   /  ˚`	   qEaFJ `  D |#\  0 $Փ  2>V ' &3  ؘ r_~L9Ff {  ,  	%[  (  ( M 	% J T B 
-T`QL ȗ
- 6  ۘMo .  9ց 8  qTSg39. ~ ADt    "  )  @w   r
-    6柧   N K< % AҤzirJf'@  f 
-G \BI '+VX]܅sZ Ci *ߘn 7 	   & d   @ I ^@   ń膘HYz cQq    "'t  ݱ3^ V 7 & ܊ su  c :Ǌu  + 	  i,gԤzo._ N y6    
-  5 N YY ' tĳ 8  gF    xҧo J h  ᄙGaHO8e  L SA D '   <
-Ӏq LY5 f ta(&	 > g 4_Ix
- .4   v  l 1 ?  !3h l~ *x g9Y Zv j7 `  X   zX   *, F q xg   ^ xjО | ʳ sZ·y Z  P w e $錬uF\" >   F   ?Y {@     w 0 uh+ C S ex E  OT4  hq G  O	 AaX( Kl  =  ¤ G JR / ĴSk 'PK! @
- @X Oq"  +   7p  X9C 5 : X @   t R@   + s`(  6 h8 T  I(T   tIN A9I)X         I=   r@
-H  d  4  &B w3 *L 74;  : H
- y   4= 6  
-  )  8 NY@ < 45/   J L   ^ jEY ԛ	 gM  @ 	& hU   A( U '2 g' &  ,wskED"P' B   d  / P iz  Sr       @. F IT*TY  iT    jQ   ԨgoqL \5RKj  (  ԖJ#`   u4 /   R jw"   l  a`
-* d `A *  j jR} g@( )  Q   (X W U gE  6     QA  
- $      Ъ*z  N   : P f`> Ǧ    W B͏  AFP  5 ք  ԶB ǪB jV    f֯J D g5 e5  T JZQL U3 & T: "FŹ ҁ O  [  8  T/ Ɗj M Cm
-  2,Vq   ) Q 񕽞 i#N 
-(5=!D O I[̓   3 *TT 
- \{!oj    X    Z @P  [ԋʐ[ E  +) u q   ʵgE !   |a  Й?/l   m/¸ +ue_  "6 .  jb jlz꒞:X}_  TM   4  ) X k% KVA ݷ9/  -# 
- $#  ,P7 ο4\ ] V   )Q ( s 
-   P i; ] 쉺   N a  K
-n 0  Cf l3
- 6lL=Jg 蝭     ݩE 5# Ƕ  P, Ê   6  =^5'Ӫ     Q |Pk  Y   RU X
-f3 Ԛ: F 5͏n A
-P Z  l - S3   
- Ĥ,    J  P eUl 貚	r⮾ f l 5 VβP> AK    ϞOM >   ,  J    
-rA :  aiS+  R  ᰭ ֖  	F  uY  mYn   fzB   qfSg+ԧ K8ܱ"   ? R <ki l2}      To?k}ȷ      ] M(U Fl&_e
-k  ` z *% 5O7  )F @uJ Ķ   W=/  0 q Q1 1    T   QY.   At   v;s1 M ^ a 7    8 Ur  `5  @) 
-T t0]  t
-l  8d  R  <  4 W +*  n      n;P @B"e  N +y) I qv   tC٭   ~} A    
- c  
- F     w Km l ź 2  3z  Qȼ a     < ! 
-PC  I1   U kV 2  +x   +-7 6 ݫwk. 
- C   x M8
- pbr  p V`    Xd{          G$ XE  e    bܲ{=  
-   p p
-{) ۍ  `  _ ;i -  
-hS     {+ J  ?   (   } տ  "2p 
-   *  k *`C    [b!0  %   _ :Awk  ܷ   z{ h݅ 5x|   
-oo  - t  Z i" 'uܶx    * ) m  ׽F0  %> |M `a _p   kmௗ" H	(LF E    b Ϸ9  
- 5 6   F@ ,)  b*
+và†§™!,F W5*j‡é™_ v .U¥%b(ƒFP‡4$v
+ÝÊ CÀdÙZøœ¿ø N&¢Êq:ž¼¼€ÜËZüR à¶!®K<ÉhK“ØÌ-=Ñíx{ ßæ&¸Ã5ƒx]à7¹ËëXÇäÙÈå3!¨îu}k†ä
+ý™OÆ‹Yú¯,´ONêÓÞ1ôö0ÙÝLäÛÝÿ´!@(º/lé&ÐÖ¶ÆuË
+”Pö† µ¯-/ï üÜÞüfºÆ°n7Ì\yŒs é­¯Hœáw˜‡MQq½S›Øµ(ö×lü˜°
+mÃsØPÑ¦¨0FíhËPÜ¾¸ÅÁB¥2 „ˆÀ#yí@ºüÓˆ$ "è‡@>éÓO&RîId# rÎmâÎåTç;'IL<ûRÏÃÜ3==âS?/3¬U>Ÿ	ÝL„¥‹I„0¼ñ&‹K2vñh&"
+”VJ.
+i¤cµ=M\Q…+h4e˜iM›rÓ/ít§=µó@~Ï(‡¤tLM"Ò üÀ
+pBÌsæZ @Ð[ˆOQM@+eÙj6;í‘J¦&×éaCÕ3§Á«Hˆ ªúJÚY ðHÄl‘CzÓ‚fE«Z¥‚nÏTLy3Â¦œ¯zJ_§òW¡¶œ3lUB ZÆ:²V™le/;eóEx 2çXbÆÚ¦…Â^‘qz4 Ž{|*†®o¤Kª’§fœ)WÅÇ5ÌâÏ xæjèxÍWîãý ªä×Öã•³¼å |ùË~~w ÈlæM’RÍlŽˆ›0grÞë»®ã:
+g>‡ÝZÈ´‰þlB': ‹Þ©O#:ÑHOšÔØ©=9
+Óhší:å’Iñ€tÜaï9µºKÿž#´Ú¦‰µ¬yªœh'åÖƒv¶R¸¾Ã^ÿ:ØÃ.ö±£æ²Ç3ª_‡fä=böŒ~1†¦²OSCˆx‹%Vq*;¾™œûªŸ&0R
+øÞ"Â‡ezz4À S0ÃÂUq¨éT‡NmCÜÀð4À!2sáŠ[¨p¡Õá²×ÐÜXwÉ(L
+D †"Š`…)Á5ä·J\wðW8´s4Áøý5ð½zÎ;@Á¢¿ž€8Öš8É¢,ËÂ¯³¸“xŠØä8ˆ¬ïÃ
+ñ·ü’@y€ˆˆ¿'¸(ÐÅ
++¹þ;»BÃ²Ð2‹à²ˆX:¥hº§Ë:4ƒ¥5³6FŠˆ­
+¥8Ë:=òºÕ;cR
+Ó*fsA±’'µã´¤°4L‰ˆ)ôO«Â­,´SCµHûƒ/Œˆ|  ¸‰4PÅ{5Æ
+Ç{¼ÓXÂˆðƒxjºB<J6¶0D¢ÃÐ4<ÂË“'×k
+_ã6¶ ˜+(u·„ Ý
+D;ó=
+ƒo¢¶ˆ >ykŠÙB>åc>çƒ¾³Ží£>ëÃ>í»Šî«‰
+?lÄ9xÄÔ¢¦pžH¿õk¿÷‹?×è7pÄÀRûƒƒüÛ?¡û·BŠ-yp‚ˆ À‚À,a$Æ‡3ÅŠ¸ÇŠ¬Šó‚&S2Ór,ÐB2'ƒ@g 
+¼ÆZô.ÂÒ@ðë@u|°ãI¬0™W¬ƒØ*X?&p*@$Ñ‚(0<1'‚'(#¨GÖ±ÏÂÇªÐÇUéÇH"È‚ƒ'°‚0R?$‰?+P‚&HóÁ  ADÁYAµhA'œ#£‹A¤SºdÃÁ2ÓÁ!œ: «
+B93Ä>2B´
+»bú¥±=e‹§štJ*‹Â¹k»ˆh4.€+<€°'*µ.®ä’-KÀS®´º0L55dC‡¢©Å‹ˆÆs<Z#» ˜¼&œ HZŠ=Ê¼(¶aóCÏ«6»D½ P½'”J<Ä§¤<ËÓÃkKÄ“ˆ€’âÐ–x8p9±‘÷)(ÄJä=ÀÄb 	Ä O¦ô‚ˆH¾åk>Î1ÅúHÅê»>U@­Vœ‹Ua>20ƒƒé™°Ì6ÉÌÍìÌ5Œ¡ÄÅ“]T?ös?ø“¿0NÌ4ÍäL5ðÌ©HÐRÎÜ±ªá	•”ÍJ
+,ˆÆ¼
+À¬í
+ñN3zŽè`!é[•ˆÓ0Ìƒ`°8Ê*ÇðìÎåœƒóÔ¯Ö1ð1ìœ.ðLNÍÝË¨LŠ› Ü&´Kž„:ÂÌ: $=¡B£,JR:ÄBÊ;ë3¦TÂd3Ì¨d==¢JµKŠ4à†¬L…:(C‹‡¬”4ÕJvÈÊ‹ÒDÀ‡Õ‚6<	XƒÃ8¬K§´ÃA[ÍíË¦èÃ`DÓL
+Ã´Ò¬SÑj’Ly Ì]œ”ã4"¸7ˆ%Æùp*M(Íí=Œ€Õ<MD+ØÅÙ,EÊˆ>Tì	UÔMÞÜ¾}àN~+N4ÍÎ5-7…Só3ŠäÅéüEë|P–˜Ô6}S
+¬8@S:Õù¨Ðf|0(`O‚ã«÷"àœa|Çh°Oî Ôˆƒ4#ÉÆ€ÙÏn¤¸ÿÐ D1]D/Ïà	H
+’ì¼BSEU3PU9ºP…A
+ÍÉÜÉ1ëId“ºˆèAÊÕºs-ÂdKÌ¥´K‹`L­IÍ#½<¬4ËÐƒ!ýJòÂ¹‹²Ô¨$p‚!]KÝƒ&•‡'=Š8)õ3¼äD0E',=‰E ?ä<cû’puJÃü¦>u×ÅŒÑxYvuB25Ó ðT3€2Ü
+”/a€Í°Ó  CLä…=¾±“øÓ MR¬ÍA=ÅéËMVTÔß4ƒàÎQyÖËœ.—=.k—èìEêÆëŒT©¹(«	i
+:°VMrÆ1pU÷Ì+Á2NbàÑÚÖ	ûZ›HÅ\Ýé0Z_µ¢`ÕÏÆâOo<V‹#Û±â¢
+ŒÛ—…Ú4
+Ûâ[šœQmÝÐ‹èP§üPŸ× ×#üÁ7K×:"ÊRZW$|Ñ¤€W¨”Wjª×ÓH  5ËT8„!M"5Ë$URÖ‚!MxÈÊt@Ë·t5'}C†RÈK6*mÂ‰…L;âCÍûÃ/±ÄÂ½Ç¤³C#Sˆwô»ÅÏe<
+ L°YœÅ·ÊkÍDJcÔ¡}¾¢½MCEÚÝÌ>¥5™FuZ¾Ê^3ÐŽû$T«LéôÅêl
+þõß]=Å¸Ò°À?ýëœîmÎkeU´-¸XUU¨Õ·­ÛÿÅÛ_½Õ4bíOÀMÖ¡sÆÕ*P‚ë*Ð°Ã±Þ^B]`—<Á´.;È
+Åbá(pa–
+±—s±îàï°a#(Aæá˜kŠþá~ákV#¦EíEâêPb&†ÉÝÚá† â»­ãšE
+î_V`X¾%~ÉV(fÆ	f–¼a0–I5h\lÍ£…\P’\¦ûV½ÙŸWªÓÜ«ã\Nrä;bQ
+]­dÅ¼Si+]'œW'
+‹ ƒ €Æ¡À,ƒ @ƒ 
+.€UÊìÊL‰ð¬
+€>ÞƒT P†F* $ÐåZ†ƒ  ƒ `ƒ\Pž‚ È‚ °›Çx$/€hvž çyŠæxŠGr¸tC¹„Rº,^»ŒØˆØ6P=“½#¿ÄØÍ#¶‹Ž
+´xÂ\HÎ#Ò´Öˆq»dD,ª“'Dà»ý§Jƒð]€ ßKÄˆpø¦ôíÙôhU÷¥Mø}^ÅÍU¬ßÞ\T%ÉßGè66è(>	’¹ÚM-ài.~ƒÞFÆ æ¿~°º«ö´`µÙ#†U°Š[åà®¼Vá¾-VÉ*á‹«iÖy¤
+Œá7¿w´
+‚æ^”`ºÊEu9à êÙcã–Îjg„jfU/geé¡îbÁõ°e=ã‘?µ.h¶öã­>‰<Žã&VAtê?î£@æV/óÖÈÁŽM3EJs½R
+Ó£]KnW¥Ý?#ÙA›Ñ¿öa¶ˆ¡@; æQfÊlÊ¤À hUh4¶fDé‘×ÒQ ,Š§xå h‚ÓnÉZîæ­rßîí­ÂmaFeT
+Ý1‚ ÐØ&
+àUXá‡†}X¥0ç¸ ¥èçu^^El^LDŽÞA³º<¤^=Êç&ÜgEY€–‡£:Sb1ƒáyžÀ	§ê…Û[ `h­ÂÄ 	AVß±úåŠTŒ6ZFTû½ŠŒ”‰
+ƒá©ŽùÆ’’–‡“^ÙÎZùspø†ðî¢ƒ ÀIœ3I“©hk?rÆ²ˆL	:ˆE
+ * ‚GÏîM~\ÁN:Âv:pý<Ä¾ÜE.ÑÍelt%ruÙÈ†ìïöXMvANž#b¶ˆ@‘eZîåV%‚ `‚P®e×mäž­VmÕ*€Gâíß>ó­šec3eÝ1e7 f,C”@1î @”¡ å1_îÏîãÏÁÈùæà
+çáç9L6ê€Bäçˆèç=ÜîÈXxönóæDF¿ç‘ï&¬t#Ìõö€ˆGÒšZ)‹Ù4 ¶„8ý3L á«¤ pÛì 8«
+±·Ú8+5¸ƒýÇ$
+u¯}Ùp­8Ç^_2Ë°•ÏGZ'ú»Æ7p>#ê‰e·õjµë±²‚
+Þ_3 @œÔ†i«O¹Èh1xƒàa^w2:1Üã
+×òh×ROÏ¦¨$Ã(wcÏƒ¦=E;Û‘Æ90‚w|Z‹¬ƒ&ÈÀ#ðwG½Ír'¸ýõvc}øÿ"©œ˜Š9€ž U{G1•U øê8(Õù ë k£7²vƒ½ø+PA#Ü.™Œ:Ñ®6‚:°ŠgÐÐr²×'¨P ™ïà;¾ky W˜ù	7k§W
+ÓUº~ƒø 2i8 £ÈXñùðzî}*P‹!3ƒ2¹4Q“~Sˆ•n(˜‚^žð húYA7%¸jB/ Ò>Q|€Ÿðï’X‰Ç)šýQ Ýêˆ	Çí‰•©‰ã ‘ºO¶i«ûÇûð¶xc0øÉÀ)éàü©\ÂW ¸–[á	,×wƒ¥o
+Øýh9c‰Hø"˜xñüÎá/þ“°ZÊÞ(ý+Fk«{!HÕÖ7|êÁÝ·|Kaµ™p›¿þCA1½ü|¬Ï}³ú÷ŸðqR P/ƒRµƒ„“2À¸&œÌÃ!4/³ÀfØò!»A†¬r¥7 §ØLÔ¦{d0’)9É–)ÙdKrú³I÷ÇžD€WÀ#ô1Sv¶>ÇÛr±
+K„â (Sl
+”é³Ù98Ì@ ¦ìÔ¹\fæd[ Àr¬- Ì9 øÙvY.#e=ð”å²8stÐxºrO S:	K\,H×y8V—:=ñäbYÕ3wHäºF½
+„ÔprVÜ¦pq@B(À8,³Æ#*)ÀfY<e¶À"\à”À:Ÿ%|˜¦2œ*ÌÁ+Q ßL` Äá=#ÒÀî^‰3€&'"H+à0ŒÈDÀD€2PðC
+|ô/j¹ñÆ€ h ÜŽÌ§[âÞK@•ð–8°‘ÔÀÀÉ Å¢?1˜Ù„C
+‚ª`"Pyt`TõÔa5n‘È8	>Äéµ¢g ¨¡d¸†/£<]ª5rIœ4„'S€±A5b:TPêÐ?T‡p¨,¦@øˆªÃn	ö0áN^€ðÇÝe°ÒB€,¤…¨lÂYXbAÓ{†@¢NÃj8ª2ÌÃ‹[Þ]øÂM8 ¸ H)@°€`ç”Þ
+†Ä~$dX À€2´w
+1Ø±D€4‹!LœG2‘&zp$ZÀ?"T 
+À8daÜ)„@©ÁêˆA°L@X
+j"~¾{X$È8yóa#æŽ8A"‰‰$Ñ$¢D5 U N¬
+.Q)ÆÄ™˜j¢7±%îÄcØã¢
+ Š-`ÅP"GòHÇ)z	8Ôžb<;
+ç`*VEã6¤z“/VP#à÷ž a‡Ò°’Ã85áØÑõ#BlE=a¨À¼U€!á.ƒË>_¬H>{!8¥ $P"Æ Xx9Sô#.ðžHw2½Ñ*ô#/ð¶Æ`p5²€ 
+¨ˆÑÐrEk8žctl,Y1fÄT…b¬ž¬À)Š1"@Å£ðJ UTP,IV”Æ&«Œ@Æx
+±Æ<þ%ÆˆH {A–QVH50‹|“,I¬)ÞÇP–À~„ŒÎ©êí>ÓÞH£iT,«¥<ž„Åh¼ ƒTPèc6*  	òàŠ
+ öCžÇü88$qÂ¹ÇXT@H‰ ÅøÇX ë@ÞÀÓEId5§ˆ"ÍÃ%X‘²ENFè† Ñ£8P ë±ArCó7eä˜Bà
+¬Fs½>$€L
+wÀÃÈ‰ÍxŒ
+êH¢© ¦äbrÂœ·Á%KUÞs‘‰1L&HóÐŠ$”<“&RdÈ/
+ö$Õ“ïÑ4ÃúøeÎîn I%™Ÿ€“4“rÂÊI!¯@H””q¬$”ë·-¢gÔ‡_1,Êài‚8f`$&Dºhúr¢[ä‰È'f`øbPl#À´€É?)$¿8(“ È“…JU¹A„©ôZ‘'¤Jp¸*±ã¨z•6ñ.¾Ä¼h+ãb®Ü•~±WþÊ
+,Åä— ÅÒAŽÆ·5#g•×D ˜JÂ7¦¤Q„°qÂm™#ƒNì»nä„– )ïä’ô ”µ?¾$ƒä¸
+’ ðG /ßÆ”Uà	ØKE)?vŸ¾ô/ÃôËš`	ëÀˆqEaFJó`¦ƒD˜|#\Êä0îž$Õ“˜†2>VÌ'à&3¦öØ˜ r_~L9FfÞ{™Â,ð‚•	%[æÛ(šó( Mˆ	%³J¨T BÀ
+T`QL È—
+ 6¦…Û˜Mo”.¿±9Öà8ƒ“qTSg39.Ç~ôADtœŽÕñ"¾Ã)°Á@wŒ–Êr
+”¿‹õ6æŸ§¬–ÒNŠK<ù%¬AÒ¤zirJf'@°šfâ
+GÀ\BIµ'+VX]Ü…sZâCiÙ*ß˜n‘7à	¿ ø&ç’d—“ê½@ªIð^@¬Ž¬Å„è†˜HYz¥cQqÀ± Œ"'t”ŽÝ±3^ÇV©7ù&èÜŠ¢suæÇcà:ÇŠuû+ì	”çi,gÔ¤zo._ÊNÚy6¹ÑíÌ
+¹“5òNßYY€'ätÄ³±8¼ƒgF¦ çØxÒ§o²JÐhšÚá„™GaHO8eÅàL’SAÐDØ'ù§Ñ<
+Ó€qŽLY5¯fÖta(&	ì>‚gð4_Ix
+ï.4¼ã¬v€ñl—1–?çò!3hül~¢*xÐg9î§†YžZvÅj7á`çÛX¡´…zXœ¥š*,úFÜqxg¼ ^€xjÐž±|è§Ê³÷sZÎ‡y×ZâÀP¬wå¯e¾$éŒ¬uF\"Œ>˜øçF„€ˆ?Y’{@¼ƒñ´ƒwè—0uh+ÐC‰S ex‚E²ÔOT4ñáªhqàGÃíOÂ™	 AaX(óKlƒÀ=»àÂ¤œG’JRƒ/»Ä´Sk¥'PK!œ@
+¸@XöOq"éÌ+Ðèó±„7p à€X9CÜ5œ: Xø@¼ó»tôR@üÀ¼+¥s`(’Ï6¹h8¥Tè€I(T  ”tIN€A9I)X  ÙÔÃÜ ¨ÀI=©»›r@
+H— döü4À›&Bžw3£*L–74;‚:ÙH
+¨y¸ ï4=˜6› 
+¤ø)›©8NY@ç’<þ45/šÓøJ«L£´ž^ÑjEY¾Ô›	ÓgM â@	&ÄhU‘µˆA(¸UÕ'2£g'í& È,wskED"P'¦B¿—ådîÓ/ÑP¥izÀ‘Sr ¾€‚êŠ“@.ÌFúIT*TY©‡iT¢¾ ŠjQ­¨èÔ¨goqLŸ\5RKjŒ¨(¨­Ô–J#`êö¡u4õ/¤¢RÅjw"«öólö„a`
+*‰d§`Aª*¨¢jjR}ñg@(À)ûêQø« (XÕW…UógEýœ6£ª€®ÊQAƒ¡
+«$•®žÔÃÒÐª*z©üN¦Â·:·P f`>øÇ¦†€¼ºWêBÍÕAFP«‰5åÖ„ªÎÔ¶BÉÇªB¯jV­¬ßñ„fÖ¯J·Dªg5©e5´ªT–JZQLíU3•&ÔT:á"FÅ¹£ÒèO¾Ú[¦8ø­T/ÆŠjºM«Cm
+ö2,Vq° ü)ÝQ¯ñ•½ž„i#Nï
+(5=!DÆOI[Íƒ¸¯ˆ3Ÿ*TTª
+ì±\{!oj¾À›¥X¼¨­²Zƒ@P¯å[Ô‹Ê[öE¡è+)‚u¦q À‚ÊµgEá!„•°|aˆ×Ð™?/l†••m/Â¸‹+ue_ü‹"6¼.Ðñjb‡jlzê’ž:X}_…ìTM„ŽÓ4‚ˆ) XÅk% KVAñ€Ý·9/ê²Ô-# 
+ $#àÄ,P7ã¡Î¿4\æ”]’Võ±ï)Q¡(Âs¡
+¯ÊPñi;Ë]ùì‰º“µôN aãçºK
+n…0¨éCfÍl3
+²6lL=Jgè­Ž™šÏÝ©Eíœ5#ÛÇ¶ÚÙP, ÃŠø…6®º=^5'Óª‹°•á¨âQ‹|Pk§õY‡¢¦RUÁX
+f3Ôš:ªF¬5ÍnÖA
+PôZ Ùl±-°S3 Ž€
+³Ä¤,¥²ÆJúŽP©eUlˆè²š	râ®¾—f•l5VÎ²P>úAK¥Ý—¶ÏžOM«>“Š€,­¹Jà°€¨
+rA–: ¬aiS+»ÜRåÜá°­¯Ö–êí“	FÇíuY–…mYn ¾­fzB °ÙqfSg+Ô§öK8Ü±"Ìí«â´?ô…RÚ<ki÷l2}·™ÐÊÛÍTo?k}È·û¶ßö–à]ó…M(U¯Fl&_e
+kÃª`åzˆ*%î²5O7ÖÌ)F¨@uJ¨Ä¶êØãW=/î¶Í0§q‰Q1›1Š€È·T÷äØQY.º­³AtÝÆÜv;s1íŸMŸ^àaö7  ø8úUr¡Ò`5Œì@)
+T¤t0]“ët
+lÔœ8d¶¢R«›<”4W +*€»nÃ»—ŠÝn;P¨@B"e–íªN·+y)îIàqvîúÐtCÙ­»µ•~}ÚA ¶¯µ
+²cö½
+FÅþ¼˜wòî¾©KmÛlÅº‡2±ø3z›îQÈ¼©a–‰ÝÓË<Å!—
+PCÀïI1ëëëU³kVú2ÛÙ+x˜íÝ+-7÷6¼Ý«wk.ß
+´CÀì™¯xùM8
+¸pbr”Çp˜V`¾Œ¶ÚXd{õ”íûýºñ×ÉÆG$XEÊÄe²½ÂôbÜ²{=Ÿ€
+Ð®‡pÊp
+{)ðÛ¿–`åÖ_º;iÕ-ží
+hSÏâÎýû{+ËJ“µ?ÍúÞ(šÎ}ÒÕ¿à·"2p€
+ñÔö*  k°*`CÏð×æ[b!0ôÀ%×ùÆ_Ü:Awk½Ü·Àêáz{÷hÝ…¹5x|êßÞ
+oo®ß-¦t“„ZÇi"”'uÜ¶xúÆßó*)‰m´ñ×½F0¯û%>Á|MÄ`aÇ_pÚ ôkmà¯—"èH	(LF€E¥¨ ÀbÙÏ·9ƒØ
+‡5Æ6ÏüŽF@¸,)˜äb*
 
-l) +,    f  , n  S a  @ ?Q  %   }Q#  o b    / }  Gf    
- .m  D  C Hx56)~$    0HI  F C"/ 3  85T jl *E    %Q     w
-> 
-y1>4 6
-c X   Bҭ' 	   x
-  3F * 
-  ;md 5  x  `n  M  XAE j\ 7 96H X! c L!*t ~8? d  G >& S  *rI&  7 {q d @ AZ j #  o G X;U %   H  (Xe(  F L I)V Z| y@ TO(Ǌ@   Q6t )   L]B@5  vi   ے
-l F̑ , C_ ]fY< ʜ  & 7 t   K / 䗄  37+*   -- * X  Cg    7.z  +},|    $ f +Z3X   26   \cu" ı 7w 
-.Y2   `3 F .  f   r &L J    | G^ Fy   	 | o <   &st    G     
-p@  Nh<  3*k  9a e ܏ 2@fQ   g   [H  ym M  6&4ɱ GA<? ` 
-t T  #e 7 ƃ֍ *lh i   ~  n e ~   /:  $ZG hy   { & R(迬4      m  z 
-    C+(-0 
-4 @ JR   FH    *#]% r  Kz- >    tuZ D i     K(f@   \ 4    [  *] t e  yK K֥51  \@0"Ŏ  -23  o ?G  t  WE }   >> H {́   B
- 6JӀ)}Y  0  < 脙   e  P        ^  2 jAM ]  .    jD     ^ QP 
- 5  |  D  @M   k ֖ Z׀\]7_ i\+ -  u X֭zM h  VL    w[  _  5e   A"7d]   ^F   t       u̥ :;[  03*- 4 N g    k +Q \ kJѯմ  3`H8h=     Ѿ1C } A ~  _Sl \   d cSg O } }   0 aCI ݯ   ,    6 4 V \ I  'ݮ    jS=l e    azLπ   vҶ \ Mǀ8
-    N ] d혍 ״   :] j  {l   ` p  F  !u  > JT KM5 2vǝz?C  u
-  ȯ XWgT    NЮ e  Ǎ 	    :^Wn] 6   " m    g Ѯ  G@ku}* /6 ؚro  7  + : k - UЬ     x   u {  ^  ˝ ܖ{{q  M v   d
-  ]  2    Gv o ͬi6  ز
-'hl ࿝i n
-  [' )8^
- {'B     |J  	N &
- H XHd)  _- ڃ{=  ͙  &   3ZjG >uꆵ  u  P{x N  ZO h W9bꨀ   #   t5  < ʺ  ę  { U       
-ѻ8 o  +  
-  ڋi>   x n O<[؏ Q< w k7 6nş   s}  ` kx~     q   M ȓ   ן5n# ", \ _ `:     桒K    5O
-_& g 2      U\w miɶO   ⴼ)  % ˯   h< qD> y ֽ    H =v    { 
-	   sy3/ N  kB y(O   W C  k $ 䂛 W ; ɛ   \    OXع4  W<   G ʳ9  ҂ l k  
- V  8P 㥯$   `x )IRx׮  p l c  T=skm  [ Ӯ j 8   Q  r v  
-  w e<Es
-y ,       Z  m^ɕ -   |  % ԿE  >    ~ U9T  .  u~~ 'ƶ  «  C  Ky  t  7t(	 / ,  T   oΪӺ?. Y k(u .םz  w\A r +* _. ( k\o. [W < G ի Y  =   m / [  ]   ~   } X   	     #݆ _   _ )+ 
-  >V  ^  N{  l       >  :v$   d7 H k a (_첽 Cv  ݱ e/       h  D   q2  q j_4a*   . ?;< 퍽    ׃ T       ^ Q;   w ^ 
- =w tZ  u N S;{   =  u .  {G 諾 Wv ~1X  =     б       p   s|    w  a _;J. Ϲg s      ޟ   > :   . Q Z ɂgH  A {?     A| & L#Y8
-  4j     <    ߋ ~W $ bD   Q<    = { 7    z ,    M  ;8 >h    ݼ    ] 
-  N G|   O#j E  U    c _pӮ   7   ; X? yw
-( }  t N <  ґ { p     q  *` F*Uh
-   	 g *[@wv    f   /  6   *y% 0uD z  pG>\  ;   , 7U    A  Γ   f9	$8 3 
- "  }8 
- "ߪ2 
-$DK m,s  : [ X L    Ǌ V8GXwn 
-    *  n Z~ en> !   nP` ,   r5'Y      Pv  |q  ឍɧ!-eq @IaS31 b@ |    P  %  {! D x    #ᛒW y  A @~ܽ  h  }6  r Hδ_`/    3 X7    f  Z  s  
-1  `  C  ? @H2    S ğ 1  v ;]u o q   +
-4 ' 	  AĒ  \   o W .  s z  bn +      F) y ~      y \? 9    2o j _ '?   ( K " z ?    ? / rBRHX! J      0 MA    ٧ g  0#`ģ8 @ 6  o 
- 
-@$      2c <I a    O d"   + |  A x"$  /w  B a m ֺ? )_  ڏS  D 7N   ~7 AJ  ?  _  & )   0X@/ S Ӳ '  R  '$  [ :`   (?   
- t+     /4,T    nʓР;
-   r: h3   )` #    ۛ =  	      &   %(  2#  D&3  ) ,4똌 )d J&m Ӄ) 2 Z #@ p^     -  Ύ\۬ z 2s  P  k(AK Gc b G05 f8/+&02 `&,
-  '}h
-P  #@8\ )`	kUV V )  B%ى rx6%Z ^zO 8 t0   W9w   &  (       *  b /u(S
-  Y ^ -A0 (   %`   /KVH' Qj j gp -Aj  خ6     ~  
- y#0ԩ  R ' \  A -T \ G   %i kpB & 	@n A  NK e `    
-Bk! UBl "` _$ J  C   "  B Z0$   	    ׭ 
-A    A  %     i  	 A l' 	  p) 
--  h*t  )u (l  Bx Bz
-    -   B  % 
-  f +d B   
+l)‘+,¬‚«Ìfãæ,ÅnáÛSñ§a ’@Š?Qà %¤’„}Q#Ø÷oºbøŠ‹ã/¶}µ…Gf¶Îæ
+ð.m‚ßDã‰CåHx56)~$‰Œ‰À0HIŒ¸FøC"/¯3•Æ85T¸jlœ*E…„â %Q®ñæÇñw
+>ë©
+y1>4Å6
+cÂXŒ±BÒ­'©	ÌÄùx
+áñ3F³*Ø
+Óã;md…5ÖØxÁÕ`nÒÀM õXAEŒj\Ž7Ò96HéX!­cƒL!*tÆ~8?ºd„G²>&¡SÒ¼*rI&Ù7Ê{qödÉ@ÙAZ¿j¼#™²oâGÛX;U %Ü …Hø(Xe(©õF²LÆI)VÄZ|²y@ËTO(ÇŠ@”ËéQ6t )›Œ¥L]B@5«Êvi¦×íÛ’
+l FÌ‘÷,ØC_ ]fY< Êœšá&­7t¿îåK¼/»ä—„¯ 37+*ñðƒÕ--¶*¼X‡ŒCg¬†•7.zØË+},| §ù$¤fŒ+Z3Xœ°¨26ßÓÙ\cu"¶Ä±Ú7wË
+.Y2ðÍò`3ÓF.çéf´›¤rÅ&LøJãïæ¥|ÉG^šFyž«³	ü|æ™oø<±¹Ù&stÃÂñÙG¶‰•ã™
+p@‚Nh<«3*kÏÙ9aêe£Üý2@fQÀ Äg²éé³[H›÷ym–MýÜ6&4É±ÅGA<?å“`Ì
+tÂT š#e7ôÆƒÖÚ*lh´iŸË ~ÆÐnîeâ~¤žã/:ÃÎ$ZGƒhyðšž{æ&úR(è¿¬4Æð®¹Àæm›ôz¥
+ÈÂãõC+(-0¤
+4ß@ÉJR ¸FHˆº¥”*#]%úr’ÞKz-Þ>Ü÷‘­tuZšD§i¾ÌâØôK(f@ø ¢\œ4”¿úÐ[Ž *]òtüeÏåyK§KÖ¥51‹£\@0"ÅŽ”Œ-23ÞÈo“?G“t‡ WE³}§ÑÔ>>ÒH¹{Ìï¨óB
+Ô6JÓ€)}Yæò—0Õ’<÷è„™ ±eîÕPò §ê½ª‹ò‰^Óêƒ2ÈjAMœ]¬­.Ô ¢àjD­«´‚¨^óQPË
+ž5ö|ŽšDû¼@M«¥õk¦Ö–ÕZ×€\]7_ÙÂ”i\+¨-¬“u”XÖ­zM§hÒáVL‹À‡Ìw[ƒ _í­Ï5e¨ ÛA"7d]¤•õ^FÒ »t˜–þœŠ„öuÌ¥º:;[…03*-Ö4ÓN¿g†ˆëkÉ+QÎ\ïkJÑ¯Õ´ž®3`H8h=Ÿ£Œ¦Ñ¾1Cã}¯A~Ù›_Sl¤\³‘dÑcSg‹Ož}¡}¶Ì0ÚaCI²Ý¯œ¦²,ÛÃë¢ý6ð4’VÚ\£I¯ë'Ý®ó¡µ±‰újS=l±e…¤þÒazLÏ€“®ÇvÒ¶Ù\ãMÇ€8
+‹—¤×N„]àdí˜´×´ÒîÓ:]×jã¥{l¢ÞÕ`p§‡F­¯!uÔ>òJTêKM5õ2vÇz?Cÿªu
+ÞîÈ¯˜XWgT¶ÅöÄNÐ®ºeÄêÇ¶	µ»ž×:^Wn]6‘†Ô"øm°­¹g÷Ñ®ÝÍG@ku}*Æ/6ÔØšro²‰7¸Ö+»:—kå-•UÐ¬†ÜÓã¶ x­åuà{­Û^“êËŸÜ–{{qÛì€M vÁî›d
+ïÃ]¼©2ü®ÎÇGv×oÚÍ¬i6þ¾Ø²
+'hl«à¿iün
+Úû['Ûî˜)8^
+à{'BÐÁçñœÏ|JÎ 	NÂ´&
+ßHÀXHd)ð¥Õ_-æÚƒ{=‹ðÍ™³Ë&Œ®Ð3ZjGý>uê†µ ºuðôP{x‰NàþZO§h–W9bê¨€Þåû#žï»t5 Ì<þÊºðÍÄ™·ß{šUØÚ½Õ ¨
+Ñ»8›oÉÝ+µ¸
+ð‹ŠÚ‹i> ÂÅxânÞO<[ØáQ< w˜k7Ü6nÅŸåùî±s}Óñ`Çkx~Üàò èqûíÇM†È“ƒ¼×Ÿ5n#‹",Œ\Ž_–`:ëøäæ¡’KÌí­ „5O
+_&Œgò2®´£¸åèU\w«miÉ¶O¹½ãâ´¼)ˆè%ŽË¯ÜëÛh<¨qD>Êyä®Ö½»‘£òH¼=vü½äô{
+	™§sy3/¾N§kB y(OäÓŽWóCíÈk $—ä‚›’Wç;€É›øÌç\±“£óOXØ¹4—ÞW<Ž G®Ê³9ÓÚÒ‚‹lËkÌ÷
+ýVæþ8Pã¥¯$‘èò`xë)IRx×®Îò€»pŒlŒcø•T=skmÍ©[ôÓ®Ïj³8Öèì©Q÷°rävôä
+Óøwâe<Es
+y±,¤ÀƒŽæÔÛZÓ m^É•ø-ßçâ|™õ%Ô¿E¸€> ¯ó¦~¾U9Tïè.›ªu~~Õ'Æ¶ðôÂ« ôCÎÆKy”Ötœ¬7t(	Ë/ø,ÇëTï¥ÇòoÎªÓº?.ÛYÝk(u¦.×zï¾ëw\AÙr¡+*º_.ì(£k\o.ö[Wç <¬Gé±Õ«³Yì=œ“í¾mØ/†[ÿêž]±Ÿïº~­åñ}ÝX„ì	Àåö”¬#Ý†Ç_“ÞÂ_ø)+
+´ô¾>Vþú^—éN{‡ïl›žŸƒøçé>½í:v$¤½ùd7ãHÝk„a»(_ì²½£CvÀÎÝ±ºe/ƒ³ƒõ×Úíºh¿Dû¬óq2®Öq†j_4a*ˆ÷Ö.Ð?;<í½•óêê¬×ƒõTÎà»’ õô^ÕQ;ðî¼wò^Þ
+¼=wåtZŸ£u«NØS;{ÿîî=ÀÇuò.Öç{G·ï¥»Wv¶~1XÆï®=ÅÓõùÎÐ±»ƒ„‘±·«põÑÏs|´¾ýžwŽÒa¸_;J.÷Ï¹gús‡ÚÑ§»ÞŸ«û¨>ð–»:ƒ²í.áQôZ×É‚gHŸAÆ{?ß¾¶éáA|Å&óL#Y8
+¨ñ4j¼€ïð<´Ÿ÷ß‹º~WÒ$þbD°±çQ<›Çñæ=¹{Ï7øº“§z­,™‹ùûMáù;8ó>h¬ù¹ÏÝ¼÷Ž¿¤]Î
+úÁNÙG|Œ¿óO#jÔEŸáU¼£§ôc½_pÓ®¸¸¦7ôÉÑ;X?àyw
+(ð³}„“tÛN¿<² Ò‘ž{Ópàã¯×ÜqÏª*` F*Uh
+¸Ñ 	…g×*[@wv—³£§fð¹Óò/ŽÃ6·ïÏ*y%í0uD²z¸¡pG>\Íé;ŽÌ,¹7Uúš˜¯A½Î“ø“‚f9	$8±3Ý
+–"Öû}8œ
+ú"ßª2–
+$DK›m,s¾Í:¶[†XéLª³ÃÇŠÛV8GXwnÐ
+µ…½ø*•ÆnØZ~¶en>Ô!¿Ë…nP`á¤,ßÎìr5'Y–œóã¯Ÿ’PvÚÞ|q ô´ážÉ§!-eqŽ@IaS31’b@¯|ÕßãŽP ë%·½{!€Dëx¤¯ôÛ#á›’W€yó öAÐ@~Ü½ëÏhÞç‡}6‡¯rßHÎ´_`/°Æž’3èX7Ž¹»³fÒéZìÃs¾ø
+1àö`ÁïCÉÁ?¤@H2ü¤úòS½ÄŸ1½žv ;]uoå‚qµùç+
+4ð'û	¥ AÄ’’Ÿ\×ýÑoÔWÅ.Ÿâs z«þbnû+å‡ìû‚Ÿí›F)ày~åÇùˆ÷Ïy¤\?Ê9¦Ø ÿ2oÏjÕ_ü'?ñþ (óK"àzµ?ž¿Š?÷/órBRHX!„Jƒ¸ëŸúû0—MA—Š¾†Ù§ígßå0#`Ä£8€@€6ˆñoø
+•
+@$‚š’’åÏ2cý<Iÿaœ„ ‚Oðd"˜Åó+°|˜·Aüx"$‹“/w›øB½a¯mÓÖº? )_“ÄÚSƒ°DÀ7NåÛû~7ÐAJ¡Ì?èï_Ûý& )ŽÿË0X@/‚S«Ó²Ý'û©R Õ'$º [€:`õƒÌ(? °À
+Ãt+Ÿ€Ó ã/4,TúšžnÊ“Ð ;
+í¦›Úr:åh3Ñä¦)`Þ#÷ò°¼éÞÛ›ò=ÞÍ	Œ¿¾¨ˆä“&„÷Š%(¾Ä2#øÀD&3øÈ)£,4ë˜Œ )d˜J&m Óƒ)æ2ªZž#@ýp^ˆÅÁŒÐ- ºÎŽ\Û¬¹zÎ2s‘¼P¬çk(AKÐGcÉb€G05¨f8/+&02Š`&,
+¨…'}h
+P® #@8\£)`	kUVÁV°)€³B%Ù‰¸rx6%Z°^zOÁ8àt0«ÓèW9w”«Ì&À¢(˜ÊÚ¡¨„Á*Êbã/u(S
+ˆ¢Y^²-A0à(š %`¶ ã/KVH'«QjŒjÁgpŒ-AjðûØ®6« Æ™µ~°Á
+¦y#0Ô©¬’R¡' \’ÎA -T“\ÞGü ë%iðkpB’& 	@nîA ­NKÃeÐ`ÝÁ€ž
+Bk!ÄUBl´"`š_$±JÂÄC›Ã”"öÆB·Z0$Ìž€	ÀŒž ×­¾
+A ®øAÁÂ%ü±Æ”iÂƒ¬Â	µA l'ô	Š¦p)‚
+-Âüh*tâ)uð(l “Bx°Bz
+£ÂÄÌ-„’ªB¹‹%Ä
+ýÁf+d¼B‚°«
 
-   !',
-AAk   .  < 
-  &" b   ^  & O	  
-q( 
-0 	 B  +4 k  
-Bn02 I :`   ߊ     e  00T
-        @  
-#   %IC p<
-SÄ0d
- B9A6nC  7L *ø 7t CB i8  =Â#9 
-cp&|m \E: 	C 0@  X &N ã@;LvC3 # 
-  )`
-   A Hk     / 
-C  4 C  =\N 
-     P  Y9 O    /D
-AB 1  
-D /   Bа\G   4,DԐ=\
- C
-q "  B PXV,C  ;    '    Q	    
+±ÁÍ!',
+AAkƒªÎ.¶Ð<Ð
+©ž&" b ·Â^€¯&ÃO	²ò
+q(Ê
+0„	»Bð+4ç€k³
+Bn02IÐ:`ÿüßŠ¿ÎÐÃÐe¤Ë00T
+ýÌè×Û‹Á“@»³
+#«–ð%IC™p<
+SÃ„0d
+ÍB9A6nC° 7L„*Ã¸°7t CB«i8Ä =Ã‚#9Ü
+cÂp&|mÂ\E:Ô	Cú0@¬ X&N°Ã£@;LvC3Æ#ô
+ëÂ)`
+˜ ëAñHkúÂòð/Ô
+CôÐ4¬CÕÐ=\N«
+¤ ‡€‰P ¨Y9æOÐ·ˆã/D
+AB 1ÔÀ
+D…/Ô ¯BÐ°\GÃÁ°4,DÔ=\
+ßC
+qÐ" …BâPXV,Cÿð;„ ‰ '  ŒÄQ	ÃÏðž
 
-_  0Fl  Q, B|C8    *It    0H 
-qA k       ? D( ŋ  1+T A 0=tiD  & [C  BЈ6~ç: . q
-    Cl
-z  0A E  J   Đ,  +  =  1  :D3 G  H +  : R1   J̜ڗ%D  zD  c R> o  0   6  r K7  : , V  L [q  X>^Q [ 8,   㱾 M 
-   - 6   /  
- ;2n:  #cH
-     % 㯝     > j] v  0>Һ    C   +        A.O_ c7 Nt A  ^ ? @Տ   ,  x#87
-,p   qbL   h_A" eoI  GVH>LA  i x G   3m7 _40Ї  p    r x  J( 	]  b    T
-E ' : F -
-|    f4 j o ʫ	 & q\l( & q
-,     NF( Sl P)    >G T   Q  ƩVѿ  @& Hh"      E 
-벤A     # % zDKoEDDfg#F f r	  & y   # 	0 *   ' d4L   p   E -` ' " 
- * 2c > GaU    b  0 B   * s ybC:!       tlz / owTP / G    c   /U T   ޑE\ ģ r    1j@   `yO-   F   ܁Y   AR ǤQ H5M@n  6  1  ? B0D E&  p  N   Ȃ?A QxJG 
-  zĠ. 2G1x   G}  `> Q@  <G 1t   GR-  :    C 
-2 ˸F  Q̪o  % !   M!_ 2}Q 8P    R*x!  B F   M  PG  K " E
-2   G
- {  Hr<  |G&}  Ȳч WH*҅`   Z
- G 
- iH o A G#RT U  샔 H H2  $'IJ   $/IL2  $7IN   $?IP2 %GIl%n&\  `
- '@   $>	 laMZE  ', D甌'8YLI7.a~ `4]r   > U   % { "8(VAF  $   @ P Ɉ    PI ' d 	( В& h   N F ,' I  _T'i J⼘b  o   +"  dU	   J"KC, } g $"쑞(ϙ @B2( J"v ,br D   ` <: Ɉ  $`  қ<(  KbYY(]Ɍ26 P  l2" ,̚ R  dl1  'ϣ  Q %#ʔr " rK  (  C "P ər   Ir   d     & Jq % Ipr @漧	   '  B q  | " & ʟ2   " ~ T*  |B ,+G @  (     $L    *   @ J 2 $T    \ 	   ( @ P,ʈ W ʀ 恈  +qʽ  R        tَ  Ҝ   !  T*ۗ  hI-  4   -sJ F q+K@ "  J   m    8 
-o˽  $0 ǒ  rn      	  ,+- @" , J#  @ J      	
-  t)   #    Ks  $<  r    	   -C @B / J    K      J   $   r   H  \,'   (>"  ҹ   @B
- 0 J)   6    >}R    `  *    ,- |n  & K  	P .  Y&  @b	 1k 	 D. JMʝ 1  r    + Ǵ0s  RŬ$
- @   2U    2+	&  p   re$T     	!`  'p  [ P Æ 	rǦ  X I gр< =  3  
-  3MBs 44  B <4ME  d4 D \4#MJsҴ4 JӼ4%MM   4? L  4CMRs 45= R <5EMU  d5_ T \53ͦ  x( 
- R X    2 ^ \  5 	^  46 Md3 T6 Mf  t6 Mh3ڔ6 Mj  %    
-"t         6ZI  b n" 1  R \   Y K   l a`" WX w K :  S x L8H  <0 ⦘#v
-}   ) F |n r )9t@  b   
-#      %i  d
- d ( hc  Dz 
-   w <lȠ ' *6   baL,  `jJ,    Z %w           (  A        2   
-    ה J 5      ):4 WBC+  | K  t c t/ B/ [                         
+_Äå0FlÁÂQ,”B|C8á®“½*It¨±î0H¤
+qAóký †äú‚?¼D(©Å‹öÁ1+TAæ0=tiDèð&¼[CÿëBÐˆ6~Ã§:ö.Âq
+¤ ðÂŽíCl
+z™•0AŒEÃåJÌÛÃÄ,¼º+ÇÀ=Ä‘1ëÂ:D3 Gì÷Hµ+àø:¶R1þò†ÁJÌœÚ—%D›ëzDàâc±R>Šoå³ø0¾—¯6ãør¬K7³ù:Ä,€V¤ˆL¾[q¤ÞX>^Qã[Î8,çÌãã±¾¥Mñ
+èå -Í6ê»/°Ê
+¥;2n:›ž#cH
+„øö°ì%³ã¯ÏÈâÎ >øj]Òv¾0>Òº¸®­­C””°+Û»ª¹²ë³ÈA.O_ìc7¾NtûA¥è^Œ?Þ@Õ²³Ä,À x#87
+,p€ŠqbLÔÅüh_A"°eoI¤üGVH>LA†Ši—x±GŒ»°3m7ò_40Ð‡¸pÑŒ›Šr±x¢÷J(¼	]ìÃbÆíï T
+EÂ'·:‘F -
+|¶À°éf4›jºoñÊ«	Þ&Ÿq\l(æ&¡q
+,ÝÀêÔæNF(ÉSlðP)´‘ê‘>GÀT´ÌQìÌÆ©VÑ¿ú™@&™Hh"™¾ñêèûEñ
+ë²¤AÑ°À­#Ž%‹zDKoEDDfg#Fžf¤r	Î£&¦y¤í#ðª	0ø*èéÀ' d4LÇø‹p”åþEÞ-`´'Æ" 
+À*Â‚Ñ2c—>ÂGaUžÄÊÑbºû0ÊBÐ¹ž*¢sÄybC:!½€àÀ«Òñtlz¢/¤owTP¾/ÊGÛÇÙÑc´šØ/UT³‡¶Þ‘E\åÄ£Èr„‰ÇÌ1j@õ–ž`yO-é°ˆ«F…ùÀÜY²ñÑAR£Ç¤Q¸H5M@n¬¯6º1œº?³B0DâE&Ø p¤²NÁ±È‚?AÙQxJGö
+¾êzÄ .2G1x¼˜ÖG}²`>ôQ@”µ<Gæ1täßöGR-åŸ:°†¬ C±
+2˜Ë¸F ÄQÌªoÇ’%³!ã¯ÈñM!_ž2}QÈ8P…ôˆR*x!åÇB…F žÇMñˆÒPGÕñKð"ùE
+2üŠ¹G
+Ò{´ŠHr<œ|G&}œžÈ²Ñ‡¤WH*Ò…`Èù¤Z
+íG
+´iH¤oŒAþG#RTÄU¶Äìƒ”¦H H2’”$'IJ²’´$/IL2“Ô$7IN²“ô$?IP2”%GIl%n&\ˆ`
+ '@°–¨$>	¦laMZE©à',”Dç”Œ'8YLI7.a~›`4]r €>›U…¤ø% { "8(VAF—¨$º¹ @°P”Éˆ ’˜šPI¾'™d‰	( Ð’&˜h²˜ NÓF–,'—I“®_T'iÉJâ¼˜bÞÉo²–¼+"‚õdU	áêÉJ"KC,”}²g©$"ì‘ž(Ï™ˆ@B2(“J"vë,br™D  ‰`•<:øÉˆà $` ‹Ò›<( ‚KbYY(]ÉŒ26±PÖÉl2"è,Ìš‘RšŒdl1™„'Ï£ˆ Q“%#Ê”r "‚rK¦Ä( ‚C "P®É™r È‘Ir²¨ d£  ƒ&•Jq¬Â‘%±Ipr @æ¼§	†ª´'€ÃB±q–É| "Ð&žÊŸ2 à "‚~à¤T*ÿ|B­,+G @‚è(·•²² $L€¹¥¬*€ @òJ¥2 $T À²¬\ 	 °ü(­@ÂP,Êˆ WæÊ€²æˆ ˜+qÊ½’¯R©Œº¨§¤²¬tÙŽÁ–Òœ¤ ‰!€²T*Û—  hI-—É4ªý™-sJÝF…q+K@ "ˆ J¥ò¦ÉmÈÊÅÒ8¬
+oË½ò $0€Ç’¤ìrn¢²¬¤  	Àµ,+- @"Ø,•J# @æJ­²’È  	
+ ¹t) ‚Ý# à ÌKs² $< ör™ü  	 ¾Ä-C @B°/÷J àÀK¥òË •¦J¥² $ž ër±® H º\,'ˆÀ(>"‚ÊÒ¹ ° @B
+ 0ËJ)  6ÌÅò‚è>}R©  ‰`¿Ü*… ¦,-Ë|n °&‰KËò	PË.ˆ¼Y&“ @b	 1kÌ	«D.·JMÊÌ1 Îr«¬ ‰+àÇ´0s ÿRÅ¬$
+ @Â 2U‚ˆÀ”2+	& pœÌóre$TÉ³¬Ä 	!`»œ'pœ¨[ñP Ã† 	rÇ¦±¡XøI¦gÑ€< =óê3ÿÌ
+Ðä3MBsÐ44ýÌBÑ<4ME³Ñd4ÍDÒ\4#MJsÒ´4ÍJÓ¼4%MM³Óä4?ÍLÔÜ4CMRsÔ45=ÍRÕ<5EMU³Õd5_ÍTÖ\53Í¦ÄÏx( 
+ÉR—XÕ ±À2ƒ^˜\–Ø5Ã	^“”46Md3ÙT6—Mf³Ùt6ŸMh3Ú”6§Mj³Ú%§ …Å
+"tÆäÐÑ‰‹… 6ZIíÆbán"1“ñRâ‰\  YÆKòŸ±lša`" WXwƒK :¬€S¢x–L8H§¨<0â¦˜#v
+}óàÔ)ÄFÛ|n¢rÆ)9t@ áb™ ¨
+#³Üü‚ÎÍ%ižÉd
+dá(«hcÞäDz 
+ ˆwƒ<lÈ  '*6“‹àbaL,‚Ô`jJ,¼±•ŒZÈ%wŠ€         (àA„       2   
+   ¢×”·Jú5Åþëû§):4ÝWBC+íì¤|œKËßtÅcût/ÝB/°[                         
+```
 
-TreuilConnexion.wdc
-PCS                     B      9       j                  01F280051n                   
-   (4{ a ; hS V  W_  N {y     "             T r e u i l C o n n e x i o n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             PCS          r                   9                         01F280051n     q              >        
+
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\TreuilConnexion.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 ¿ª
+Û Û(4{‘až;«hSÚV±íW_Ð×NÁ{y     "      Þ      T r e u i l C o n n e x i o n                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             PCS          r                  9                €    ¼   01F280051n     q       à      >        
    
-^                                                                 Έ    TreuilConnexion                                    /̞j f g Q  N   `{   $ 2     fQ u je R         9    
-dJ  P@`  
-х  b 
-'*8`1 ƈ"  , <  1cGM"p޼1 G  f  	a f"m Сc& ?w  yd:  Iy/"*Hcf  :fB Ѫ$ ̚7 Uc M*pȰ1S hҥM=>=I!b  w  z T ܒ' L%Ӧ Y:9w |   1m̈ b( j  Qsfkו-_ 5˳  7bܨ c (R G ! 5o ƕ @o   { $   _d    "eK@ zH d (c s ©  X  }  # >R o  TO~       ]    n  3Т ( 3" ͂    	" P 'vc  k )  p* *j ;   d! f # "       
-  # 蒧   Pk 2 `)  c/4     HA v + h I&  Jk  v
->  !" ޸= 
- 
- RT +/ z 	  xc'1   5  <    
-/Q  /A  N; "0 5  @ ( F=E =C5 Q  S =  mҿ 䯻 L  S  @  2
-  	  Bׁ    x u 0 v f  HY  (
- [m UV p: 6 n u (h;7" ġ Z d崏ZS 
-  h  "' ؍:y  U m5 ࿲d M  +-V  ,"     Y   I u j ]e t z	TT.| ӗ_    . c f  O    v  2 RRCn6J(   :   @
-   #_     <R $     n J L =ڈ 	8 @ê  j8 Ja2d % Bs	 .Ò  X  
-; ʃ  ! vK 8   C **# ϵ (   G  d :	0 h W U  s ? a  f /O e߇ e n*.$F6  /( 捷 cu- d L  z ϯ      "t" h   P  𮡇 { ,  j  ZH &I%i |3     ޠ)  !BD &7  mx  ʰ  a% M   ) q    (W  y ^       S   P q u z rd    n8    r C uO ,3 򄈰l   K 
- @f= `/{ 	SzGE Ȋ6?    ƙ!Lni|     @$   !q{  0  G   ;Br    $3 1+kLAa   4cb iP ָF;   % T. i M     '!pB 3 !VI  \y  ,*L Y:  Ot F*X HI  j(C
-B ˳ 7  %  ͡nw˛R@ 4     ؆   q p` `mI  m O \ d   :p 2 L0   #h4  7  
-UHK  L .3  
- (1   mQ 4 D 
-  ,o  Bp 9 A
- &  	D$BhCH .8   mr @1 TW  =۠  jn@Aހ 1i(= a  
-3HEf4 #6W   f4 
- C Q!|  
-vC ĭ# J\0 ,Bv 
- Z׈0M Z + f C   3"c)   |ѥ   X6 u _rq˂1  \RP'Z $!{+  7+ Hv  #T  * !xQ ԈO
-  s  3  ; q ] - 8 /   m `H pN  oi - q  L jZc Mv X
+^                                                                ÿÎˆñ   TreuilConnexion þí˜á                                /Ìžjèf½gÞQƒ–NƒÐ`{¾¯ $¼2õ¶©ôfQÅuïje³Râ    Ñ  Ü9    
+dJÇÀP@`ˆã
+Ñ…‘b 
+'*8`1ÀÆˆ" ø,‘<«Ì1cGM"pÞ¼1“GÌfèÔ	a‡f"mÄÐ¡c&À?w™Äyd:¤Iy/"*HcfŽš:fB”Ñª$æÌš7ßUcæM*pÈ°1SçhÒ¥M=>=I!bœ«wˆ©z«TîÜ’'—L%Ó¦ìY:9wö|¢Ž˜1mÌˆ±b(µjÄÔQsfk×•-_’5Ë³Œž7bÜ¨‘cÇ(R¿G–!â5oúÆ•€@oàÁ…{ü$Èá‹_dž¼©í"eK@ÝzHì²d÷(cªsðÂ©‡÷X±¢}ÆÕ#¯>Røoòà—TO~þñø¡·ŸÎ]îöèšòn ò3Ð¢ñšš(€3"¢Í‚ˆŽ°â	"ªPŠ'vc „k)êÐp*»*jŽ;¬Òød!‘f¡#ˆ"±¹Š³€é
+ Î#êè’§ˆ»æPk¯2ì`)¼à¨c/4öÒêÄçHA…vÁ+™h²I&ÒÎJk­¶v
+>à„œ!"–Þ¸=¬
+
+«RTò+/ÅzÁ	™”xc'1Þ ã5¸Î<ÐÀûê
+/QãÛ/A¹»N;ÿ"0€5Òá@À(½F=EÐ=C5ŽQúìS”=òímÒ¿ ä¯»ïLS¹È@ €2
+ „	ŽùB×€–Ø xåuÁ0‚v£fÝHY€ˆ(
+¤[m“UVÖp:è6Ün©uà(h;7"ØÄ¡–Zàdå´ZSý
+×áhƒ "'¢Ø:y¬—U m5øà¿²d—M•+-V Ù,"ž˜àÞòY¸áþIªu j÷]eã­t z	TT.|…Ó—_Ûøä .õcšfŠƒOÒ ¢¯všÃ2²RRCn6J(†º€:ž´¨@
+ÂéÑ#_¥ö¶Š<R•$—ºŽ¡‹nÉJÌLó=Úˆ¨	8Ð@Ãª®°j8ŠJa2dÚ%žBs	¦.Ã’‰‹XØÁ
+;²Êƒ…¼!ívKÕ8”ˆ¨C‹**#¢Ïµ¶(ˆéG d‰:	0hßWUœ“sµ?­aýf›/O®eß‡Ëe†n*.$F6ä/(™æ·Õcu-™d€LÝÒzƒÏ¯ƒžåÉ ¢"t"›h£çÐP¥ð®¡‡¨{,øæj‹ÔZH¼&I%i¥|3›’®¤¶Þ )´!BDà&7ºÙmxÓÛÊ°—óa%‚Má¾ôÄ)ŽqŽƒœä(W¨µyï^šçÔº ÀS¤ˆéPÕq§u¯zrd§ªæÔn8·»—¤r†CÞuO…,3˜ò„ˆ°l˜Á‰K”
+õ@f=¸`/{½	SzGEòÈŠ6?ˆÖ ‡Æ™!Lni|á£ ¨ÃË@$ˆ§!q{ÀÈ0àÃG‹ ’;Br‚ÿ ¸$3¢1+kLAaÃ¯¦4cb‹iP£Ö¸F;ÀÚ %ÝT.…i¢MÚâÅðÄ'!pBó3´!VIÁâ\yÂØ,*LÈY:¼ÀOt F*XÒHIžåj(C
+BðË³à’7²Ò%·¹Í¡nwË›R@„4ˆ¯ ÉØ††•½qp`ù`mIÂÈméOÅ\’dž™Ì:pÁ2ð‚L0ƒ˜€#h4ëð‚7ÀÁ
+UHKÄÐLƒ.3Åç
+È(1´’mQ4ÏD›
+°É,oŠÓBp‡9ˆA
+¤&Å¾	D$BhCH×.8Àšmrà@1œTWŒ=Û –Œjn@AÞ€ó1i(=áŒaˆ©
+3HEf4 #6Wž‚Žf4€
+í•C­Q!|ˆÈ
+vC¶Ä­#ƒJ\0×,Bv˜
+ÞZ×ˆ0M”ZÛ+íf÷C‘‰¹3"c)µ½|Ñ¥‘ãX6™uÞ_rqË‚1 í¬\RP'Zñ$!{+ö´7+‹Hv²Ã#T¢ *Ø!xQƒÔˆO
+™s·°3‰;æq ]Œ-°8ê/ ‚Üm `H°pNºå­oiÐ-­q£–LÍjZc†Mvò“X
 %
- 6  2    *[ 8Xʒ ﬉GI	 KQA	Y2( Qfz /0 Mv !4
-SP ` I LL       p   ~ ` ɒ   p L    * 
- =
- O~  %hD ІN U D#z  hT-  (K "$ ȗ f   M    < m0#< 
-PЂ  + t ~2m       P	 @ ,f2 9g L , 6<ԡML 2Ӛ .9ݩ , S 
-     Q/jϥ6  Q  T 5\5   W[Vʰ)d5k E   r  I W       ^  k 
-ֽ *,b clGѱ  U  $ LУ v    6  )   f ` ,t   Q <X{=   S  6 e} 
-  n*K4 `
-      F(7   ss    `N  " `
-f  *  |  Au       }A  = { д r  0(  (    ۛ酃'A    P  5!    h  8ɩF   #P     ֤ [    T̐ ' t ? >   	
-o    9 e mI     a tB U     $2  4 :aR       =;ދ  : = p  =  @ g   '  $PtX
-Q  x #ޙ{_  z^%!7[  I  al - Kߛ      \(!{%C bǏ    G	      F [ {@ 3EH^   | 4   w mr   ^_0z6  }%1 W CԀ  %p  s=JӸ   Z  k  c  C 9 3    9p  1         ( <; # 3   k7 ɜ ꜰUc
-V;  z   ! 	 b
-    Q  p e#Bf{6# Ȫ%4 a  0m   * s "  " IL h  Z  x   R[ h  B CA    !о   7=`o  ~(h8  . X  )  Z   
-!x      8  	  8   / { 9d :?  
-          %  * #h &0 ͣÝ㤞[/ HAR   X  	> 3 c  1   ۛMl
-  :
-wʺ c> 
- }"(  =  @9{2   ؁d 
- S$ C<    ( 蚁x;%qEz  X= 2\d8 !M  t  <  8% OTA 9 E r 2ȭ9   2EJ +  # 	!( θ       4       
-     C<, <
-  D<  = ;  -  >   <ȡ  :
- 6!)9A) K \ B t S  T ұAWk q   A{y  0  T #,B$LK \˳t7  i  '  C k  ) j  LP  |4ea |Q   7   } B,ʵ,|    & ˁ
+È6¨˜2 ¨Œê*[é8XÊ’–ï¬‰GI	•KQA	Y2(¸Qfzá/0‚Mv¢!4
+SPë`©I›LLåÙÜæ»ùÍpŽ³œ~Ë`ÒÉ’ÁáÉp LÏÜîö*¾
+=
+ªO~ú %hDºÐ†N¢UÃD#zÑÔhT-•ì(Kÿ"$·È—øfŒ»ëM—Á¿º<Ém0#<á
+PÐ‚¦‚+¤t¥~2möƒ›öæòÂP	é@À,f2›9g Lœ,Î6<Ô¡ML 2ÓšÞ.9Ý©½,âS 
+•¨‘ÑÊQ/jÏ¥6õ©QÃT÷5\5«ÿâªW[VÊ°)d5kêEµö°rýëIìŠW¥Àµ­µ–Ç^ûÊk»
+Ö½³*,båclGÑ±³‚U³«$ªLÐ£švµ›’‰6„¶)‰˜ƒfå`Ù,t»´ÁQ­<X{=’½–S²µ6´e}’
+Ïn*K4ô‡Ž`
+ìÇ èÀ€F(7 ÌˆssÀ¹½¼`N¡Í"„`
+f¸ *àŒ±|¦ÆAuÓ  ®„Ÿã}Aùè= {³Ð´‰r ¢0(Š(‚À“×Û›é…ƒ'Aùç¦ºÍP©Ä5!¨ÍòÁh ±8É©FŸÓÄ#P§ŠÛÙâÖ¤„[ÙËÉëTÌ‰'ûtæ?Ë>Ðìà	
+oÚã ‡9 eÉmI»ÊÀ¢˜a¼tB‘Uš¬ò Ã÷$2‘æ4÷:aRªåÚÝÐö¼=î·;Þ‹²÷:ù=žp…‡=ô“’@ãg æÆ'®¬$PtX
+QÄÒx¶#Þ™{_½†z^%!7[žóI‚ alÒ-éKß›â÷²™Œ‡\(!{%CÐbÇ—÷ —G	¦²ƒœ£ÜFè[Ç{@À3EH^¾ó˜Ë|æ4«èâwómr³þ¹^_0z6 }%1˜W©CÔ€šØ%pƒ·s=JÓ¸ý““Z¾æk‹çcûC±9ð“3€ƒ°Š9p 1˜›¿û¼•£³ˆ(¿<;³#è3ø³¡k7ïÉœ¯êœ°Uc
+V;³zµˆØ!Ü	€b
+¢ÃòÁQ¬¦p¶e#Bf{6#ÜÈª%4àaÁ¦0mƒÂÉ*·sË"×â"šIL‰hŠœZÁäx™èR[®hëÂøB¦CA«­ºˆ!Ð¾¬ÐÈ7=`o €~(h8‚›.ŒX Î)‘æZ¸­
+!x¸ˆ›¸Š»8ÎÀ	åã8¹®/Ä{9d‰:?À€
+¿ˆ—‹¹™«¹›»%˜‚*°#h‚&0‚Í£Ãã¤ž[/³HARù¯“X©·	>¤3¥cºÒ1¨û“Û›Ml
+­¨:
+wÊºó‚c>Ä
+}"(µ‹=±û@9{2ùˆØdÌ
+îS$½C<ðÁÀû(¨èšx;%qEz¦­X=£2\d8¨!M”ÅtìÆ<‰ý8%ÈOTAù9”E†r¨2È­9¨‚Þ2EJ+ñØ#Ø	!(šÎ¸’´û±‡²é4ù“Š°Ã»
+µ¬€½ÇC<,á<
+ËÇD<‰þ=Ä;«ð-™”>œ’‚<È¡”¿:
+€6!)9A)õKÈ\¤B©tÁSƒÁT«Ò±AWkÖqèA{y¢¿0¬ T¶#,B$LK´\Ë³t7Øâi³¶'”ÊCákˆà)ôj‘•LPƒ½|4ea­|Q»ÊÀ7¦ –}±B,Êµ,|¬·Œ¬&¤Ë
 2
- r > Ӑ`  p  0 ?  ==   T8j Iy@F 8  
-HL J DU   
- Hz$  ̬   
-^r9  9  9XDEUdEW E <G 
- i Fv<  :0 NK й:ȹ7 8 8 9   
-   /!   (O { l I s;   m <	 I  Ǔ /P  0   (
-  +9O S      E  J g
-   
-h J  A    O  P!G)   6     \ϓ
-- 
-   :1 X <9 s  2Ѭ ƾa  +  :
-  Qx& j  :ڠ -P   ߜ j<   $
-   8 5z 3  z Z <  $gr +e?  Q`   I 4b :    <  R PQL)  3
-T|J A Qy` Eeԃʾc  O<   ==H   U8 q 9Jm9F-  3  1Q   x R 3J5DF U  []  L 8 ΁  ,  զ :  &R" xb X-
-%mF p @I ɡ    W5 k &Z FJ5 E Uu ӓ  \} _  7  v ?  W   p    %  BC  A  A EA V1K#|X lK eˉmK% L&  j K}  H X  k R鉏I ٦ ~E  a,L7-\B. O}M m
-2 3 *  Xɺ gs)8  RMP XP3hPBQ
- a 7 `  ԣ t.~  r A  
-}G#   Z  
- BPō   @qP,   9     VĐ, S ד  ;Ȩ8 4u 5   4 7 7x9U M T) P>-   #U 6  P % 5  <X#: 8$=  <J TF%  3S [yP 5H  W 
- 
-!  * 9"C5VD= R-P ճ ? ݽ*PJ-  =T CJ r8iJ5;ʎ ~ W  X  ,؁  " ʄ
- t߲\B  ؊ ߙ ʜ     %̈ȇ&  d``  ,     Y  t  t y       Y @M   
-     -U  - xS`Ґ3  x` i8 G  Jq.6   <   X
-    G 
-        ޼Dm     % 0]J .QL Rd  M2@ )   ՒǠ4 и/ 0 $ r
-  Ey      c (c  D  
-5& 6 2ypG @#   y$ z  {|$	  ـ  <UM|Ԙ$N ]z    씇     A c }jY    ʁ L 
-  ],   = YN6  _\fˋ]  u     kcx m!fc ^  @ bF f~ i̈c 恰flVf   pp d  mfL  "  L  L^ X}=Y ȃ2 ` Ʉxn     tx v s  t নو R  " 
-    uV  0h @h0 u e  `
-ĿHh Q           (  A        2   
-      m   N4 -saS t O` Y  A   J  U    ) 2m  }                                     M   M    Έ I   C:\Mes Projets\repo\avsp_server\src\TEST_TreuilConnexion.wxt    
+€rô>ÄÓ` ¡p €0‚?œ™=Âˆ= ¤ÌT8jËIy@F”8ŠÛ
+HL¾J£DU¨ƒ
+¹Hz$’ÛÌ¬¯¡¤
+^r9˜“9š³9XDEUdEW„Eá<G±
+ÈiòFv<‰ˆ:0¼NKŒÐ¹:È¹7¨8Ë8ª9 ƒâ„
+·Á–/!¨ƒ¬(O«{½lœI±s;¸“»mÜ<	»I¨ÔÇ“/P€î0 Î(
+òäŠ+9O¸SÏ …Í˜ŠE²ŒJ¥g
+§ÜÐ
+hÉJúÈA‰ƒ˜¼O¡œP!G)ÐÅÐ6è€Ðô\Ï“
+-Ð
+£› :1ÑX§<9¬s¥­2Ñ¬˜Æ¾a§Œ+”:
+­˜Qx&Œjƒ“:Ú ¿-Pžˆªßœ¤j<òÊ$
+ƒ«8¯5zÅ3ƒßz¤Z’<þ¬$grÑ+e? ËQ`É ºI¤4b¤:¨Éÿô<ÄR¨PQL)ÐÇ3
+T|JAµQy`ÃEeÔƒÊ¾cºÓO<‰¹Ô==H¡ÔùU8¨qÜ9Jm9F-Ðñš¸3°½1Qš¤ÔxÛR€3J5DFÕU¥[]ÔîL¨8»Î” ,ÈÑÕ¦¥:ë &R"Òxb‰X-
+%mFœpÒ@IÒÉ¡ÔíÜÒW5ƒkõ&ZÝFJ5´EõUuÄÓ“ÐÁ\}¿_…Š7“×v?ËÌWò Ê p¡‹¸Ê%¬ÁBC®ÌA¯äAÂEA¶V1K#|XµlKˆeË‰mK%œL&ŒËj›K}…ÂHàX¹°kéRé‰I Ù¦Ù~E—êa,L7-\B.ô•O}M•m
+2 3Ü*‚ÅXÉºÙgs)8”‡RMP«XP3hPBQ
+Îa„7 `°ÓÔ£·t.~€»rÍA¢
+}G#ùŸìZÞÒ
+¬BPÅ¥·@qP,Ñõú9•¿ù ‚VÄ,‘Sâœ×“ØÂ˜ª;È¨8Ó4u5‚ý4‚7°7x9U§M¢T)°P>-°ƒ‚#U’6”øPÃ%Ó5µ½<X#:˜8$=ÿì<JµTF%Áó3Sô[yP×5H„¼W¤
+˜
+!°‚*¸9"C5VD=‰R-PØÕ³´?£Ý½*PJ-ÊÜ=TñCJ‘r8iJ5;ÊŽµ~õWú XŒØ,ØÐÁ"úÊ„
+Ëtß²\BœØŠ­ß™ÚÊœ¬œýÞÉ%ÌˆÈ‡&°¬d``Åôˆ,øß®¢Y­Çt—ÈtËy©ù¨íY¸@MüË
+–©¦¢¢-UÔÕ-«xS`Ò3€£x`€i8„G ÄJq.6€»<Ä×’X
+ ˆ£ÍGÌ
+Œ“ÄÜŽÛÍÞ¼Dm‹‘ËÄž%–0]J½.QLÎRdÎ M2@á)¦² Õ’Ç 4ÊÐ¸/“0½$ór
+ïÕEy°ˆèÒÅcÉ(cßÄD±Û
+5&Ó6æ2ypG†@#“ªƒy$ƒzü“{|$	ÕÝÙ€ŠÌ<UM|Ô˜$NÝ]z£¬Ûì”‡Þˆ¥ÜÞAîcþ}jY««€ÍÊ½Lô
+ õ],„…=¶YN6ù¥_\fË‹]·üu©ý½ã±Ëkcx–m!fcö^‘•@†bF–f~æiÌˆcæ°flVf€°«ppædþæmfL—½"˜…L™•L^ÖX}=YàÈƒ2 `ßÉ„xnàˆÈ °¬tx vÌs–àt¦à¦¨ÙˆÐR²"
+Ž™ÆÚuVÃ 0h‹@h0¢uýeÊòˆ`
+Ä¿Hh Q–€         (àA„       2   
+   Œù¾m„„ûN4-saSÌt¦O`þYÒùA‹žúJÎØU…••Î)½2mŸŽ}                                     M   M   ÿÎˆñI   C:\Mes Projets\repo\avsp_server\src\TEST_TreuilConnexion.wxt þí˜á
+```
 
-WD_DualAxisChart.wdc
-PCS                     B      9       j                  01F280051n                 ً f ' z lwZ ND + D  h^   U        "              W D _ D u a l A x i s C h a r t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           PCS          L                   9                         01F280051n     r       ]      >        
-                                                                        Έ    WD_DualAxisChart                                    / et  > {  _    AJ  @     X >bT   !   / Rc    N       
-d0   A xs    b 
-*&    E	 | H^  X  )bGL!y  ! F̜:!   i獙Dڈ C L  2   t Ȓ  DT@ &NY   &
-*zx q   7e     9n SG̕ .ۨ SW
- 7/jެ 
- Ws   F 5r M  iS & P JX 3b r
-  kرeϦ]  mܹu  }  / Ą
-#  s  C LY)  3 {@    I C  5fdh ʳ W b 5 V-[ p徠k/  
-  ]   T `     &{β螚N  R  f 4  K <  {m  f     
-     /;: .@ ,p   l1 ^,   \ 
-7 ( "  (!  *'|RH"    d I3     0 ƀ 6B{CB8 %   1* :Ì   M    
-   *S Ԍn9 Î:ࠂ 9 l N L L1   9  ?et  X ` !2^jc1 `#  Q Wr :   } ʈ;h
-r * a  H 3 Ҍ   0~m WZ?C [  5 ":-? # SO|! $ 6X  ) X p  9n{# ˖À*!   'I  uM  U 	5  IR)  4 
-  03$ _   v o uX\r  x g ]WHjߨ    
-9  cY 1;     4<ۨ   >  	 v 34 ?  @   	1 0:   . kT: = *   zk   Z ,i E  E  >0  e   1][[  m   Zo  ڤ iL  	 m z   ^ q   zS 6	    ˓ \ AWP K  \n#2 "^ \ s }w {  w ;jڣ > }x  }  B    # ~z   뭏>{     |      ?   HJ z   ~ 寨"
- )  y vP _r     " c   ˴ { sNu   D c9 "r+< UP  " w  `
- 	m   @ A @ @ ȥ  C   F     q  Q  @   T
-K Ba=> !0 !  'H#   y<b  s    X Rh ŘMQH)Ȗ <'
- GJ:  ʔ %KH/ ׿<v |! J  :R 2D$ _H" ~ xD4 $p# A "
-$^XJ 5 @ K1   Q   e-mY  	b 辈     +sw Q 	Qx \ X h  1 "q6 e "E  #$  A  k1     ؑ ho9&H U F p3 2
-m [^  q E )I`V D%'   UF$  e sWQ   y `Ba9̀v  !%isFć b  ٔh 4wD<D  7  (  D  
-" [t&0 ;Hs9*H4g d` B S   3n C1   h!"        'x8 xȳ  F= qm ҡ |H1!     * 7 ) Z :!  &= a l   g   ` @
-- 
-   <n j       ;  ` !  Z lhJK@ h*a v SX3 UB Q y{! j   
-NB     ͎Fp۾ !"  kS=ġbe [ k  6   +sAtE > /
-v   įQ! vG  d!&3  xK\
- u r ]     
-  	
-l K
-n   k       -^    +c3 X w 6  a  Ù{J t _  MO!0  |     իn(_M  3   ] ٻ )    X    } d <a  d ( p~S եE (YnP k b/  `n1 ׻\E 0&0  2   r      2y l^/8 0no  KcJ:     1G   U     Ζ ؽ  ZW ֲM i
-2Ӧ $  ^F )@ 	MP  1 Ц   $+     l+ W#JQC    1  Z) ,u겙  M M C% 
-m  v :Dt i^  S   ݕzsn  z     K̀   `b C +6dw7|[& A     Ta 8\͗  Mq   g jn  tP  [  0    
-4 &  h 
-  I ꯴ @0 Ɉ8 {6  DGyJ    S w     kW  A   #1U : ~w u O  ! IzR  t +e /) aQu |؏  .  Y (  x 5  4 J   o aYs@B     HP Q  _<  QP
-F   <PP = ) 
-> REv   E{ @* 'g NC0  q U     ;,* Pv`e4    O  K/ ӣ U   I&**+ -    MC T   8?    S B 	+  0 + 8!	   B @< Ñ  ٿP@ 	   
- \ 36#    01 l{ Q  *  k  3
-3`A z 2@BQ   { D&  + *  '    s? C  H      ҂, 	 2. x 0 <C  `  C5 3     
- ]  + 6 a     zӹ{  :     ` VaDE   ЂD\Dp # 
-Ժ    7  0y 1 K4 LT  D E7Ũ!E
-|*yM 9ND  3PC X 2I  0
-X #` - ; Na Fz$ C ë:b M:%O      ; ˨ k;o| oT pt V <    BFu\G <y a  bs,#v <  ?(l?И 4k  ` T( ] # [       =1(      =3: <`B  } ~  x    1    $8  0 @   0aq   ,D v9    1 I.  =D 7     ځ'x    t Jb  @  
- B  0a Ѳ20   	  D7 2I  JA  XűlŲ4ɧ9  6 I 0 " < 'j @ i 4 *          : Dq    Jɕ       .   2!   2@K ˫   Μ M')Ey 6@   4 & 83h у0ف \L    <Av e$(f   s
-h    ƈ b   ݱN Ѩ G    ó  K  ?  !  q  <B ]Z
-yó; & 	;  $T&f   
-O <% ڼ% ǈ   K   ` 
- C  # cP  `ȉ r      )Yt tB7RЎ   I1D  4ÓL4 d      L  C  33   \J tJ J6 ͝KsC7u˳ < 0 3 1O 1B  s 8uð   0RCR: JC B!   9	/  HK l 7 +; M< 5 V  ˾٭[ K  K    L L <0 8 Ĝ0  0    =S[    K  !sM+  4 H
-SԄ
-    N35@y   LE5 /   : M3 MSN RUbL `k  9N KNg     C j  k  i         Nr V   z % #O`  [rGx$ ^  W  a  j         X ɻ iP{ %
- S  2Pl    5H     D!5  4F     #  x 5;V   о&ħ X ݏ U     0 	  , TO CP   * :  ,Ђ`  <I %8    (J  }3  Y #C  ;a X QN :V [H    f  m4 g    XrO OtW  q Oq Osu   V2 Zv <t   в  m
-o- |   -XB!Y8P )c ۡ EX  ( t8 du   X  3    ،Y =X eФMټZٖ}Y=   } )   Y   ` Y 6 2 
- |S UڠM]tl: =  XΦ  眦eݨ     Ư%   n Z|   Lۺ     C ĥ < u[ 򨸕  e޺    <   # [ 
-     0 3 >d  "    	J ہ ^`      ɽ\
-   Pݫ  J 5Q  _ ݏ }      e]    U   И   T M 0  ^U
-zZb-ީ]   ЫM`k PgE%h-i j [V" W2ے [ Ż U)^ Ƿm
-? [fm_y`x5¼m`  b 
-  ]  XA ŉ PC 7c 9  ^  & X`  \ `˵  ɣ͵' Uc 8X78 - @  K  MW 63X F  G~ ,    M[2;  d3     (p H^  n g   U  bl|     ^ L;&  s| (. ) *.  = ,> "   8/ W    U g  8   ݣ    z  V ]`   c
-`     彨 Î5d  潸 ЃV     {( h#C1 6 6M-
-L  \U 嚨 ށC   9TT J [K `E+   0Ë>    9UE;mK+   8K v (=@       # (  )    24 ,H%h#   1 + h(  93 a 3 6	 & 6>  j+c ٩ ! ˢ> ^  7 j  h 걮9   	  k8 j  hi      .}U  ďnK< Ll     h lS34l7,fd    Y :d  N  -   ^"[ [    el  u |]:  m > x  e     "    z
-   #n (n
 
-\Dn1`3 )@ rrP` {   nH =v`       z >F     1( aQ , K    I    Z    7 8Ѓ   *WY93@ A    ,  P I   p  pIf  ,   pE  : pU p p4h P . l> e  b :Z W[ Z\   #ޝ$  pf  ޳    mr   ~ a&	&n ɦ  " (8 *  yM   & Z ׏: ,nm>    P >B U ( v( ; ^PgkV    ? ` >  k*:W;  9J ,  G  7 g 2   A  G? C t5  \]պ	    7    R  EhÒR   l  q   d-m!?m"'P 9r I  [m 滃f(O:)O r r          r0s2 W =s1 ;5 %6      ߈Џ:  ;wPp  h w( T tA X    a  g  Yw wIg   D O   N =R  ?ԅ ? CB&81T Cu &y  y   i+ I nc 9pu:   Џ0 u  uu; - M 2 &    Mͭ 9ey  y M3  7  d9 3i 4 M . v goX q h a  U  5 h  i  ٖ lm s/ \   نl P   
- h Oߦ óvn
-d  bm  / 1/ p 4 m'  mU_  _3>Py    7H;0 $  - ax Ȁ  d @    肷*  |· ^  (PLhҠ  L\ @)خ hRI P(     OG>  `y Q ( !	  i ~Y Ё i    Di P     } ڼ 8  6    ܄     l g-&iu    á25 j    5 @ ~?a    t E m  ב  2 Vj e   6  ۾Ӳ _   =`  f "ݽ     +G}o @       v  ۙ9 7	4w o m' E ,_ 
-$  A u&<( O   ;  J@ S} .*Т
-  `I? 
-؅a А Q =  s   C|$ Q  A    i?- U ; "BM#=    G  ҚDf .x 3  Tު -oz	YU
-0 5@f  4a  ^0j  u  b n 6 
-S	ڋmi/   R 
- ^2 | =     | C    ߋX|MN}M>f    -	\ D2 < dAS  9pS   & B  x  L   @ GWa|   ) G
-8    > '.
-0f  <HA b   \  o  Ӂ   Ғl ?Ʀ ԋy @C  @ 
-  Ib  ]0     L 26"QI   } 
-jA/ #r  ( <
+---
+
+## Mes Projets\repo\avsp_server\src\avsp_server.cpl\MP\WD_DualAxisChart.wdc
+
+```wlanguage
+PCS                     B      9       j        €    Ê    01F280051n                 Ù‹éfÖ'«z±lwZ¨NDÞ+©Dðàh^·ŸßU¼¬Ô     "      þ       W D _ D u a l A x i s C h a r t                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           PCS          L                  9                €    ¼   01F280051n     r       ]      >        
+                                                                       ÿÎˆñ   WD_DualAxisChart þí˜á                                /ÈetóÕ>ú{ ë_ˆûÒAJüá@ªãÊ  X¨>bT¥‚Ð!½˜’/•Rc    N  †    
+d0ËÐÀA‚xs—†‘b 
+*&¦° ¢E	 |–H^‹ˆXŠ€)bGL!yÔÐ!’FÌœ:!ÌÐÉiç™DÚˆ¡CÇL€î2‰ëØtàÈ’òÀDT@Æ&NYììù&
+*zxšqó‹š7eàà¡óâœ9nÚSGÌ•™.Û¨ÙSW
+œ7/jÞ¬ƒ
+ÁWs–ÑóFŒ5rìMºÔiS¨&ÏPµJXÈ3b´r
+áókØ±eÏ¦]ÛömÜ¹uïæ}É×/àÄ„
+#ŒósèŒC–LY)ÓË3Ë{@éñäÊIšCÕè5fdhÝÊ³´W°bë5‹V-[·på¾ k/½¶
+ãî]øÍáTÌ`ß¼ñãÈ&{Î²èžšNžêRàºìfàŽ4ÓÂK­<ÖÐ{m½öfƒ¯¶¾æ
+¬¾ÝòÛ/;:ü.@ã,p¹æ¹l1 ^,ÐÀ¨\ 
+7à(Ã"ì˜Ã(!»ë*'|RH"ç°ñÆådàŒI3„‚ŒÂÎ0ò»Æ€Ž6B{CB8â%£žŒ1*¨:ÃŒŸê M‹¬ ô
+´—²*S†ÔŒn9¨ÃŽ:à ‚Œ9Àl£NïLóL1É¡Š9¬Æ?etîÒXª`€!2^jc1È`#„ˆQåWrÎ:ÚäÊ} Êˆ;h
+rÈ*ça¦¢H”3ÊÒŒ¨¨‚0~m’WZ?Cƒ[¡Ã5ª":-?“# SO|!¢$”6Xý)„XípÃÕ9n{#ÜË–Ã€*!ì Ã'Iû¼uM“öU°	5ÐøIR) Î4ª
+¨Ú03$_§–ëv oïuX\r—»x g¡]WHjß¨ÃÚí
+9ý­cYŒ1;°ªèÜÒ4<Û¨¹£å>ÈÙ	´v¾34Ÿ?Î÷@¡ÔÂ	1ò0:„ž–.ªkT:ã= *‹í¦®zk›£òZÁ,i«EÒÔE²>0„¯e ƒè1][[‚å¡m»¡–Zo¶ã¾Ú¤¿iLûî¢	©mÿz†»£^ûqÃÝÆzS¾6	ª’ÔìË“î\ÜAWPô´K‡¼\n#2â‰"^—\Üs×}wÞ{÷ýwà;jÚ£ˆ>â}xãÿ}ã BŠÎùæ#‚~zé«ˆúë­>{î·÷ûïµ |ñËïžüóÍ?º´·HJƒzùë·ÿ~üå¯¨"
+ô)þåyïvPÊ_r÷¿Þð"Ácýœ¾Ë´¯{ïsNuçÀ¦DŒc9"r+<UPžð"Üw›±`
+ñ	m Â¨@ A®@à@°È¥ òC þðFôãçÂàq€ƒQÈ@ˆ žT
+KÁBa=>’!0Ä!€ž'H#Œ¼Ây<b÷–s‚ˆÄáX®Rh‚Å˜MQH)È–Š<'
+„GJ:™°Ê”®%KH/è×¿<vº|!ñJˆˆ:R‘2D$’_H"ˆ~ÄxD4ô$p#èA "
+$^XJà5°@èK1 øQ‘ œe-mY î°‡Ç	b‡è¾ˆô¡‚¨¼Ì+sw QÄ	Qxô\é”XÖhÉ1¦"q6e "EàŠÇ#$öáŠA‚½k1 ±€ ÆØ‘‰ho9&HãUÑF p3Š2
+m²[^‘q¤E )I`Vò’™D%'µ÷ÉUF$™ e sWQù©òyê‹`Ba9Ì€v¤š!%isFÄ‡½bžÙ”h–4wD<D „7¨¡(äÅD’¡
+"À[t&0€;Hs9*H4gÔd`ã²B€S¦ 3nˆC1…º¨h!"ÁŠ¤¶‡ˆê'x8xÈ³šó¸F=±qmöÒ¡¿|H1!ªí‡±*æ7¢)ÓZÛ:!¸¶&=°alÞ¼Òg¯÷á`ñ”‚@
+-ƒ
+Îú‚<nðj§–ƒ’µ;¨Ï`é°!”¡ZµlhJK@Óh*av¸SX3°UBãQy{!ºj²öÊ
+NB¤þÐ³ÐÍŽFpÛ¾¡!"½•kS=Ä¡beî[k¡¹6¶®º+sAtE·>à/
+v°„ýÄ¯Q!ÃvG¤d!&3¡ïxK\
+Åu±r¬]å“×æÚ 
+„”	
+lßK
+n¸‰ök’þòö¿ÝÕÂ€-^—·¸’+c3ôX¹w²6ñ…ï«aÏÁÃ™{JÈtë_þ¨MO!0¬Š|Üô¾ØÁ‘Õ«n(_M÷¿3¸î‡å¡] Ù»„)°¤ŒœXôº¸Áì}°d<aêîd¾(Æp~SôÕ¥Eå(YnP€kŒb/£Á`n1ƒ×»\EØ0&0›ï«2 ¦¶rˆÐÛì Äî2yõl^/8¹0no ßKcJ:ÃØÉñŽ™1G…ž©UÌÒüÚØÎ–»Ø½ãª ZWÿÖ²M¤i
+2Ó¦Ú$ˆ¨^F„)@¡	MPÂ1ôŠÐ¦²ÞÐ$+ã °žÁl+¬W#JQC¸ÉŒà˜1„©Z)¥,uê²™ÛöM·MîC%ª
+m ÷v :DtÐi^“…S‚ÿ¨Ý•zsn£’z¯ÌÞß÷KÌ€—àî`b£Cº+6dw7|[&ÑAÄ ëí™à»TaÂ8\Í—ùMqš“•gÈjn‡åtP¹Å[žá0ìÀà
+4™&¤h 
+ú¿I ê¯´ä@0©Éˆ8´{6¥¦DGyJ‹â£ô¨SÓwöõ¥•kWÛÑA§¼´#1Uº:ë~wÜu£OŽ¼!ÞIzR“¤t +eé/) aQu¨|Ø•‰.³™Y÷(Ý°xã5¾¤4Jâžø†o¡aYs@B½â¡Ð HP»Q•ò_<ªöQP
+F¤©ò<PP‹=ª)¸
+>óREv‚˜ E{Ô@* 'gƒNC0”¨qªUÍ¬ÜÄ ;,*‹Pv`e4þþ OØèK/†Ó£ˆU¿Ž³I&**+Ÿ-ü£ŠÂMCŒT“þ8?ƒ“ð ßS€Bò	+ˆ0¶+°8!	  B™@<ºÃ‘ ƒÙ¿P@ñ	‘ë›û
+”\ð36#È²ˆƒ01¾l{ÀQéœ*ƒåk¾ç3
+3`A®zÁ2@BQƒ½ {ñ¾D&´²+*ªº'«ú¼Ðs?ÓC½âHÂÀ ²ÑÒ‚,ô	2.Èxƒ0ä°<C´è`ÑúC5‡3‰ˆ¸¨
+“]›­+6Äa“‡…À¹zÓ¹{›Ã:ü¸ÂÚÂ`VaDEôÂñÐ‚D\DpÀ#Œ
+ÔºµÚƒ7¼Ù0y²1«K4‰LT­“DÁE7Å¨!E
+|*yMÌ9ND€›3PC£X·2IÃý0
+X´#`Ã-¿;ÆNaºFz$©C¨Ã«:b¨M:%O¢¥˜¨±;°Ë¨²k;o|»oT»pt»Vª<’©‘BFu\Gü<y¼a©–bs,#vä<“Ð?(l?Ð˜ƒ4k˜ã` T(¨]°# [½»¨=1(€€Ç Ø=3:<`BîŠ}½~üÇxƒÑÊÂ1Ì‘Œ’$8°ƒ0™@Òè´0aq´¨ƒ,Dƒv9’šÌÂ1ÈI.©É=Dº7”  ²êÚ'xŒ˜“tƒJb«Å@¼Å
+ËB¬ƒ0aÊÑ²20¹‰›	«üD7Å2I®ôJA¬ÊXÅ±lÅ²4É§9©«6˜Iï0²"¨<´'j¸@i³4·*‹¼ƒ½„¯¾üËû:‚Dqƒ¤œ­JÉ•œƒ ÜÀÅã.Ö¸2!ƒº´2@KªË«“× Îœ¢M')EyÐ6@”¸´4Í&è83h˜Ñƒ0ÙÔ\LÖüÌÐ<Av¬e$(fŒº©s
+h¼º†¢ÆˆàºbòºÈÆÝ±NßÑ¨®GîÇîì¨Ã³¼¤KÇâ´?°†!’qé»ò<B©]Z
+yÃ³;Ä&æ	;ÇÃ$T&fº”¢
+Oü<%ƒÚ¼%ÊÇˆØÈÑK³‹¹`Ö
+€CÀ„#€cPÈ `È‰Är€È ˜¨†)YtŒtB7RÐŽœ²I1D‹“4Ã“L4•d—–´‰—¼L‘èC ¤33ˆ´È\J­tJâJ6 ÍKsC7uË³Â<²0ó3åŠ1O›1B£ƒsë8uÃ°³²0RCR:ÄJCÔB!ÅÈ9	/­ÊHK²lÑ7È+;ÅM<Ò5V”Ë¾Ù­[«KŸÄK½äËÕLáLÏ<0ò8ÌÄœ0àÄ0Ç­Ì=S[ƒ´ÍôKÖäŽ!sM+«4ËH
+SÔ„
+ÕÔÔÖN35@y€¸ÙLE5Å/ÜÔÍ:àM3ðMSN³RUbL¤`kÏü9N§KNg´Ïæ”ÆÙC¥jŒ¨küºiÚÏÁÎÞÑÎéìNr¼VŽŠ»z”%¥#O`ýÖ[rGx$¼^ªÏWú…aŠ§jõ©¡è ø X É»”iP{´%
+ËS× 2PlŠŠÅ‚5HÉñ˜«ÉD!5¸4F’ ÕÐÚ#xº5;Võ¾Ð¾&Ä§ XƒÝ„UŒƒ ó0¼	œƒ,¨TOéCPåÑî*Ù:¸Ã,Ð‚`ÙÊ<I”%8•…Ùå(J’·}3ŒøY¡#C¡Å;aÅXâQN:V¬[Hèéü×f­Îm4¥gåÆÃÓXrOûOtW´½qOq˜OsuŠÄãV2ÒZv…<tùÏãÐ²¦¹m
+o- |”‡-XB!Y8PØ)cØÛ¡€EX‚ ( t8§du Š½X¦Ñ3åØ ðØŒYÂ=X›eÐ¤MÙ¼ZÙ–}Y=½£™}´)ºšÄYåÙ`ñYÒ6´2¢
+€|S¤UÚ M]tl:¨=¨XÎ¦ Úçœ¦eÝ¨­¥¨®ÕÆ¯%»°Çn´Z|åÖñLÛºû¸ ˆCöÄ¥÷<¶u[—ò¨¸•¦˜eÞºµ¿»<ëÝÛ#ê[Ì
+©Àõ¢ 0‚3 >d™ƒ" ŒŸØ	JÛ‚^`‚ €Èå¢É½\
+ çñPÝ«ßåˆJÎ5Q Ð_þÝÿ}ƒ –®¦Êe]þ¨ÙÃU™×ŠÐ˜‚ÍÆT›Má0¹‰^U
+zZb-Þ©]¨ªÍÐ«M`küPgE%h-iåj¥[V"ÛW2Û’ú[íÅ»µU)^’Ç·m
+?à[fm_y`x5Â¼m`˜Òbö
+¨À]ªXA”Å‰ýPCƒ7c€9¸^ ‡& X`½¥\Œ`ËµŠ É£Íµ'Uc¸8X78¦-²@‹–K§œMW‹63XäF¶ŠG~ƒ,ü²óê³M[2;³Ãd3¸ºÀ°(p¶H^§ÞnÆgäáäUÖèbl|ÞëÔåì¬^ïL;&†¦s|â(.æ)¼*.¼ó=¼,>¢"†âË8/ŽWøõáëUßgØ 8ÜÛÝ£½’†Íz€ÓVÈ]`àøåc
+`„‚êÀŒå½¨ˆÃŽ5d«òæ½¸ÐƒV¾£®ä­ç{(¨h#C1Ú6€6M-
+LÉ×\Uúåš¨ðÞCŸä¤9TTüJž[K´`E+£è 0Ã‹>š—Ðè9UE;mK+›¨¬8K€vÓ(=@¾·Ì…†‹™#¨(°‚)°²¬±24 ,H%h#šþ1Œ+°h(“˜93Àa„3‰6	©&éª6>¬Öj+cžÙ©!•Ë¢>ê¤^êšî7jª°h°ê±®9Øüê¨	ºk8Éj¼†hi–ÚÞú“‡.}UŽöÄnK<ØLl©¤ÍÒìh¶lS34l7,fdÄá•ÚY¶:dßNºå-Îåè…^"[û[êµÖ×þelÞuæ|]:ÎÎmÎ>æx´âe¶Ïôˆ¾Œ"¾‘þ€z
+ãÚã#n§(n
+
+\Dn1`3‚)@‚rrP`¸{ ÿÙnHç=v`¸¢ËÕØå«zÞ>F’ê¾îì‚1(éaQ™,´KÔïÀIšôïžðZ±²¨7¸8Ðƒýè*WY93@‚AÑäúƒ,œPIƒ p‹£pIf™ƒ,”àpEôð:€pUp·p4hPñ.Ñl>Þeüìb¥:Z¾W[ÆZ\âäñ#Þ$öÛpfæÆÞ³Õíòämrõ¥ß~¥a&	&nàÉ¦ˆˆ" (8‚* ƒyMî¥ ò&æZÚ×:¢,nm>ü½’ÂPÃ>B¡U¸(‚v( ; ^PgkV§Úû€?ž`õ>’kïµ*:W;§’9J•,ñÉG™á7èg°2‰ÜýAšƒG?ƒC¥t5ØØ\]Õº	“¸ 7€³‚ë¸RóEhÃ’RÇñ€òl¨ëqæüñd-m!?m"'PÝ9rÝIòú[m½æ»ƒf(O:)Oær­r§¸òùÝâÞáòðr0s2§W¼=s1ž;5Ÿ%6·¼ˆöåºßˆÐ: ¤;wPpðÐh w(€T tA§XŒ ‚Ûa€ô–g“èYw‡wIgáùŸDøO×ôÃNœ=R—„?Ô…Á?éCB&81T’Cuø&y‰y——Ði+ÓIõncõ9pu:€õýÐ0±uÀuu;Ô-…M›2‚& ‚ƒ„MÍ­Š9ey—‡yÌM3 ù7°ùd9Ô3iƒ4M³.ì´vågoXæqíhìa­óž¬Uòæ5öhååiõåÙ–ílmŠs/÷\¿úüÙ†l P˜ð
+©h—Oß¦ÇÃ³vn
+d±çbmÚö/ó1/óp 4·m'××mU_À¯_3>Pyü €‚7H;0Š$é¢-‚ax‡È€ôòdŒ@‚øŠœè‚·*Ì×|Î‡ƒ^Ùç(PLhÒ •ì°L\ß@)Ø®€hRIøP(˜‚Ž§øOG>§ù`y„Q (ù!	žöi ~Y¬Ð¨iÒ ÜDiÂPõÊ·Üß}Ú¼ª8ˆÀ6˜Ü×ýÜ„ø®–‡žlôg-&iu ãþ Ã¡25½j³õÅ5Ö@©~?aŸá¿÷ìtÝE mÆÊ×‘¶‡2ä¸VjÛe°—Ñ6µ Û¾Ó²“_·Á=`¬f "Ý½ä÷ÚÖÞ+G}o˜@­À—í¢‚åãv†ïÛ™9Å7îŒˆ	4woÇm'ûEù,_ç
+$ØÆAÅu&<( Oàôí;£‚J@ëS}‰.*Ð¢
+²˜`I?¢
+Ø…aÁÐ”Qå=šçsñúôC|$áQ¿„Aòšöëi?-¨U½;Â"BM#=Ãüá„þGôàÒšDfÐ.x¿3µÿTÞªû-oz	YU
+0á5@fÁÏ4aºÓ^0jñºãu °bÂn®6¯
+S	Ú‹mi/µ½ÛRœ
+Ô^2Ð|ñ=ûä÷Ô”|¼CÛ€èíß‹X|MN}M>f‡œÊØ-	\éD2À<ÇdAS  9pSß³ & BŸxöúL‚ïñ@ÁGWa|ò)ÌG
+8è¤õ±>Ø'.
+0f ã<HA£büØƒ\˜‚ožðÓÂùÓÒ’lÒ?Æ¦ÿÔ‹y€@C‰È@±
+ ‚Ibˆò]0¼††¬L 26"QIÄßó}â
+jA/¨#rµ(›<
 J
-7      j"P AAh!    gn ~ l     X   @   p  T, "  s- bT @Z  	  " Y0ۡL     
- .YH¦L [ [T A. ^3e " @    9   PI	
-  + 8 bLx m\
- 5  Ճh  v   붞m^    da \    B (C l\b$0  · ucq 4  ua Ѻҁ&  >e Nl A 2
-_ 2	  )~    @S @ I  c  e  CA4 ?t    d }& bϰ 3`>VE@   V f +>
-    "  ph-^Ƴ 7$ވ  13γy-$  X Q A2 @ _ |-` q  2  ̨
-   e!  4  D 2jd    M m rH 9" B0 ՅEJH ɠM |/ L 	 T    -rq( Y H$  4?2A  !	$  d82R Ȭ $)    S G (+9! d ܒG %  x  I     -     p u1K^I! &     M N.   '    ̢J I5(   Аg 0>   c`  & 
- ȸ+z    f KN=   nl!  x 2   j+D K5 X +g!    6   8  c  ҅ Fe  0 H9   .  r W̑_ =$ 
- U ,  q  ň  " xhK     <(  @<.7rh
-"  A  c9J     tq*1   b       *% J?a*֤C Zb f 	;6 G   }| T1  Ia )M GT}Tt,  }  !' L I0ODq k 'e2   2UU M 1 E <0  p < )I s ߰8T ѧ  H ,j I2Ɓ;)1O   j jz  I#V  К  k M T5[ 
-z NbMI# & 1 m Mɡ  (+3n   Y7   <Sj p *    OS i 1 15  !?  ě @ d < 6 K  O?^N4%  䜀 s6  5*  
-N 18a 9' Tt8 í V4 ZȜnT 3 X;ݦ  )  3N 9  f _ '
-% \' 䔍q˴ *a    
-  J
- < E1{H   ^ >}e f   
-Kb =eJ3  $ @ C A2      `  Ah$d9 e & n  - ݴ ͐   l	 u ޲]E <9%Q &_ Ѓ@  cg     h*A s#!tG     2
-rQ/Q  @ O ^M`2 vo$ 6`D Z!DYh&Qbq    \ , | !Q @  NR  	~xVV`  CUʥ VH |   8    I@ :3'   ' dS      0) @( ( b   )Ԕ   @ 3 Mׅ  f T z`t     "    )N  h } om  ǘ_l _  PŁ  9U ꌣJA R, R)l |Za J  D BVȥZ L<  W9) 0 y>  D    (Z 	9  5 59C@6-  r M A  Aњ    M;&7 Vf0S 9 R  ) g    G R%  C  Sm:=ag  72q  ǳ     ڳ   8+3 +   | O  +  FU  Wz `   -مդ  d       )$P* @ Bp  8>K (A} 2   RXj  ȭl      IF   h*	 ԃ V(      X z)   
+7èæ ¯°ƒj"PøAAh!˜¸¬´gnä~Âl¸ÏÒ ÕXƒ£ð@´‰p®ÅT,Ñ"á¥‰s-¬bTè@ZñµÐ	š§"‚Y0Û¡Là”ƒ…²Â
+ã.YHÂ¦LÄ[Ç[TûA.î‡^3eì"Ü@’ãÅ9ØœÚPI	
+ûÑ+“8 bLxõm\
+¡5ØÒÕƒh …v¶¬·ë¶žm^ï‡…½ú…Úda \°µÕBØ(Càl\b$0ÍåÂ·÷ucqò…4Éua ÑºÒ& >eî˜¡ŒNlÍA…2
+_À2	øë)~º‘ÇÔ@S›@ I ™cíñeº¥CA4×?tŠ°dÇ}&¦bÏ°‹3`>VE@¸éäV f‘+>
+¯øéÀ"Ë‹ph-^Æ³ˆ7$Þˆõ13Î³y-$àXQ£A2µ@¿_„|-`ƒqŒ‰2²Ì¨
+±„e!¶ø4ÐŠD2jd¡ó Màm±rH9"íB0‘Õ…EJHÉÉ M‹|/ÒL 	˜T åøë-rq(ÈY H$„4?2A®È!	$ Œd82RÐÈ¬è$) …Œ’S²Gö(+9!±dŠÜ’Gê%ÉüxØÊI˜”¬Ã-† ùîœp€u1K^I!É&£†—œ“M²N.¸½ˆ'³šèà“Ì¢JþI5(‰¤àÐgÊ0>Êøüc`Œû&§
+‰È¸+z…Ê ƒfÑKN=´ÖÕnl!¦xÉ2ÒØõj+DK5¹Xˆ+g!´…±‘6úÊß8Ÿá“c•ÅÒ…ôFe­Ü0‘H9ÐîÀ.‡Ÿr´WÌ‘_¹=$‚
+¹U³,†Óq›‘Åˆ ý"¤xhKªãÀ<( °@<.7rh
+"”þAÐc9JöÄåø‹tq*Â1°’ÞbøØÅûø*%«J?a*Ö¤CõZbØfò	;6ñGŽçàš}|ŒT1ÁíIaÑ)M‡GT}Tt,Ðâ€}¤€!' LI0ODqk­'e2µíÐ2UUÌM1¯E„<0êã‚p™<ê)Iýs–ß°8TòÑ§ H¦,j°I2Æ;)1OØÍâj jzšI#V¦¤Ðš¯«k‚MØT5[ç¡
+zàNbMI#ÿ&à1 m®MÉ¡ ô€ƒ(+3n¾„¹Y7ïæÔ<Sj“p²*þ¸ žOS£iò1«15›†!?¥ÏÄ›ò@ÿd…<ð6»K›O?^N4%…ßäœ€Ós6—¦5*çÌ
+NÁ18a‘9'‘Tt8“Ã­ V4ùZÈœnTì3ûX;Ý¦—´)“‘3NÁ9§fÌ_Ç'
+%µ\'Èä”qË´å*a¥ñêÈ
+ÈÑJ
+è¼<àE1{HŒÊÆ^‰>}eúf¶‘ñ
+Kb†=eJ3 $À@¼C¬A2÷³“Œ”`Á Ah$d9í”eµ&ðŒnÇÊ-»Ý´‚ÍÜáÆl	€u–Þ²]E„<9%Q&_ Ðƒ@Þå cgÀ€º¾ôh*Aìs#!tGöš©èÉ2
+rQ/QªÓ@˜Oƒ^M`2˜vo$Ì6`D÷Z!DYh&QbqéÄÄÂ\ô, |‹!Q @ý˜NRä¼Ê	~xVV`¢˜CUÊ¥†VHÌ|œ…Š8¼›åÒI@˜:3'¿£'óŸdSšÌïù”‰0) @(›(ŒbªŒ¨)Ô”çóÜ@—3M×…ÂÎfØT z`tþÍù·§"…•“)NÈùhÚ}œom”îµÇ˜_lÂ_˜óPÅ Ó9U©êŒ£JA€R,êR)l²|ZaŒJŠ‹D©BVÈ¥Z´L<½¨W9)À0åy>ÏÊD“¬Àñž(ZÐ	9§Á5ž59C@6-Á´rÞM‹A›¦AÑš† §–M;&7åVf0Sç9”R§•)žg“‚©GØR%òìCóùSm:=agõÜ72q ÔÇ³®§üüŒÚ³ú¸Ò8+3 +Ÿ­‘|ŽOóÉ+×çFUŸõWzÔ`Ù±¥-Ù…Õ¤ºd  ‚¶ÁøÓ)$P*·@›Bpø‹8>Kã(A}à2¬–ðRXj³ÛÈ­lê¥†”¯åIFéÁâ˜h*	 ÔƒðV(¿³ ®  X¾z)‹¨ 
 
-HuO*UJ, (    ЈR 2 D   @ T kl P E `    g  $ !W 1-:V& t,F 2f-   6 Q H4w&   t( ѥ G   %   f : H  "J  ưI 3  %   n  {JK ,   q UjZJ# `   rJ !/Qߌ    䞬  T
- J:oW S d8W B Jr =  i@     L%    >i%U̅zRg CE  S~  o%   5  F  > +G  %~ @ _  L"W8 w*u 1L 4 YПJR   
- HP      ʗot M  8  " @ 8 rޭyU`  {d 
-;    'V jPbX HjDh %   k > 
-EA;<   A H@         (  A        2   
-   L9~ D ;  M  4f  R      E   i r- \  =                         
+HuO*UJ,Ø(– ¢÷ÐˆRÓ2šD™šà@¢T´kl—P´EÕ`ž ¤ùg¬¤$•!Wó›1-:V&ªt,Fñ2f-˜© 6ÍQ»H4w&¥œüt(ñÑ¥ùG‹Ž %¤‘ôfÒ:HÓæ"JŽ’Æ°Iú3õæ%Õ“nÚÍ{JK©,ú¤q®UjZJ#§`«»´rJµ!/QßŒ¥¦ÓÊäž¬ £T
+èJ:oWÄS¹d8Wë™B•Jrã=áš i@…¯³Á‰L%™»ª°>i%UÌ…zRg‰CE…ÝS~½å…o%±»¨5£¾FÊ>å+G­%~ž@ñš_ó L"W8“w*uÇ1L†4ñYÐŸJR´¥ú
+°HP¿òÆñõŽÊ—otŸM¡ 8ÈÁ"ó@‡8ÕrÞ­yU`¿Ý{dÁ
+;˜  ý'VÁjPbX HjDh°%µƒÒkÙ>¨
+EA;<‰áÈA€H@         (àA„       2   
+   L9~­DÄ;ÃôMí³¡4f šRµ þºŠŽEÕÕ¿iýr-ß\ÅÎ=                         
+```
 
-FabriqueClient.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\FabriqueClient.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -3794,7 +4041,7 @@ class :
       		AdresseIP est chaine = "192.168.0.100"
       fin
       
-      PortEnum est une énumération
+      PortEnum est une Ã©numÃ©ration
       	portTreuil = 10
       //	portEmetteur = 12
       //	portRecepteur = 13
@@ -3802,7 +4049,7 @@ class :
       	portApplication=100
       fin
       
-      EcouteConnexionEnum est une énumération
+      EcouteConnexionEnum est une Ã©numÃ©ration
       //	connexionTreuilRecepteur=1
       //	connexiontreuilEmetteur=2
       	connexionAcquisition=3
@@ -3816,7 +4063,7 @@ class :
      procedure_id : 1643973963346214431
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
      type : 589824
    -
@@ -3824,7 +4071,7 @@ class :
      procedure_id : 1643973963346279967
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -3832,7 +4079,7 @@ class :
      procedure_id : 1643973963346345503
      type_code : 12
      code : |1-
-      procédure globale CreeClient(port est un entier, socket est chaine) : IClientSocket
+      procÃ©dure globale CreeClient(port est un entier, socket est chaine) : IClientSocket
       
       selon port
       	cas val(PortEnum.portAcquisition):
@@ -3871,7 +4118,7 @@ class :
      procedure_id : 1643973963346411039
      type_code : 12
      code : |1+
-      procédure GLOBALE CreeConnexionAuServeur(type est EcouteConnexionEnum) : IConnexionClientSocket
+      procÃ©dure GLOBALE CreeConnexionAuServeur(type est EcouteConnexionEnum) : IConnexionClientSocket
       
       conn est IConnexionClientSocket dynamique
       
@@ -3905,7 +4152,7 @@ class :
       		
       	autre cas:
       		LoggerErreur.EcritLigne("Type de connexion inconnu")
-      		ExceptionDéclenche(1,"Type de connexion inconnu")
+      		ExceptionDÃ©clenche(1,"Type de connexion inconnu")
       FIN
       
       renvoyer conn
@@ -3921,8 +4168,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-FabriqueDeSignal.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\FabriqueDeSignal.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -3950,7 +4203,7 @@ class :
      procedure_id : 1627236119325921655
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
      type : 589824
    -
@@ -3958,7 +4211,7 @@ class :
      procedure_id : 1627236119325987191
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -3966,7 +4219,7 @@ class :
      procedure_id : 1627236119326052727
      type_code : 12
      code : |1+
-      procédure publique globale CreeTraitementSignal() : ISignalTraitement 
+      procÃ©dure publique globale CreeTraitementSignal() : ISignalTraitement 
       
       traitement est ISignalTraitement dynamique = allouer SignalTraitement()
       
@@ -3977,7 +4230,7 @@ class :
      procedure_id : 1627236235300354158
      type_code : 12
      code : |1-
-      procédure publique globale CreeEnregistrementSignal() : ISignalEnregistrement
+      procÃ©dure publique globale CreeEnregistrementSignal() : ISignalEnregistrement
       
       record est SignalEnregistrement dynamique = allouer SignalEnregistrement()
       
@@ -3988,7 +4241,7 @@ class :
      procedure_id : 1627236806531072694
      type_code : 12
      code : |1-
-      procédure publique globale CreeDessineSignal() : ISignalDessine
+      procÃ©dure publique globale CreeDessineSignal() : ISignalDessine
       
       dessin est SignalDessine dynamique = allouer SignalDessine()
       
@@ -3999,7 +4252,7 @@ class :
      procedure_id : 1643567015085553731
      type_code : 12
      code : |1+
-      procédure PUBLIQUE GLOBALE CreeCalculeSignal() : IGestionDesCalculs
+      procÃ©dure PUBLIQUE GLOBALE CreeCalculeSignal() : IGestionDesCalculs
       
       calcule est GestionDesCalculs dynamique = allouer GestionDesCalculs()
       
@@ -4015,182 +4268,194 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-System_0.wdw
+
+---
+
+## Mes Projets\repo\avsp_server\src\Gabarits\WD\110 System\System_0.wdw
+
+```wlanguage
 PCS         
-   !           l       9                  
+   !           l       9                € 
        01A110053g 
-                      \                
-$            System_0   hUF                          # 8F3 i ~| D  9   < NY c ɕ T  bF:\WX9\Gabarit\WD\Source\US\110 System\System.WDP       k   k        v     P       _@E :f܀  W#:  r  ŋ   1 F -< xB $A U \Y "   ⼋ . K  L  м  J{     J'TBPIc M Eڠa   ׮J   y1 S U
-֭Q +  K 傶] 0 2n  y^$   Y l ~  rnݣx ~
- O G]   6 b * v    G	 ;   i  G <  
- ,:  3F 5un B  9d t B  1 L ˘6bް   
- x  x b ֋     ;ِH D0  Ӌ@` d| Jj)   
-1Ҁ 
-1  *@  
-    @ T A  
- B  
- Y
-      v     P       _@E :f܀  W#:  r  ŋ   1 F -< xB $A U \Y "   ⼋ . K  L  м  J{     J'TBPIc M Eڠa   ׮J   y1 S U
-֭Q +  K 傶] 0 2n  y^$   Y l ~  rnݣx ~
- O G]   6 b * v    G	 ;   i  G <  
- ,:  3F 5un B  9d t B  1 L ˘6bް   
- x  x b ֋     ;ِH D0  Ӌ@` d| Jj)   
-1Ҁ 
-1  *@  
-    @ T A  
- B  
- Y
-           D @_ hx  ʉ  X   *n ȑ#!/x|xR$I $?dd 2 ʁc  90Bĉ(s 8" Ŗ|r I  H !  |T&Ӎ0<}
-  ͎)wz|
-t ׍E=EI֪J g+J   *N [92  ,] 4͎U #۠j  k    
- 8 ˽  8xja U
+    ƒ   è  ¼   Ï   ó  \            ’   
+$            System_0  žhUF                          #¶8F3Ûi¿~|ÀDªž9¼Ší<ÇNYËc†É•ðT·“bF:\WX9\Gabarit\WD\Source\US\110 System\System.WDP       k   k        v     P  Ó    _@E:fÜ€‰ÀW#:¥±r‚àÅ‹õ¤±1€F‚-<†xB$AU®\Yà"»òâ¼‹ò.ÒKé’àL”µÐ¼¥J{ •ÅÉæJ'TBPIc¦M›EÚ aÚÕë×®J•ú¬y1ËS®U
+Ö­Q£+ã‘K—å‚¶]0°2n y^$›– Y¢lÝ~…ËrnÝ£xƒ~
+„OG]—ì6ÃbÎ*Ÿvþš²G	£; —iºÌG§<²£
+–,:º 3FÌ5unéBŽ9dÌt±B¥‹1¦Lè¦Ë˜6bÞ°Á£æ
+ÃxÊà¹xàb‡Ö‹…ÑãÄÌ;ÙHñD0¢¢Ó‹@`èd|¾Jj)¯œêª
+1Ò€Ã
+1Òó*@¡ò
+ÀÅúÊ@¦TA ™
+„B× 
+£Y
+      v     P  Ó    _@E:fÜ€‰ÀW#:¥±r‚àÅ‹õ¤±1€F‚-<†xB$AU®\Yà"»òâ¼‹ò.ÒKé’àL”µÐ¼¥J{ •ÅÉæJ'TBPIc¦M›EÚ aÚÕë×®J•ú¬y1ËS®U
+Ö­Q£+ã‘K—å‚¶]0°2n y^$›– Y¢lÝ~…ËrnÝ£xƒ~
+„OG]—ì6ÃbÎ*Ÿvþš²G	£; —iºÌG§<²£
+–,:º 3FÌ5unéBŽ9dÌt±B¥‹1¦Lè¦Ë˜6bÞ°Á£æ
+ÃxÊà¹xàb‡Ö‹…ÑãÄÌ;ÙHñD0¢¢Ó‹@`èd|¾Jj)¯œêª
+1Ò€Ã
+1Òó*@¡ò
+ÀÅúÊ@¦TA ™
+„B× 
+£Y
+   ­  ü    DÁ@_hxè”ÆÊ‰ŒXñ©ˆ*n”È‘#!/x|xR$I”$?dd™2åÊcº¤90BÄ‰(sæ¬8"âÅ–|räIÒäH£!‘Ö|T&Ó0<}
+ÕãÍŽ)wz|
+tæ×E=EIÖªJ§g+J¥ªö*N—[92ø‰,]¢4ÍŽUê–#Û jƒõk®ÖÃÔ
+º8¯Ë½ûŽ8xjaËU
 c
- 6l   8e䍨 fƜ   :AG 0   ڦ N { u ֫]  칢܍OEDT1 (D  2  PP     ; *$_ < 
+ 6lâŠƒý8eä¨ýfÆœ–²á¬:AG”0úòÀÚ¦ËNæ{òu Ö«]¿æì¹¢ÜOEDT1Ê(DŒ±2Å‚PP—ÿæÞÝ;Ó*$_ž<Í
 
-D   ; LLh  C   a i H  
- < @ʂsKAʊ k  "     3  	3Ԑ 
-#   <  " :s   PÌ9 0 "J  H "` F B 4 pC    	5ހ = 0# 2԰Í H I3 L 
- Īr y" ' "҂    Ĕj   w     ,  $ l  ( ܨʜ   È  L1 L, 3 sIͬ ԑG  H# T I'  2     O+ 
- ˊ h =ˌ- -  Q7#  R:/ SS=E 3K Z r /#25 TE=4"Vib "X! s 9- 3 <9 Դ(D, ?!U՚  9ps 9 $4Σ! x" 
- 
-5܈  %  +  v "   q  ÀH  fX#
-x dx!    
-S M`"s - \ ~  Պ  # IZ ۊ>*  F ( h h n 
- T  rPa
-M ؁ A e=r  y 0  6B( 
-4^ gׁ   ~
- ج 66   V Ք n 騧    ?       O5   &   9R 
-    j  λ"  [  . h  
-`   Fnŵ q`	 | P˦ܣ 7   ., +e:    ؽK  t R hu  N\     ŋ    V r 5w / ?( me  3 = <    t M  ﾯ  w  C :̀: h   P  _#q  aa
-c  "  U b  ^   f   NV 
-ތe$: D֩ e0"6 ξ Ājv   6, 
- d qޢ  4±Nx #  F 5  0w4  F|  nx  
-    mt˓\ X #$ ;|] h ů .  d^
-ц -n  =  ?D QQw ; n  ੑz s    q  1 ӆ  )  L !]( !     C=  z  < /ouOg$   ũ	 kC'L	  1́p   0    p 2 r x`76    &         2  z   rq<  iR    [b    ,.'3 N 00  ^ J kR  h   $V1  O I  @  @ IMk22]   @  kv  )'   <NO  J:     F C   |I 0 ,2 ́ / [ '   L *  DB{ PRࡷ   钊   Qy &   ) @  A + k^ O  4
- Hj  d0  , 9#2́T  %  TZTܱ H%ӨQ T n jl ʝ * 
-&Ei G :  0nqX  ˁ !" H V  4 lE+\ W ~  ^  5 $ՈK $` "  6T  Mbˢ o  S   Źt 1 H>{ٴt - OS  
-  ̉  Z p  - `բ[   `P,c%{ °     "   p  U tw
-    ; ՞ q` " jm  J: Ѓ   x "   3 z  Ȋ E  C.  
-  ) 4Y     d ʊ ;  4A&O0^ h  6w$ -iK^ uu ?xj     N   Tda  6R *uh=z  Ñ  .R | 
- *  \ x; ,G "  G6  e   _ 㝃, =   % @  -Y}    x  ^  hJ q       c0ӆ ɍuZ L  9 
- 2S    h     0y         h 2   +? ˫fe   `  :  (   I5   v   : Y y    r
- τV  ]     M諱) z B  !  ,Ij+ ڵM w8 k3 | G  }|Ԯ  ̾wğ o   #  +   mm    &w         >7   >   0o  PF3 ( s    S   9M f t3    .^*\-u  =  <  Z-  zD   93 ~^ő=vv K D 5 k]좣dۆ    
-n [  m   ݝ Wڏ2g  is    ,G F  '
-  ' _C  1    }
-j[0 9  hq 	S > b   #Gx ?X lW     ڔ2 F:G å_݆  :e  u } o/>T ^ 	   뾝 # dt <r v   ~m  }O" j K~ } Y< ]      ;G o  t 6 n  H  P  
-? @V  M   # K ؐ6"⿎ ?d
-  =<# J7 <e  8 s9|7@  ! &0    z/ :
-ȼ P   ⲃS   ASs&    `      (     k;  +  = 8:`      >  >   #    #Æs 狈 c$okس  9A 3   > cC  ^!?   {   C  ? < ;<FT     ?   4  + 0ܻ )  B    K@P D x   @ r0
-85 @? D ̉ 
-ݲpY H$ ,  C  
-3 
- t	 A 1x:  1x 1.   j 8 +  PP    #  6ҹ ˮ  +V  `E   #Eid
-    't6Id .[ * @   ,  K	%x * * 2  
-b Q F8 *     o H ±q   rB0 8`   W XE
- BtR  *!|ɉFd Gv  $#H 1H   I31    q"
-  7        ȗ
-ɟ:G  @X        5[ I(   | ۹I| G sGՁ  	T˚ #h ̪ "ʳ ȣ       8  <L  J t"; }4I*|K <     ,  4K  I}\? [: l      D	  Ky R<  a5 *   Ms5j 
-ڔ ^  Q{L   	 J:Jɯ,   0 "K  =   DNˤ      3 Ĩ ǚxCғ  s5 I ܈  I   Ĕ   2?  C   hĘ;O   G  ]\K    p'*  d 4zzM 0  H~ Mܼ  4 ݬ   H  M hB9    ٛNL  K P Zt
-.L: CY+͕ Κ  3 }     ;      UԾ $M 4M D XQB  9 ; <      )M ! RU @J 5 xZ fT 1` '˚*
-X.  5ˆ PS l  0 d5  9 4N+ Q d>MRu*K P'@0  9 8       MY9ͬ  ,  58  J5=  ӷj=P 9 p9 8> 5 $eR 0TDm }ȚP 4  5%̈p   8  9 2; !ՃL < =D   Ԕp U0(Z|	" 3  ̙ Ȅ ⬁( C    %  q Ji 
- <; <IW\V l  T   LB   h#P       
-  
-RZ=X䨴 Xؒ   !  ՝\U 0  9   $ - 	Ґ%+@ dSg '   p} ͊    t  u ؁ WOu w Y;   b KT ?˞   r    ؘu#` X  d X 
-  ׇe  Uح ڮ Z Mخ<R   5    Y  	9ٔ= ʋT @ a    7- k   5   \ e&  [ e6 Ru$  L ]Z tV   oW  
-   *    Y V   -  )  򇜽  ]   (yE ,E֔ X mCM   L " U
-    ڴ     h^ mX 0  I zX>+ɹ  w   [ ݈(    Uˣ  t    Ё 臜M  _    H  U   8 4   W 8 
-  }  =
- 5[    M Pi 
-f޲ Z 
-  u	  ^u_  a Z H߄  #  9 m  І    d  ~  G 
-  7 	 ` S{ \|E   \
-Y   /ر h  ^TVM	  P b      3 -uZت Z `  U  ` ^  p`7^ 
-~^   Q  ' U}/ hЁL  KPd/ Yb 
-D 
- u V 	D6  < $6 %֢&F  G 6d*Y0fV1  [ S  T 
-  :     ;m y5U Q  b u    A܈B O( Ͼ  2 LfvDg  fM !  !  >_   C Hf Xd tdH    C J 5    ]O&  [cNʀV 2ey dz~ U  V  W~ X 2/ e      R -   ?tV~NcvR[N  Oi f  R     O. 恸 l^YftF3 '     7 gq : f`   Z0 z ́ Pz Pw     ,l  g  > T _ ` g=D TMj  ܭ    9 ev  t ^~  f  ܊ ڊ8f   }$	 ,؏ *i.隙   ]  d 1     ( Э  k=l9" }  ~, }O ] #vlT l?Uk =
-  l  E|KhE    & HSƕ&Ӗ  Af 
- 靦i  : i     Y    i_jL6cx  jӗ F ߨG N j hY ǫVn    j  > d _ г    Զ&9 F? ^  | >;b  o      v. h     æ    Fn  C N    m  O    n N&  j	  C@ fˈX  dnv  Z ߁ a ; w  Jg <  >j        -   ^  KZ F 
-Ͻ   j    !  , 9, tq  P      c W
-( ,  F ` P+  hs t  
-jQ   (ѩv g    .a0:  kv  m   h  &     h      _`JK PgBS  Pa¡f$     s nrW~r 嚀n lѨ  @  A/ M ȶr   kDh &4?VW uXhYgo E  >t ftţo-      f$   S t u  D  > T  Q
+DãÄÌ;’LLhƒ¡CˆÓÇaûiÝHòä
+ß<°@Ê‚sKAÊŠ‹k¶ï"”»ðÆ3¯¼	3Ô²
+#ºÃ×<« "Ç:séŒ÷îPÃŒ9Ð0Œ"J ¦Hä"` F¨BŒ4àpCŒ à¡	5Þ€£=â0#€2Ô°Ã HÈI3€L¨
+™Äªr y"¢'§"Ò‚Êã« Ä”jäèÆwìñÇ ‡,òÈ$—lòÉ(§Ü¨Êœ°ŒÍÃˆæñL1ÉL,§3ÏsIÍ¬ØÔ‘G’H#‘T’I'¡”2° øŒÈO+Ç
+ÔËŠÂhÌ=ËŒ-Ñ-ÓËQ7#“R:/½SS=Eí3KŽZír /#25 TE=4"Vib´"X!…sÒ9-µ3Ó<9õÔ´(D,À?!UÕšÈÀ9psÝ9Í$4Î£!ªx"ß
+
+5Üˆ£%Áõ+…õvØ"ò ¢q ºÃ€HöÑfX#
+x dx!†– ²
+S‡M`"sÁ-Ñ\ä~«²ÕŠâ‚#“IZÀÛŠ>*ä×Fö(åhæhån¹
+ T±årPa
+MõØìA¥e=r‚ŠyÓ0£6B(¢
+4^«g×Èç ~
+ Ø¬…66¶œŒVÔÕ”–núé¨§®š²«?•‰ Ž¸öì†O5”ìˆÌ&™¤¤9R›
+§¡–šj«±Î»"»[ï¡ù.úhÀ×
+`ðÂÛFnÅµ q`	…|ìPË¦Ü£À7ÂœíÃß.,î+e: îˆîØ½KïûtŽR¯huÃÝN\îÇ¯ÝñÅ‹”è üVÖrà5wÝ/Ø?(ÛmeÓÙ3î=²<¹‚˜ùtÕM¬üï¾¯¨Ýw‡€C:Ì€ÂŽ:ÔhÃúÂPè÷_#q ðaa
+c˜Æ"±‰Uìb“Ç^–—f”‘ÊNV³
+ÞŒe$:óDÖ©™e0"6ÛÎ¾å½Ä€jvá×ð6,å
+„dÈqÞ¢ Ç4Â±Nxœ#ÞâFµ5äÁ0w4äÝF|‘èµnx±È
+ ÄÐmtË“\óŠX‘#$‰;|]çh Å¯Ý.† d^
+Ñ†’-n®‹=ì×?D±QQw“;Òn¸¶à©‘zŠsâßÅâq†‰1£Ó†ÃÌ)‘‡Lô!](Æ!òŠÉâå©C=º¥zàÂžö<©/ouOg$—ÿÊÅ©	¡kC'L	ûÀ1Ìp°ÃÔ0 üùÝp‘2˜r x`76âË ä& ¤˜Å ‹ˆ Ó2á z¨¥ãrq<‹£iRÈÊÒ[b é—Ò,.'3òN”00ÐË^øJÎkRÀËhÒ˜Â$V1©OˆI¬™@‚æ@¤IMk22]­¢Ç@ñÂkv“Œ)'êî˜Ã<NO“êƒJ:‡µÎï¸žFÈCüæð†|I±0÷,2•Ìü/ [ð'³ ºL*ð™ùDB{¸PRà¡·ãæ½é’Šöî¢‰äâQy&†Ý)„@§ÝA÷+Õk^€OƒÞ4
+‹HjÊÓd0§Î,¨9#2ÍT³‡%ò£íTZTÜ±ð›“H%Ó¨QµTïœn‰jl¦Êª*á
+&EiÜG :¤”0nqXÝúËœ!"ˆHÎVÌâ4lE+\ W…~ñ¡à^ÇÈ5”$ÕˆKÅ$`Ï"Ø×6T‡ýMbË¢Æo€éS­ÂÒÅ¹tŸ1H>{Ù´t´-­OS¹†
+¢ŒÌ‰ ÷ZÇp¢ñ’-ç`Õ¢[¶ó`P,c%{›Â°À²ÈÌ“"‚ˆpá¹ôUëtw
+Ú ˜µ;ãÕžÂq`¡"¡jmóJ:’Ðƒ¯ðëxÉ"´ú…3íŸzáéÈŠÁEîËC.Ýò
+™ë)é4Y ²€ˆ d¨ÊŠû;Ð 4A&O0^©h×â¹6w$‘-iK^¸uu ?xjùÐÛáØN¸ÂãTdaîª6Rñ‘*uh=zìàÃ‘‘ñ.R¥|ä
+¯*æñ\ x;,G´"¸G6ÃÈe€ê_üãƒ,“=ëŒÛ%ð@íÆ-Y}ä„ „xÖë^ïåhJ²qÅúÐÙˆ˜c0Ó†þÉuZ LúË9ó•˜
+ª2SôÌâÄhš©§ä 0y²»À“ òæ™’h®2õ°Ü+?ºË«fe«µÙ`ŽÄ:Êàµ(­™šI5»„Ívœ¹»:ÛYÙy–Ÿ½Ír
+ºÏ„V¡¹]½èÈ¿§Mè«±)Ôz Bßî!™‡,Ij+ÕÚµMŸw8ük3 |¶G²•}|Ô®½ßÌ¾wÄŸÝo‰þÍ#Âî+±›šmm—§ÍÝ&w·Âý³‹§¤Ýê>7´Àè>·¼‡0o¡ÄPF3¨(üs´ÿÍŽSØãØ9Mîf®t3õø®Æ.^*\-u–¨=šþ<†ÛZ-°zDÄóí93å~^Å‘=vv§KÚDž5Ôk]ì¢£dÛ†õˆ·í
+nª[œìm®ˆžÝòWÚ2g¤àisœ£Äï,GüFˆ '
+‘ž'¥_C€ý1Çë±‹}
+j[0¬9ùºhqü	S> b°îÝ#Gx×?XŽlW¸‘³÷ÀÚ”2¾F:GžÃ¥_Ý†·—:eÆØuÓ}Êo/>T¸^‘	°ñìë¾Ù# dtû<rÓvúÂÝ~mÛÆ}O"—jÝK~Â“ë}ÜY<¢]ÝþÁ¿Ðß;GïoÖÞtµ6ñ‰n±òH‡šP¾¡
+?¨@VªˆMˆêá#úK»Ø6"â¿Žó?d
+ÜÚ=<#µJ7÷<e‚ó«8ìs9|7@”¨!‚&0öú­“z/ó:
+È¼P½Òë¼â²ƒS½ŠàASs&ÔÛÁˆ`½¸ª·‡›(Øüƒ°k;’ø+«Ñ=î8:`û½ª¾„ë>Ûû>‚óŽã#‰ýÃþ#Ã†s‹ç‹ˆèc$okØ³¾±9AŒ3ª‰â>¬cC­¿^!?ºã»{¸ôÃC•›?Æ<ø;<FTÄ¬¿¸?±¹¢4ìÃ+´0Ü»­)À´B¥ÑÄæK@PšD±xÀ™‹@¢r0
+85¼@?ÜD Ì‰´
+Ý²pY¹H$´,ÁéCÄØ
+3À
+€t	„A¤1x: ’1x 1.¨ Ëj£8 +ˆˆPPÃž°Æ#˜ˆ6Ò¹éË®¡º+Vü¹`EÁÅÿ#Eid
+Þ¶ €'t6IdÀ.[»*´@¡ÃÀ,äìK	%x‚*°*¬2­âª
+bŠQ¨F8Œ*ˆˆˆèÆoœHéÂ±q„³ürB0ƒ8`²í£½WÈXE
+ÔBtR©ô*!|É‰FdéGv¬È$#Hä1H„¤¼I31µ Æâq"
+ˆˆ7ˆˆ¬¤Ç øÈ—
+ÉŸ:G‡’@XËÉÝÈå¿ä5[„I(«ˆ€|·Û¹I|óG sGÕÇ¬	TËš #h…Ìª­"Ê³ˆÈ£Œˆ¤‡¼ˆ8€§<LÁ”Jªt";Æ}4I*|K¯<À°„®—,ž˜4K´¤I}\?±[:·lÇÊäÉ×ñˆ‚D	¼ÔKyÊR<‹ð¥a5™*±°Ms5j¨
+Ú”Ê^‰Q{L’”¿	äJ:JÉ¯,ÃÓÌ0Â"K„ó=¥«ËDNË¤Œ¼“½¢¾3ÊÄ¨‹ÇšxCÒ“¾×s5á¬IâÜˆÑÔI¸ü¹Ä”˜»Ý2?öÉC´¹hÄ˜;OÃËÏGôÀ]\K „¹Šp'*¨‚d”4zzM«0ÙÄH~ÂMÜ¼ƒ 4…Ý¬ˆÞìHúMŠhB9»ÃóœÂÙ›NLÅîœKšPÀZt
+.L:£CY+Í•ôÎš¸Î3Ã}Ç¥ð€Ò;¶ñ¼òüÌUÔ¾É$Mê4M÷DòXQBôÅ9Ë;›<¿ý¬¹þ€)M¶!µRUì@Jô5ÐxZÆfTƒ1`´'Ëš*
+X.Ïû5Ë†PS©l«©0‘d5»ì9ô4N+‚Qîd>MRu*K¿P'@0¨‚9Ó8ˆ¥÷¨¿´ŠMY9Í¬ˆÐ,‰ 58­ˆJ5=¢Ó·j=PÙ9Óp9…8>¾5Ñ$eRÊ0TDmÍ}ÈšP4ˆ5%ÌˆpÈÐÔ8ÅÕ9…2;í!ÕƒL­<Õ=DÉËÔ”pÕÂ€U0(Z|	"˜3°ÜÌ™³È„‹â¬(®C› ±%¨Šq•Ji˜
+Ò<Í¾­<IW\VölÖåT´æÔLB… h#PñÐÙÇš£ô‹
+Â 
+RZ=Xä¨´šXØ’¡ !³¤Õ\Uï0š¡9´âò$‰-Œ	Ò%+@‚dSg¬'ÊÀ„p}±ÍŠˆ© ˆt…€uÍØ WOu¦w•Y;­ÒîbÇKTÕ?Ëžä×órÎÞÛÎØ˜u#`„XŠ™d½X‹
+ Œ×‡ež’UØ­õÚ®ýZ¡MØ®<RŽí5©¨ÙìY¿Û	9Ù”=ÐÊ‹T¨@®aÁ‹ ˜7-ˆkü‡œ5¦Š \Áe&’[Àe6óRu$Ò¥L¶]ZåtVÄøäˆoWà‡º
+ª›Û*ˆ‚ƒÊYõV«ª-‘ð)®úò‡œ½ž€]©…‰(yE»,EÖ”ÜXÌmCMúøÜLª"»U
+Š¡³íÚ´ý¬• ïh^®mX0¡ïI—zX>+É¹ùÞw«¯[—Ýˆ(€‚„”UË£¨Útò´ÀˆÐˆè‡œMžˆ_©”…‰H§ÞU¿ßÍ8í4¤¶ÝWî8Þ
+€ƒ}Šå=
+ë5[ìÕ ÖMÞPi‹
+fÞ²ýZ´
+ íu	îõ^u_ Ýa„Z”Hß„œ‚#ƒú9ÕmßÂÐ†ªåŒý€dˆˆ~ÈÙG¨
+–Ê7	Î`ÞS{µ\|E¢öÔ\
+YÒòãˆ/Ø± hÅØ^TVM	´âPÁbÕâËÔÅø3Ú-uZØª‰Z°`¡U«ˆ`†^ÛØp`7^³
+~^‡ÍàQ‚‚'ˆU}/ôŠhÐLàˆˆKPd/ÉYb¨
+D–
+Æu¦V	D6âó<Ú$6Ò%Ö¢&Fà¥G¨6d*Y0fV1îª[ºSÎ×Tþ
+ðì:¥ ­Ã;m¶y5U¶Q¥Íb¦uâüƒâAÜˆB¤O(µÏ¾ƒÄ2ŽLfvDgöÏfM!˜‚!°Ž>_¿° C€HfäXd tdH®©¬äC¶J¢5ÖÖÃà]O&Ö×[cNÊ€V´2eyödz~U®‡VžçW~Xî2/©eƒ´êËå¬Rà-àðÞ?tV~NcvR[NæžOi†f­¼R…žÜÁýO.­æ¸æl^YftF3ý'÷ÕÁ ¨7Ãgq : f`™–ÊZ0•z‹ÍÐPzëPwé‡öåíü,lÚÁg° >éTâ_ã`®g=D¾TMjªÎÜ­Ãê•‰9ÜevÆátè^~ÑËf®ÖÜŠŽÚŠ8f“Óè}$	ü,Øß*i.éš™ˆ´ô]‘ÖdÒ1—€æçÞ(ïÐ­¿Þk=l9"ì}¶¤~,º}OÎ]ì#vlT…l?Ukâ=
+®«l”¸E|KhE¾ ¬Ë& HSÆ•&Ó–®ˆAfŠ
+€é¦iÜ€:ÀiŽˆ™þY ééøi_jL6cx†èjÓ—¥Fàß¨GÅNÍj–hY”Ç«Vî§³n–¤‰ýj¼>òdè_üÐ³¦îˆöì‰Ô¶&9ŽF?¹^¿û|æ>;b½¶o¼žë íëv.ëh®×ÁŠÂ–ìÃ¦ìÄìòFnìÜCÎNë­þìÛm’€OÌÎäónðN&ðªîj	÷ÒC@ÔfËˆXíÖdnv‹¨Z´ßØaŽ; wà‰—Jg˜<îÿ>j´Îðææööˆ-‰˜^ðîKZ­Få
+Ï½ó— jÐòâí!ó²ë,¥9,étq¡¬P¾±»õ‚ÉcßW
+(°,ŸåFç` P+ žhs©t‡™
+jQÎïñ(Ñ©vòµ¾gƒ‹âù.a0:âÈkv¹æm–í×h ˜&ˆ ‚ˆh‰€ñ µ_`JKÇPgBSùôPaÂ¡f$˜“ÜÆþs©nrW~rÊåš€nèlÑ¨æä@õA/ŒM¾È¶rÐÆêkDhÿ&4?VW×uXhYgoÎEÞð>tøftÅ£o-éûÖÏü¦f$î€ìS t÷u™ðDíö>îT«øQ
 2Nt
-O 2
- O&Y{  h/ l n  ^|   W ,+Ƅ= L G w 8  &% p%4 :xx)6 w * 8h 1  s ! 8   
- % mny0 )  K   ;` 6 8` :      1P  
-&*      r,2`4    o/    1:13      E ǋ 3G       K   ' "        0 y      m !(% <     y      /   o     _JiUTFu  
- iEs%p4  j V*  7`    $Gw| W ?  wt4? ԝ &(   }0` :p " |4? m   ۡ$~#`{ o} _ + և| _J y%(㧧*P ) \ m6i ` X   h           ҵ:m m c d  %9     `  d Q  @ 1B       X   0      ;(     <  ;H ޿ '
- ,     1e  X	   ]  
- 4         @    O L          S`   &P<  6 *    @  du  3    T  `	 
-  \P
-   ~ "    H u  s/ 88  B   L  A ,U D   H  $   
-`       *      < 
- 7 #  د@a $x eh   	r +t+     p
- d        
-` @Al   +  
-c=܂  
-   P 
-D 
-h !
-,1   d   [  [c    CpH 
-!      x/G x  	3   Bd 
- !>D % D   "^D  5 F  #~D E H$ % $ D  U Jd - % D e L  5 & D  u N = ' D     ăRP R HB _Y4Ĳ^М  [      M dd @ au] : J  l1  ޮ  p  Q  " ˙ ~
-  ~BS⺋G +   2 ^
- " Y ,Ƴ    [  jPAE             @ 		T  !A
-N   E /ZP@a   $ 8  ɂ	Qt  Ȏ.X   D 1s ԉY 
-8v 1  
- .2d AE :f H P Ɔ
-F掄«Xj%X  ׄa   R0 ` R (!!/x|   *MlI   /h    bD t9  \!a:Ay
- -Ӏ    rCFa  Hbl 5          C      ! S t  AB p0T  5n Рǎ        h1  %K 0] |Y  ͙9e 'O @} Y  ѡI .5  )S P F}Z  թY n   +W `   Z  ٱN      -- >S %@ 1  ! ۵i  '8È N x bƏG    ˒5W  ysfΟ= &
-   ӢU F zuj֯]Ǧ
-   ۲u   {wn޿} '  [ p ={   l u  [ dn Z F:r   Yg   yl ϯO ^}{  廧 >|     _   ?,@ 4p T A  A
-# B' p /԰C?Ѽl؁' k q' g 9' n 9q L:#.l   o ;1u q. !  H" ,rI% L I$ d ) t J*  rK-   K,   1   L2 ,sM5 L M4 d 9 t N: sO= ̓ i\dQ  k F ӆG  OH   I  RJ1 4SN7  RP5
-  Q? TR  f  k 4p q     Ts u R{E  _} UX` 
- Xc -v QM 
-< rT Q[ e Zb  v[e   k 7\r -w j  曚 ݱVg 5w^p長^|    }   _ Lw vg 6^  M _ n a #^xb %u`v 5 [+  - c G6Yd C ェ  d KNY a  f s  X 5v ѝ  Yh   yh  N  ]r V  6zj  V ꣱ Zk2 f  ; z ɶ l  F{ o N ݨ .{ 閻n   ]g     f;     p W<a  ~yq 	 <q +  r  & g    s )   C' Q [   [   c7}v  s a ]v y׽ sm w   xߓ } H _]l协y橗 z & z     W;     |  O?   }  g~    } 헿~   _ o{ #  
- ?pId  @F0  c  $ 	^  ]1 AfP  Ğ     50 $ 
-]   y - !
-m    Pu Sa
-q8   ƒ  x !1  *"  D'Fq      7 J S b} D.>Q Zc F/ Q fd 
- X 4  s  G< Q Ƴ    ;  t} y @b   4d" Ȳ-ґ  $#+ 0IBҒ  $'M  Kj   % @  P   < 9 C
- R  de)   +>ϖ   .i@\    e1{y Z    e3  &e2 Δf)   if    &5  Mo*    f9 ) q    T' i uƳ |'; 9O{   '|, ) {T   g 
- |"ԑ T ?zP 1 	 hC'Q f  -F7 Q  4  ܡAE ъ  u\ N ҐƔ{ )Jm
- m T 8 iM  Ӟ ԧC )KSH̠&  K  Q )T *  ;*S jU .Щ  jW  Ջm՟^ *X  D    k=k[EVU  խV  \ j֠ U { +5  ׻  ,_
-+R  U  -fb X   qs  sΡ٣(  >8  kt    =@kZ    emj[ Z    Umm_k[ ▶  mn{ [    mqk\ "   enr  \ F  Unu k] b    .iEZ ~W   w {   #    f  ̪$
-(   F W   8$     0 'A  @ U0  _ G n0 \a_X  0 7la  # 0 ?\b X "N1 Wlb  3n1 _\c X 2 1 wlc     C  a	= yPr  a =4Y  hC   9 Jf     S  "  u8 
-` #  G   eG#  DT   3     @    W"  E" Z,"  "  
-E   @ * Ow ӡ  M-jT :դf  U  V  ձ   m-k\ :״浫U  _ 9  v  }la#   6v    g7 Ӗv  } hc  ڶv    ow  w  } pk{ @:L hp - K A    q F ⲎYL ݡ    p 
-V.D\  ) h
-  -$ UL ` R I  h ^ @̡   T x B Ѡ  A " &E 鑊([ bP & | Wp:  9:L     P  ԣ>u W [ z׵      _'   >v   k?{     ǝ o    >w   {  ݙ.   # o: _x ^ O< ox G o<   s:    !
-v c @> 1rx VV  >
-Ml  G) { "      a  
-  /D E  E-  G At, 
+Oî2
+öO&Y{†àh/µl¢n¿^|ï†þïW¶,+Æ„=ÆL‚GÏw«8Ù&%™p%4‚:xx)6˜w¥*€8hƒ1€ƒs¥!˜8ÀƒÈ
+€%‚mny0 )ÆêK˜‡‚;`‘6ƒ8`ù: ƒœù¨™1PƒÈ
+&*èùŸ ®­r,2`4˜£¯—o/¥¿˜ 1:13 ± ˜ŽõEñÇ‹¼3Gñ±Ö¡ú“êK…—Á'€"Ðùú®  ÉË0°yœ×ù¹¯ûmž!(%˜<¼Ÿƒœßy¿ ü±ßÛ/ÝæÅoû·ƒ¸_JiUTFuÔÅ
+ iEs%p4˜Öj½V*°ƒ7`ƒ÷€ç€$Gw|¸W¹?ýÔwt4?ÝÔý&(‚—¿}0`á:pá"é|4?Æm®ëÐÛ¡$~#`{·o}¹_í+ Ö‡|×_Jçy%(ã§§*Pý)þ\øm6iŽ`‚X † h È Ð ˆƒ „¨Òµ:m€m€c d°¯%9‡ €À `  d QÀò@ 1B ¤ ý³ €X€À0à€åàÐß;(  à  <÷ ;HðÞ¿ü'
+À, ´  ¬1e X	  Æ] 
+€4 œ¿˜ƒ   •@ ø ì”O Là  „  ”ƒ €S` ˆ‚&P<Ü˜6 * ©  @‰¥duêÌ3 Ð  T‚ `	€
+„ \P
+€  ~Ó" Œ  HÀu€€s/ 88ÇèBÔÀ L òAÐ,U€D°  H  $¨é‚
+` ¢«   Â* ¬  œŒ<è
+À7 #ÉØ¯@a€$xƒeh‚ °	rÍ+t+Á ˜Àìp
+ dí  ¸€ ð
+` @Al àÔ+°€
+c=Ü‚ €
+†áÉPÀ
+D€
+h˜!
+,1€ d‚  [Ìþ[c¶  ØCpH‚
+!ôƒá  ˆƒx/G xÀÍ	3„˜âBdˆ
+Ñ!>Dˆ%âD¤ˆÑ"^DŒ˜5âFäˆÑ#~DEâH$‰%Ñ$žD”˜UâJd‰-Ñ%¾D˜eâL¤‰5Ñ&ÞDœ˜uâNä‰=Ñ'þD € à ÄƒRP R HBÈ_Y4Ä²^Ðœ‚ê[óå¦™¢öËM™ddà¿@—au]Æ:ÒJš­l1»ê¦Þ®›êpÁÖQ•õ"ó€Ë™¢~
+­¼~BSâº‹GÈ+¶•ƒ2´^
+©"‹YÊ,Æ³ÎöàÖ[êýjPAE” Ä   ©      @‚		T¸°!A
+NÈðáEŒ/ZP@a   $´8’ É‚	Qt¨ñÈŽ.X²èè‚DÌ1sÔÔ‰Y¤
+8væ1ÓÅ
+•.2dÄAE:fÜHøP‚Æ†
+FæŽ„Â«Xj%X¤ë×„aÅ  R0¯`×RÈ(!!/x|ð”ÆÊ*MlI¨  /hŒˆÄòbD…t9®¥\!a:Ay
+Ð-Ó€Š’ ˜rCFa‚‹Hbl€5 è  â×    CœŒÃÀàÁ! S¼t°ËAB p0TÁƒ5n Ð ÇŽ ›± š‡ÍÌh1¹²%K•0]Æ|Y“æÍ™9eî´©³'Oœ@}ýY”èÑ¡I….5ª´)S¤PF}Z•êÕ©Y¥nµªµ+W¬`½†ýZ–ìÙ±NŸáÀ™™--ã>Sã%@±1µÝ!€Ûµi¶‰'8Ãˆ·NÜx±bÆG¦ÙòäË’5WÆÜysfÎŸ=‡&
+ÚôèÓ¢U—FÝzujÖ¯]Ç¦
+ÛöìÛ²u×ÆÝ{wnÞ¿} 'Ž˜[¸p–={ ›¶l´uã [³dnëZ§F:rëîäYg÷Ž¼ylåÏ¯O^}{öïå»§¿>|üóíïÏ_þþÐ?,@ 4pÁT°A”ÐA
+#¬B'´pÃ/Ô°C?Ñ¼lØ'€kÔq'€gÈ9'€nÜ9qêL:#.lº“îoÈ;1uÚq.È!…ÒH",rI%›LòI$£dÊ)¥tÒJ*¯¬rK-»ÌòK,ÃäÌ1ÅôÒL2Ï,sM5ÛLóM4ãdÎ9åtÓN:ï¬sO=ûÌ“Ìi\dQÐç¢kæFî¼Ó†GùüOHÔÏI•ôRJ1µ4SN7õ´RP5
+µÓQ?õTR·¼f—kî4pÔqÑÓûÑÔTsÅu×R{E•×_}ÕUX`‡
+öXc“-vÙQMô
+<šrT”Q[‘eÖZb³Åv[eµí–Ûk¿7\r½-wÍj·ùæ›š¤Ý±VgÇ5w^pé•·^|ïÕ÷Ü}íå÷_ÅLwÝvg¥6^€óM¸_…nøa†#^xb‡%u`v£5Þ[+¦â-Ùc’G6Yd”C¶ã‚§åød•KNYæ˜a¦ùf›sžùX–5v¹Ñƒ®Yhœ‰Öyh¤‹Núáž]r—V —6zj©«Vúê£±¦Zk2›fééƒ;Îzì­É¶Úl®ÓF{ío½NôÝ¨Õ.{î³é–»n¼ïÖ]gÕÍØéãf;ïÁ÷¶»pÄW<a·Á~yqÃ	‡<qÉ+üržû&Øg¸«üsË)ÇôÑC'½Q¿[îáÒ[ýõÓc7}v¬ÜsÚaÏ]v×y×½÷smÿwà‹ÿýxß“ß}ùH…_]låyæ©—¾zç¡&Þzî§÷¾úï¯W;û°» ÿ|ñÍO?üµÉ}õãg~øé×Ö}Áí—¿~þ×ï_áo{ú#àÿ
+è?pIdè@F0úc ô$Á	^ðÌ]1øAfP„ ÄžæþöµÛ50„$á
+]¨Áyð…-„!
+mÈÂö™PuÚSa
+q8ÃúˆÆ’¡xÃ!1ˆô*"•˜D'Fq‰™›Ñæ 7¼JŠSÜb}ØD.>QŒZcåF/’Qfdã
+ÑXÆ4¶Žsá×G<ÒQŽÆ³ãý˜Ç;êñt}äyÈ@bŽˆ4d"ùÈ²-Ò‘…¤$#+é0IBÒ’›œ$'M–ÉKj²“£%¾@éÉP¦•«<£9ÇC
+’R•²de)ÛæÊ+>Ï–µœå.i@\¢‹±ôe1{yÌZžò—Æäe3—©&e2ó™Î”f)£‰Ìif³š…¼&5±¹Mo*±›Úüf9Ã)Åq‚“œçT'ÓiÎuÆ³|';á9O{–°Š'|,ñ)Ï{TœÁìgù
+Ð|"Ô‘õTè?zPÄ1ô¡	hC'Qˆf”¢-F7úQ‹‚4‡ûÜ¡AEÊÑŠ¦ô¢u\þNúÒÆ”{•)Jm
+ÓmÑT¥8½iM¯¥ÓžîÔ§CÍ)KSHÌ &•§K½ŸQ‡)T¨*•¨;*S£jU©.Ð©ºÌjW±úÕ‹mÕŸ^*X¯ÊD±š´¬k=k[EVU¶’Õ­V…ë\ãjÖ ÖU®{Å+5õÚ×»¶­,_
++RÂÚU±†-fbûXÀú±qs ƒsÎ¡Ù£(š‡>8ëÙktö³£½=@kZ¡¶´§emj[»Z×Æ¶³Umm_k[Ùâ–¶·åmn{»[ß¸ÃÕmqk\á"—¸Çenr›»\çFºÓUnuŸk]éb—º×å.iEZÐ~W¼¯¯wÃ{ÞÔî#»¯½Çfµ‘Ìª$
+(êÃàFØW°ï8$‡ £ 0'Aàÿ@ùU0ƒ¬_ GÂn0…\a_XÃÎ0‡7la‡Ä#î0‰?\bŸXÅ"N1‹WlbÇÆ3n1_\cßXÇ2Î1wlc ¹¿C Êa	=¸yPr’Éa‰=4YÁŒhC Æ‰9ÉJf²€å S  "Ö u8Â
+`Ç# ÌG¼ÙöeG# œDTƒ°¯3â ç Àè@… °ŽW" íE" Z," î"Ðì
+E¯ƒ„@ó*­OwúÓ¡õ¨M-jT—:Õ¤fõ©UýêV¯ÚÕ±†õ¬m-k\×:×´æµ«Uñé_£9Øêv±}la#›ØÊ6v²½ìg7ÚÓ–vµ™}íhc›ÚÚ¶v¶½½íowÜãw¹¹}îpk{ƒ@:L¡hp¢-àKÂAˆù’ãqñF â²ŽYL¢Ý¡ ™å€pâ
+V.D\Èˆ)Àh
+ŸÇ-$ ULÂ`ÄR I ‚h„^€@Ì¡ÈÄ T€xBÑÑ œó‡A—"í&E’é‘Š([ÃbPð& |Wp:§Ø9:LÑô§ ÀéP§ºÔ£>u«Wë[¿z×µîõ¬‡ë_'»ØÁ>v³—ík?{ÛÕîö´Çío§»Üá>w»×ï{¿ûÝ™.õ¿£#ðƒo:á_xÄ^ñ‚O<ãoxÇGò“o<åŸøs: ï €ç!
+v÷c×@>Œ1rxôVVÃ¤>
+Ml€¦G) {Ô"öö˜ÅÅña‹‹
+¹‡/D€EèøE-¬€GèAt,€
 ZTG
-]@E  q
-E r  5 ` x  hC `,p:  @L  P        	?0 N r@$@,@\ l@t  @|@
- @ @
- @  
- @
-    $   $ <ALA4 DA A       A A   AB $ MX?" M@B% $d %<B' B(  &  ' B, B-  ,  - l L  v  : y  L <P ?v؃#@ 6   K k IȲy Oh =  t  " Vh)@ Z  ЄA     v  C3 9 <ȅ   2 w  s7H    <  v  ,NX 
-  U h  ˂> 2,  QؼM p  (
- aF 3Fb< b\Fel d|Fd Ff  i Fg Fj  j Fm  l FlGn qGo4Gr< r\Gul t|Gt4Fp  (  z G2 G{  { G~  }H}HȂ$H DH Lȃ  o  $c O 4u03  > 
-t  (@3;`  b#@ R 8vزy R`3I 6[@  [  X4W =QP[ J   S s  4    4   LS@ K dP 3 j  *{CX3D    A(    @ F  ۻE  q؄z G0[H TH lH  ˸ ˻ ˹ K  ˼  -   z$L23L ,L <  LL |LǌLĜ ƤLȴLɬLͼ   L  L M   $M 4M  LoX26  S VD3  :>h   I 8  Q 6 C  ^  ~   w`  Їlp ` VX TxH c     F   S _  ȃ0  vC <E; 2n  1; 1 s   K R@u (#   LH  d 
- = K  5 EP}P P  P
- P
-mP    
- P
- PQ /K`  4 %Q]QmQoH e uQ Q Q Q Q Q      Q M n  1; $ERaR%m % R(  ' R' R)  , R* R-  - Rn  \ V  Cӄ S  B3F  t(  ;  Kc W@Su C # @ @xt , 
-;8 rI RЅ   D Ė  KHD9  F J C ([50 ^X  ( O( oЄ ,  4 T04X 9r0  + R(8r   ^   V_
- _-Vb= aMVa]VcU feVd Vg  g Vj  i Vi  q    WrWr Vs
- s t-WtmWuuWv}Wy Wz]W{  {  |  `
- n  q X+#؀X -؄=X mX }X  ؅ X  X  X  ، Q 9sp  ؐu H sx   ؒ O OR`7 5Y  ْ=ٔm  NH s  [ T  u0 -Ec R s؄      0 
-   =  t  3   OU 4t`C۱[ \F ZI; UH[ u۶ Z  [  ۷ ۸ [  [  ۽ ۾ [ \ -ܿ5  =\ M\ %  u  E\ȝ\ɭ ǵ Ƚܽ] T \ϥ    =  %  -] =] ] 5  M  ]]ם]إ] 
-  s ܥOT    ] E]    - T^  Z 
-?    52Q EU:   =            %    %      | pG{ ç?2  i;q=  Z  ܣ.a!ᣌ    & : tZ_j! | =r<  a ) ԾD@/      @    @               /   /   F:\WX9\Gabarit\WD\Source\US\110 System                 /   /   F:\WX9\Gabarit\WD\Source\US\110 System               
-        H0Р   
+]@E èq
+E r ô5ø`ßx€¢hCø`,p: @L ¾P‰ùÿÅŒÌ	?0²NÀr@$@,@\Àl@tÀŒ@|@
+”@œ@
+¬@ÜÀ
+ì@
+ôÀÁ $  °$Á<ALA4ÁDAŒAœÁ”Á¤Á¼AÌA´ÁÄAB $‡MX?"ÁM@B%°$dÂ%<B'ŒB(œÂ&¤Â'¬B,¼B-”Â,äÂ-‡l‡Lˆ²v „: y€…LØ<Pð?vØƒ#@¸6ø Kük‡IÈ²y˜Oh·=ˆ¸t°ƒ"ð¾Vh)@ÃZè„ Ð„A¨–óëƒ v ‡C3‡9„<È… Àƒ2è¾wè„Ûs7Hƒ °†<¨²vˆ„,NX¹
+¸„U€h„ãË‚>È2,ø„QØ¼M³pÀ„(
+ÆaF„3Fb<Æb\FelÆd|FdŒFf„Æi”Fg´Fj¼ÆjÜFmìÆlüFlGnÇqGo4Gr<Çr\GulÇt|Gt4Fp¸„(›Çz¤G2ÃG{ÌÇ{ìG~üÇ}H}HÈ‚$H€DHƒLÈƒôÇo¸„$c Oà4u03º>ˆ
+tÀƒ(@3;`‚ûb#@¸R¸8vØ²yÀR`3I°6[@«‡[øéX4Wˆ=QP[€J¸ƒ‘S sˆ 4Ê øƒ4€…£LS@³Kà´dPƒ3 j ƒ*{CX3D€ƒ‡ÐA(ƒ ˆ…@è‹F¸„Û»E ´qØ„z”G0[H¸TH¹lH†¬Ë¸¤Ë»´Ë¹ÔK¼ÜË¼üË-‡·Ìz$L23LÁ,LÅ<ÌÅLLÆ|LÇŒLÄœÌÆ¤LÈ´LÉ¬LÍ¼ÌÍÌLÎüLÏMÌÍÎ$MÐ4MÑÜLoX26…ðS VD3‹”:>h‹¬Iƒ8ü†Q€6ëC“‡^˜Å~˜‡á‡w`‡ Ð‡lpé`³VXÃTxHœcˆŽ‰ìÉF˜ƒS†_è† Èƒ0©£vC©<E;¨2n€„1;‡1€s …÷K R@u…(#Á÷‡LH²‡d²
+€=ÐK Ð5ÐEP}P…P P
+P
+mP•Ð­Ð
+½P
+ýPQ½/K`²Õ4Ñ%Q]QmQoHÑeÑuQ­QµQ½QÍQQÅÑÝÑ íQ MÑn¨„1;Ò$ERaR%mÒ%R(Ò'­R'½R)µÒ,ÅR*åR-íÒ-•Rn˜—\‡V°„CÓ„÷S þB3F°¹t(°ü;¸éKc W@SuÈC©#ï@ @xtØ,ð
+;8ÔrI†RÐ…  …D€Ä–ƒÄKHD9˜¾F J„C„([50Å^Xƒ¸( O(¸oÐ„þ,… 4‡T04XÝ9r0…‚+‡R(8rÿÛÕ^åÕ V_
+Ö_-Vb=ÖaMVa]VcUÖfeVd…VgÖg­Vj½ÖiÍVi…Öq…ôÖ WrWrýVs
+×s×t-WtmWuuWv}WyWz]W{…×{×|­×`
+Ànõ¿q X+#Ø€X„-Ø„=X…mX†}XƒØ…•X‡¥XˆXŒ­ØŒ QØ9spßüØu…H sx…‹ûØ’‡OèOR`7‘5Y’•Ù’=Ù”mß‡NH²s…‚[ T¸½u0¡-Ec‡Rà´sØ„‚»²÷»…0ˆ
+ ƒ†=°‹t…õ3‡—¥OU4t`CÛ±[ú\FðZI; UH[¶uÛ¶õZ¸[¹­Û·µÛ¸½[½Í[¾¥Û½õÛ¾Å[À\Á-Ü¿5ÜÀ=\ÅM\Æ%ÜÅuÜÆE\È\É­ÜÇµÜÈ½Ü½]ÛTà\Ï¥ÏÎÝÏ=‡Ð%ÝÑ-]Ô=]Õ]Ö5ÝÖMÝ×]]×]Ø¥]Î
+¿Ìs´Ü¥OTÐÝÞå]ÝE]ÜýÝÝ-ÞT^ÜýZÞ
+?®½½æ52Qà´EU:Ÿ½‹=ðŽ©ˆ€       %    %      |…pG{†Ã§?2€i;q=þñZ° Ü£.a!á£Œ   ß&:†tZ_j!†|•=r<ùìa©)ð™Ô¾D@/      @    @               /   /   F:\WX9\Gabarit\WD\Source\US\110 System                 /   /   F:\WX9\Gabarit\WD\Source\US\110 System               
+        H0Ð Á‚ 
+```
 
-GestionDesCalculs.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\GestionDesCalculs.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -4211,7 +4476,7 @@ class :
       GestionDesCalculs est une Classe
       	herite IGestionDesCalculs
       	nomThread est chaine
-      	arretDemandé est un booléen
+      	arretDemandÃ© est un boolÃ©en
       fin
      type : 131072
   procedures :
@@ -4220,34 +4485,34 @@ class :
      procedure_id : 1631270205988278277
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
      type : 589824
    -
      name : Destructeur
      procedure_id : 1631270205988343813
      type_code : 28
      code : |1+
-      procédure Destructeur()
-      SignalDétruit(:nomThread)
+      procÃ©dure Destructeur()
+      SignalDÃ©truit(:nomThread)
      type : 655360
    -
      name : DemarreAcquisition
      procedure_id : 1631270205988409349
      type_code : 12
      code : |1-
-      // Redéfinition de la méthode ISignalTraitement.DemarreAcquisition
-      PROCÉDURE  DemarreAcquisition() :booléen
+      // RedÃ©finition de la mÃ©thode ISignalTraitement.DemarreAcquisition
+      PROCÃ‰DURE  DemarreAcquisition() :boolÃ©en
       
-      Logger.Verbose(ChaîneConstruit("Demarre acquisition pour le traitement id=%1", :id))
+      Logger.Verbose(ChaÃ®neConstruit("Demarre acquisition pour le traitement id=%1", :id))
       
       si :nomThread="" alors
-      	:nomThread = ChaîneConstruit("thTraitement%1",:id)
-      	Logger.Verbose(ChaîneConstruit("Construit traitement id=%1", :id))
-      	SignalCrée(:nomThread,signalManuel,signalFermé,partageAucun)
+      	:nomThread = ChaÃ®neConstruit("thTraitement%1",:id)
+      	Logger.Verbose(ChaÃ®neConstruit("Construit traitement id=%1", :id))
+      	SignalCrÃ©e(:nomThread,signalManuel,signalFermÃ©,partageAucun)
       fin
-      :arretDemandé=faux
-      SignalModifie(:nomThread,signalFermé)
-      ThreadExécute(:nomThread,threadNormal,:callbackThread, :id, :nomThread, ()=>arretDemandé)
+      :arretDemandÃ©=faux
+      SignalModifie(:nomThread,signalFermÃ©)
+      ThreadExÃ©cute(:nomThread,threadNormal,:callbackThread, :id, :nomThread, ()=>arretDemandÃ©)
       
       renvoyer vrai
      type : 458752
@@ -4256,12 +4521,12 @@ class :
      procedure_id : 1631270205988474885
      type_code : 12
      code : |1-
-      // Redéfinition de la méthode ISignalTraitement.ArreteAcquisition
-      PROCÉDURE  ArreteAcquisition() :booléen
+      // RedÃ©finition de la mÃ©thode ISignalTraitement.ArreteAcquisition
+      PROCÃ‰DURE  ArreteAcquisition() :boolÃ©en
       
-      Logger.Verbose(ChaîneConstruit("Arrete acquisition pour le traitement id=%1",:id))
+      Logger.Verbose(ChaÃ®neConstruit("Arrete acquisition pour le traitement id=%1",:id))
       
-      :arretDemandé=vrai
+      :arretDemandÃ©=vrai
       SignalModifie(:nomThread,signalOuvert)
       ArreteThreadSurTimeout(()=>ThreadEtat(:nomThread)=threadEnCours,:nomThread)
       
@@ -4272,10 +4537,10 @@ class :
      procedure_id : 1631270205988540421
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalTraitement.Parametre
-      PROCÉDURE Parametre(params)
+      // RedÃ©finition de la mÃ©thode ISignalTraitement.Parametre
+      PROCÃ‰DURE Parametre(params)
       
-      Logger.Verbose(ChaîneConstruit("Parametre acquisition pour le traitement id=%1, p=%2", id, params))
+      Logger.Verbose(ChaÃ®neConstruit("Parametre acquisition pour le traitement id=%1, p=%2", id, params))
      type : 458752
   procedure_templates : []
   property_templates : []
@@ -4289,8 +4554,14 @@ custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
 associated_test :
  name : TEST_GestionDesCalculs.wxt
+```
 
-IAcquisitionSignal.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\IAcquisitionSignal.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -4309,7 +4580,7 @@ class :
    -
      code : |1+
       IAcquisitionSignal est une Classe
-      	hérite IClientSocket
+      	hÃ©rite IClientSocket
       	fileBuffer est une file de Str_DATA_Acquisition
       	
       	CONSTANTE Size_MSG_Socket_RX_ACQU = 3000
@@ -4334,7 +4605,7 @@ class :
      procedure_id : 1627981240561606863
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
      type : 589824
    -
@@ -4342,7 +4613,7 @@ class :
      procedure_id : 1627981240561672399
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -4350,7 +4621,7 @@ class :
      procedure_id : 1630627429913819569
      type_code : 12
      code : |1+
-      procédure abstraite EnfileBuffer(buf IAcquisitionSignal.Str_DATA_Acquisition)
+      procÃ©dure abstraite EnfileBuffer(buf IAcquisitionSignal.Str_DATA_Acquisition)
       
      type : 458752
    -
@@ -4358,7 +4629,7 @@ class :
      procedure_id : 1630627593126678127
      type_code : 12
      code : |1+
-      procédure abstraite DefileBuffer() : IAcquisitionSignal.Str_DATA_Acquisition
+      procÃ©dure abstraite DefileBuffer() : IAcquisitionSignal.Str_DATA_Acquisition
       
      type : 458752
    -
@@ -4366,7 +4637,7 @@ class :
      procedure_id : 1631009419835772927
      type_code : 12
      code : |1+
-      procédure abstraite TaillefileBuffer() : entier
+      procÃ©dure abstraite TaillefileBuffer() : entier
       
      type : 458752
   procedure_templates : []
@@ -4379,8 +4650,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-IClientSocket.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\IClientSocket.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -4402,13 +4679,13 @@ class :
       	id est entier
       	canalSocket est une chaine
       	portSocket est un entier
-      	ip est une chaîne
-      	nomThread est une chaîne
+      	ip est une chaÃ®ne
+      	nomThread est une chaÃ®ne
       	dernierMsgEnvoye est une chaine
       	dernierMsgRecu est une chaine
       	
       	protegee
-      		arretDemandé est un booléen
+      		arretDemandÃ© est un boolÃ©en
       		threadPauseMs est un entier = 1
       		mutex est chaine
       fin
@@ -4419,7 +4696,7 @@ class :
      procedure_id : 1627185554619738783
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
       :id = &:id
       :nomThread = "ThreadIClientSocket"+:id
@@ -4429,18 +4706,18 @@ class :
      procedure_id : 1627185554619804319
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
-      MutexDétruit(:mutex)
-      SignalDétruit(:nomThread)
-      Logger.Verbose("détruit IClientSocket, mutex=" + :mutex)
+      MutexDÃ©truit(:mutex)
+      SignalDÃ©truit(:nomThread)
+      Logger.Verbose("dÃ©truit IClientSocket, mutex=" + :mutex)
      type : 655360
    -
      name : EstActif
      procedure_id : 1627185554619869855
      type_code : 12
      code : |1+
-      procédure VIRTUELLE EstActif() : booléen
+      procÃ©dure VIRTUELLE EstActif() : boolÃ©en
       
       renvoyer ThreadEtat(:nomThread)=threadEnCours
      type : 458752
@@ -4449,21 +4726,21 @@ class :
      procedure_id : 1643629433866877340
      type_code : 12
      code : |1+
-      procédure VIRTUELLE EstArretDemande() : booléen
+      procÃ©dure VIRTUELLE EstArretDemande() : boolÃ©en
       
-      renvoyer :arretDemandé
+      renvoyer :arretDemandÃ©
      type : 458752
    -
      name : DemarreEcouteSocket
      procedure_id : 1627185554619935391
      type_code : 12
      code : |1+
-      procédure virtuelle DemarreEcouteSocket()
+      procÃ©dure virtuelle DemarreEcouteSocket()
       
-      :arretDemandé=faux
-      SignalModifie(:nomThread,signalFermé)
+      :arretDemandÃ©=faux
+      SignalModifie(:nomThread,signalFermÃ©)
       
-      ThreadExécute(:nomThread,threadNormal,()=>{
+      ThreadExÃ©cute(:nomThread,threadNormal,()=>{
       	QUAND EXCEPTION
       		LoggerErreur.EcritLigne(ExceptionInfo(errMessage))
       		ExceptionPropage(ExceptionInfo(errMessage))
@@ -4487,10 +4764,10 @@ class :
      procedure_id : 1643629352262021043
      type_code : 12
      code : |1+
-      procédure VIRTUELLE ArreteEcouteSocket()
+      procÃ©dure VIRTUELLE ArreteEcouteSocket()
       
-      Logger.Verbose(ChaîneConstruit("Arrete d'écouter la socket %1",:canalSocket))
-      :arretDemandé=vrai
+      Logger.Verbose(ChaÃ®neConstruit("Arrete d'Ã©couter la socket %1",:canalSocket))
+      :arretDemandÃ©=vrai
       SignalModifie(:nomThread,signalOuvert)
      type : 458752
    -
@@ -4498,7 +4775,7 @@ class :
      procedure_id : 1627185554620000927
      type_code : 12
      code : |1+
-      procédure  abstraite Demarre() : booléen
+      procÃ©dure  abstraite Demarre() : boolÃ©en
       
      type : 458752
    -
@@ -4506,7 +4783,7 @@ class :
      procedure_id : 1627185554620066463
      type_code : 12
      code : |1+
-      procédure  abstraite Arrete() : booléen
+      procÃ©dure  abstraite Arrete() : boolÃ©en
       
      type : 458752
    -
@@ -4514,7 +4791,7 @@ class :
      procedure_id : 1627185554620131999
      type_code : 12
      code : |1+
-      procédure  ABSTRAITE EcouteSocket()
+      procÃ©dure  ABSTRAITE EcouteSocket()
       
      type : 458752
    -
@@ -4522,7 +4799,7 @@ class :
      procedure_id : 1627185554620263071
      type_code : 12
      code : |1+
-      procédure virtuelle Ecrit(msg est chaine) : booléen
+      procÃ©dure virtuelle Ecrit(msg est chaine) : boolÃ©en
       
       Logger.Debug("client["+:nomThread+"] envoie="+msg)
       :dernierMsgEnvoye=msg
@@ -4533,12 +4810,12 @@ class :
      procedure_id : 1627185554620328607
      type_code : 12
      code : |1+
-      procédure VIRTUELLE lit() : buffer
+      procÃ©dure VIRTUELLE lit() : buffer
       
       buf est un buffer = SocketLit(:canalSocket,faux,10ms)
-      si ErreurDétectée ALORS
+      si ErreurDÃ©tectÃ©e ALORS
       	LoggerErreur.EcritLigne(ErreurInfo(errMessage))
-      	:arretDemandé=vrai
+      	:arretDemandÃ©=vrai
       	SignalModifie(:nomThread,signalOuvert)
       	renvoyer buf
       FIN
@@ -4553,12 +4830,12 @@ class :
      procedure_id : 1881457625711181384
      type_code : 12
      code : |1+
-      procédure Build()
+      procÃ©dure Build()
       
       :mutex = "mutex"+:id
       
-      MutexCrée(:mutex,Faux,partageAucun)
-      SignalCrée(:nomThread,signalManuel,signalFermé,partageAucun)
+      MutexCrÃ©e(:mutex,Faux,partageAucun)
+      SignalCrÃ©e(:nomThread,signalManuel,signalFermÃ©,partageAucun)
       
       Logger.Verbose("Build IClientSocket, mutex=" + :mutex + ", thread=" + :nomThread)
      type : 458752
@@ -4572,8 +4849,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-IConnexionClientSocket.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\IConnexionClientSocket.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -4593,8 +4876,8 @@ class :
      code : |1+
       IConnexionClientSocket est une Classe
       	herite IClientSocket
-      	NomSocket est une chaîne 
-      	AdresseSocketServer est une chaîne
+      	NomSocket est une chaÃ®ne 
+      	AdresseSocketServer est une chaÃ®ne
       fin
      type : 131072
   procedures :
@@ -4603,21 +4886,21 @@ class :
      procedure_id : 1627185979844013368
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
      type : 589824
    -
      name : Destructeur
      procedure_id : 1627185979844078904
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
      type : 655360
    -
      name : AjouteClient
      procedure_id : 1627185979844144440
      type_code : 12
      code : |1+
-      procédure abstraite AjouteClient(client IClientSocket dynamique):booléen
+      procÃ©dure abstraite AjouteClient(client IClientSocket dynamique):boolÃ©en
       
      type : 458752
    -
@@ -4625,7 +4908,7 @@ class :
      procedure_id : 1627185979844209976
      type_code : 12
      code : |1+
-      procédure ABSTRAITE SupprimeClient(client IClientSocket dynamique):booléen
+      procÃ©dure ABSTRAITE SupprimeClient(client IClientSocket dynamique):boolÃ©en
       
      type : 458752
    -
@@ -4633,7 +4916,7 @@ class :
      procedure_id : 1627185979844275512
      type_code : 12
      code : |1+
-      procédure abstraite RecupereClients() : tableau de IClientSocket dynamique
+      procÃ©dure abstraite RecupereClients() : tableau de IClientSocket dynamique
       
      type : 458752
   procedure_templates : []
@@ -4646,8 +4929,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-IGestionDesCalculs.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\IGestionDesCalculs.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -4668,7 +4957,7 @@ class :
       IGestionDesCalculs est une Classe
       	implemente IAcquisitionProc
       	id est un entier = 0
-      	callbackThread est une procédure
+      	callbackThread est une procÃ©dure
       fin
      type : 131072
   procedures :
@@ -4677,35 +4966,35 @@ class :
      procedure_id : 1638002515556427564
      type_code : 27
      code : |1-
-      procédure Constructeur()
+      procÃ©dure Constructeur()
      type : 589824
    -
      name : Destructeur
      procedure_id : 1638002515556493100
      type_code : 28
      code : |1-
-      procédure Destructeur()
+      procÃ©dure Destructeur()
      type : 655360
    -
      name : DemarreAcquisition
      procedure_id : 1638002515556558636
      type_code : 12
      code : |1+
-      procédure abstraite DemarreAcquisition() :booleen
+      procÃ©dure abstraite DemarreAcquisition() :booleen
      type : 458752
    -
      name : ArreteAcquisition
      procedure_id : 1638002515556624172
      type_code : 12
      code : |1+
-      procédure abstraite ArreteAcquisition() :booléen
+      procÃ©dure abstraite ArreteAcquisition() :boolÃ©en
      type : 458752
    -
      name : Parametre
      procedure_id : 1638002515556689708
      type_code : 12
      code : |1+
-      procédure abstraite Parametre(params)
+      procÃ©dure abstraite Parametre(params)
      type : 458752
   properties :
    -
@@ -4715,12 +5004,12 @@ class :
      p_codes :
       -
         code : |1+
-         procédure id() : entier
+         procÃ©dure id() : entier
           renvoyer :id
         type : 1966080
       -
         code : |1+
-         procédure id(Valeur est un entier)
+         procÃ©dure id(Valeur est un entier)
          :id=Valeur
         type : 2031616
      template_refs : []
@@ -4734,8 +5023,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-ISignalDessine.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\ISignalDessine.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -4754,10 +5049,10 @@ class :
    -
      code : |1-
       ISignalDessine est une Classe
-      	implémente IAcquisitionProc
+      	implÃ©mente IAcquisitionProc
       	id est un entier = 0
       	champImage est une wl.Image
-      	arretTimerSysDessin	est un booléen
+      	arretTimerSysDessin	est un boolÃ©en
       	fileAffichage est une file de IAcquisitionSignal.Str_DATA_Acquisition
       fin
        
@@ -4768,70 +5063,70 @@ class :
      procedure_id : 1627190184644779469
      type_code : 27
      code : |1-
-      procédure Constructeur()
+      procÃ©dure Constructeur()
      type : 589824
    -
      name : Destructeur
      procedure_id : 1627190184644845005
      type_code : 28
      code : |1-
-      procédure Destructeur()
+      procÃ©dure Destructeur()
      type : 655360
    -
      name : Parametre
      procedure_id : 1627190433753202688
      type_code : 12
      code : |1+
-      procédure abstraite Parametre(champImage)
+      procÃ©dure abstraite Parametre(champImage)
      type : 458752
    -
      name : DemarreAcquisition
      procedure_id : 1627191786668085496
      type_code : 12
      code : |1+
-      procédure abstraite DemarreAcquisition() : booléen
+      procÃ©dure abstraite DemarreAcquisition() : boolÃ©en
      type : 458752
    -
      name : ArreteAcquisition
      procedure_id : 1627191833912802288
      type_code : 12
      code : |1+
-      procédure abstraite ArreteAcquisition() : booléen
+      procÃ©dure abstraite ArreteAcquisition() : boolÃ©en
      type : 458752
    -
      name : DessineDansImage
      procedure_id : 1627990788310338616
      type_code : 12
      code : |1+
-      procédure abstraite DessineDansImage(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booleen
+      procÃ©dure abstraite DessineDansImage(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booleen
      type : 458752
    -
      name : DebutDessin
      procedure_id : 1630644442558556870
      type_code : 12
      code : |1+
-      procédure abstraite DebutDessin()
+      procÃ©dure abstraite DebutDessin()
      type : 458752
    -
      name : SauveImageJpeg
      procedure_id : 1631354043776558121
      type_code : 12
      code : |1+
-      procédure abstraite SauveImageJpeg(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booléen
+      procÃ©dure abstraite SauveImageJpeg(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : boolÃ©en
      type : 458752
    -
      name : PrepareDessin
      procedure_id : 1829904471857195959
      type_code : 12
      code : |1+
-      procédure abstraite PrepareDessin(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique)
+      procÃ©dure abstraite PrepareDessin(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique)
      type : 458752
    -
      name : Affichage
      procedure_id : 1894581804520631272
      type_code : 12
      code : |1+
-      procédure abstraite Affichage()
+      procÃ©dure abstraite Affichage()
       
      type : 458752
   properties :
@@ -4842,12 +5137,12 @@ class :
      p_codes :
       -
         code : |1+
-         procédure id() : entier
+         procÃ©dure id() : entier
          renvoyer :id
         type : 1966080
       -
         code : |1+
-         procédure id(Valeur est un entier)
+         procÃ©dure id(Valeur est un entier)
          :id=Valeur
         type : 2031616
      template_refs : []
@@ -4861,8 +5156,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-ISignalEnregistrement.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\ISignalEnregistrement.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -4881,7 +5182,7 @@ class :
    -
      code : |1-
       ISignalEnregistrement est une Classe
-      	implémente IAcquisitionProc
+      	implÃ©mente IAcquisitionProc
       	id est un entier = 0
       fin
        
@@ -4892,42 +5193,42 @@ class :
      procedure_id : 1627195780988207123
      type_code : 27
      code : |1-
-      procédure Constructeur()
+      procÃ©dure Constructeur()
      type : 589824
    -
      name : Destructeur
      procedure_id : 1627195780988272659
      type_code : 28
      code : |1-
-      procédure Destructeur()
+      procÃ©dure Destructeur()
      type : 655360
    -
      name : DemarreAcquisition
      procedure_id : 1627195927017260696
      type_code : 12
      code : |1+
-      procédure abstraite DemarreAcquisition() : booléen
+      procÃ©dure abstraite DemarreAcquisition() : boolÃ©en
      type : 458752
    -
      name : ArreteAcquisition
      procedure_id : 1627196017211660245
      type_code : 12
      code : |1+
-      procédure abstraite ArreteAcquisition() : booléen
+      procÃ©dure abstraite ArreteAcquisition() : boolÃ©en
      type : 458752
    -
      name : Parametre
      procedure_id : 1627196240550011434
      type_code : 12
      code : |1+
-      procédure abstraite Parametre(nomFichier)
+      procÃ©dure abstraite Parametre(nomFichier)
      type : 458752
    -
      name : EcritDansFichier
      procedure_id : 1627989705976820618
      type_code : 12
      code : |1+
-      procédure abstraite EcritDansFichier(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booléen
+      procÃ©dure abstraite EcritDansFichier(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : boolÃ©en
      type : 458752
   properties :
    -
@@ -4937,12 +5238,12 @@ class :
      p_codes :
       -
         code : |1+
-         procédure id() : entier
+         procÃ©dure id() : entier
          renvoyer :id
         type : 1966080
       -
         code : |1+
-         procédure id(Valeur est un entier)
+         procÃ©dure id(Valeur est un entier)
          :id=Valeur
         type : 2031616
      template_refs : []
@@ -4956,8 +5257,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-ISignalTraitement.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\ISignalTraitement.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -4987,42 +5294,42 @@ class :
      procedure_id : 1626144540630890376
      type_code : 27
      code : |1-
-      procédure Constructeur()
+      procÃ©dure Constructeur()
      type : 589824
    -
      name : Destructeur
      procedure_id : 1626144540630955912
      type_code : 28
      code : |1-
-      procédure Destructeur()
+      procÃ©dure Destructeur()
      type : 655360
    -
      name : DemarreAcquisition
      procedure_id : 1627219562222878244
      type_code : 12
      code : |1+
-      procédure abstraite DemarreAcquisition() :booleen
+      procÃ©dure abstraite DemarreAcquisition() :booleen
      type : 458752
    -
      name : ArreteAcquisition
      procedure_id : 1627219665302379617
      type_code : 12
      code : |1+
-      procédure abstraite ArreteAcquisition() :booléen
+      procÃ©dure abstraite ArreteAcquisition() :boolÃ©en
      type : 458752
    -
      name : Parametre
      procedure_id : 1627976928344035087
      type_code : 12
      code : |1+
-      procédure abstraite Parametre(params)
+      procÃ©dure abstraite Parametre(params)
      type : 458752
    -
      name : Calcule
      procedure_id : 1627990650870500942
      type_code : 12
      code : |1+
-      procédure abstraite Calcule(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booleen
+      procÃ©dure abstraite Calcule(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booleen
      type : 458752
   properties :
    -
@@ -5032,12 +5339,12 @@ class :
      p_codes :
       -
         code : |1+
-         procédure id() : entier
+         procÃ©dure id() : entier
           renvoyer :id
         type : 1966080
       -
         code : |1+
-         procédure id(Valeur est un entier)
+         procÃ©dure id(Valeur est un entier)
          :id=Valeur
         type : 2031616
      template_refs : []
@@ -5051,8 +5358,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-ITreuilClient.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\ITreuilClient.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -5074,11 +5387,11 @@ class :
       	herite IClientSocket
       	type est EnumTreuilType
       	
-      privé
+      privÃ©
       	bufferLecture est un buffer
       fin
       
-      EnumTreuilType est une énumération
+      EnumTreuilType est une Ã©numÃ©ration
       	eEmetteur
       	eRecepteur
       	eNonIdentifie
@@ -5103,7 +5416,7 @@ class :
       	SOCKMSG_TYPE_DEMANDE		= "TYPE0004"
       	SOCKREP_TYPE_TREUIL_EMETEUR		= "JESUISEMETTEUR"
       	SOCKREP_TYPE_TREUIL_RECEPTEUR	= "RECEPTEUR"
-      	SOCKREP_TYPE_TREUIL_NDEF		= "NonDéfini"
+      	SOCKREP_TYPE_TREUIL_NDEF		= "NonDÃ©fini"
       	
       	SOCKMSG_MOTEUR_START		= "STRT0000"
       	SOCKMSG_MOTEUR_SET_STOPDIST	= "STRT0001"
@@ -5131,41 +5444,41 @@ class :
       	SOCKMSG_SENS_DOWN			= "SENS0001"
       	
       	// usage
-      	// SocketEcrit(<SocketCible>,SOCKMSG_FIXE_ENERGIE+<xxxx>) avec xxxx = 0000 à 0084 en V
+      	// SocketEcrit(<SocketCible>,SOCKMSG_FIXE_ENERGIE+<xxxx>) avec xxxx = 0000 Ã  0084 en V
       	SOCKMSG_FIXE_ENERGIE		= "VPRO"
       	
       	// usage
-      	// SocketEcrit(<SocketCible>,SOCKMSG_GOTO+<xxxx>) avec xx = 0000 à 9999 en cm
+      	// SocketEcrit(<SocketCible>,SOCKMSG_GOTO+<xxxx>) avec xx = 0000 Ã  9999 en cm
       	SOCKMSG_DEPLACE_SONDE_VERS	= "GOTO"	
       	
       	// usage
-      	// SocketEcrit(<SocketCible>,SOCKMSG_FIXE_FREQ+<xxxx>) avec xxxx = 0000 à 0020 en Hz
+      	// SocketEcrit(<SocketCible>,SOCKMSG_FIXE_FREQ+<xxxx>) avec xxxx = 0000 Ã  0020 en Hz
       	SOCKMSG_FIXE_FREQ			= "CLAC"
       	
       	// usage
-      	// SocketEcrit(<SocketCible>,SOCKMSG_GAIN+<xxx>) avec xxx = 001 à 016
+      	// SocketEcrit(<SocketCible>,SOCKMSG_GAIN+<xxx>) avec xxx = 001 Ã  016
       	SOCKMSG_FIXE_GAIN			= "COMM_"
       	
       	// usage
       	// SocketEcrit(<SocketCible>,SOCKMSG_SENS_YYY)
-      	// SocketEcrit(<SocketCible>,SOCKMSG_PWM_YYY+<xxxx>) avec xxxx = 0001 à 0020
+      	// SocketEcrit(<SocketCible>,SOCKMSG_PWM_YYY+<xxxx>) avec xxxx = 0001 Ã  0020
       	SOCKMSG_PWM_UP				= "PWMU"
       	SOCKMSG_PWM_DWN				= "PWMD"
       	
       	// usage
       	// 0 : temporel
       	// 1 : spatial
-      	// SocketEcrit(<SocketCible>,SOCKMSG_MODE+<xxxx>) avec xxxx = 0000 à 0001
+      	// SocketEcrit(<SocketCible>,SOCKMSG_MODE+<xxxx>) avec xxxx = 0000 Ã  0001
       	SOCKMSG_MODE_TEMPOREL		= "MODE0000"
       	SOCKMSG_MODE_SPATIAL		= "MODE0001"
       	
       	//usage
-      	// SocketEcrit(<SocketCible>,SOCKMSG_DEPLACEMENT_YYY+<xxxx>) avec xxxx = 0000 à 4000
+      	// SocketEcrit(<SocketCible>,SOCKMSG_DEPLACEMENT_YYY+<xxxx>) avec xxxx = 0000 Ã  4000
       	SOCKMSG_DEPLACEMENT_UP		= "DEPU"
       	SOCKMSG_DEPLACEMENT_DOWN	= "DEPD"
       	
       	//usage
-      	// SocketEcrit(<SocketCible>,SOCKMSG_DEPLACEMENT_YYY+<xxxx>) avec xxxx = 0000 à 4000
+      	// SocketEcrit(<SocketCible>,SOCKMSG_DEPLACEMENT_YYY+<xxxx>) avec xxxx = 0000 Ã  4000
       	SOCKMSG_FIXE_POS_TREUIL		= "FPTR"
       	SOCKMSG_FIXE_POS_SYNCH		= "FPSY"
       
@@ -5189,7 +5502,7 @@ class :
      procedure_id : 1623474376347869445
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
      type : 589824
    -
@@ -5197,15 +5510,15 @@ class :
      procedure_id : 1623474376347934981
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
      type : 655360
    -
      name : EcouteSocket
      procedure_id : 1623533668379034263
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.EcouteSocket
-      PROCÉDURE EcouteSocket()
+      // RedÃ©finition de la mÃ©thode IClientSocket.EcouteSocket
+      PROCÃ‰DURE EcouteSocket()
       
       :bufferLecture += :Lit()
       si :bufferLecture<>"" ALORS
@@ -5221,18 +5534,18 @@ class :
      procedure_id : 1643602633264841279
      type_code : 12
      code : |1+
-      procédure privée _synchroniseTrameDansBuffer() : booléen
+      procÃ©dure privÃ©e _synchroniseTrameDansBuffer() : boolÃ©en
       
       pour i=1 _a_ bufferLecture..Taille
       //	si :bufferLecture..Taille>=3 _et_ :bufferLecture[1 a 3]<>"DEB" ALORS
-      //		:bufferLecture = :bufferLecture[2 À ]
+      //		:bufferLecture = :bufferLecture[2 Ã€ ]
       //	sinon
       //		SI :bufferLecture..Taille>=CST_TAILLE_STRUCT ALORS
-      //			SI :bufferLecture[CST_TAILLE_STRUCT-3 À CST_TAILLE_STRUCT-1] = "FIN" ALORS
+      //			SI :bufferLecture[CST_TAILLE_STRUCT-3 Ã€ CST_TAILLE_STRUCT-1] = "FIN" ALORS
       //				Logger.Verbose("buffer synchro")
       //				RENVOYER Vrai
       //			SINON
-      //				LoggerErreur.EcritLigne("buffer non synchro pas de fin trouvé, reset buffer")
+      //				LoggerErreur.EcritLigne("buffer non synchro pas de fin trouvÃ©, reset buffer")
       //				:bufferLecture = :bufferLecture[CST_TAILLE_STRUCT A]
       //				renvoyer faux
       //			FIN
@@ -5248,7 +5561,7 @@ class :
      procedure_id : 1643598492914224755
      type_code : 12
      code : |1+
-      procédure abstraite ParseDonnees(buf est un buffer)
+      procÃ©dure abstraite ParseDonnees(buf est un buffer)
       
      type : 458752
   procedure_templates : []
@@ -5261,8 +5574,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-Logger.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\Logger.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -5283,20 +5602,20 @@ class :
       Logger est une Classe
       	GLOBALE
       		niveau est NiveauEnum = NiveauEnum.ELog
-      		affTrace est un booléen = faux
-      	globale PRIVÉE
+      		affTrace est un boolÃ©en = faux
+      	globale PRIVÃ‰E
       		nomFichier est une chaine
       		handleFic est un entier=-1
       		buffer est un buffer
       		id est entier
-      		mutex est une chaîne
+      		mutex est une chaÃ®ne
       		messageFile est une file de chaine
       
       	
       	constante BufferMax = 1 000 000
       fin
       
-      NiveauEnum est une énumération
+      NiveauEnum est une Ã©numÃ©ration
       	EErreur = 0
       	ELog = 1
       	EDebug
@@ -5309,7 +5628,7 @@ class :
      procedure_id : 1628652419095063865
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
      type : 589824
    -
@@ -5317,7 +5636,7 @@ class :
      procedure_id : 1628652419095129401
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -5325,19 +5644,19 @@ class :
      procedure_id : 1628652419095194937
      type_code : 12
      code : |1+
-      procédure globale EcritLigne(msg est chaine, niv est NiveauEnum, flush est un booléen=faux, enfileMsg est un booléen = faux) : entier
+      procÃ©dure globale EcritLigne(msg est chaine, niv est NiveauEnum, flush est un boolÃ©en=faux, enfileMsg est un boolÃ©en = faux) : entier
       
       si niv > niveau ALORS
       	renvoyer 0
       FIN
       
       si affTrace ALORS
-      	wl.trace(HeureVersChaîne(Maintenant,"HH:MM:SS:CC") + " : " + V(niv) + ThreadCourant()+"=> " + msg)
+      	wl.trace(HeureVersChaÃ®ne(Maintenant,"HH:MM:SS:CC") + " : " + V(niv) + ThreadCourant()+"=> " + msg)
       FIN   
       
       oc est un entier = -1
-      dbMsg est chaîne = V(niv) + ThreadCourant()+"=> " + msg
-      dbMsg = HeureVersChaîne(Maintenant,"HH:MM:SS:CC") + " : " + dbMsg + rc
+      dbMsg est chaÃ®ne = V(niv) + ThreadCourant()+"=> " + msg
+      dbMsg = HeureVersChaÃ®ne(Maintenant,"HH:MM:SS:CC") + " : " + dbMsg + rc
       si enfileMsg alors enfile(messageFile, dbMsg)
       
       m est MutexHelper(mutex)
@@ -5359,7 +5678,7 @@ class :
      procedure_id : 1628652419095260473
      type_code : 12
      code : |1+
-      procédure publique globale Init()
+      procÃ©dure publique globale Init()
       
       nomFichier = "trace.log"
       handleFic =-1
@@ -5367,26 +5686,26 @@ class :
       mutex ="mutex"+id
       
       SI handleFic=-1 ALORS
-      	handleFic = fOuvre(nomFichier,foCréationSiInexistant+foAjout+foLectureEcriture)
+      	handleFic = fOuvre(nomFichier,foCrÃ©ationSiInexistant+foAjout+foLectureEcriture)
       FIN
       
-      MutexCrée(mutex,Faux,partageAucun)
+      MutexCrÃ©e(mutex,Faux,partageAucun)
      type : 458752
    -
      name : Quit
      procedure_id : 1628652419095326009
      type_code : 12
      code : |1-
-      procédure publique globale Quit()
+      procÃ©dure publique globale Quit()
       
       SI buffer<>"" ALORS
       	SI EcritLigne("",niveau, vrai)=-1 ALORS
-      		Trace("Erreur d'écriture dans fichier "+nomFichier)
+      		Trace("Erreur d'Ã©criture dans fichier "+nomFichier)
       	FIN
       FIN
       fferme(handleFic)
       handleFic=-1
-      MutexDétruit(mutex)
+      MutexDÃ©truit(mutex)
       mutex=""
       SupprimeTout(messageFile)
      type : 458752
@@ -5395,7 +5714,7 @@ class :
      procedure_id : 1628652419095391545
      type_code : 12
      code : |1+
-      procédure publique globale Log(msg est chaine)
+      procÃ©dure publique globale Log(msg est chaine)
       
       renvoyer EcritLigne(msg,NiveauEnum.ELog)
      type : 458752
@@ -5404,7 +5723,7 @@ class :
      procedure_id : 1628652419095457081
      type_code : 12
      code : |1+
-      procédure publique globale Debug(msg est chaine)
+      procÃ©dure publique globale Debug(msg est chaine)
       
       RENVOYER EcritLigne(msg,NiveauEnum.EDebug)
      type : 458752
@@ -5413,7 +5732,7 @@ class :
      procedure_id : 1628652419095522617
      type_code : 12
      code : |1+
-      procédure publique globale Verbose(msg est chaine)
+      procÃ©dure publique globale Verbose(msg est chaine)
       
       RENVOYER EcritLigne(msg,NiveauEnum.ETrace)
      type : 458752
@@ -5422,7 +5741,7 @@ class :
      procedure_id : 1628652419095588153
      type_code : 12
      code : |1+
-      procédure privée globale V(niv est NiveauEnum)
+      procÃ©dure privÃ©e globale V(niv est NiveauEnum)
       
       selon niv
       	CAS NiveauEnum.EErreur
@@ -5441,7 +5760,7 @@ class :
      procedure_id : 1628653419859245265
      type_code : 12
      code : |1+
-      procédure publique globale Erreur(msg est chaine)
+      procÃ©dure publique globale Erreur(msg est chaine)
       
       RENVOYER EcritLigne(msg,NiveauEnum.EErreur)
      type : 458752
@@ -5450,7 +5769,7 @@ class :
      procedure_id : 1893788137531391711
      type_code : 12
      code : |1+
-      procédure publique globale Message(msg est une chaine)
+      procÃ©dure publique globale Message(msg est une chaine)
       
       EcritLigne(msg,ELog,Faux,Vrai)
      type : 458752
@@ -5464,8 +5783,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-LoggerErreur.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\LoggerErreur.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -5485,13 +5810,13 @@ class :
      code : |1+
       LoggerErreur est une Classe
       	globale
-      		affTrace est un booléen = faux
+      		affTrace est un boolÃ©en = faux
       	globale privee
       		nomFichier est une chaine
       		handleFic est un entier=-1
       		buffer est un buffer
       		id est entier
-      		mutex est une chaîne
+      		mutex est une chaÃ®ne
       		messageFile est une file de chaine
       	
       	constante BufferMax = 1 000 000
@@ -5503,7 +5828,7 @@ class :
      procedure_id : 1628655326825234662
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
      type : 589824
    -
@@ -5511,7 +5836,7 @@ class :
      procedure_id : 1628655326825300198
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -5519,17 +5844,17 @@ class :
      procedure_id : 1628655326825365734
      type_code : 12
      code : |1+
-      procédure globale EcritLigne(msg est chaine, flush est un booléen=faux) : entier
+      procÃ©dure globale EcritLigne(msg est chaine, flush est un boolÃ©en=faux) : entier
       
       SI affTrace _et_ logger.affTrace=faux ALORS
-      	WL.Trace(HeureVersChaîne(Maintenant,"HH:MM:SS:CC") + " : " + "[ERREUR] " + ThreadCourant()+"=> " + msg)
+      	WL.Trace(HeureVersChaÃ®ne(Maintenant,"HH:MM:SS:CC") + " : " + "[ERREUR] " + ThreadCourant()+"=> " + msg)
       FIN
       
       logger.Erreur(msg)
       
       oc est un entier = -1
-      dbMsg est chaîne = "[ERREUR] " + ThreadCourant()+"=> " + msg
-      dbMsg = HeureVersChaîne(Maintenant,"HH:MM:SS:CC") + " : " + dbMsg + rc
+      dbMsg est chaÃ®ne = "[ERREUR] " + ThreadCourant()+"=> " + msg
+      dbMsg = HeureVersChaÃ®ne(Maintenant,"HH:MM:SS:CC") + " : " + dbMsg + rc
       enfile(messageFile,dbMsg)
       
       m est MutexHelper(mutex)
@@ -5552,7 +5877,7 @@ class :
      procedure_id : 1628655326825431270
      type_code : 12
      code : |1+
-      procédure publique globale Init()
+      procÃ©dure publique globale Init()
       
       nomFichier = "erreur.log"
       handleFic =-1
@@ -5560,26 +5885,26 @@ class :
       mutex ="mutex"+id
       
       SI handleFic=-1 ALORS
-      	handleFic = fOuvre(nomFichier,foCréationSiInexistant+foAjout+foLectureEcriture)
+      	handleFic = fOuvre(nomFichier,foCrÃ©ationSiInexistant+foAjout+foLectureEcriture)
       FIN
       
-      MutexCrée(mutex,Faux,partageAucun)
+      MutexCrÃ©e(mutex,Faux,partageAucun)
      type : 458752
    -
      name : Quit
      procedure_id : 1628655326825496806
      type_code : 12
      code : |1-
-      procédure publique globale Quit()
+      procÃ©dure publique globale Quit()
       
       SI buffer<>"" ALORS
       	SI EcritLigne("", vrai)=-1 ALORS
-      		Trace("Erreur d'écriture dans fichier "+nomFichier)
+      		Trace("Erreur d'Ã©criture dans fichier "+nomFichier)
       	FIN
       FIN
       fFerme(handleFic)
       handleFic=-1
-      MutexDétruit(mutex)
+      MutexDÃ©truit(mutex)
       mutex=""
       SupprimeTout(messageFile)
      type : 458752
@@ -5593,8 +5918,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-main.wdw
+
+---
+
+## Mes Projets\repo\avsp_server\src\main.wdw
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -5631,7 +5962,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAABM6fmkKMlVPeQbCfcsBDYyTcTTUIm5Re5/5V1ZOOsLrRw0i1veFC5iew46DoY6Ldj4prYQVsteEm2CItj12JTSHG6e1pYufqpWZvOqWNse08v4MWsahqrZAu+1E6cVC842IgmUYVk8XFKD6jaGtTcuLSnEZEyKy7sEhjSIMb/nja4mvGbu9uAqidRMFB42y6kjOv4vVnC7yPXW8in4Ispc/AhC69qXsPRX7FQNBa/WxkOrPxwdZOMoUW7SAXTvAr5S5b+ulHdWxL6z2tOm/IhCswihvBwHE44KVew558EgHs0D+zAm+661Z/FsKVw6m0/sXhKWvlnpGfuI+Jy/ddyEXvk9iLgxU7V5ZXEwUdOzNScvI0c6idKwy/LtVIZevLZQ7aAlztoqVqDuOKANwHSvajXHfxvBTLOP3UXKXxXgc51suHR1ByMkay7s/aftwZBpL5xshQ+/enTMj4dgzephlF/R5+rheK+STRGgvoLsEXukd79efJm20ESxkGRANzjAT2Y2kUMMMTwoA3uQXe+54NLRfMYewVanNOzxTiASMeAKOUx9gaDwwEOLMX3yq7g=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAD2Rkbx+OjeaV6cz3eLdX7jB0Jgs6WDDXWz15HdSBZm9oeZQ2BKnjRAOa1wH4EQ9d5x
@@ -5653,7 +5983,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAABM6fmkKMlVPeQbCfcsBDYyTcTTUIm5Re5/5V1ZOOsLrRw0i1veFC5iew46DoY6Ldj4prYQVsteEm2CItj12JTSHG6e1pYufqpWZvOqWNse08v4MWsahqrZAu+1E6cVC842IgmUYVk8XFKD6jaGtTcuLSnEZEyKy7sEhjSIMb/nja4mvGbu9uAqidRMFB42y6kjOv4vVnC7yPXW8in4Ispc/AhC69qXsPRX7FQNBa/WxkOrPxwdZOMoUW7SAXTvAr5S5b+ulHdWxL6z2tOm/IhCswihvBwHE44KVew558EgHs0D+zAm+661Z/FsKVw6m0/sXhKWvlnpGfuI+Jy/ddyEXvk9iLgxU7V5ZXEwUdOzNScvI0c6idKwy/LtVIZevLZQ7aAlztoqVqDuOKANwHSvajXHfxvBTLOP3UXKXxXgc51suHR1ByMkay7s/aftwZBpL5xshQ+/enTMj4dgzephlF/R5+rheK+STRGgvoLsEXukd79efJm20ESxkGRANzjAT2Y2kUMMMTwoA3uQXe+54NLRfMYewVanNOzxTiASMeAKOUx9gaDwwEOLMX3yq7g=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAD2Rkbx+OjeaV6cz3eLdX7jB0Jgs6WDDXWz15HdSBZm9oeZQ2BKnjRAOa1wH4EQ9d5x
@@ -5675,7 +6004,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAABM6fmkKMlVPeQbCfcsBDYyTcTTUIm5Re5/5V1ZOOsLrRw0i1veFC5iew46DoY6Ldj4prYQVsteEm2CItj12JTSHG6e1pYufqpWZvOqWNse08v4MWsahqrZAu+1E6cVC842IgmUYVk8XFKD6jaGtTcuLSnEZEyKy7sEhjSIMb/nja4mvGbu9uAqidRMFB42y6kjOv4vVnC7yPXW8in4Ispc/AhC69qXsPRX7FQNBa/WxkOrPxwdZOMoUW7SAXTvAr5S5b+ulHdWxL6z2tOm/IhCswihvBwHE44KVew558EgHs0D+zAm+661Z/FsKVw6m0/sXhKWvlnpGfuI+Jy/ddyEXvk9iLgxU7V5ZXEwUdOzNScvI0c6idKwy/LtVIZevLZQ7aAlztoqVqDuOKANwHSvajXHfxvBTLOP3UXKXxXgc51suHR1ByMkay7s/aftwZBpL5xshQ+/enTMj4dgzephlF/R5+rheK+STRGgvoLsEXukd79efJm20ESxkGRANzjAT2Y2kUMMMTwoA3uQXe+54NLRfMYewVanNOzxTiASMeAKOUx9gaDwwEOLMX3yq7g=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAD2Rkbx+OjeaV6cz3eLdX7jB0Jgs6WDDXWz15HdSBZm9oeZQ2BKnjRAOa1wH4EQ9d5x
@@ -5713,7 +6041,7 @@ window :
       -
         code : |1+
          
-         EnvoieSocketAuServerSurSelection(colonne1,"ACQ_"+Complète(Hasard(1,999),8," "),Client_acquisition)
+         EnvoieSocketAuServerSurSelection(colonne1,"ACQ_"+ComplÃ¨te(Hasard(1,999),8," "),Client_acquisition)
         type : 33
       -
         type : 230
@@ -5753,7 +6081,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAABM6fmkKMlVPeQbCfcsBDYyTcTTUIm5Re5/5V1ZOOsLrRw0i1veFC5iew46DoY6Ldj4prYQVsteEm2CItj12JTSHG6e1pYufqpWZvOqWNse08v4MWsahqrZAu+1E6cVC842IgmUYVk8XFKD6jaGtTcuLSnEZEyKy7sEhjSIMb/nja4mvGbu9uAqidRMFB42y6kjOv4vVnC7yPXW8in4Ispc/AhC69qXsPRX7FQNBa/WxkOrPxwdZOMoUW7SAXTvAr5S5b+ulHdWxL6z2tOm/IhCswihvBwHE44KVew558EgHs0D+zAm+661Z/FsKVw6m0/sXhKWvlnpGfuI+Jy/ddyEXvk9iLgxU7V5ZXEwUdOzNScvI0c6idKwy/LtVIZevLZQ7aAlztoqVqDuOKANwHSvajXHfxvBTLOP3UXKXxXgc51suHR1ByMkay7s/aftwZBpL5xshQ+/enTMj4dgzephlF/R5+rheK+STRGgvoLsEXukd79efJm20ESxkGRANzjAT2Y2kUMMMTwoA3uQXe+54NLRfMYewVanNOzxTiASMeAKOUx9gaDwwEOLMX3yq7g=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAD2Rkbx+OjeaV6cz3eLdX7jB0Jgs6WDDXWz15HdSBZm9oeZQ2BKnjRAOa1wH4EQ9d5x
@@ -5775,7 +6102,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAABM6fmkKMlVPeQbCfcsBDYyTcTTUIm5Re5/5V1ZOOsLrRw0i1veFC5iew46DoY6Ldj4prYQVsteEm2CItj12JTSHG6e1pYufqpWZvOqWNse08v4MWsahqrZAu+1E6cVC842IgmUYVk8XFKD6jaGtTcuLSnEZEyKy7sEhjSIMb/nja4mvGbu9uAqidRMFB42y6kjOv4vVnC7yPXW8in4Ispc/AhC69qXsPRX7FQNBa/WxkOrPxwdZOMoUW7SAXTvAr5S5b+ulHdWxL6z2tOm/IhCswihvBwHE44KVew558EgHs0D+zAm+661Z/FsKVw6m0/sXhKWvlnpGfuI+Jy/ddyEXvk9iLgxU7V5ZXEwUdOzNScvI0c6idKwy/LtVIZevLZQ7aAlztoqVqDuOKANwHSvajXHfxvBTLOP3UXKXxXgc51suHR1ByMkay7s/aftwZBpL5xshQ+/enTMj4dgzephlF/R5+rheK+STRGgvoLsEXukd79efJm20ESxkGRANzjAT2Y2kUMMMTwoA3uQXe+54NLRfMYewVanNOzxTiASMeAKOUx9gaDwwEOLMX3yq7g=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAD2Rkbx+OjeaV6cz3eLdX7jB0Jgs6WDDXWz15HdSBZm9oeZQ2BKnjRAOa1wH4EQ9d5x
@@ -5797,7 +6123,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAABM6fmkKMlVPeQbCfcsBDYyTcTTUIm5Re5/5V1ZOOsLrRw0i1veFC5iew46DoY6Ldj4prYQVsteEm2CItj12JTSHG6e1pYufqpWZvOqWNse08v4MWsahqrZAu+1E6cVC842IgmUYVk8XFKD6jaGtTcuLSnEZEyKy7sEhjSIMb/nja4mvGbu9uAqidRMFB42y6kjOv4vVnC7yPXW8in4Ispc/AhC69qXsPRX7FQNBa/WxkOrPxwdZOMoUW7SAXTvAr5S5b+ulHdWxL6z2tOm/IhCswihvBwHE44KVew558EgHs0D+zAm+661Z/FsKVw6m0/sXhKWvlnpGfuI+Jy/ddyEXvk9iLgxU7V5ZXEwUdOzNScvI0c6idKwy/LtVIZevLZQ7aAlztoqVqDuOKANwHSvajXHfxvBTLOP3UXKXxXgc51suHR1ByMkay7s/aftwZBpL5xshQ+/enTMj4dgzephlF/R5+rheK+STRGgvoLsEXukd79efJm20ESxkGRANzjAT2Y2kUMMMTwoA3uQXe+54NLRfMYewVanNOzxTiASMeAKOUx9gaDwwEOLMX3yq7g=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAD2Rkbx+OjeaV6cz3eLdX7jB0Jgs6WDDXWz15HdSBZm9oeZQ2BKnjRAOa1wH4EQ9d5x
@@ -5835,7 +6160,7 @@ window :
       -
         code : |1+
          
-         EnvoieSocketAuServerSurSelection(Colonne1,"COMM"+Complète(Hasard(1,999),8," "),Clients)
+         EnvoieSocketAuServerSurSelection(Colonne1,"COMM"+ComplÃ¨te(Hasard(1,999),8," "),Clients)
          
         type : 33
       -
@@ -5876,7 +6201,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAABM6fmkKMlVPeQbCfcsBDYyTcTTUIm5Re5/5V1ZOOsLrRw0i1veFC5iew46DoY6Ldj4prYQVsteEm2CItj12JTSHG6e1pYufqpWZvOqWNse08v4MWsahqrZAu+1E6cVC842IgmUYVk8XFKD6jaGtTcuLSnEZEyKy7sEhjSIMb/nja4mvGbu9uAqidRMFB42y6kjOv4vVnC7yPXW8in4Ispc/AhC69qXsPRX7FQNBa/WxkOrPxwdZOMoUW7SAXTvAr5S5b+ulHdWxL6z2tOm/IhCswihvBwHE44KVew558EgHs0D+zAm+661Z/FsKVw6m0/sXhKWvlnpGfuI+Jy/ddyEXvk9iLgxU7V5ZXEwUdOzNScvI0c6idKwy/LtVIZevLZQ7aAlztoqVqDuOKANwHSvajXHfxvBTLOP3UXKXxXgc51suHR1ByMkay7s/aftwZBpL5xshQ+/enTMj4dgzephlF/R5+rheK+STRGgvoLsEXukd79efJm20ESxkGRANzjAT2Y2kUMMMTwoA3uQXe+54NLRfMYewVanNOzxTiASMeAKOUx9gaDwwEOLMX3yq7g=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAD2Rkbx+OjeaV6cz3eLdX7jB0Jgs6WDDXWz15HdSBZm9oeZQ2BKnjRAOa1wH4EQ9d5x
@@ -5898,7 +6222,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAABM6fmkKMlVPeQbCfcsBDYyTcTTUIm5Re5/5V1ZOOsLrRw0i1veFC5iew46DoY6Ldj4prYQVsteEm2CItj12JTSHG6e1pYufqpWZvOqWNse08v4MWsahqrZAu+1E6cVC842IgmUYVk8XFKD6jaGtTcuLSnEZEyKy7sEhjSIMb/nja4mvGbu9uAqidRMFB42y6kjOv4vVnC7yPXW8in4Ispc/AhC69qXsPRX7FQNBa/WxkOrPxwdZOMoUW7SAXTvAr5S5b+ulHdWxL6z2tOm/IhCswihvBwHE44KVew558EgHs0D+zAm+661Z/FsKVw6m0/sXhKWvlnpGfuI+Jy/ddyEXvk9iLgxU7V5ZXEwUdOzNScvI0c6idKwy/LtVIZevLZQ7aAlztoqVqDuOKANwHSvajXHfxvBTLOP3UXKXxXgc51suHR1ByMkay7s/aftwZBpL5xshQ+/enTMj4dgzephlF/R5+rheK+STRGgvoLsEXukd79efJm20ESxkGRANzjAT2Y2kUMMMTwoA3uQXe+54NLRfMYewVanNOzxTiASMeAKOUx9gaDwwEOLMX3yq7g=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAD2Rkbx+OjeaV6cz3eLdX7jB0Jgs6WDDXWz15HdSBZm9oeZQ2BKnjRAOa1wH4EQ9d5x
@@ -5920,7 +6243,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAABM6fmkKMlVPeQbCfcsBDYyTcTTUIm5Re5/5V1ZOOsLrRw0i1veFC5iew46DoY6Ldj4prYQVsteEm2CItj12JTSHG6e1pYufqpWZvOqWNse08v4MWsahqrZAu+1E6cVC842IgmUYVk8XFKD6jaGtTcuLSnEZEyKy7sEhjSIMb/nja4mvGbu9uAqidRMFB42y6kjOv4vVnC7yPXW8in4Ispc/AhC69qXsPRX7FQNBa/WxkOrPxwdZOMoUW7SAXTvAr5S5b+ulHdWxL6z2tOm/IhCswihvBwHE44KVew558EgHs0D+zAm+661Z/FsKVw6m0/sXhKWvlnpGfuI+Jy/ddyEXvk9iLgxU7V5ZXEwUdOzNScvI0c6idKwy/LtVIZevLZQ7aAlztoqVqDuOKANwHSvajXHfxvBTLOP3UXKXxXgc51suHR1ByMkay7s/aftwZBpL5xshQ+/enTMj4dgzephlF/R5+rheK+STRGgvoLsEXukd79efJm20ESxkGRANzjAT2Y2kUMMMTwoA3uQXe+54NLRfMYewVanNOzxTiASMeAKOUx9gaDwwEOLMX3yq7g=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAD2Rkbx+OjeaV6cz3eLdX7jB0Jgs6WDDXWz15HdSBZm9oeZQ2BKnjRAOa1wH4EQ9d5x
@@ -5942,7 +6264,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAABM6fmkKMlVPeQbCfcsBDYyTcTTUIm5Re5/5V1ZOOsLrRw0i1veFC5iew46DoY6Ldj4prYQVsteEm2CItj12JTSHG6e1pYufqpWZvOqWNse08v4MWsahqrZAu+1E6cVC842IgmUYVk8XFKD6jaGtTcuLSnEZEyKy7sEhjSIMb/nja4mvGbu9uAqidRMFB42y6kjOv4vVnC7yPXW8in4Ispc/AhC69qXsPRX7FQNBa/WxkOrPxwdZOMoUW7SAXTvAr5S5b+ulHdWxL6z2tOm/IhCswihvBwHE44KVew558EgHs0D+zAm+661Z/FsKVw6m0/sXhKWvlnpGfuI+Jy/ddyEXvk9iLgxU7V5ZXEwUdOzNScvI0c6idKwy/LtVIZevLZQ7aAlztoqVqDuOKANwHSvajXHfxvBTLOP3UXKXxXgc51suHR1ByMkay7s/aftwZBpL5xshQ+/enTMj4dgzephlF/R5+rheK+STRGgvoLsEXukd79efJm20ESxkGRANzjAT2Y2kUMMMTwoA3uQXe+54NLRfMYewVanNOzxTiASMeAKOUx9gaDwwEOLMX3yq7g=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAD2Rkbx+OjeaV6cz3eLdX7jB0Jgs6WDDXWz15HdSBZm9oeZQ2BKnjRAOa1wH4EQ9d5x
@@ -5964,7 +6285,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAABM6fmkKMlVPeQbCfcsBDYyTcTTUIm5Re5/5V1ZOOsLrRw0i1veFC5iew46DoY6Ldj4prYQVsteEm2CItj12JTSHG6e1pYufqpWZvOqWNse08v4MWsahqrZAu+1E6cVC842IgmUYVk8XFKD6jaGtTcuLSnEZEyKy7sEhjSIMb/nja4mvGbu9uAqidRMFB42y6kjOv4vVnC7yPXW8in4Ispc/AhC69qXsPRX7FQNBa/WxkOrPxwdZOMoUW7SAXTvAr5S5b+ulHdWxL6z2tOm/IhCswihvBwHE44KVew558EgHs0D+zAm+661Z/FsKVw6m0/sXhKWvlnpGfuI+Jy/ddyEXvk9iLgxU7V5ZXEwUdOzNScvI0c6idKwy/LtVIZevLZQ7aAlztoqVqDuOKANwHSvajXHfxvBTLOP3UXKXxXgc51suHR1ByMkay7s/aftwZBpL5xshQ+/enTMj4dgzephlF/R5+rheK+STRGgvoLsEXukd79efJm20ESxkGRANzjAT2Y2kUMMMTwoA3uQXe+54NLRfMYewVanNOzxTiASMeAKOUx9gaDwwEOLMX3yq7g=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAD2Rkbx+OjeaV6cz3eLdX7jB0Jgs6WDDXWz15HdSBZm9oeZQ2BKnjRAOa1wH4EQ9d5x
@@ -6002,8 +6322,8 @@ window :
       -
         code : |1+
          
-         //EnvoieSocketAuClientSurSelection(Colonne1, "id__"+Complète(Hasard(1,999),8," "))
-         EnvoieSocketAuClientSurSelection(Colonne1, Complète(Saisie1,8," "))
+         //EnvoieSocketAuClientSurSelection(Colonne1, "id__"+ComplÃ¨te(Hasard(1,999),8," "))
+         EnvoieSocketAuClientSurSelection(Colonne1, ComplÃ¨te(Saisie1,8," "))
          
         type : 33
       -
@@ -6028,7 +6348,7 @@ window :
         type : 224
         enabled : false
   -
-    name : arrête_acquisition
+    name : arrÃªte_acquisition
     identifier : 0x26d583ad00b782cc
     internal_properties : CAAAAAgAAAB+UxcrbXOqv5EgTzzC6eEDxdywAUGkkJIhYA4PK1XyUifTkW+Gtw5xrBWl4Nrt/3J4/TEVCT0+F4cW5wg8FYgKMGqHhoza5XpChxa1OoI8JTLXwZefDjAyqTzPQvUE9Kj9Bqgd5Tt6cK1bF0u5ze34Z8Mh6jQvRhsa+PEKZK8+zkMhz9SUjOxQhEacWHvcXkr2aG3P2AYpEYIT0XqFXaHR1ljZ3V/740assL1Yrr8y9+oqr+WS6/+M6nO/4myeml74p/34bE4cm98WMvDh9k/6kLYQJp98/UJ914mmFDAI3kafWgKh0reNPvFx3MJODSSaFSvdQNKUAxc94j1Vlz/hUfnT96nzBJ/DtA2dWq5HZTsUrU6+AyUsMj02p50Qvk/sNaxSFqqqY69cI8pqmgrXOj83yEVjqo91Qt8Tb5t1xzPTJRsAtt8sMcWeeOFPkgjiUtUfU7EoljPcJ5uVWF1p4ZFavUjqQcAilnsy9Xw577aOsEEKq0WkRwWYJ0/pjLgju1P12/P7hEIIR9CAU0KYW60Jr9QBXCDy+AFKcUGoTgNqKGHFN2NDYRPCH0lYmyKJoAKFqw1ZX49ZzdxRz9HJRwjYZ+otpjZxZPo3T/3k9Vi3I1lIAy7Ji6byrjCh6XkYfUE74RNjrhkTRim7uBgMXVr3/N5Hmwxs1c1dncrx9rHsgoFHBVxe5i/AGQR9V8kGkJo0IW6085oabdzlofxXCCWL/mVjp/fzavGgcPpJmYKrmU3xt5lntf8CXUodvVPy
     properties :
@@ -6085,7 +6405,7 @@ window :
         code : |1+
          
          server.Arrete()
-         ExécuteTraitement(arrête_acquisition,trtClic)
+         ExÃ©cuteTraitement(arrÃªte_acquisition,trtClic)
         type : 18
       -
         type : 161
@@ -6138,7 +6458,7 @@ window :
          		buf.POS_RECEPT+=1
          		buf.Index+=1
          		POUR j=1 _a_ AcquisitionSignalClient.Size_MSG_Socket_RX_ACQU
-         			buf.tabBuffer[j] = PartieEntière((Sinus(20*j/AcquisitionSignalClient.Size_MSG_Socket_RX_ACQU * 180/3.14) + 0.5/10*i)*1000)
+         			buf.tabBuffer[j] = PartieEntiÃ¨re((Sinus(20*j/AcquisitionSignalClient.Size_MSG_Socket_RX_ACQU * 180/3.14) + 0.5/10*i)*1000)
          		FIN
          		b est buffer sur AcquisitionSignalClient.CST_TAILLE_STRUCT
          		Transfert(&b,&buf,AcquisitionSignalClient.CST_TAILLE_STRUCT)
@@ -6192,12 +6512,12 @@ window :
      p_codes :
       -
         code : |1+
-         grSupprimeSérie(Graphe1,1,grDonnées)
+         grSupprimeSÃ©rie(Graphe1,1,grDonnÃ©es)
          y est reel
          	rd est un entier = Hasard(5,30)
          pour x=1 _a_ 100
          	y = Sinus(2*180*x/rd)
-         	grNuageAjouteDonnéeXY(Graphe1,1,x,y)
+         	grNuageAjouteDonnÃ©eXY(Graphe1,1,x,y)
          FIN
          grDessine(Graphe1)
         type : 18
@@ -6232,7 +6552,7 @@ window :
      p_codes :
       -
         code : |1+
-         grCrée(":nomGrapheVirtuel",grCourbe)
+         grCrÃ©e(":nomGrapheVirtuel",grCourbe)
          //grDestinationImage(:nomGrapheVirtuel, :champimage)
          grDestinationChamp(":nomGrapheVirtuel",{"main.Graphe1", indChamp})
         type : 14
@@ -6240,12 +6560,12 @@ window :
         internal_properties : CAAAAAgAAAAUeUSjYmoUVqFbJA/Do3wVzpDC8bnedWgwaB+s7TNH/rK+IdE4eJMnw0FVrzoCYnGa0/jJGmMQiCYXOwU7vhEMll4/mya/+8LCQZF7jwKE6g8ePT4yDzlAZEbHsQHPrhv4tlEBDp6FPQeutmP3GrdNHhie50IW1phL1IJ+UA4yUDdvFQdflbawB+jlMMMT5CjfXiVbncQRhuDnfvTTaxR6VbBzlRnLU8hdGsu/8t/b8FCch+152Lqvif+eyLYaiBtepB1U9f2dnA==
         code : |1+
          
-         grSupprimeSérie(":nomGrapheVirtuel",1)
-         x,y sont des réels
+         grSupprimeSÃ©rie(":nomGrapheVirtuel",1)
+         x,y sont des rÃ©els
          rand est entier =random(3,20)
          POUR i=1 _a_ 100
          	y=Sinus(2*180*i/rand)
-         	grAjouteDonnée(":nomGrapheVirtuel", 1, y)
+         	grAjouteDonnÃ©e(":nomGrapheVirtuel", 1, y)
          FIN
          
          grDessine(":nomGrapheVirtuel")
@@ -6256,7 +6576,7 @@ window :
   -
     name : Graphe2
     identifier : 0x29619a4f0a219a9b
-    internal_properties : CAAAAAgAAAATCpClykb7GGukUNUDyh7wBKXXbXcYrpVtpGLgNnT7lBiCVulLj5/JXHaiZi7kVGHr8u7BqteYJULv2/bwIvVU3GVjd/loQzAuIUagPTi1rY8rZTY8G+hG7rs/fhAAS9t91+Xyvo37ehjoFywlbryAjT+yy/4Jj1YSKEY6Vdsb5iAw1B2rkTZTIbAxeslER5S1vv8RfX1PYjqniKhZ4EYCw2pkQ849RTDZSr2OolVs3gcgQouJ9hLdAPqSSBOzyx00yfMdOF3jAdwaiBLorzmDtU+GGuF0FbX6gwH84jkW4CY0wo0s3yU/FXkFS3/FkNAaGRPCKBjjAcKjZ8PZYtsJ+x/b0Npsm4yn4/JkGZkKCeWQhmP+77uNheWB+JHFGYlijROYAfTqwxM6ayQhgtV7cLY7Z7cq2i5q693+SVhFKeJbexZI+g5SSBLIMQomGBH/F0UulXKm7eBjUFU0bEdR/iyvzQxUjRIP5pO6Z/BZmZe/oJvBj09y4RktYetDiL+zobpy8ofyoVurRlXxAZC5ySWgZ/gz4IbGopSLUr9vfZAc/pmq6S5heeAjePIrlq9p7PLj8En0tAEs8YWld+YZZv+9q7Jk78YKGKqWDn88VE+MJoTl/7o/ZnjQDwWltCiJuwNe2RXjTwHqwYcbGVYIgj4KVRehPHLgb3qFiN3oh8rhR0oPq8X+rKFSQlSFXdK0sxyvRNVr2rIIlxdKx3yPHBzEKcw2L2s4G1vrOye6VoedLqBg7AxiL/M1sI24TthwBugbA9GzY1RegYfPO9cIhNsuQ5Ii8H9Sy7UCiKmTFejJbjYLRijnbS3LOBvtzq4Hg25depohbWbeKDpM6VS6xcgRUQoYv9DvByMp2SjjL1quDjrwBVkw+z08oLxzeHt+PTzl3n6lmIJ7iTNujNVzL8yXnf4q5JR6muIXlLkyccosb5uoerVZVzGRHiXYdeHpLLZG+3tRm0jTH3cPRIKYA1ZpK0Xnma+flasLkmDmDlVUZdNrD748ecnPs4bAt8eXFJs6NMoBlu23C/deta1NKu8WDlEgBVV1xNgPuxz5WZPwBYsyJue4PS/fh1CM0FT1pSZNrSIxz5zOEo03S3BYO+wkyAxU57/OB2dNF93GV66Eocjgq8xXDObmY2nBGvwbuCp6lMU6sUZ8UCpzGg1NgOJAd5AiNB4pmtLDtmR99Z0KekPcTggS23c=
+    internal_properties : CAAAAAgAAAAGLTPEqaUYOQg78Taiaf1RX4y+oHJrY+JGV/NRRXvibSN5MdRmaqhOWWkn+x2LY9YCWcEkXert8heahE871cC54zhK3mCHkIGHgKfBABPQPhLOhNUTegnnD1rYX7tbrrzgKkghXark2+FDnL0gobcNDLINMiE8gN/z82dnvLISBw/3u1QW1FtERju2M7QHetFsOQqcBDTMmZcaZQ2w121DUgGrGm1M2mE2KUZvpeCXK1KzUTpAvSNt1Xthkww0RgaTakD6req6fCUtJ3WNhNKwXMxLV7L92MxPHEw3uxIqbV0YWfpdsDAGTiZcMrDWj6GR1rhr7W16BMvUIqIyU1p2YuBEBT+B6tewWC2jWlrhFkBd25RLXOo4wiYwj7IWRKq9VkBZqvW5whzH9vPqwzhMA0/ETOCbEdE3sFi9wil0Ju1EaE99v/GJ1W93dE8Tc+oSfFK//utdFNn0p9jB6QKKKZ301oFa/65ebWe4HcdURjv6UQscVnSf22FbCPd1GRszbOQjAhatrdUYBpMJEbfEDP5uKjkiG/kNXbfcEme3cSX6GTFwa4nBMWz3ibbeB5MmmFn0C7rUR+UqkSgk31DD1Jx/+iZ7Pm/munbtawGsYkNkScgV9oq8s+lnz76RBNWzulVBu6MyjQAnWjYKKiaSjGZCjuctEfDXyy94QjjwGpOTHuqvBmgN5iP5ARCZMQN2pQGig/WL2v5UJZHeU4ib6mycwZB67eGmh9HtA28ign3hiJ4EME4sCRv3ZnlkeuAWgrLBT62RSU5eg7U7t+M49rMEPfLiOikkGwfwvG23LYJp9HCT3k6997UFdq+xYqqFf1hr7m5349QqxqT8WUT2Y2x7J46MKUIJD0VfbczHJ6gaOMiUaU9m6WkqsoxLYKMEueaz4qLLRCVuXJeMfru1z04rSXyEOFBm4J5B7InC5SLe+89+XI0pU++dMgOCcxfBBuHT6FaubhfiLuAAe2V1ltmMAIKiZkJK8Jbgv5tdz7zLij6KON2lWtbw0umtEGJQqcTBHzfsS5rAeEL9FqK0K5T37RR1yMaugSFGxukqDKyVpmrTRXjLAGKCpLU3LzVUBIXujgGSrr+hZfJcNo95WoOzuZ37AFZRmori7Oi9SCF3rD39VvF6Y40dtLqQVbnW8+0nedjXzK0T59MkSdye832rXD1F0Y3oCbkk10McFrypmaR97am1vmo=
     properties :
      x : 372
      y : 408
@@ -6267,7 +6587,7 @@ window :
      type_code : 72
      p_codes : []
   -
-    name : démarre_client_inconnu
+    name : dÃ©marre_client_inconnu
     identifier : 0x296529f61182af72
     internal_properties : CAAAAAgAAABg3oivgDW7h7+Cbwkh02AaHjt9ca3UO9N53j/jjMxj9H36gA1Wq9bKS/9qEQ1Wd6HBfFj/y15F4iYbwLhkY6lTXmnFSrJFiD2xbWv/1wB/eX59QvNn5t1vRLYxAvVIxNXBX71JqtRZiyjm6AILtCRvZ5Qf25WkpuQIIGaNAG9Kqo+ShZChf4PrI9wX9iA6IqPPGjcUWHPViu90+v5vL/6d2GGSl/aB6rY0BUbYc2kRjtH2nqQ80OYuJOs8zJifxWkM9RvB8Fr6NNM/elxoLNfHsP/Sl8bO6ITKOFNrLs+Zc1rX6bCYTzks079zlvmeT5ChiqbkoJm8NoKrg69gxJRi9ibrUpNnrVe8IBQIpmTnP2uWp5d8or9/tvKlsshWomeaf/px68R4ZUyTfzf259f9XTIbC9hCGap5fm68pRzXhflAOZfPAxuZCTv460MnDZ6Qc0sR6Q4OhjjBibJNTofRt3GF978Fs2ys2tH9o3W5jQm/dSsdAeBvexA27l+CnJ33rZAUL/E3XFbDhVOj58bCLtY1cmz8B/1juZCflsutJXb59Ip941WuekqKbrEOSs5lGQeLBD6imavv09JKQmYb5y9+wtRD7pjo1BcbVM89yBs/qei6Xpr1MHyQ/CyxQ1Xm5MN6VoPlRY6fy0mDWtoZ4+zvr9PVxB6vMeYTGtZ3GXpvM+nf7RZ2U55rhlw8AWOlF3fcLQYYZKFZ5vi6eRU6vIb50m0Wxt9zqBrZCyafuV3p
     properties :
@@ -6293,7 +6613,7 @@ window :
   -
     name : Graphe1
     identifier : 0x296aa70f035ee88d
-    internal_properties : CAAAAAgAAABcB/xxXBE0XVvZMlceXdPEnh+iyJWaONspASsy24BD8qkcDN8b9Th4N1vK8DYtK9XcTl+OcHQynkvbuWK27iIKm1zacpPcnDsLfmxk9MfZivXrQkCYFLm1y9IM5qPR1LPxY1i+ImW3G6uGAlQTfuRpr7rmSJRQQyC1XqjvGywSNKBez8+HJzp2BN+BmkjJ10rC9NTed4woJAlsVrEEofXwEVFi/uNIBtob2ibQ8kbM/CWHrE6Tw4heFBoY7UhoJlE+KLxV3ob7xyzdH3M2SfJD//WERFT1KzjvjEyVGcFBdIeudpaoTj44g78KxJFgaidK4y6LpJUI/1I3snhVIvTq81lyvBvuW4cFf78eXvBjO1C6lVn/8hNOiFsXgyLVAQEnQKZseDNCW3Mb9ycem2HR9MDu/iOoac5h3mTH+Ur8ehDHImET9ReDUI6KFXxdd/E4g2pryIx9qbSaqDUW8RVXC/yXVBApT2HUtHZ3riCPzQ5N4YMuAZ9H5ps+3cd6BoMmW5ZEPM4O1w1BKLdjNu83xzj5ls+RY4uhnMh6oAQ0dqBn09h3iFaP0VtmQeiB/jghEAbgeVKzsxQmnszX+H1LKoD0PhH0GplJOBWKYZpvK2WZvWCBCsKtoDS3kdcmheHfwSCpr2MBJhDm8cL+w2+mncnWQgvi0VBa5AQkHHF9rDZ/HEr8QKKB9Qb/dnjjby1hLbmNUA731bIhDNnhz+YqvhzoABI1Q5jb9xI7P8Gat4Ae1ebC3HXiQmNLkuHE/gvz72TtiEwvCcLcYmdXFl4TnrIY49XXQvMeayrXWpzcsT+Xfp80/rX4shRcqqLwsZKmZvqI87ILXIQvn28IaPn3gbEIrMlwdz6vEKMOhUFLzPq0dx+Ri1hfWp354cJbakFEFQktuoQOT6Tr98tIGvT5QS7siKskXrZgnxx/1wY2nxYCsR3mgBQX41LNOoKq+90lsokY3tFrgKig3jV7o2o1skyr710MKlXF4tGljsUN1zkIvaUPUJ+UX5yt+UnK6M03xcsFHJENPfiiNSj9tOje+LIht6pdK7eEzyrJc2asWgZhogYcuafW7HtvgTLdigR56LB20oC483a1uiBypyAH1DZ9RRY7nfRquRQDL69Plptyr6yB4ZOjlBpYQVfyk0/c5tR+7tiuO+lrKoNrNBXn4RtLz3s=
+    internal_properties : CAAAAAgAAAA/YWxO6EyTNOOCjg5TyuL7BB7yJYLhtw24PsxvnS6OFkAZ8wHhhgHTggvXSrPp93A20W15lRNhxKQId7af9Rk/iNiIToVgdz4sqaC5Es7j80ICvLRLGwZbsnakC8NbEcgfTHsDkynpgAsM8wKegqsGcGbifBFvZOY7J4afe4SPuwdIEWO+1PPdzadfJ2MevBQf6cjQ1fcbSeEM/HtQPysDkJ6Mz80BiHIpNFxFQW2CRktmvZsGaspAwZRotjMmAoXq6Lax3/jmGOosZzWK9Jdta/BYeArqso40Wt7ngG4C8zW+7tIQ77cD/2lxEenjoD5rt2uOROv0C+sIOtYnb7HjnGdI7e7ZTdAXapTp7hIE6alUMmMJaYQLqP3CBFDahR2/wC2OooSm1aCMGG2JbjNw26TvHG1pGiTveb6oI3Gt0labWKtsbrayHjoyPTzlINjhRcBz683bSGmuweXAMPZeP0uyQgLK7ohQXPklefE9yiRRS3b0cLFzSbv935bqkWG/cue10sy2gdOIN4gmULhi5tRltzHVfrPGJzvoT5DTGgetAxbCJt25WE/YfwsryBSQPuqOLD2bVrRXopfl2GYYYuL6IZxFWONYKsI8gYJ4yqa4IJzdqGWl4LPCxySZmbj/n1xt1UblBRCY0T9tar7ZeT1EtDtHjZAyuKIS0R5z6sgNzu0sGzgv2+lERn8O4Yn5q/Ni9kcROTpmVxEGsCjI8LigY3ogKeTzUAkvHOpeGXaUJ/nmXXUq7tJAmrYdTgeDnwAmKJfnR/izb3d2dQ4r+pCSRlF8GsNCMOWBCX9kr/HLds4W34PAHn2TcBXX8xw8/IxZ90Wl8IQSZF0HVwMR54Es0bN3w47DRRbeDgqXtsjinanaTsIW7nJgz9fWYH2s6MJVQyrZ5F2XpoFrhYSR5U5go7v9NpRW5k0ZqJY7qt/TZg/9RG30+Abr0W7oTtDSQfQw6fP6FxcEVGrYnAC/IBAi7Asud20QNoFLYrmj0fcWJINg7uUWbrWGFzhmlJt3wbuP27FFmhEXk3ktDY5mY0kr8iDthLHQ0FHLfND51CgXy+R73KM0eixGbAJAPO61r+sQtj5F8ZI6UlPykh1MhwM8wa4rHGm1lCd+tALNrlB8gE1lgZeQyUeMz86VwpsSFX73b6h61tOXNgkY+2lRFIuM20FLnA==
     properties :
      x : 12
      y : 408
@@ -6349,7 +6669,7 @@ window :
          	chartt.AjouterPointSerie1(y, xsin1)
          	chartt.AjouterPointSerie2(y, xsin2)
          	si modulo(i,10)=0 alors
-         		Multitâche(-10)
+         		MultitÃ¢che(-10)
          	FIN
          FIN
          
@@ -6443,7 +6763,7 @@ window :
         type : 161
         enabled : false
   -
-    name : démarre_acquisition
+    name : dÃ©marre_acquisition
     identifier : 0x26d583ad00b582ac
     internal_properties : CAAAAAgAAADGP1fQmDwH7Zf1JAz0LIYOcZqEjA1JFrW3a0MgWjxIhWFEK/30HkCn1+TpTfS9bIN5Q+bOmH2iuwdTDU0MS8ufoEtA75n+zCetjWtj6eC48iQuKKQpz9QkohIp3ppC4OcQCtK6W0sNJfR4sZFditDmcjoKZA9XtCwLRH2nIxsfpqaj81upRUofSqa7A04n3y1vFAz9pBrBkiTlHcsWWsH5luScfj6fcTl3qBBsLmgQeB9HvTEIOWPZHEvDU49g+LTUHMEeDH0GDqKhlyS0YmROilwvt8afwfc87+/fzrDVZJV451Ax4Mu2/hGvnVCwgEoBKg9yzO+515HCyw4Y0RmwvF+/bQ5/jnbP6tvNH/CwV7VI0NTZJDn+OVd7as4jmgii5siJY+DpJw0v+sa7T9Jd7JyBH6KZE2sPMySdPpq3G/lGFcb53hj4K0rfwnYEjPzk5WW8hlvVSMEBcO92Kz3bISh+mKfmehR4i2SKyM0RvbZL8r71Vf7yk4A3h0KsXH6Hut8qGhEC9sipRMZJqB4uLXBfPBtrs4p+JVghGEUH/OADchWPvGdSBc3hsv3QXZKtsX1K0GC3BvXA8073+8Z+aBtfIvCmNHpotefvZQolc+3OxC6BIj69mFn6vUPzJJ4j4sh9RTKIQ9Y4gwicZ5vRGKkxV+cZwNVH/ryU85Tjw1NnK/FfIJzQkkLFKqwDCJZoIcfQnykWcKzVbrhr8+HBM0ncYDmi
     properties :
@@ -6465,7 +6785,7 @@ window :
         type : 161
         enabled : false
   -
-    name : démarre_client_app
+    name : dÃ©marre_client_app
     identifier : 0x2a0ed052048ea2c5
     internal_properties : CAAAAAgAAACTJ8nHa0h4+Eej8cLLsETWbyC/O1haeL8Jgk5JDDoWJjhuV4mLWclFzZziFDXDOv7BDiXEdDQMRh384xP+jOHsT29zrXfvyiSq4JOW3FZQnfELGT9lrufq8Bq5g7nzGSVWHEcowZj6r68WzdE4I12ZUUXFsrxEjUafW2A86XMA1PgQxtsn2q972tSsyynMWh5GiWDzfSP2pFnzKCpbOFOa6l0X7G6Y7b+H7BP5SuI4GvOO3pBLt780E59FevIDDSG4CJH/QNs98bs5j2f8n0TYIV8fIkRyNdJHay9Tx5QCWIXLQV94SwDa4Cn9liR+b6fL4179HAX4slIQSkQlNGaFyMO3JqmwPjzTKz05M0XZmUQHk4HfeS6V3iVJly0xHUTn4VLAlBNaFQy2Jdobkl4uHmwnvgEZtawXyRxvage2dhJ0zcJk/qGxAUaM3KiyPJ/ZL8nQ+H96gN4uO2P0l4S0zs2vfgqy94qGwSOQsmYG6NSjVwowNozRD2nGs2IvqfAyE/D/QOgTFu5SxZhMnjsV7QyFc42TIz9TwOiy1fy6kHU5FLNG2tGAFtdwh57hQw2gOwHe70smkzluDxGRa/NW4kVokyH2epb6xcF2B0xyW06xn6URP0abDGf0/eU4iEpGLx6joWGGep65Af3+j+uaIGfCof2toTZXQAea1D78DbkTLjmekl2x0Gh5EfMdRCAU43GrGd5PHzJBFnHR8ZTC15I8nVuZERkBekVS
     properties :
@@ -6713,7 +7033,7 @@ window :
         type : 161
         enabled : false
   -
-    name : Déco
+    name : DÃ©co
     identifier : 0x2a3eee2c04384b43
     internal_properties : CAAAAAgAAAC329UcnllNHecWUCaxR0qJVtwOC+/xNyKsw6BimYChu7NvcaXZQvPxPU0nfXCAtxWPgmjYak9IBXSNHNaHH2IXk9YxZs2NK6GiQtkFWnkjf/+5zFX3qyWQz71nhjjDWGEpZMGzJDcObOr8KFdegn9J2Is/C/ySwOr8cBao9jC1637thyDfGd/JWmepChfzbLj8NLpZ1K4d9Y3hQFa9AXcojIMEjFK4ebfHLroNgxHlmGSKmPkX1u5/44xcfoToDJlU3h19jnoSq/HUAtwuCv2AqZRpsyWnqW9tOPqketeVZAjq0wdwNbaPp4+sjw7Cmj4D61vStTDBldaLg0e4ui2f6YJrsrJMDX/O8jpCjdy7IpXUjkLedaDEclgSzx1WN8Uy1kCwgOb6lsDRPvpnLYoDwTl1NJ1yZbHXwD1ndKLMn2lV1YjkgfFONzvzulSrisJ+BtmAhnDQi4bPSmskXviBcUoxaFTzCd/mWmaiZlte17mKH3bSs1rgpTgvB2LIVfHhFLD5WsEz9apHDFZKqXNqvFXp6eMSLaoLuev6VbFIS5IsWj+0xfcVrkC7t9ZUEzi5up16A+rCegdTXt09WE1Vb7DyQ3HVIB+0sDaC52UqImPEUTVBeNSEZmgzx5ffoF8hI1JsRXb1WX76KKaTMs454UGHCWGIxVbSKkppHmnvgE3lvM2zZgFgnXGPJa20M60L2zIlfZZ2MP35usoq
     properties :
@@ -6838,12 +7158,12 @@ window :
       -
         code : |1+
          
-         ExécuteTraitement(Energie,trtClic)
-         ExécuteTraitement(gain,trtClic)
-         ExécuteTraitement(Clac,trtClic)
-         ExécuteTraitement(VitDOWN,trtClic)
-         ExécuteTraitement(VitesseUP,trtClic)
-         ExécuteTraitement(GOTO0400,trtClic)
+         ExÃ©cuteTraitement(Energie,trtClic)
+         ExÃ©cuteTraitement(gain,trtClic)
+         ExÃ©cuteTraitement(Clac,trtClic)
+         ExÃ©cuteTraitement(VitDOWN,trtClic)
+         ExÃ©cuteTraitement(VitesseUP,trtClic)
+         ExÃ©cuteTraitement(GOTO0400,trtClic)
         type : 18
       -
         type : 161
@@ -6859,7 +7179,7 @@ window :
      height : 56
     options :
      -
-       internal_properties : CAAAAAgAAAC0lqQ1r1PXou6iBuTZYyFao8NmmH2aJHV/W4JYxvt4Fd0ucgBSnHAURVWgTGJZ1exDBj8kEd+OGdeGiEDj/ceigLOEE4Yy3SlmmubYxfe1u6GtW0g19g/j0azw9cpaS0rqohZTzJsM6pA=
+       internal_properties : CAAAAAgAAAA+DF6M2adakX+WVoC5P0m2w1tSRFWeHM3Hn2oM3icw8Y3mhrRSyCAs/cnosMK1RWDLdoPIB6GcM3GsHu4ZVzm4smky0dRkO4OgQCzmk2l3EXObSUZLmM1dqzL26whcJXDdRE803SVyUAo=
      -
        internal_properties : CAAAAAgAAADaj9r1jUSY6sU43rzrCMBpkYUxzxQCwfUwLbUNI2/k7E/SZt3e5K90q9ZKqw8vM9RnPqb/121pHGusxUoakjJGnK2/c/tSxCy+Nu2Q1jLKOWX3eP0312cZ9IKHHNkfL88JwiLChL27EfAo
     type : 6
@@ -6884,7 +7204,7 @@ window :
      height : 56
     options :
      -
-       internal_properties : CAAAAAgAAABUtsSVD/P3Qg5CZgT5QwF6gyNGuJ36BNXPnnD+FKlW12vQACbgWjoCO4tOqoNvH4pHCAPQEtSBCtph+4/1WzEoJvmChSDYt3PMEPzS/92/OwENO2gV1u/D8YzQ1eo6a2qKwjazbDusCvA=
+       internal_properties : CAAAAAgAAADeLH7sOcf6MZ82tiDZnynWI7sy5HX+fK0XougqNAW22wOYhLrIdgqyQ29e/rMLL4ZPgL+k0J5PVBQvSW3LlUsuCCdwgzZ6Rb0+7kqwpTfR0VP7KWYr+C09S5JWS6i8RRB95O+UfUWScGo=
      -
        internal_properties : CAAAAAgAAABm+yZR2eB0TqEUiggXBIzdtXmFMyimpcG0hOuz4a3qAvHI8BuU+k12qeygEY1SdQb/Oj7z1y6u4yZ7fvn06FQUqrO1zY2QBp6cJBuyABi8fyHLRKGTszttGGb74OXj4wPdHoZu6BEX7ZyE
     type : 6
@@ -6956,7 +7276,7 @@ window :
      height : 87
     options :
      -
-       internal_properties : CAAAAAgAAABl28KPSOIQxZhJaI1nR+NxUUNRq78hZaF+c4aVha/9vkcwjmSOeFghK2k4f3aBFCCgT2lkLFhgKJLhanzBoZ5i50bFu21kWOsvmfFYTDWp019Tfe0/N4D1psrZJkl+xjC2u0IUkTofPKFSSFq+
+       internal_properties : CAAAAAgAAAD9TecWuzvu7NuREND5GOKEG1hO46YgswaCti2kctygB/qO5LMwfInSUExKdOP7SjmbswsFl3s/H5YCCtpiWLqz5zon7Jxp3JLXBNOAuTIDdAtb/wbcpox+eN9PgvJ7FEP2Tyi/HFgrze/ucALuyQ==
      -
        internal_properties : CAAAAAgAAADPXwkoCd0Uth3bYqYr8kSmfQLlTZvaZQwEMKc2yFZK+ZRYGpGCLvtgygYMptklNLQL4xvV+V/PBpM/SXvD+T43d0LPsNDReO5vbMuw9ZKPgAtbX/LYpmCKuM48GEgV8p1QIXrt4pJhg1GAgjDc+w==
      -
@@ -7002,7 +7322,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAAAXdKh+OIQKV9abrh/yVEmKnrFHnsjp3TVWOJGoav1yPAlu9pOtY6p9XbWgsWRiX9GI+S1vBZZuPkHG+PLYQfeqofp6WBdHskVvv/MbtLCM9B1/ZFsRl/GpcRf5lePDxEmiUCgvnwzkWXFlBjuRPiVOUheEmMa6r9Da+T0gFBRr1el3idbNbi/wVSK6xEBk2uRM1jw/Ob7k+GTUOU+6fVTGY7HD2n0ZH3TxYpKxM2BeMS9rscldkfa0hqYPeVxndgzEMa5lmEF11oo7ob9i67PQy7sTjKYPfGQBY+yA5HYrG+XqeA0GI4yoLhs+8/+6QaKx3JGfEiRiJhT5ju4V84XS2KgpymVzfas3wbfddTFj0Hd3jvmll6PxJGtPU8sON7Mv7wgydIx3Hd6+yJuiFIKtoHXq8+PhS+eILWEECJn3R9iojt6IRth/6pl6ZXMroZWAOJLsfPhEdrkCDAeOpOKM94nkqQT9s19O0U4Zhy8cHhfbjIYH4zh5hfwHWFPiW2hFcp6pNK/awi8cdsju40xU5WqEbRCwhIMLmIK5YhReVjBtGu0=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAA2/NAN8e0i1nx9CL+UKDdKp0Wj8Hs3F8Uq+4nJi+Vlrhs8L5hr2bVP32EnBW6z+NbZQlN5MBPGig8ViSdfVhZsQGtgEMDD1bdMu7MeAi3Mz5RU1KkMSSSTgilVTXjn74MSjTOuyMJEpPVP6Gp5Ar2OzWyav4kS
@@ -7024,7 +7343,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAAAXdKh+OIQKV9abrh/yVEmKnrFHnsjp3TVWOJGoav1yPAlu9pOtY6p9XbWgsWRiX9GI+S1vBZZuPkHG+PLYQfeqofp6WBdHskVvv/MbtLCM9B1/ZFsRl/GpcRf5lePDxEmiUCgvnwzkWXFlBjuRPiVOUheEmMa6r9Da+T0gFBRr1el3idbNbi/wVSK6xEBk2uRM1jw/Ob7k+GTUOU+6fVTGY7HD2n0ZH3TxYpKxM2BeMS9rscldkfa0hqYPeVxndgzEMa5lmEF11oo7ob9i67PQy7sTjKYPfGQBY+yA5HYrG+XqeA0GI4yoLhs+8/+6QaKx3JGfEiRiJhT5ju4V84XS2KgpymVzfas3wbfddTFj0Hd3jvmll6PxJGtPU8sON7Mv7wgydIx3Hd6+yJuiFIKtoHXq8+PhS+eILWEECJn3R9iojt6IRth/6pl6ZXMroZWAOJLsfPhEdrkCDAeOpOKM94nkqQT9s19O0U4Zhy8cHhfbjIYH4zh5hfwHWFPiW2hFcp6pNK/awi8cdsju40xU5WqEbRCwhIMLmIK5YhReVjBtGu0=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAAAmVURQE6UDnjsE5z87huUD9AYtud6iknI+0Mw7OlwoCTBzIeIBjVWXdEbISJt070O4ixE29lwlO9yKscgkvdLKo0hX9e0jKV2x+AjjG7FjMvPMpWamkyx7jWJ6YQ==
@@ -7046,7 +7364,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAAAXdKh+OIQKV9abrh/yVEmKnrFHnsjp3TVWOJGoav1yPAlu9pOtY6p9XbWgsWRiX9GI+S1vBZZuPkHG+PLYQfeqofp6WBdHskVvv/MbtLCM9B1/ZFsRl/GpcRf5lePDxEmiUCgvnwzkWXFlBjuRPiVOUheEmMa6r9Da+T0gFBRr1el3idbNbi/wVSK6xEBk2uRM1jw/Ob7k+GTUOU+6fVTGY7HD2n0ZH3TxYpKxM2BeMS9rscldkfa0hqYPeVxndgzEMa5lmEF11oo7ob9i67PQy7sTjKYPfGQBY+yA5HYrG+XqeA0GI4yoLhs+8/+6QaKx3JGfEiRiJhT5ju4V84XS2KgpymVzfas3wbfddTFj0Hd3jvmll6PxJGtPU8sON7Mv7wgydIx3Hd6+yJuiFIKtoHXq8+PhS+eILWEECJn3R9iojt6IRth/6pl6ZXMroZWAOJLsfPhEdrkCDAeOpOKM94nkqQT9s19O0U4Zhy8cHhfbjIYH4zh5hfwHWFPiW2hFcp6pNK/awi8cdsju40xU5WqEbRCwhIMLmIK5YhReVjBtGu0=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAACXIzn0V4JgTnctC+2R9w8enOMIkV/FcjLUTpbj0jpeP7XIp5EdTlp+CQy2eoIOKHHiIq1y+nvEhnP9aUpT1AAD4yc7JFwgNL/mnNfQ7lIHn/DNorK7CzQKamTeCkgYnqJXUtqt
@@ -7068,7 +7385,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAAAXdKh+OIQKV9abrh/yVEmKnrFHnsjp3TVWOJGoav1yPAlu9pOtY6p9XbWgsWRiX9GI+S1vBZZuPkHG+PLYQfeqofp6WBdHskVvv/MbtLCM9B1/ZFsRl/GpcRf5lePDxEmiUCgvnwzkWXFlBjuRPiVOUheEmMa6r9Da+T0gFBRr1el3idbNbi/wVSK6xEBk2uRM1jw/Ob7k+GTUOU+6fVTGY7HD2n0ZH3TxYpKxM2BeMS9rscldkfa0hqYPeVxndgzEMa5lmEF11oo7ob9i67PQy7sTjKYPfGQBY+yA5HYrG+XqeA0GI4yoLhs+8/+6QaKx3JGfEiRiJhT5ju4V84XS2KgpymVzfas3wbfddTFj0Hd3jvmll6PxJGtPU8sON7Mv7wgydIx3Hd6+yJuiFIKtoHXq8+PhS+eILWEECJn3R9iojt6IRth/6pl6ZXMroZWAOJLsfPhEdrkCDAeOpOKM94nkqQT9s19O0U4Zhy8cHhfbjIYH4zh5hfwHWFPiW2hFcp6pNK/awi8cdsju40xU5WqEbRCwhIMLmIK5YhReVjBtGu0=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAADlBmfx/y1MA3ez/tUgsCgosggqA4sMFzcjdAMBzN/7//X4DSZ3mJ8LPoUyAIKAhUSS9wNJxG8gdAjT/TNB3w1g0yoptYR+f2fQdtYB9YIqknKpVa0LZTXhfpvG13ZZzl0=
@@ -7090,7 +7406,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAAAXdKh+OIQKV9abrh/yVEmKnrFHnsjp3TVWOJGoav1yPAlu9pOtY6p9XbWgsWRiX9GI+S1vBZZuPkHG+PLYQfeqofp6WBdHskVvv/MbtLCM9B1/ZFsRl/GpcRf5lePDxEmiUCgvnwzkWXFlBjuRPiVOUheEmMa6r9Da+T0gFBRr1el3idbNbi/wVSK6xEBk2uRM1jw/Ob7k+GTUOU+6fVTGY7HD2n0ZH3TxYpKxM2BeMS9rscldkfa0hqYPeVxndgzEMa5lmEF11oo7ob9i67PQy7sTjKYPfGQBY+yA5HYrG+XqeA0GI4yoLhs+8/+6QaKx3JGfEiRiJhT5ju4V84XS2KgpymVzfas3wbfddTFj0Hd3jvmll6PxJGtPU8sON7Mv7wgydIx3Hd6+yJuiFIKtoHXq8+PhS+eILWEECJn3R9iojt6IRth/6pl6ZXMroZWAOJLsfPhEdrkCDAeOpOKM94nkqQT9s19O0U4Zhy8cHhfbjIYH4zh5hfwHWFPiW2hFcp6pNK/awi8cdsju40xU5WqEbRCwhIMLmIK5YhReVjBtGu0=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAACSoOK+exUtIUXxy4bTADu65kfQt+Pp1nO10Uw0AVgjT53Q/FCjdavKlSLwdaIln0N4UnH8C8jnF3iwzSNs8/aKiXMN+JsP3+T0khlUPcoDIWsNMZjmqv0=
@@ -7112,7 +7427,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAAAXdKh+OIQKV9abrh/yVEmKnrFHnsjp3TVWOJGoav1yPAlu9pOtY6p9XbWgsWRiX9GI+S1vBZZuPkHG+PLYQfeqofp6WBdHskVvv/MbtLCM9B1/ZFsRl/GpcRf5lePDxEmiUCgvnwzkWXFlBjuRPiVOUheEmMa6r9Da+T0gFBRr1el3idbNbi/wVSK6xEBk2uRM1jw/Ob7k+GTUOU+6fVTGY7HD2n0ZH3TxYpKxM2BeMS9rscldkfa0hqYPeVxndgzEMa5lmEF11oo7ob9i67PQy7sTjKYPfGQBY+yA5HYrG+XqeA0GI4yoLhs+8/+6QaKx3JGfEiRiJhT5ju4V84XS2KgpymVzfas3wbfddTFj0Hd3jvmll6PxJGtPU8sON7Mv7wgydIx3Hd6+yJuiFIKtoHXq8+PhS+eILWEECJn3R9iojt6IRth/6pl6ZXMroZWAOJLsfPhEdrkCDAeOpOKM94nkqQT9s19O0U4Zhy8cHhfbjIYH4zh5hfwHWFPiW2hFcp6pNK/awi8cdsju40xU5WqEbRCwhIMLmIK5YhReVjBtGu0=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAADp3pv4rUJAVWptZtnApHgiND2YQPUnykIbUdIBuNzhahQRE94QZ6R6XSfH/l7DLyJtX1H29N409QteJuVgLZ1ZlQIBGPy0Tu8qz1deiyR8w341+d3ZqOSGr6Co
@@ -7134,7 +7448,6 @@ window :
        type : 2
        content :
         internal_properties : CAAAAAgAAAAXdKh+OIQKV9abrh/yVEmKnrFHnsjp3TVWOJGoav1yPAlu9pOtY6p9XbWgsWRiX9GI+S1vBZZuPkHG+PLYQfeqofp6WBdHskVvv/MbtLCM9B1/ZFsRl/GpcRf5lePDxEmiUCgvnwzkWXFlBjuRPiVOUheEmMa6r9Da+T0gFBRr1el3idbNbi/wVSK6xEBk2uRM1jw/Ob7k+GTUOU+6fVTGY7HD2n0ZH3TxYpKxM2BeMS9rscldkfa0hqYPeVxndgzEMa5lmEF11oo7ob9i67PQy7sTjKYPfGQBY+yA5HYrG+XqeA0GI4yoLhs+8/+6QaKx3JGfEiRiJhT5ju4V84XS2KgpymVzfas3wbfddTFj0Hd3jvmll6PxJGtPU8sON7Mv7wgydIx3Hd6+yJuiFIKtoHXq8+PhS+eILWEECJn3R9iojt6IRth/6pl6ZXMroZWAOJLsfPhEdrkCDAeOpOKM94nkqQT9s19O0U4Zhy8cHhfbjIYH4zh5hfwHWFPiW2hFcp6pNK/awi8cdsju40xU5WqEbRCwhIMLmIK5YhReVjBtGu0=
-        properties : {}
         type : 2
        code_elements :
         internal_properties : CAAAAAgAAABxykFuGFGToL/GkpztlxQscsKzpOPfvMmYiwbER6o2FYwjeh8v3lujx91Wtd4k0ky/um86e70+24VihGA0iLGhHLKSrO43XuEgzdvj8iZXJstXVu7lY5y3s7p1L7ZP8gzgK1uE11Z0uKuT
@@ -7206,7 +7519,7 @@ window :
   p_codes :
    -
      code : |1+
-      PROCEDURE MaFenêtre()
+      PROCEDURE MaFenÃªtre()
       
       LoggerErreur.Init()
       LoggerErreur.affTrace = Vrai
@@ -7221,7 +7534,7 @@ window :
       
       BufAEnvoyer est buffer
       buf est une iAcquisitionSignal.Str_DATA_Acquisition
-      arreteTimerSysAcq est un booléen=faux
+      arreteTimerSysAcq est un boolÃ©en=faux
       
       
       GLOBAL
@@ -7241,6 +7554,7 @@ window :
       		si c=null alors continue
       		TableAjouteLigne(Clients_socket,c.canalSocket,c.ip,c.nomThread,c.dernierMsgEnvoye,c.dernierMsgRecu[1 a 32])
       		cc est TreuilClient dynamique <- c
+      		si cc=null alors continue
       		TableAjouteLigne(Table1,cc.canalSocket, cc.ip, cc.Param_Interne_Treuils.mTreuilProfondeur, cc.Param_Interne_Treuils.mTreuilFreq, cc.Param_Interne_Treuils.Gain,
       		cc.Param_Interne_Treuils.Energie, cc.Param_Interne_Treuils.Vitesse_cm_s)
       	FIN
@@ -7281,7 +7595,7 @@ window :
      procedure_id : 1645366125310043095
      type_code : 14
      code : |1+
-      procédure ConnecteSockets(nomSock_ est chaine, port est entier, commentaire est chaine, champTable_ est champ)
+      procÃ©dure ConnecteSockets(nomSock_ est chaine, port est entier, commentaire est chaine, champTable_ est champ)
       
       nomSock est chaine = nomSock_
       champTable est un champ <- champTable_
@@ -7289,7 +7603,7 @@ window :
       	SocketChangeModeTransmission(nomSock, SocketSansMarqueurFin)
       	TableAjoute(champTable,nomSock+tab+commentaire+TAB+"")
       	SocketEcrit(nomSock,commentaire)
-      	SI ErreurDétectée ALORS
+      	SI ErreurDÃ©tectÃ©e ALORS
       		TableSupprime(champTable,TableCherche(champTable.Colonne1,nomSock))
       		SocketFerme(nomSock)
       		retour
@@ -7299,13 +7613,13 @@ window :
       	},10cs)
       FIN
       
-      procédure interne lit()
+      procÃ©dure interne lit()
       	quand Exception 
       		FinTimerSys()
       		retour
       	FIN
       	msg est chaine = SocketLit(nomSock,Faux,10cs,100)
-      	SI ErreurDétectée ALORS
+      	SI ErreurDÃ©tectÃ©e ALORS
       		TableSupprime(champTable,TableCherche(champTable.Colonne1,nomSock))
       		SocketFerme(nomSock)
       		FinTimerSys()
@@ -7323,7 +7637,7 @@ window :
      procedure_id : 1645366129605076865
      type_code : 14
      code : |1+
-      procédure EnvoieSocketAuClientSurSelection(nomSock est chaine, msg est chaîne)
+      procÃ©dure EnvoieSocketAuClientSurSelection(nomSock est chaine, msg est chaÃ®ne)
       
       t est tableau IClientSocket dynamique = server.RecupereClients()
       POUR TOUT cl in t
@@ -7339,7 +7653,7 @@ window :
      procedure_id : 1645366129605143088
      type_code : 14
      code : |1-
-      procédure EnvoieSocketAuServerSurSelection(nomSock est chaine, msg est chaine, table_ est champ)
+      procÃ©dure EnvoieSocketAuServerSurSelection(nomSock est chaine, msg est chaine, table_ est champ)
       
       matable est champ <- table_
       SocketEcrit(nomSock,msg)
@@ -7354,7 +7668,7 @@ window :
      procedure_id : 1645366133900176623
      type_code : 14
      code : |1+
-      procédure FermeSocket100(sock,table_ est champ)
+      procÃ©dure FermeSocket100(sock,table_ est champ)
       monTable est champ <- table_
       POUR i=0 _A_ 100
       	n est chaine = sock+"_"+i
@@ -7372,7 +7686,7 @@ window :
      procedure_id : 1893709586855898393
      type_code : 14
      code : |1+
-      procédure EnvoieSocketAuxClients()
+      procÃ©dure EnvoieSocketAuxClients()
       
       indexTab est un tableau d'entiers
       pour i=1 _a_ Clients_socket..Occurrence
@@ -7382,7 +7696,7 @@ window :
       FIN
       
       pour i=1 _a_ indexTab..Occurrence
-      	EnvoieSocketAuClientSurSelection(Clients_socket[indexTab[i]].Colonne1, Complète(Saisie1,8," "))	
+      	EnvoieSocketAuClientSurSelection(Clients_socket[indexTab[i]].Colonne1, ComplÃ¨te(Saisie1,8," "))	
       FIN
      type : 458752
    -
@@ -7390,7 +7704,7 @@ window :
      procedure_id : 1894471329520054136
      type_code : 14
      code : |1-
-      procédure TimerAffichage(tr est un TreuilClient dynamique)
+      procÃ©dure TimerAffichage(tr est un TreuilClient dynamique)
       
       QUAND EXCEPTION
       	FinTimerSys() 
@@ -7405,8 +7719,8 @@ window :
       
       SI tr.dessine.fileAffichage..Vide=Faux ALORS
       	elem est IAcquisitionSignal.Str_DATA_Acquisition
-      	POUR i=1 _À_ tr.dessine.fileAffichage..Occurrence
-      		Défile(tr.dessine.fileAffichage,elem)		
+      	POUR i=1 _Ã€_ tr.dessine.fileAffichage..Occurrence
+      		DÃ©file(tr.dessine.fileAffichage,elem)		
       	FIN
       	tr.dessine.DessineDansImage(elem)
       	//:dessine.SauveImageJpeg(elem)
@@ -7425,8 +7739,14 @@ custom_note :
  internal_properties : CAAAAAgAAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
 rad :
  internal_properties : CAAAAAgAAABoAN7PLpwJW3EiA7WVZdCA5EwrCA1rvutcDHooMWKe
+```
 
-Mock_AcquisitionSignal.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\Mock_AcquisitionSignal.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -7446,7 +7766,7 @@ class :
      code : |1+
       Mock_AcquisitionSignal est une Classe
       	herite IAcquisitionSignal
-      	tEcoute est un tableau de chaînes
+      	tEcoute est un tableau de chaÃ®nes
       	nb est entier
       fin
      type : 131072
@@ -7456,7 +7776,7 @@ class :
      procedure_id : 1628661610475131291
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
      type : 589824
    -
@@ -7464,7 +7784,7 @@ class :
      procedure_id : 1628661610475196827
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -7472,8 +7792,8 @@ class :
      procedure_id : 1628662121583043312
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Demarre
-      PROCÉDURE   Demarre():booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Demarre
+      PROCÃ‰DURE   Demarre():boolÃ©en
       
       :DemarreEcouteSocket()
       RENVOYER Vrai
@@ -7483,8 +7803,8 @@ class :
      procedure_id : 1628662125878077863
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Arrete
-      PROCÉDURE   Arrete():booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Arrete
+      PROCÃ‰DURE   Arrete():boolÃ©en
       :ArreteEcouteSocket()
       RENVOYER Vrai
       
@@ -7495,8 +7815,8 @@ class :
      procedure_id : 1628662134468079522
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.EcouteSocket
-      PROCÉDURE   EcouteSocket()
+      // RedÃ©finition de la mÃ©thode IClientSocket.EcouteSocket
+      PROCÃ‰DURE   EcouteSocket()
       
       m est MutexHelper(:mutex)
       nb+=1
@@ -7509,8 +7829,8 @@ class :
      procedure_id : 1630629354088321663
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IAcquisitionSignal.EnfileBuffer
-      PROCÉDURE  EnfileBuffer(buf IAcquisitionSignal.Str_DATA_Acquisition)
+      // RedÃ©finition de la mÃ©thode IAcquisitionSignal.EnfileBuffer
+      PROCÃ‰DURE  EnfileBuffer(buf IAcquisitionSignal.Str_DATA_Acquisition)
       
      type : 458752
    -
@@ -7518,8 +7838,8 @@ class :
      procedure_id : 1630629375563228054
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IAcquisitionSignal.DefileBuffer
-      PROCÉDURE  DefileBuffer() : IAcquisitionSignal.Str_DATA_Acquisition
+      // RedÃ©finition de la mÃ©thode IAcquisitionSignal.DefileBuffer
+      PROCÃ‰DURE  DefileBuffer() : IAcquisitionSignal.Str_DATA_Acquisition
       
       buf est IAcquisitionSignal.Str_DATA_Acquisition
       renvoyer buf
@@ -7529,8 +7849,8 @@ class :
      procedure_id : 1631009656063354661
      type_code : 12
      code : |1-
-      // Redéfinition de la méthode IAcquisitionSignal.TaillefileBuffer
-      PROCÉDURE  TaillefileBuffer() : entier
+      // RedÃ©finition de la mÃ©thode IAcquisitionSignal.TaillefileBuffer
+      PROCÃ‰DURE  TaillefileBuffer() : entier
       
       renvoyer :fileBuffer..Occurrence
      type : 458752
@@ -7544,8 +7864,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-Mock_ClientSocket.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\Mock_ClientSocket.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -7565,7 +7891,7 @@ class :
      code : |1+
       Mock_ClientSocket est une Classe
       	herite IClientSocket
-      	tEcoute est un tableau de chaînes
+      	tEcoute est un tableau de chaÃ®nes
       	nb est entier
       fin
      type : 131072
@@ -7575,7 +7901,7 @@ class :
      procedure_id : 1627186263326469911
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
      type : 589824
    -
@@ -7583,7 +7909,7 @@ class :
      procedure_id : 1627186263326535447
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -7591,8 +7917,8 @@ class :
      procedure_id : 1627186263326600983
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Demarre
-      PROCÉDURE   Demarre():booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Demarre
+      PROCÃ‰DURE   Demarre():boolÃ©en
       
       :DemarreEcouteSocket()
       RENVOYER Vrai
@@ -7602,8 +7928,8 @@ class :
      procedure_id : 1627186263326666519
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Arrete
-      PROCÉDURE   Arrete():booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Arrete
+      PROCÃ‰DURE   Arrete():boolÃ©en
       :ArreteEcouteSocket()
       RENVOYER Vrai
      type : 458752
@@ -7613,8 +7939,8 @@ class :
      procedure_id : 1627186263326732055
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.EcouteSocket
-      PROCÉDURE   EcouteSocket()
+      // RedÃ©finition de la mÃ©thode IClientSocket.EcouteSocket
+      PROCÃ‰DURE   EcouteSocket()
       
       m est MutexHelper(:mutex)
       nb+=1
@@ -7630,8 +7956,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-Mock_SignalDessine.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\Mock_SignalDessine.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -7659,7 +7991,7 @@ class :
      procedure_id : 1628665252636493128
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
      type : 589824
    -
@@ -7667,7 +7999,7 @@ class :
      procedure_id : 1628665252636558664
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -7676,8 +8008,8 @@ class :
      procedure_id : 1628665321356575141
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalDessine.Parametre
-      PROCÉDURE  Parametre(champImage)
+      // RedÃ©finition de la mÃ©thode ISignalDessine.Parametre
+      PROCÃ‰DURE  Parametre(champImage)
       
      type : 458752
    -
@@ -7685,8 +8017,8 @@ class :
      procedure_id : 1628665329946577019
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalDessine.DemarreAcquisition
-      PROCÉDURE  DemarreAcquisition() : booléen
+      // RedÃ©finition de la mÃ©thode ISignalDessine.DemarreAcquisition
+      PROCÃ‰DURE  DemarreAcquisition() : boolÃ©en
       renvoyer vrai
      type : 458752
    -
@@ -7694,8 +8026,8 @@ class :
      procedure_id : 1628665334241611617
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalDessine.ArreteAcquisition
-      PROCÉDURE  ArreteAcquisition() : booléen
+      // RedÃ©finition de la mÃ©thode ISignalDessine.ArreteAcquisition
+      PROCÃ‰DURE  ArreteAcquisition() : boolÃ©en
       RENVOYER Vrai
      type : 458752
    -
@@ -7704,8 +8036,8 @@ class :
      procedure_id : 1628665342831613620
      type_code : 12
      code : |1-
-      // Redéfinition de la méthode ISignalDessine.DessineDansImage
-      PROCÉDURE  DessineDansImage(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booléen
+      // RedÃ©finition de la mÃ©thode ISignalDessine.DessineDansImage
+      PROCÃ‰DURE  DessineDansImage(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : boolÃ©en
       
       RENVOYER Vrai
      type : 458752
@@ -7714,8 +8046,8 @@ class :
      procedure_id : 1630644807634925418
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalDessine.DebutDessin
-      PROCÉDURE  DebutDessin()
+      // RedÃ©finition de la mÃ©thode ISignalDessine.DebutDessin
+      PROCÃ‰DURE  DebutDessin()
       
      type : 458752
    -
@@ -7724,8 +8056,8 @@ class :
      procedure_id : 1631354481865945909
      type_code : 12
      code : |1-
-      // Redéfinition de la méthode ISignalDessine.SauveImageJpeg
-      PROCÉDURE  SauveImageJpeg(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booléen
+      // RedÃ©finition de la mÃ©thode ISignalDessine.SauveImageJpeg
+      PROCÃ‰DURE  SauveImageJpeg(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : boolÃ©en
       
       renvoyer vrai
      type : 458752
@@ -7735,8 +8067,8 @@ class :
      procedure_id : 1894589466762224543
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalDessine.PrepareDessin
-      PROCÉDURE  PrepareDessin(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique)
+      // RedÃ©finition de la mÃ©thode ISignalDessine.PrepareDessin
+      PROCÃ‰DURE  PrepareDessin(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique)
       
      type : 458752
    -
@@ -7744,8 +8076,8 @@ class :
      procedure_id : 1894589466762290485
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalDessine.Affichage
-      PROCÉDURE  Affichage()
+      // RedÃ©finition de la mÃ©thode ISignalDessine.Affichage
+      PROCÃ‰DURE  Affichage()
       
      type : 458752
   procedure_templates : []
@@ -7758,8 +8090,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-Mock_SignalEnregistrement.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\Mock_SignalEnregistrement.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -7787,7 +8125,7 @@ class :
      procedure_id : 1628664977755572408
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
      type : 589824
    -
@@ -7795,7 +8133,7 @@ class :
      procedure_id : 1628664977755637944
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -7803,8 +8141,8 @@ class :
      procedure_id : 1628665119491885315
      type_code : 12
      code : |1-
-      // Redéfinition de la méthode ISignalEnregistrement.DemarreAcquisition
-      PROCÉDURE  DemarreAcquisition() : booléen
+      // RedÃ©finition de la mÃ©thode ISignalEnregistrement.DemarreAcquisition
+      PROCÃ‰DURE  DemarreAcquisition() : boolÃ©en
       
       renvoyer vrai
      type : 458752
@@ -7813,8 +8151,8 @@ class :
      procedure_id : 1628665123786919804
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalEnregistrement.ArreteAcquisition
-      PROCÉDURE  ArreteAcquisition() : booléen
+      // RedÃ©finition de la mÃ©thode ISignalEnregistrement.ArreteAcquisition
+      PROCÃ‰DURE  ArreteAcquisition() : boolÃ©en
       RENVOYER Vrai
      type : 458752
    -
@@ -7823,8 +8161,8 @@ class :
      procedure_id : 1628665132376921588
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalEnregistrement.Parametre
-      PROCÉDURE  Parametre(nomFichier)
+      // RedÃ©finition de la mÃ©thode ISignalEnregistrement.Parametre
+      PROCÃ‰DURE  Parametre(nomFichier)
       
      type : 458752
    -
@@ -7833,8 +8171,8 @@ class :
      procedure_id : 1628665140966924294
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalEnregistrement.EcritDansFichier
-      PROCÉDURE  EcritDansFichier(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booléen
+      // RedÃ©finition de la mÃ©thode ISignalEnregistrement.EcritDansFichier
+      PROCÃ‰DURE  EcritDansFichier(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : boolÃ©en
       RENVOYER Vrai
      type : 458752
   procedure_templates : []
@@ -7847,8 +8185,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-Mock_SignalTraitement.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\Mock_SignalTraitement.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -7876,7 +8220,7 @@ class :
      procedure_id : 1628664763006043339
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
      type : 589824
    -
@@ -7884,7 +8228,7 @@ class :
      procedure_id : 1628664763006108875
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -7892,8 +8236,8 @@ class :
      procedure_id : 1628664823136189886
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalTraitement.DemarreAcquisition
-      PROCÉDURE  DemarreAcquisition() :booléen
+      // RedÃ©finition de la mÃ©thode ISignalTraitement.DemarreAcquisition
+      PROCÃ‰DURE  DemarreAcquisition() :boolÃ©en
       renvoyer vrai
      type : 458752
    -
@@ -7901,8 +8245,8 @@ class :
      procedure_id : 1628664831726126165
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalTraitement.ArreteAcquisition
-      PROCÉDURE  ArreteAcquisition() :booléen
+      // RedÃ©finition de la mÃ©thode ISignalTraitement.ArreteAcquisition
+      PROCÃ‰DURE  ArreteAcquisition() :boolÃ©en
       RENVOYER Vrai
      type : 458752
    -
@@ -7910,8 +8254,8 @@ class :
      procedure_id : 1628664836021160606
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalTraitement.Parametre
-      PROCÉDURE  Parametre(params)
+      // RedÃ©finition de la mÃ©thode ISignalTraitement.Parametre
+      PROCÃ‰DURE  Parametre(params)
       
       TypeVar(params)
      type : 458752
@@ -7920,8 +8264,8 @@ class :
      procedure_id : 1628664844611162625
      type_code : 12
      code : |1-
-      // Redéfinition de la méthode ISignalTraitement.Calcule
-      PROCÉDURE  Calcule(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booléen
+      // RedÃ©finition de la mÃ©thode ISignalTraitement.Calcule
+      PROCÃ‰DURE  Calcule(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : boolÃ©en
       TypeVar(el)
       RENVOYER Vrai
      type : 458752
@@ -7935,8 +8279,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-Mock_TreuilClient.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\Mock_TreuilClient.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -7964,7 +8314,7 @@ class :
      procedure_id : 1625816864455038420
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
      type : 589824
    -
@@ -7972,7 +8322,7 @@ class :
      procedure_id : 1625816864455103956
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -7980,8 +8330,8 @@ class :
      procedure_id : 1625816920289756919
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Demarre
-      PROCÉDURE   Demarre():booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Demarre
+      PROCÃ‰DURE   Demarre():boolÃ©en
       
       :DemarreEcouteSocket()
       RENVOYER Vrai
@@ -7992,8 +8342,8 @@ class :
      procedure_id : 1625816924584791079
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Arrete
-      PROCÉDURE   Arrete():booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Arrete
+      PROCÃ‰DURE   Arrete():boolÃ©en
       :ArreteEcouteSocket()
       RENVOYER Vrai
       
@@ -8004,8 +8354,8 @@ class :
      procedure_id : 1643878258528745873
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ITreuilClient.ParseDonnees
-      PROCÉDURE  ParseDonnees(buf est un Buffer)
+      // RedÃ©finition de la mÃ©thode ITreuilClient.ParseDonnees
+      PROCÃ‰DURE  ParseDonnees(buf est un Buffer)
       
      type : 458752
   procedure_templates : []
@@ -8018,8 +8368,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-MutexHelper.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\MutexHelper.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -8038,7 +8394,7 @@ class :
    -
      code : |1+
       MutexHelper est une Classe
-      	privéé
+      	privÃ©Ã©
       		nomMutex est chaine
       fin
      type : 131072
@@ -8048,17 +8404,17 @@ class :
      procedure_id : 1623564815485315736
      type_code : 27
      code : |1+
-      procédure Constructeur(nomMutex est chaine)
+      procÃ©dure Constructeur(nomMutex est chaine)
       
       :nomMutex = nomMutex
-      MutexDébut(:nomMutex)
+      MutexDÃ©but(:nomMutex)
      type : 589824
    -
      name : Destructeur
      procedure_id : 1623564815485381272
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
       MutexFin(:nomMutex)
      type : 655360
@@ -8072,8 +8428,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-ServeurConnexion.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\ServeurConnexion.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -8108,9 +8470,9 @@ class :
      procedure_id : 1877387727581999409
      type_code : 27
      code : |1+
-      procédure privée Constructeur()
+      procÃ©dure privÃ©e Constructeur()
       
-      Logger.Verbose(ChaîneConstruit("construit ServeurConnectionTreuil, mutex=%1",:mutex))
+      Logger.Verbose(ChaÃ®neConstruit("construit ServeurConnectionTreuil, mutex=%1",:mutex))
       
       :acquisition = FabriqueClient.CreeConnexionAuServeur(FabriqueClient.connexionAcquisition)
       :treuils = FabriqueClient.CreeConnexionAuServeur(FabriqueClient.connexiontreuilNonIdent)
@@ -8122,21 +8484,21 @@ class :
      procedure_id : 1877387727582064945
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
-      Logger.Verbose(ChaîneConstruit("détruit ServeurConnectionTreuil, mutex=%1",:mutex))
+      Logger.Verbose(ChaÃ®neConstruit("dÃ©truit ServeurConnectionTreuil, mutex=%1",:mutex))
       
       liberer :acquisition
-      libérer :treuils
-      libérer :app
-      SignalDétruit(:nomThread)
+      libÃ©rer :treuils
+      libÃ©rer :app
+      SignalDÃ©truit(:nomThread)
      type : 655360
    -
      name : Demarre
      procedure_id : 1877387727582130481
      type_code : 12
      code : |1+
-      procédure Demarre() : booléen
+      procÃ©dure Demarre() : boolÃ©en
       
       Logger.Log("Demarre ServeurConnectionTreuil")
       si pas :treuils.Demarre() ALORS GOTO ERR
@@ -8146,7 +8508,7 @@ class :
       renvoyer vrai
       
       ERR:
-      	ExceptionDéclenche(1,"Impossible de démarrer les connecteurs de client")
+      	ExceptionDÃ©clenche(1,"Impossible de dÃ©marrer les connecteurs de client")
       	RENVOYER faux
      type : 458752
    -
@@ -8154,7 +8516,7 @@ class :
      procedure_id : 1877387727582196017
      type_code : 12
      code : |1+
-      procédure Arrete() : booléen
+      procÃ©dure Arrete() : boolÃ©en
       
       Logger.Log("Arrete ServeurConnectionTreuil")
       SI PAS :treuils.Arrete() ALORS GOTO ERR
@@ -8164,7 +8526,7 @@ class :
       RENVOYER Vrai
       
       ERR:
-      	ExceptionDéclenche(1,"Impossible d'arrêter les connecteurs de client")
+      	ExceptionDÃ©clenche(1,"Impossible d'arrÃªter les connecteurs de client")
       	RENVOYER Faux
      type : 458752
    -
@@ -8173,15 +8535,15 @@ class :
      procedure_id : 1877387727582261553
      type_code : 12
      code : |1+
-      procédure AjouteClient(client IClientSocket dynamique):booléen
+      procÃ©dure AjouteClient(client IClientSocket dynamique):boolÃ©en
       
       si pas :clients[client.id]..Existe ALORS
       	m est un MutexHelper(:mutex)
-      	:clients.Insère(client.id, client)
-      	Logger.Log(ChaîneConstruit("ServeurConnectionTreuil Ajoute le client[%1]=%2,%3",client.nomThread,client.ip,client.canalSocket))
+      	:clients.InsÃ¨re(client.id, client)
+      	Logger.Log(ChaÃ®neConstruit("ServeurConnectionTreuil Ajoute le client[%1]=%2,%3",client.nomThread,client.ip,client.canalSocket))
       	renvoyer vrai
       FIN
-      LoggerErreur.EcritLigne(ChaîneConstruit("ServeurConnectionTreuil Le client[%1]=%2,%3 existe déjà",client.nomThread,client.ip,client.canalSocket))
+      LoggerErreur.EcritLigne(ChaÃ®neConstruit("ServeurConnectionTreuil Le client[%1]=%2,%3 existe dÃ©jÃ ",client.nomThread,client.ip,client.canalSocket))
       RENVOYER faux
      type : 458752
    -
@@ -8190,11 +8552,11 @@ class :
      procedure_id : 1877387727582327089
      type_code : 12
      code : |1+
-      procédure SupprimeClient(client IClientSocket dynamique):booléen
+      procÃ©dure SupprimeClient(client IClientSocket dynamique):boolÃ©en
       
       m est un MutexHelper(:mutex)
       SI client<>null _et_ :clients[client.id]..Existe ALORS
-      	Logger.Log(ChaîneConstruit("ServeurConnectionTreuil Supprime le client[%1]=%2,%3",client.nomThread,client.ip,client.canalSocket))
+      	Logger.Log(ChaÃ®neConstruit("ServeurConnectionTreuil Supprime le client[%1]=%2,%3",client.nomThread,client.ip,client.canalSocket))
       	:clients.Supprime(client.id)
       	renvoyer vrai
       FIN
@@ -8205,12 +8567,12 @@ class :
      procedure_id : 1877387727582392625
      type_code : 12
      code : |1+
-      procédure privee DemarreEcouteSocket()
+      procÃ©dure privee DemarreEcouteSocket()
       
-      :arretDemandé=Faux
-      SignalModifie(:nomThread,signalFermé)
+      :arretDemandÃ©=Faux
+      SignalModifie(:nomThread,signalFermÃ©)
       
-      ThreadExécute(:nomThread,threadNormal,()=>{
+      ThreadExÃ©cute(:nomThread,threadNormal,()=>{
       	QUAND EXCEPTION 
       		LoggerErreur.EcritLigne(ExceptionInfo(errMessage))
       		ExceptionPropage(ExceptionInfo(errMessage))
@@ -8229,16 +8591,16 @@ class :
      procedure_id : 1877387727582458161
      type_code : 12
      code : |1+
-      procédure privée EcouteSocket()
+      procÃ©dure privÃ©e EcouteSocket()
       
       POUR TOUT c dans :clients
-      	SI c<>null _et_ c.estarretDemandé() et PAS c.EstActif()	 ALORS
-      		Logger.Verbose(ChaîneConstruit("ServeurConnectionTreuil libère le client[%1]=%2,%3",c.nomThread,c.ip,c.canalSocket))
+      	SI c<>null _et_ c.estarretDemandÃ©() et PAS c.EstActif()	 ALORS
+      		Logger.Verbose(ChaÃ®neConstruit("ServeurConnectionTreuil libÃ¨re le client[%1]=%2,%3",c.nomThread,c.ip,c.canalSocket))
       		:treuils.SupprimeClient(c)
       		:acquisition.SupprimeClient(c)
       		:app.SupprimeClient(c)
       		:SupprimeClient(c)
-      		libérer c
+      		libÃ©rer c
       	FIN
       FIN
      type : 458752
@@ -8247,9 +8609,9 @@ class :
      procedure_id : 1877387727582523697
      type_code : 12
      code : |1+
-      procédure ArreteEcouteSocket()
+      procÃ©dure ArreteEcouteSocket()
       
-      :arretDemandé=Vrai
+      :arretDemandÃ©=Vrai
       SignalModifie(:nomThread,signalOuvert)
       
       ArreteThreadSurTimeout(()=>ThreadEtat(:nomThread)<>threadInexistant, :nomThread)
@@ -8260,7 +8622,7 @@ class :
      procedure_id : 1877387727582589233
      type_code : 12
      code : |1+
-      procédure Init()
+      procÃ©dure Init()
       
       Logger.Verbose("Init ServeurConnectionTreuil")
       
@@ -8271,7 +8633,7 @@ class :
      procedure_id : 1877387727582654769
      type_code : 12
      code : |1+
-      procédure Quit()
+      procÃ©dure Quit()
       
       Logger.Verbose("Quit ServeurConnectionTreuil")
       
@@ -8283,8 +8645,8 @@ class :
      procedure_id : 1877387727582720305
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IConnexionClientSocket.RecupereClients
-      PROCÉDURE  RecupereClients() : tableau de IClientSocket dynamique
+      // RedÃ©finition de la mÃ©thode IConnexionClientSocket.RecupereClients
+      PROCÃ‰DURE  RecupereClients() : tableau de IClientSocket dynamique
       
       t est tableau de IClientSocket dynamique
       
@@ -8300,21 +8662,21 @@ class :
      type_code : 12
      code : |1+
       // format params = <fichier1>+TAB+<fichier2>+RC+<300;300;main.graphe1>+TAB+<300;300;main.graphe2>+RC+<"T0=12;offset=100;suppressionMoyenne=1;lissage=1">)
-      procédure DemarreAcquisition(params est chaine):booléen
+      procÃ©dure DemarreAcquisition(params est chaine):boolÃ©en
       
       t est un tableau de IClientSocket dynamique <- :treuils.RecupereClients()
       
-      tabChamp est un tableau de 0 chaînes
-      tabFics est un tableau de 0 chaînes
-      extrait_chaine_nomfics(ExtraitChaîne(params,1,RC))
-      extrait_chaine_champs(ExtraitChaîne(params,2,RC))
+      tabChamp est un tableau de 0 chaÃ®nes
+      tabFics est un tableau de 0 chaÃ®nes
+      extrait_chaine_nomfics(ExtraitChaÃ®ne(params,1,RC))
+      extrait_chaine_champs(ExtraitChaÃ®ne(params,2,RC))
       ind est entier = 1
       POUR TOUT cl IN t
       	tr est un TreuilClient dynamique <- cl
       	SI tr<>null _et_ tr.type=ITreuilClient.eRecepteur alors
       		tr.ParametreNomFichier(tabFics[ind])
       		tr.ParametreChampImage(tabChamp[ind])
-      		tr.ParametreTraitement(ExtraitChaîne(params,3,RC))
+      		tr.ParametreTraitement(ExtraitChaÃ®ne(params,3,RC))
       		tr.DemarreAcquisition()
       		ind++
       	FIN
@@ -8322,17 +8684,17 @@ class :
       
       renvoyer vrai
       
-      procédure interne extrait_chaine_nomfics(paramsFics)
-      	pour i=1 _a_ ChaîneOccurrence(paramsFics,tab)+1
-      		fic est chaine = ExtraitChaîne(paramsFics,i)
+      procÃ©dure interne extrait_chaine_nomfics(paramsFics)
+      	pour i=1 _a_ ChaÃ®neOccurrence(paramsFics,tab)+1
+      		fic est chaine = ExtraitChaÃ®ne(paramsFics,i)
       		tabFics.ajoute(fic)
       	FIN
       fin
       
-      procédure interne extrait_chaine_champs(paramsImage)
+      procÃ©dure interne extrait_chaine_champs(paramsImage)
       	champsgraphe est chaine = paramsImage
-      	POUR i=1 _a_ ChaîneOccurrence(champsgraphe,tab)+1
-      		champ est chaine = ExtraitChaîne(champsgraphe,i)
+      	POUR i=1 _a_ ChaÃ®neOccurrence(champsgraphe,tab)+1
+      		champ est chaine = ExtraitChaÃ®ne(champsgraphe,i)
       		tabChamp.ajoute(champ)
       	FIN
       fin
@@ -8342,7 +8704,7 @@ class :
      procedure_id : 1877387727582851377
      type_code : 12
      code : |1+
-      procédure ArreteAcquisition()
+      procÃ©dure ArreteAcquisition()
       
       t est un tableau de IClientSocket dynamique <- :treuils.RecupereClients()
       POUR TOUT cl IN t
@@ -8362,7 +8724,7 @@ class :
      p_codes :
       -
         code : |1-
-         procédure globale publique MonInstance() : ServeurConnexion
+         procÃ©dure globale publique MonInstance() : ServeurConnexion
          
          si mInstance=Null ALORS
          	mInstance = allouer ServeurConnexion()
@@ -8385,8 +8747,14 @@ custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
 associated_test :
  name : TEST_ServeurConnexion.wxt
+```
 
-SignalDessine.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\SignalDessine.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -8417,7 +8785,7 @@ class :
      procedure_id : 1624977340165326899
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
      type : 589824
    -
@@ -8425,7 +8793,7 @@ class :
      procedure_id : 1624977340165392435
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -8433,13 +8801,13 @@ class :
      procedure_id : 1627191271271955340
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalDessine.Parametre
-      PROCÉDURE  Parametre(image)
+      // RedÃ©finition de la mÃ©thode ISignalDessine.Parametre
+      PROCÃ‰DURE  Parametre(image)
       
       Logger.Debug("Parametre le champ image id=" + :id+", ")
-      //:champImage.Hauteur = ExtraitChaîne(image,1,";")
-      //:champImage.Largeur = ExtraitChaîne(image,2,";")
-      :champGraphe = ExtraitChaîne(image,3,";")
+      //:champImage.Hauteur = ExtraitChaÃ®ne(image,1,";")
+      //:champImage.Largeur = ExtraitChaÃ®ne(image,2,";")
+      :champGraphe = ExtraitChaÃ®ne(image,3,";")
       :nomGrapheVirtuel = "graphe_"+:id
      type : 458752
    -
@@ -8447,10 +8815,10 @@ class :
      procedure_id : 1627191902632294977
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalDessine.DemarreAcquisition
-      PROCÉDURE  DemarreAcquisition() : booléen
+      // RedÃ©finition de la mÃ©thode ISignalDessine.DemarreAcquisition
+      PROCÃ‰DURE  DemarreAcquisition() : boolÃ©en
       
-      Logger.Debug("Démarre l'affichage pour l'acquisition id=" + :id+", ")
+      Logger.Debug("DÃ©marre l'affichage pour l'acquisition id=" + :id+", ")
       arretTimerSysDessin = faux
       :DebutDessin()
       
@@ -8461,8 +8829,8 @@ class :
      procedure_id : 1627191915517264901
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalDessine.ArreteAcquisition
-      PROCÉDURE  ArreteAcquisition() : booléen
+      // RedÃ©finition de la mÃ©thode ISignalDessine.ArreteAcquisition
+      PROCÃ‰DURE  ArreteAcquisition() : boolÃ©en
       
       Logger.Debug("Arrete l'affichage pour l'acquisition id=" + :id+", ")
       :champImage = ""
@@ -8478,13 +8846,13 @@ class :
      procedure_id : 1627990981583911624
      type_code : 12
      code : |1-
-      // Redéfinition de la méthode ISignalDessine.DessineDansImage
-      PROCÉDURE  DessineDansImage(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booléen
+      // RedÃ©finition de la mÃ©thode ISignalDessine.DessineDansImage
+      PROCÃ‰DURE  DessineDansImage(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : boolÃ©en
       
-      grSupprimeSérie(:nomGrapheVirtuel, 1)
-      Logger.Verbose("Dessine dans id=" + :id+", l'élément "+el.Index)
+      grSupprimeSÃ©rie(:nomGrapheVirtuel, 1)
+      Logger.Verbose("Dessine dans id=" + :id+", l'Ã©lÃ©ment "+el.Index)
       pour i=1 _a_ el.tabBuffer..Occurrence
-      	grAjouteDonnée(:nomGrapheVirtuel, 1, el.tabBuffer[i])
+      	grAjouteDonnÃ©e(:nomGrapheVirtuel, 1, el.tabBuffer[i])
       FIN
       
       grDessine(:nomGrapheVirtuel)
@@ -8496,10 +8864,10 @@ class :
      procedure_id : 1630644528460086025
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalDessine.DebutDessin
-      PROCÉDURE  DebutDessin()
+      // RedÃ©finition de la mÃ©thode ISignalDessine.DebutDessin
+      PROCÃ‰DURE  DebutDessin()
       
-      grCrée(:nomGrapheVirtuel,grCourbe)
+      grCrÃ©e(:nomGrapheVirtuel,grCourbe)
       si ChampExiste(:champGraphe) ALORS
       	grDestinationChamp(:nomGrapheVirtuel, :champGraphe)	
       FIN
@@ -8510,10 +8878,10 @@ class :
      procedure_id : 1631354121087298622
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalDessine.SauveImageJpeg
-      PROCÉDURE  SauveImageJpeg(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booléen
+      // RedÃ©finition de la mÃ©thode ISignalDessine.SauveImageJpeg
+      PROCÃ‰DURE  SauveImageJpeg(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : boolÃ©en
       
-      fic est une chaîne = "tmp/"+SansEspace(id)+"_img"+el.Index+".jpg"
+      fic est une chaÃ®ne = "tmp/"+SansEspace(id)+"_img"+el.Index+".jpg"
       renvoyer dSauveImageJPEG(:champGraphe,fic)
      type : 458752
    -
@@ -8521,13 +8889,13 @@ class :
      procedure_id : 1829904725260522718
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalDessine.PrepareDessin
-      PROCÉDURE  PrepareDessin(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique)
+      // RedÃ©finition de la mÃ©thode ISignalDessine.PrepareDessin
+      PROCÃ‰DURE  PrepareDessin(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique)
       
-      grSupprimeSérie(:nomGrapheVirtuel, 1)
-      Logger.Verbose("Dessine dans id=" + :id+", l'élément "+el.Index)
-      POUR i=1 _À_ el.tabBuffer..Occurrence
-      	grAjouteDonnée(:nomGrapheVirtuel, 1, el.tabBuffer[i])
+      grSupprimeSÃ©rie(:nomGrapheVirtuel, 1)
+      Logger.Verbose("Dessine dans id=" + :id+", l'Ã©lÃ©ment "+el.Index)
+      POUR i=1 _Ã€_ el.tabBuffer..Occurrence
+      	grAjouteDonnÃ©e(:nomGrapheVirtuel, 1, el.tabBuffer[i])
       FIN
      type : 458752
    -
@@ -8535,8 +8903,8 @@ class :
      procedure_id : 1894581293419273211
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalDessine.Affichage
-      procédure Affichage()
+      // RedÃ©finition de la mÃ©thode ISignalDessine.Affichage
+      procÃ©dure Affichage()
       
       QUAND EXCEPTION
       	//FinTimerSys()
@@ -8549,8 +8917,8 @@ class :
       FIN
       SI :fileAffichage..Vide=Faux ALORS
       	elem est IAcquisitionSignal.Str_DATA_Acquisition
-      	POUR i=1 _À_ :fileAffichage..Occurrence
-      		Défile(:fileAffichage,elem)		
+      	POUR i=1 _Ã€_ :fileAffichage..Occurrence
+      		DÃ©file(:fileAffichage,elem)		
       	FIN
       	:DessineDansImage(elem)
       	//:SauveImageJpeg(elem)
@@ -8568,8 +8936,14 @@ custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
 associated_test :
  name : TEST_SignalDessine.wxt
+```
 
-SignalEnregistrement.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\SignalEnregistrement.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -8590,7 +8964,7 @@ class :
       SignalEnregistrement est une Classe
       	herite ISignalEnregistrement
       	
-      	nomFichier est une chaîne
+      	nomFichier est une chaÃ®ne
       	handleFic est entier
       	
       	fileBuffer est une file de IAcquisitionSignal.Str_DATA_Acquisition
@@ -8603,38 +8977,38 @@ class :
      procedure_id : 1624977314395123485
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
       nomthreadEnregistrement ="enregistrementDansFichier"+&fileBuffer 
-      SignalCrée(nomthreadEnregistrement,signalManuel,signalFermé,partageAucun)
+      SignalCrÃ©e(nomthreadEnregistrement,signalManuel,signalFermÃ©,partageAucun)
      type : 589824
    -
      name : Destructeur
      procedure_id : 1624977314395189021
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
-      SignalDétruit(nomthreadEnregistrement)
+      SignalDÃ©truit(nomthreadEnregistrement)
      type : 655360
    -
      name : DemarreAcquisition
      procedure_id : 1627215404694354351
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalEnregistrement.DemarreAcquisition
-      PROCÉDURE  DemarreAcquisition() : booléen
+      // RedÃ©finition de la mÃ©thode ISignalEnregistrement.DemarreAcquisition
+      PROCÃ‰DURE  DemarreAcquisition() : boolÃ©en
       
-      :handleFic = fOuvre(:nomFichier,foCréation+foLecture+foEcriture)
+      :handleFic = fOuvre(:nomFichier,foCrÃ©ation+foLecture+foEcriture)
       SI :handleFic<0 ALORS
-      	LoggerErreur.EcritLigne("Erreur de création du fichier d'acquisition id=" + :id+", " + :nomFichier)
+      	LoggerErreur.EcritLigne("Erreur de crÃ©ation du fichier d'acquisition id=" + :id+", " + :nomFichier)
       	RENVOYER Faux
       FIN
       
       Logger.Verbose("Demarre acquisition pour le fichier id=" + :id+", " + :nomFichier)
       
-      SignalModifie(nomthreadEnregistrement,signalFermé)
-      ThreadExécute(nomthreadEnregistrement,threadNormal,()=>{
+      SignalModifie(nomthreadEnregistrement,signalFermÃ©)
+      ThreadExÃ©cute(nomthreadEnregistrement,threadNormal,()=>{
       BOUCLE
       	si SignalAttend(nomthreadEnregistrement,10ms) ALORS
       		SupprimeTout(fileBuffer)
@@ -8644,17 +9018,17 @@ class :
       		el est IAcquisitionSignal.Str_DATA_Acquisition
       		mbuf est un Buffer 
       		counter est entier = 0
-      		tantque Défile(fileBuffer,el) _et_ counter < 10
+      		tantque DÃ©file(fileBuffer,el) _et_ counter < 10
       			temp est buffer
-      			Sérialise(el,temp,psdXML)
+      			SÃ©rialise(el,temp,psdXML)
       			mbuf+=[RC]+temp
       			counter++
       		fin		
       		SI PAS fEcritLigne(:handleFic, mbuf) ALORS
-      			LoggerErreur.EcritLigne("Impossible d'écrire l'élément "+el.Index + " dans le fichier " + :nomFichier)
+      			LoggerErreur.EcritLigne("Impossible d'Ã©crire l'Ã©lÃ©ment "+el.Index + " dans le fichier " + :nomFichier)
       			RENVOYER Faux
       		FIN
-      		Logger.Verbose("Ecriture de l'élément "+el.Index + " dans le fichier " + :nomFichier)
+      		Logger.Verbose("Ecriture de l'Ã©lÃ©ment "+el.Index + " dans le fichier " + :nomFichier)
       	FIN
       FIN
       })
@@ -8666,12 +9040,12 @@ class :
      procedure_id : 1627215413284356463
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalEnregistrement.ArreteAcquisition
-      PROCÉDURE  ArreteAcquisition() : booléen
+      // RedÃ©finition de la mÃ©thode ISignalEnregistrement.ArreteAcquisition
+      PROCÃ‰DURE  ArreteAcquisition() : boolÃ©en
       
-      Logger.Verbose("Arrête acquisition pour le fichier id=" + :id+", " + :nomFichier)
+      Logger.Verbose("ArrÃªte acquisition pour le fichier id=" + :id+", " + :nomFichier)
       
-      //ThreadExécute(()=>{
+      //ThreadExÃ©cute(()=>{
       
       counter est entier =0
       tantque fileBuffer..Occurrence>0 _et_ counter<200
@@ -8698,17 +9072,17 @@ class :
      procedure_id : 1627215421874358388
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalEnregistrement.Parametre
-      PROCÉDURE  Parametre(nomFichier)
+      // RedÃ©finition de la mÃ©thode ISignalEnregistrement.Parametre
+      PROCÃ‰DURE  Parametre(nomFichier)
       
       :nomFichier = fabrique_nomfichier(nomFichier)
       :nomFichier = nomFichier
-      Logger.Verbose("Paramètre le nom de fichier pour l'acquisition id=" + :id+", " + :nomFichier)
+      Logger.Verbose("ParamÃ¨tre le nom de fichier pour l'acquisition id=" + :id+", " + :nomFichier)
       
-      procédure interne fabrique_nomfichier(lecteur_dossiers_nom_extension)
-      	lecteur_dossiers est une chaîne = fExtraitChemin(lecteur_dossiers_nom_extension,fDisque+fRépertoire)
-      	fichier est une chaîne= SansEspace(id) + "_" + fExtraitChemin(lecteur_dossiers_nom_extension,fFichier)
-      	extension est une chaîne = fExtraitChemin(lecteur_dossiers_nom_extension,fExtension)
+      procÃ©dure interne fabrique_nomfichier(lecteur_dossiers_nom_extension)
+      	lecteur_dossiers est une chaÃ®ne = fExtraitChemin(lecteur_dossiers_nom_extension,fDisque+fRÃ©pertoire)
+      	fichier est une chaÃ®ne= SansEspace(id) + "_" + fExtraitChemin(lecteur_dossiers_nom_extension,fFichier)
+      	extension est une chaÃ®ne = fExtraitChemin(lecteur_dossiers_nom_extension,fExtension)
       	renvoyer lecteur_dossiers + "tmp/" + fichier + extension
       fin
      type : 458752
@@ -8717,22 +9091,22 @@ class :
      procedure_id : 1627989847711167977
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalEnregistrement.EcritDansFichier
-      PROCÉDURE  EcritDansFichier(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booléen
+      // RedÃ©finition de la mÃ©thode ISignalEnregistrement.EcritDansFichier
+      PROCÃ‰DURE  EcritDansFichier(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : boolÃ©en
       
       enfile(fileBuffer,el)
       renvoyer vrai
       
       mbuf est un Buffer 
-      Sérialise(el,mbuf,psdXML)
+      SÃ©rialise(el,mbuf,psdXML)
       si pas fEcritLigne(:handleFic, mbuf) alors
-      //hbuf est entier système = &el
+      //hbuf est entier systÃ¨me = &el
       //si fEcrit(:handleFic,hbuf,IAcquisitionSignal.CST_TAILLE_STRUCT)<0 ALORS
-      	LoggerErreur.EcritLigne("Impossible d'écrire l'élément "+el.Index + " dans le fichier " + :nomFichier)
+      	LoggerErreur.EcritLigne("Impossible d'Ã©crire l'Ã©lÃ©ment "+el.Index + " dans le fichier " + :nomFichier)
       	renvoyer faux
       FIN
       
-      Logger.Verbose("Ecriture de l'élément "+el.Index + " dans le fichier " + :nomFichier)
+      Logger.Verbose("Ecriture de l'Ã©lÃ©ment "+el.Index + " dans le fichier " + :nomFichier)
       renvoyer vrai
      type : 458752
   procedure_templates : []
@@ -8745,8 +9119,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-SignalTraitement.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\SignalTraitement.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -8774,7 +9154,7 @@ class :
      procedure_id : 1623474904632050295
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
      type : 589824
    -
@@ -8782,7 +9162,7 @@ class :
      procedure_id : 1623474904632115831
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -8790,8 +9170,8 @@ class :
      procedure_id : 1627220739045436891
      type_code : 12
      code : |1-
-      // Redéfinition de la méthode ISignalTraitement.DemarreAcquisition
-      PROCÉDURE  DemarreAcquisition() :booléen
+      // RedÃ©finition de la mÃ©thode ISignalTraitement.DemarreAcquisition
+      PROCÃ‰DURE  DemarreAcquisition() :boolÃ©en
       
       Logger.Verbose("Demarre acquisition pour le traitement id=" + :id+", ")
       
@@ -8802,8 +9182,8 @@ class :
      procedure_id : 1627220747635439003
      type_code : 12
      code : |1-
-      // Redéfinition de la méthode ISignalTraitement.ArreteAcquisition
-      PROCÉDURE  ArreteAcquisition() :booléen
+      // RedÃ©finition de la mÃ©thode ISignalTraitement.ArreteAcquisition
+      PROCÃ‰DURE  ArreteAcquisition() :boolÃ©en
       
       Logger.Verbose("Arrete acquisition pour le traitement id=" + :id+", ")
       
@@ -8814,8 +9194,8 @@ class :
      procedure_id : 1627977052899360823
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ISignalTraitement.Parametre
-      PROCÉDURE  Parametre(params)
+      // RedÃ©finition de la mÃ©thode ISignalTraitement.Parametre
+      PROCÃ‰DURE  Parametre(params)
       
       Logger.Verbose("Parametre acquisition pour le traitement id=" + :id+", p=" + params)
      type : 458752
@@ -8824,11 +9204,11 @@ class :
      procedure_id : 1627989401034072149
      type_code : 12
      code : |1+
-      procédure Calcule(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booleen
+      procÃ©dure Calcule(el est IAcquisitionSignal.Str_DATA_Acquisition dynamique) : booleen
       
       dim est entier = el.tabBuffer..Occurrence
       pour i=1 _a_ dim
-      	el.tabBuffer[i] += random(1,5)*100//PartieEntière(sinus(i * (20 / dim) * 2 * 180  ) * 1000) + random(1,5)*100
+      	el.tabBuffer[i] += random(1,5)*100//PartieEntiÃ¨re(sinus(i * (20 / dim) * 2 * 180  ) * 1000) + random(1,5)*100
       FIN
       renvoyer vrai
      type : 458752
@@ -8844,8 +9224,14 @@ custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
 associated_test :
  name : TEST_SignalTraitement.wxt
+```
 
-TreuilClient.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\TreuilClient.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -8880,21 +9266,21 @@ class :
       fin
       
       Str_Param_Interne_Treuils est une structure
-      	mTreuilVersion				est une chaîne
-      	mTreuilVersion_DRV_ACQ		est une chaîne
-      	mTreuilVersion_DRV_Arduino	est une chaîne
-      	mTreuilVersion_DRV_BP		est une chaîne
-      	mTreuilVersion_DRV_Capture	est une chaîne
-      	mTreuilVersion_DRV_COD		est une chaîne
-      	mTreuilVersion_DRV_Genere	est une chaîne
-      	mTreuilVersion_DRV_HeureABS	est une chaîne
-      	mTreuilVersion_DRV_Output	est une chaîne
-      	mTreuilVersion_DRV_PWM		est une chaîne
-      	mTreuilIP					est une chaîne
-      	mTreuilType					est une chaîne
+      	mTreuilVersion				est une chaÃ®ne
+      	mTreuilVersion_DRV_ACQ		est une chaÃ®ne
+      	mTreuilVersion_DRV_Arduino	est une chaÃ®ne
+      	mTreuilVersion_DRV_BP		est une chaÃ®ne
+      	mTreuilVersion_DRV_Capture	est une chaÃ®ne
+      	mTreuilVersion_DRV_COD		est une chaÃ®ne
+      	mTreuilVersion_DRV_Genere	est une chaÃ®ne
+      	mTreuilVersion_DRV_HeureABS	est une chaÃ®ne
+      	mTreuilVersion_DRV_Output	est une chaÃ®ne
+      	mTreuilVersion_DRV_PWM		est une chaÃ®ne
+      	mTreuilIP					est une chaÃ®ne
+      	mTreuilType					est une chaÃ®ne
       	mTreuilFreq					est un entier
-      	mTreuilProfondeur			est un réel
-      	mTreuilSens					est une chaîne
+      	mTreuilProfondeur			est un rÃ©el
+      	mTreuilSens					est une chaÃ®ne
       	mTreuilVitesseUp			est un entier
       	mTreuilVitesseDown			est un entier
       	mTreuilMesure				est un entier
@@ -8918,7 +9304,7 @@ class :
      procedure_id : 1877670637109774973
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       Logger.Verbose("construit TreuilER["+:mutex+"]")
       
       :nomThread="thTreuilER"+:id
@@ -8939,21 +9325,21 @@ class :
      procedure_id : 1877670637109840509
      type_code : 28
      code : |1+
-      procédure Destructeur()
-      Logger.Verbose("détruit TreuilER["+:mutex+"]")
+      procÃ©dure Destructeur()
+      Logger.Verbose("dÃ©truit TreuilER["+:mutex+"]")
       
-      libérer :traitement
-      libérer :enregistre
-      libérer :dessine
-      libérer :gestion
+      libÃ©rer :traitement
+      libÃ©rer :enregistre
+      libÃ©rer :dessine
+      libÃ©rer :gestion
      type : 655360
    -
      name : Arrete
      procedure_id : 1877670637109906045
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Arrete
-      PROCÉDURE   Arrete():booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Arrete
+      PROCÃ‰DURE   Arrete():boolÃ©en
       
       Logger.Debug("Arrete TreuilER["+:mutex+"]")
       :ArreteEcouteSocket()
@@ -8964,8 +9350,8 @@ class :
      procedure_id : 1877670637109971581
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Demarre
-      PROCÉDURE   Demarre():booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Demarre
+      PROCÃ‰DURE   Demarre():boolÃ©en
       
       Logger.Debug("Demarre TreuilER["+:mutex+"], thread="+:nomThread)
       :DemarreEcouteSocket()
@@ -8978,8 +9364,8 @@ class :
      procedure_id : 1877670637110037117
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ITreuilRecepteur.ParametreNomFichier
-      PROCÉDURE  ParametreNomFichier(nomFichier est chaîne)
+      // RedÃ©finition de la mÃ©thode ITreuilRecepteur.ParametreNomFichier
+      PROCÃ‰DURE  ParametreNomFichier(nomFichier est chaÃ®ne)
       
       Logger.Log("Nom fichier acquisition Treuil["+ :mutex + "]"+"="+nomFichier)
       :enregistre.Parametre(nomFichier)
@@ -8989,10 +9375,10 @@ class :
      procedure_id : 1877670637110102653
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ITreuilRecepteur.ParametreChampImage
-      PROCÉDURE  ParametreChampImage(paramsImage)
+      // RedÃ©finition de la mÃ©thode ITreuilRecepteur.ParametreChampImage
+      PROCÃ‰DURE  ParametreChampImage(paramsImage)
       
-      Logger.Log("Démarre l'acquisition pour le Treuil["+ :mutex + "]")
+      Logger.Log("DÃ©marre l'acquisition pour le Treuil["+ :mutex + "]")
       :dessine.Parametre(paramsImage)
      type : 458752
    -
@@ -9000,10 +9386,10 @@ class :
      procedure_id : 1877670637110168189
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ITreuilRecepteur.ParametreTraitement
-      PROCÉDURE  ParametreTraitement(params)
+      // RedÃ©finition de la mÃ©thode ITreuilRecepteur.ParametreTraitement
+      PROCÃ‰DURE  ParametreTraitement(params)
       
-      Logger.Log("Paramètre le traitement de l'acquisition pour le Treuil["+ :mutex + "]")
+      Logger.Log("ParamÃ¨tre le traitement de l'acquisition pour le Treuil["+ :mutex + "]")
       :traitement.Parametre(params)
      type : 458752
    -
@@ -9011,10 +9397,10 @@ class :
      procedure_id : 1877670637110233725
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ITreuilRecepteur.DemarreAcquisition
-      PROCÉDURE  DemarreAcquisition() : booléen
+      // RedÃ©finition de la mÃ©thode ITreuilRecepteur.DemarreAcquisition
+      PROCÃ‰DURE  DemarreAcquisition() : boolÃ©en
       
-      Logger.Log("Démarre l'acquisition pour le Treuil["+ :mutex + "]")
+      Logger.Log("DÃ©marre l'acquisition pour le Treuil["+ :mutex + "]")
       
       SI PAS :gestion.DemarreAcquisition() RENVOYER Faux
       SI PAS :enregistre.DemarreAcquisition() RENVOYER Faux
@@ -9028,10 +9414,10 @@ class :
      procedure_id : 1877670637110299261
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ITreuilRecepteur.ArreteAcquisition
-      PROCÉDURE  ArreteAcquisition() : booléen
+      // RedÃ©finition de la mÃ©thode ITreuilRecepteur.ArreteAcquisition
+      PROCÃ‰DURE  ArreteAcquisition() : boolÃ©en
       
-      Logger.Log("Arrête l'acquisition pour le treuil["+ :mutex + "]")
+      Logger.Log("ArrÃªte l'acquisition pour le treuil["+ :mutex + "]")
       
       :gestion.ArreteAcquisition()
       :enregistre.ArreteAcquisition()
@@ -9045,8 +9431,8 @@ class :
      procedure_id : 1877670637110364797
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode ITreuilClient.ParseDonnees
-      PROCÉDURE ParseDonnees(buf est un Buffer)
+      // RedÃ©finition de la mÃ©thode ITreuilClient.ParseDonnees
+      PROCÃ‰DURE ParseDonnees(buf est un Buffer)
       
       _TreuilsSockParse_SC(buf)
      type : 458752
@@ -9055,9 +9441,9 @@ class :
      procedure_id : 1877670637110430333
      type_code : 12
      code : |1+
-      procédure privée threadTraitement(id,nomThread est chaine, procArretDemandé est une procédure)
+      procÃ©dure privÃ©e threadTraitement(id,nomThread est chaine, procArretDemandÃ© est une procÃ©dure)
       
-      Logger.Debug(ChaîneConstruit("Lance le thread de traitement id=%1",id))
+      Logger.Debug(ChaÃ®neConstruit("Lance le thread de traitement id=%1",id))
       
       quand exception
       	LoggerErreur.EcritLigne("Exception dans le traitement " + ExceptionInfo(errMessage))
@@ -9093,15 +9479,15 @@ class :
       
       QUAND EXCEPTION DANS
       	nbMsg				est un entier	= Taille(_buffer)/::Size_MSG_Socket_RX
-      	sVariable_Message	est une chaîne
-      	sContenu_Message	est une chaîne
-      	sVariable_AR		est une chaîne
-      	sContenu_AR			est une chaîne
+      	sVariable_Message	est une chaÃ®ne
+      	sContenu_Message	est une chaÃ®ne
+      	sVariable_AR		est une chaÃ®ne
+      	sContenu_AR			est une chaÃ®ne
       	
       	POUR i = 1 A nbMsg
       		
-      		sVariable_Message = ExtraitChaîne(_buffer[[((1+(i-1)*::Size_MSG_Socket_RX)) A (i*::Size_MSG_Socket_RX)]],1,::CST_SOCKMSG_SEP)
-      		sContenu_Message = ExtraitChaîne(_buffer[[((1+(i-1)*::Size_MSG_Socket_RX)) A (i*::Size_MSG_Socket_RX)]],2,::CST_SOCKMSG_SEP)	
+      		sVariable_Message = ExtraitChaÃ®ne(_buffer[[((1+(i-1)*::Size_MSG_Socket_RX)) A (i*::Size_MSG_Socket_RX)]],1,::CST_SOCKMSG_SEP)
+      		sContenu_Message = ExtraitChaÃ®ne(_buffer[[((1+(i-1)*::Size_MSG_Socket_RX)) A (i*::Size_MSG_Socket_RX)]],2,::CST_SOCKMSG_SEP)	
       		
       		SELON sVariable_Message
       			CAS "STATUS","TEMP"
@@ -9126,8 +9512,8 @@ class :
       				gestion_msg()
       				
       			CAS "EVT"
-      				sVariable_AR = ExtraitChaîne(sContenu_Message[[1 A (::Size_MSG_Socket_RX-5)]],1,"=")
-      				sContenu_AR = ExtraitChaîne(sContenu_Message[[1 A (::Size_MSG_Socket_RX-5)]],2,"=")
+      				sVariable_AR = ExtraitChaÃ®ne(sContenu_Message[[1 A (::Size_MSG_Socket_RX-5)]],1,"=")
+      				sContenu_AR = ExtraitChaÃ®ne(sContenu_Message[[1 A (::Size_MSG_Socket_RX-5)]],2,"=")
       				SELON sVariable_AR
       					CAS "STOP"
       						gestion_event_stop()
@@ -9146,13 +9532,13 @@ class :
       				SI (Taille(sContenu_Message) = 16) ALORS
       					Logger.Log("Client["+:canalSocket+","+:ip+"]+_COMM_:_ "+sVariable_Message+"_:_"+sContenu_Message)
       				SINON
-      					Logger.Log("Client["+:canalSocket+","+:ip+"]+_COMM_:_"+"Erreur Réception Contenu_Message")
+      					Logger.Log("Client["+:canalSocket+","+:ip+"]+_COMM_:_"+"Erreur RÃ©ception Contenu_Message")
       				FIN
       				
       			AUTRE CAS
       				LoggerErreur.EcritLigne("Variable :"+sVariable_Message)
       				LoggerErreur.EcritLigne("Contenu :"+sContenu_Message)
-      				LoggerErreur.EcritLigne(ChaîneConstruit("[%1%][%2]_:_Erreur Réception Contenu_Message",:ip,:id))
+      				LoggerErreur.EcritLigne(ChaÃ®neConstruit("[%1%][%2]_:_Erreur RÃ©ception Contenu_Message",:ip,:id))
       		FIN	
       	FIN
       	
@@ -9161,39 +9547,39 @@ class :
       	LoggerErreur.EcritLigne("exception dans _TreuilsSockParse")
       FIN
       
-      	procédure interne M(var)
-      		renvoyer ChaîneConstruit("{%1}{%2}{%3}",var,:canalSocket,:ip)
+      	procÃ©dure interne M(var)
+      		renvoyer ChaÃ®neConstruit("{%1}{%2}{%3}",var,:canalSocket,:ip)
       	FIN
       
-      	procédure interne gestion_deconnexion()
+      	procÃ©dure interne gestion_deconnexion()
       		SELON sContenu_Message					
       			CAS "exit.From.PC"
-      				Logger.Message(M(sContenu_Message)+"Sortie de l’application suite à la demande provenant du PC Serveur")	
+      				Logger.Message(M(sContenu_Message)+"Sortie de lâ€™application suite Ã  la demande provenant du PC Serveur")	
       			CAS "exit.From.PEGASE"
-      				Logger.Message(M(sContenu_Message)+"Sortie de l'application suite à la demande provenant de l’application Cliente µC")	
+      				Logger.Message(M(sContenu_Message)+"Sortie de l'application suite Ã  la demande provenant de lâ€™application Cliente ÂµC")	
       			CAS "exit.From.REBOOT"
-      				Logger.Message(M(sContenu_Message)+"Sortie de l'application suite à la demande provenant d'un Reboot du µC")	
+      				Logger.Message(M(sContenu_Message)+"Sortie de l'application suite Ã  la demande provenant d'un Reboot du ÂµC")	
       			AUTRE CAS
-      				Logger.Message(M(sContenu_Message)+"Sortie de l'application suite à la demande provenant de source inconnue")	
+      				Logger.Message(M(sContenu_Message)+"Sortie de l'application suite Ã  la demande provenant de source inconnue")	
       		FIN
       	fin
       
-      	procédure interne gestion_erreur()
+      	procÃ©dure interne gestion_erreur()
       		
-      		sVariable_AR	= ExtraitChaîne(sContenu_Message[[1 À (::Size_MSG_Socket_RX-5)]],1,"=")
-      		sContenu_AR		= ExtraitChaîne(sContenu_Message[[1 À (::Size_MSG_Socket_RX-5)]],2,"=")	
+      		sVariable_AR	= ExtraitChaÃ®ne(sContenu_Message[[1 Ã€ (::Size_MSG_Socket_RX-5)]],1,"=")
+      		sContenu_AR		= ExtraitChaÃ®ne(sContenu_Message[[1 Ã€ (::Size_MSG_Socket_RX-5)]],2,"=")	
       		SELON sVariable_AR
       			CAS "ARRT"
       				SI sContenu_AR = "PILE---WIFI" ALORS						
       					LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"] Erreur de transmission WIFI")
-      					LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"] Erreur de transmission du buffer d’acquisition par la socket, le treuil arrête l’acquisition pour éviter un plantage")
+      					LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"] Erreur de transmission du buffer dâ€™acquisition par la socket, le treuil arrÃªte lâ€™acquisition pour Ã©viter un plantage")
       				FIN
       			CAS "IDENT"
       				SI sContenu_AR = "NoCOMP" ALORS
       					LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"]+Communication 1-Wire ne voit aucun composant compatible")
       				FIN	
       				SI sContenu_AR = "COMPNonAdresse" ALORS
-      					LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"]+Communication 1-Wire ne reconnaît pas le composant")
+      					LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"]+Communication 1-Wire ne reconnaÃ®t pas le composant")
       				FIN	
       			CAS "MESURE"
       				SI sContenu_AR = "SENS--COD" ALORS
@@ -9201,22 +9587,22 @@ class :
       				FIN	
       			CAS "VITESSE"
       				SI sContenu_AR = "NONSPECIF" ALORS
-      					LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"] Pas de vitesse configurée")
+      					LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"] Pas de vitesse configurÃ©e")
       				FIN	
       			CAS "MOTEUR"
       				SI sContenu_AR = "BLOQ--MOT" ALORS							
-      					LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"] Blocage moteur, aucune rotation détectée")
+      					LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"] Blocage moteur, aucune rotation dÃ©tectÃ©e")
       				FIN
       			CAS "GOTO"
       				SI sContenu_AR = "NON-ATTEINT" ALORS
-      					LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"] Arrêt moteur alors que la destination du GOTO n’a pas été atteinte")
+      					LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"] ArrÃªt moteur alors que la destination du GOTO nâ€™a pas Ã©tÃ© atteinte")
       				FIN
       			AUTRE CAS
       				LoggerErreur.EcritLigne("Client["+:canalSocket+","+:ip+"] var:_ "+sVariable_AR+"_:_"+sContenu_AR)
       		FIN
       	fin
       
-      	procédure interne gestion_type_treuil()
+      	procÃ©dure interne gestion_type_treuil()
       		SI PAS Contient(sContenu_Message, "@") ALORS
       			
       			SI Contient(sContenu_Message, ::SOCKREP_TYPE_TREUIL_EMETEUR) ALORS
@@ -9235,25 +9621,25 @@ class :
       		FIN
       	fin
       
-      	procédure interne gestion_ravs()
-      		sVariable_AR	= ExtraitChaîne(sContenu_Message[[1 À (::Size_MSG_Socket_RX-5)]],1,"=")
-      		sContenu_AR		= ExtraitChaîne(sContenu_Message[[1 À (::Size_MSG_Socket_RX-5)]],2,"=")
+      	procÃ©dure interne gestion_ravs()
+      		sVariable_AR	= ExtraitChaÃ®ne(sContenu_Message[[1 Ã€ (::Size_MSG_Socket_RX-5)]],1,"=")
+      		sContenu_AR		= ExtraitChaÃ®ne(sContenu_Message[[1 Ã€ (::Size_MSG_Socket_RX-5)]],2,"=")
       		//				SELON sVariable_AR								
       		//					CAS "1"
       		//						si Gtab_Liste_Client[nIndiceListeClient].NumeroTreuil = 1 ALORS
       		//							Param_Interne_Treuils.mTreuilIP=Gtab_Liste_Client[nIndiceListeClient].IP_Client
       		//							Param_Interne_Treuils.mTreuilType=Gtab_Liste_Client[nIndiceListeClient].Type_Client
       		//							
-      		//							Param_Interne_Treuils.mTreuilVersion=ExtraitChaîne(sContenu_AR,1,"-")
+      		//							Param_Interne_Treuils.mTreuilVersion=ExtraitChaÃ®ne(sContenu_AR,1,"-")
       		//							GG_AVS.iVersionT1 = val(Param_Interne_Treuils.mTreuilVersion)*100
-      		//							Param_Interne_Treuils.mTreuilFreq=Val(ExtraitChaîne(sContenu_AR,2,"-"))
+      		//							Param_Interne_Treuils.mTreuilFreq=Val(ExtraitChaÃ®ne(sContenu_AR,2,"-"))
       		//							SI GG_treuilss[CST_SOCK_TREUIL_EMETEUR].NumeroTreuil = 1 ALORS
-      		//								Param_Interne_Treuils.Energie=Val(ExtraitChaîne(sContenu_AR,3,"-"))
+      		//								Param_Interne_Treuils.Energie=Val(ExtraitChaÃ®ne(sContenu_AR,3,"-"))
       		//							SINON
-      		//								Param_Interne_Treuils.Gain=Val(ExtraitChaîne(sContenu_AR,3,"-"))
+      		//								Param_Interne_Treuils.Gain=Val(ExtraitChaÃ®ne(sContenu_AR,3,"-"))
       		//							FIN							
-      		//							si Val(ExtraitChaîne(sContenu_AR,4,"-")) = 0 alors 
-      		//								Param_Interne_Treuils.mTreuilSens="Montée"
+      		//							si Val(ExtraitChaÃ®ne(sContenu_AR,4,"-")) = 0 alors 
+      		//								Param_Interne_Treuils.mTreuilSens="MontÃ©e"
       		//							sinon
       		//								Param_Interne_Treuils.mTreuilSens="Descente"
       		//							FIN
@@ -9261,16 +9647,16 @@ class :
       		//							Param_Interne_Treuils.T2_IP=Gtab_Liste_Client[nIndiceListeClient].IP_Client
       		//							Param_Interne_Treuils.T2_Type=Gtab_Liste_Client[nIndiceListeClient].Type_Client
       		//							
-      		//							Param_Interne_Treuils.T2_Version=ExtraitChaîne(sContenu_AR,1,"-")
+      		//							Param_Interne_Treuils.T2_Version=ExtraitChaÃ®ne(sContenu_AR,1,"-")
       		//							GG_AVS.iVersionT2 = Val(Param_Interne_Treuils.T2_Version)*100
-      		//							Param_Interne_Treuils.T2_Freq=Val(ExtraitChaîne(sContenu_AR,2,"-"))
+      		//							Param_Interne_Treuils.T2_Freq=Val(ExtraitChaÃ®ne(sContenu_AR,2,"-"))
       		//							SI GG_treuilss[CST_SOCK_TREUIL_EMETEUR].NumeroTreuil = 2 ALORS
-      		//								Param_Interne_Treuils.Energie=Val(ExtraitChaîne(sContenu_AR,3,"-"))
+      		//								Param_Interne_Treuils.Energie=Val(ExtraitChaÃ®ne(sContenu_AR,3,"-"))
       		//							SINON
-      		//								Param_Interne_Treuils.Gain=Val(ExtraitChaîne(sContenu_AR,3,"-"))
+      		//								Param_Interne_Treuils.Gain=Val(ExtraitChaÃ®ne(sContenu_AR,3,"-"))
       		//							FIN
-      		//							SI Val(ExtraitChaîne(sContenu_AR,4,"-")) = 0 ALORS 
-      		//								Param_Interne_Treuils.T2_Sens="Montée"
+      		//							SI Val(ExtraitChaÃ®ne(sContenu_AR,4,"-")) = 0 ALORS 
+      		//								Param_Interne_Treuils.T2_Sens="MontÃ©e"
       		//							SINON
       		//								Param_Interne_Treuils.T2_Sens="Descente"
       		//							FIN
@@ -9279,15 +9665,15 @@ class :
       		//					CAS "2"
       		//						Gn_REP_QAVS++			
       		//						SI Gtab_Liste_Client[nIndiceListeClient].NumeroTreuil = 1 ALORS
-      		//							Param_Interne_Treuils.mTreuilProfondeur=Val(ExtraitChaîne(sContenu_AR,1,"*"))/2
-      		//							Param_Interne_Treuils.mTreuilVitesseUp=Val(Gauche(ExtraitChaîne(sContenu_AR,2,"*"),2))
-      		//							Param_Interne_Treuils.mTreuilVitesseDown=Val(Droite(Gauche(ExtraitChaîne(sContenu_AR,2,"*"),4),2))
-      		//							Param_Interne_Treuils.mTreuilMesure=Val(Droite(Gauche(ExtraitChaîne(sContenu_AR,2,"*"),6),2))	
+      		//							Param_Interne_Treuils.mTreuilProfondeur=Val(ExtraitChaÃ®ne(sContenu_AR,1,"*"))/2
+      		//							Param_Interne_Treuils.mTreuilVitesseUp=Val(Gauche(ExtraitChaÃ®ne(sContenu_AR,2,"*"),2))
+      		//							Param_Interne_Treuils.mTreuilVitesseDown=Val(Droite(Gauche(ExtraitChaÃ®ne(sContenu_AR,2,"*"),4),2))
+      		//							Param_Interne_Treuils.mTreuilMesure=Val(Droite(Gauche(ExtraitChaÃ®ne(sContenu_AR,2,"*"),6),2))	
       		//						SINON
-      		//							Param_Interne_Treuils.T2_Profondeur=Val(ExtraitChaîne(sContenu_AR,1,"*"))/2
-      		//							Param_Interne_Treuils.T2_VitesseUp=Val(Gauche(ExtraitChaîne(sContenu_AR,2,"*"),2))
-      		//							Param_Interne_Treuils.T2_VitesseDown=Val(Droite(Gauche(ExtraitChaîne(sContenu_AR,2,"*"),4),2))
-      		//							Param_Interne_Treuils.T2_Mesure=Val(Droite(Gauche(ExtraitChaîne(sContenu_AR,2,"*"),6),2))				
+      		//							Param_Interne_Treuils.T2_Profondeur=Val(ExtraitChaÃ®ne(sContenu_AR,1,"*"))/2
+      		//							Param_Interne_Treuils.T2_VitesseUp=Val(Gauche(ExtraitChaÃ®ne(sContenu_AR,2,"*"),2))
+      		//							Param_Interne_Treuils.T2_VitesseDown=Val(Droite(Gauche(ExtraitChaÃ®ne(sContenu_AR,2,"*"),4),2))
+      		//							Param_Interne_Treuils.T2_Mesure=Val(Droite(Gauche(ExtraitChaÃ®ne(sContenu_AR,2,"*"),6),2))				
       		//						FIN	
       		//						Param_Interne_Treuils.ValT0 = G_AVST0
       		//					CAS "3"
@@ -9328,9 +9714,9 @@ class :
       		Logger.Log("Client["+:canalSocket+","+:ip+"]+_RAVS:_ "+sVariable_AR+"_:_"+sContenu_AR)
       	fin
       
-      	procédure interne gestion_rpar()
-      		sVariable_AR	= ExtraitChaîne(sContenu_Message[[1 À (::Size_MSG_Socket_RX-5)]],1,"=")
-      		sContenu_AR		= ExtraitChaîne(sContenu_Message[[1 À (::Size_MSG_Socket_RX-5)]],2,"=")
+      	procÃ©dure interne gestion_rpar()
+      		sVariable_AR	= ExtraitChaÃ®ne(sContenu_Message[[1 Ã€ (::Size_MSG_Socket_RX-5)]],1,"=")
+      		sContenu_AR		= ExtraitChaÃ®ne(sContenu_Message[[1 Ã€ (::Size_MSG_Socket_RX-5)]],2,"=")
       		SELON sVariable_AR
       		//CAS "ARRT"
       			//MAJ_AFF_TRAME_SOCKET(0,"Energie _:"+Gauche(sContenu_AR,2))				 											
@@ -9354,8 +9740,8 @@ class :
       				
       			CAS "EMT"
       				t est Str_DATA_Emet_t
-      				t.Index		= Val(ExtraitChaîne(sContenu_AR,1,"-"))
-      				t.POS_EMET	= Val(ExtraitChaîne(sContenu_AR,2,"-"))
+      				t.Index		= Val(ExtraitChaÃ®ne(sContenu_AR,1,"-"))
+      				t.POS_EMET	= Val(ExtraitChaÃ®ne(sContenu_AR,2,"-"))
       				:Param_Interne_Treuils.mTreuilProfondeur = t.POS_EMET
       				Enfile(fileBufferEmet,t)
       				
@@ -9364,41 +9750,41 @@ class :
       		FIN	
       	fin
       
-      	procédure interne gestion_event_stop()
+      	procÃ©dure interne gestion_event_stop()
       		StopFROM est entier = Val(Droite(sContenu_AR,2))
       		SELON StopFROM							
       			CAS ::CST_STOPFROM_ARRIVEAFTERGOTO
-      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrêt moteur : ARRIVED_AFTER_GOTO")
+      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrÃªt moteur : ARRIVED_AFTER_GOTO")
       			CAS	::CST_STOPFROM_FINCALIB
-      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrêt moteur : FIN_CALIBRATION")
+      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrÃªt moteur : FIN_CALIBRATION")
       			CAS	::CST_STOPFROM_PWMNULLE
-      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrêt moteur : PWM_NULLE")
+      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrÃªt moteur : PWM_NULLE")
       			CAS ::CST_STOPFROM_CONFIGSENS
-      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrêt moteur : CONFIG_SENS")
+      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrÃªt moteur : CONFIG_SENS")
       			CAS ::CST_STOPFROM_ERRSENS
-      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrêt moteur : Erreur SENS")
+      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrÃªt moteur : Erreur SENS")
       			CAS ::CST_STOPFROM_BP
-      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrêt moteur : Bouton Poussoir")
+      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrÃªt moteur : Bouton Poussoir")
       			CAS ::CST_STOPFROM_CLOSEPWM
-      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrêt moteur : Fin PWM")
+      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrÃªt moteur : Fin PWM")
       			CAS ::CST_STOPFROM_AU
-      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrêt moteur : Arret d'Urgence")
+      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrÃªt moteur : Arret d'Urgence")
       			CAS ::CST_STOPFROM_ERRCALIB
-      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrêt moteur : Erreur CALIBRATION")	
+      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrÃªt moteur : Erreur CALIBRATION")	
       			CAS ::CST_STOPFROM_ERRGOTO
-      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrêt moteur : Erreur GOTO")
+      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrÃªt moteur : Erreur GOTO")
       			CAS ::CST_STOPFROM_CMDSOCKET
-      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrêt moteur : Depuis PC")
+      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrÃªt moteur : Depuis PC")
       			CAS ::CST_STOPFROM_BLOCAGEMOTEUR
-      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrêt moteur : Blocage Moteur")		
+      				Logger.Message(M("EVT_STOP_"+StopFROM)+"Source de l'arrÃªt moteur : Blocage Moteur")		
       			AUTRE CAS
-      				Logger.Message(M("EVT_STOP_")+"Source de l'arrêt moteur inconnu")
+      				Logger.Message(M("EVT_STOP_")+"Source de l'arrÃªt moteur inconnu")
       		FIN
       	fin
       
-      	procédure interne gestion_msg()
-      		sVariable_AR	= ExtraitChaîne(sContenu_Message[[1 À (::Size_MSG_Socket_RX-5)]],1,"=")
-      		sContenu_AR		= ExtraitChaîne(sContenu_Message[[1 À (::Size_MSG_Socket_RX-5)]],2,"=")
+      	procÃ©dure interne gestion_msg()
+      		sVariable_AR	= ExtraitChaÃ®ne(sContenu_Message[[1 Ã€ (::Size_MSG_Socket_RX-5)]],1,"=")
+      		sContenu_AR		= ExtraitChaÃ®ne(sContenu_Message[[1 Ã€ (::Size_MSG_Socket_RX-5)]],2,"=")
       		//Trace(Gtab_Liste_Client[nIndiceListeClient].Nom_Client+"_MSG:_ "+sVariable_AR+"_:_"+sContenu_AR)
       		SELON sVariable_AR
       			CAS "MESURE"					
@@ -9413,27 +9799,27 @@ class :
       		FIN
       	fin
       
-      	procédure interne gestion_event_btnp()
+      	procÃ©dure interne gestion_event_btnp()
       		SI sContenu_AR = "FROM-----UP" ALORS
-      			Logger.Message(M("EVT_BTNP_"+sContenu_AR)+"Appui sur le bouton de montée")
+      			Logger.Message(M("EVT_BTNP_"+sContenu_AR)+"Appui sur le bouton de montÃ©e")
       		FIN	
       		SI sContenu_AR = "FROM---DOWN" ALORS
       			Logger.Message(M("EVT_BTNP_"+sContenu_AR)+"Appui sur le bouton de descente")
       		FIN	
       		SI sContenu_AR = "FROM-----AU" ALORS							
-      			Logger.Message(M("EVT_BTNP_"+sContenu_AR)+"Appui sur le bouton d’arrêt d’urgence")
+      			Logger.Message(M("EVT_BTNP_"+sContenu_AR)+"Appui sur le bouton dâ€™arrÃªt dâ€™urgence")
       		FIN
       	fin
       
-      	procédure interne gestion_event_btnr()
+      	procÃ©dure interne gestion_event_btnr()
       		SI sContenu_AR = "FROM-----UP" ALORS
-      			Logger.Message(M("EVT_BTNP_"+sContenu_AR)+"Relâche du bouton de montée")
+      			Logger.Message(M("EVT_BTNP_"+sContenu_AR)+"RelÃ¢che du bouton de montÃ©e")
       		FIN	
       		SI sContenu_AR = "FROM---DOWN" ALORS
-      			Logger.Message(M("EVT_BTNP_"+sContenu_AR)+"Relâche du bouton de descente")
+      			Logger.Message(M("EVT_BTNP_"+sContenu_AR)+"RelÃ¢che du bouton de descente")
       		FIN	
       		SI sContenu_AR = "FROM-----AU" ALORS
-      			Logger.Message(M("EVT_BTNP_"+sContenu_AR)+"Relâche du bouton d’arrêt d’urgence")
+      			Logger.Message(M("EVT_BTNP_"+sContenu_AR)+"RelÃ¢che du bouton dâ€™arrÃªt dâ€™urgence")
       		FIN
       	fin
      type : 458752
@@ -9448,8 +9834,14 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
-TreuilConnexion.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\TreuilConnexion.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -9469,7 +9861,7 @@ class :
      code : |1+
       TreuilConnexion est une Classe
       	herite de IConnexionClientSocket
-      privé
+      privÃ©
       	clients est un tableau associatif de ITreuilClient dynamique
       fin
      type : 131072
@@ -9479,7 +9871,7 @@ class :
      procedure_id : 1623474479427501984
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       
       Logger.Verbose("construit TreuilConnexion["+:mutex+"]")
      type : 589824
@@ -9488,9 +9880,9 @@ class :
      procedure_id : 1623474479427567520
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
-      Logger.Verbose("détruit TreuilConnexion["+:mutex+"]")
+      Logger.Verbose("dÃ©truit TreuilConnexion["+:mutex+"]")
      type : 655360
    -
      name : AjouteClient
@@ -9498,11 +9890,11 @@ class :
      procedure_id : 1623562577806767593
      type_code : 12
      code : |1+
-      procédure AjouteClient(client IClientSocket dynamique):booléen
+      procÃ©dure AjouteClient(client IClientSocket dynamique):boolÃ©en
       
       m est un MutexHelper(:mutex)
-      :clients.Insère(client.id, client)
-      Logger.Verbose(ChaîneConstruit("TreuilConnexion["+:mutex+"] Insère le client[%1]=%2,%3",client.nomThread,client.ip,client.canalSocket))
+      :clients.InsÃ¨re(client.id, client)
+      Logger.Verbose(ChaÃ®neConstruit("TreuilConnexion["+:mutex+"] InsÃ¨re le client[%1]=%2,%3",client.nomThread,client.ip,client.canalSocket))
       renvoyer vrai
      type : 458752
    -
@@ -9511,11 +9903,11 @@ class :
      procedure_id : 1623562612166579638
      type_code : 12
      code : |1+
-      procédure SupprimeClient(client IClientSocket dynamique):booléen
+      procÃ©dure SupprimeClient(client IClientSocket dynamique):boolÃ©en
       
       m est un MutexHelper(:mutex)
       SI :clients[client.id]..Existe ALORS
-      	Logger.Verbose(ChaîneConstruit("TreuilConnexion["+:mutex+"] Supprime le client[%1]=%2,%3",client.nomThread,client.ip,client.canalSocket))
+      	Logger.Verbose(ChaÃ®neConstruit("TreuilConnexion["+:mutex+"] Supprime le client[%1]=%2,%3",client.nomThread,client.ip,client.canalSocket))
       	:clients.Supprime(client.id)
       	RENVOYER Vrai
       fin
@@ -9526,19 +9918,19 @@ class :
      procedure_id : 1624686154171345770
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Demarre
-      PROCÉDURE Demarre():booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Demarre
+      PROCÃ‰DURE Demarre():boolÃ©en
       
-      Logger.Debug(ChaîneConstruit("TreuilConnexion["+:mutex+"] démarre la socket %1, %2, %3",:NomSocket,:portSocket,:AdresseSocketServer))
+      Logger.Debug(ChaÃ®neConstruit("TreuilConnexion["+:mutex+"] dÃ©marre la socket %1, %2, %3",:NomSocket,:portSocket,:AdresseSocketServer))
       
-      si SocketCrée(:NomSocket,:portSocket,:AdresseSocketServer) ALORS
+      si SocketCrÃ©e(:NomSocket,:portSocket,:AdresseSocketServer) ALORS
       	SocketChangeModeTransmission(:NomSocket, SocketSansMarqueurFin)
-      	Logger.Debug("Création de la socket "+:NomSocket)
+      	Logger.Debug("CrÃ©ation de la socket "+:NomSocket)
       	:DemarreEcouteSocket()
       	RENVOYER Vrai
       fin
       
-      LoggerErreur.EcritLigne("Impossible de créer la socket "+ErreurInfo(errMessage))
+      LoggerErreur.EcritLigne("Impossible de crÃ©er la socket "+ErreurInfo(errMessage))
       RENVOYER Faux
      type : 458752
    -
@@ -9546,10 +9938,10 @@ class :
      procedure_id : 1643608238200826745
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.Arrete
-      PROCÉDURE VIRTUELLE Arrete():booléen
+      // RedÃ©finition de la mÃ©thode IClientSocket.Arrete
+      PROCÃ‰DURE VIRTUELLE Arrete():boolÃ©en
       
-      Logger.Debug(ChaîneConstruit("Arrete TreuilConnexion["+:mutex+"] la socket %1",:NomSocket))
+      Logger.Debug(ChaÃ®neConstruit("Arrete TreuilConnexion["+:mutex+"] la socket %1",:NomSocket))
       
       :ArreteEcouteSocket()
       
@@ -9570,10 +9962,10 @@ class :
      procedure_id : 1643608401409688092
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IClientSocket.EcouteSocket
-      PROCÉDURE VIRTUELLE EcouteSocket()
+      // RedÃ©finition de la mÃ©thode IClientSocket.EcouteSocket
+      PROCÃ‰DURE VIRTUELLE EcouteSocket()
       
-      si pas :arretDemandé alors
+      si pas :arretDemandÃ© alors
       	SI SocketAttendConnexion(:NomSocket,:portSocket) ALORS
       		si _VerifieDemande() alors
       			canal est chaine = SocketAccepte(:NomSocket)
@@ -9600,7 +9992,7 @@ class :
      procedure_id : 1643608452949438091
      type_code : 12
      code : |1+
-      procédure privée _VerifieDemande() : booléen
+      procÃ©dure privÃ©e _VerifieDemande() : boolÃ©en
       
       SELON :portSocket
       	cas val(FabriqueClient.PortEnum.portTreuil):
@@ -9619,8 +10011,8 @@ class :
      procedure_id : 1625384752065244144
      type_code : 12
      code : |1+
-      // Redéfinition de la méthode IConnexionClientSocket.RecupereClients
-      PROCÉDURE  RecupereClients() : tableau de IClientSocket dynamique
+      // RedÃ©finition de la mÃ©thode IConnexionClientSocket.RecupereClients
+      PROCÃ‰DURE  RecupereClients() : tableau de IClientSocket dynamique
       
       t est tableau de IClientSocket dynamique
       
@@ -9638,7 +10030,7 @@ class :
      p_codes :
       -
         code : |1+
-         procédure protégée server() : IConnexionClientSocket
+         procÃ©dure protÃ©gÃ©e server() : IConnexionClientSocket
          
          renvoyer ServeurConnexion.MonInstance
         type : 1966080
@@ -9655,8 +10047,14 @@ custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
 associated_test :
  name : TEST_TreuilConnexion.wxt
+```
 
-WD_DualAxisChart.wdc
+
+---
+
+## Mes Projets\repo\avsp_server\src\WD_DualAxisChart.wdc
+
+```wlanguage
 #To edit and compare internal_properties, use WINDEV integrated tools.
 #Internal properties refer to the properties of controls in windows, reports, etc.
 info :
@@ -9687,11 +10085,11 @@ class :
       	fenetreY		est un real		= 10
       	autoScroll		est un boolean	= True
       	
-      	// callback (événement)
+      	// callback (Ã©vÃ©nement)
       	EventCurseur is Procedure(STC_CurseurEventArgs)
       fin
       
-      ModeCurseur est une énumération
+      ModeCurseur est une Ã©numÃ©ration
       	Aucun	= 0
       	Ligne	= 1
       	Zone	= 2
@@ -9720,7 +10118,7 @@ class :
      procedure_id : 1853203131811315716
      type_code : 27
      code : |1+
-      procédure Constructeur()
+      procÃ©dure Constructeur()
       _modeCurseur = ModeCurseur.Aucun
      type : 589824
    -
@@ -9728,7 +10126,7 @@ class :
      procedure_id : 1853203131811381252
      type_code : 28
      code : |1+
-      procédure Destructeur()
+      procÃ©dure Destructeur()
       
      type : 655360
    -
@@ -9736,7 +10134,7 @@ class :
      procedure_id : 1853203264955464136
      type_code : 12
      code : |1+
-      procédure Init(champ)
+      procÃ©dure Init(champ)
       chart		= champ //new 'System.Windows.Forms.DataVisualization.Charting'.Chart
       chartArea	= new 'System.Windows.Forms.DataVisualization.Charting'.ChartArea("MainArea"+champ..Nom)
       chart:ChartAreas:Add(chartArea)
@@ -9767,11 +10165,11 @@ class :
      procedure_id : 1853203355149798008
      type_code : 12
      code : |1+
-      // Résumé : <indiquez ici ce que fait la procédure>
+      // RÃ©sumÃ© : <indiquez ici ce que fait la procÃ©dure>
       // Syntaxe :
       // ConfigurerGraphique ()
       //
-      // Paramètres :
+      // ParamÃ¨tres :
       //	Aucun
       // Valeur de retour :
       // 	Aucune
@@ -9779,7 +10177,7 @@ class :
       // Exemple :
       // <Indiquez ici un exemple d'utilisation>
       //
-      procédure ConfigurerGraphique(titre, nomY, uniteY, minY, maxY, inverseY)
+      procÃ©dure ConfigurerGraphique(titre, nomY, uniteY, minY, maxY, inverseY)
       
       chart:Titles:Add(titre)
       
@@ -9794,7 +10192,7 @@ class :
      procedure_id : 1853203436754261434
      type_code : 12
      code : |1+
-      procédure ConfigurerSerie1(nom, minX, maxX, couleur est chaine)//r est un int, g est un int, b est un int)
+      procÃ©dure ConfigurerSerie1(nom, minX, maxX, couleur est chaine)//r est un int, g est un int, b est un int)
       
       serie1:Name				= nom
       
@@ -9812,7 +10210,7 @@ class :
      procedure_id : 1853203509768787846
      type_code : 12
      code : |1+
-      procédure ConfigurerSerie2(nom, minX, maxX, couleur est chaine)
+      procÃ©dure ConfigurerSerie2(nom, minX, maxX, couleur est chaine)
       
       serie2:Name					= nom
       
@@ -9832,7 +10230,7 @@ class :
      procedure_id : 1853203694452555880
      type_code : 12
      code : |1+
-      procédure AjouterPointSerie1(positionY, valeurX)
+      procÃ©dure AjouterPointSerie1(positionY, valeurX)
       
       serie1:Points:AddXY(valeurX, positionY)
       Scrolling(positionY)
@@ -9842,7 +10240,7 @@ class :
      procedure_id : 1853203776057018899
      type_code : 12
      code : |1+
-      procédure AjouterPointSerie2(positionY, valeurX)
+      procÃ©dure AjouterPointSerie2(positionY, valeurX)
       
       serie2:Points:AddXY(valeurX, positionY)
       Scrolling(positionY)
@@ -9852,7 +10250,7 @@ class :
      procedure_id : 1853203831891672143
      type_code : 12
      code : |1-
-      procédure EffacerDonnees()
+      procÃ©dure EffacerDonnees()
       
       serie1:Points:Clear()
       serie2:Points:Clear()
@@ -9862,7 +10260,7 @@ class :
      procedure_id : 1853203874841420732
      type_code : 12
      code : |1+
-      procédure ExporterImage(chemin)
+      procÃ©dure ExporterImage(chemin)
       
       chart:SaveImage(chemin, 'System.Windows.Forms.DataVisualization.Charting.ChartImageFormat'::PNG)
       
@@ -9872,7 +10270,7 @@ class :
      procedure_id : 1853750954891473848
      type_code : 12
      code : |1+
-      procédure Scrolling(y)
+      procÃ©dure Scrolling(y)
       
       si NOT autoScroll alors retour
       
@@ -9900,8 +10298,8 @@ class :
      procedure_id : 1853754451005366261
      type_code : 12
      code : |1+
-      procédure MakeARGB(aa est un int, r est un int, g est un int, b est un int)
-      renvoyer bitDécaleGauche(aa, 24) + bitDécaleGauche(r, 16) + bitDécaleGauche(g,8) + b
+      procÃ©dure MakeARGB(aa est un int, r est un int, g est un int, b est un int)
+      renvoyer bitDÃ©caleGauche(aa, 24) + bitDÃ©caleGauche(r, 16) + bitDÃ©caleGauche(g,8) + b
       
      type : 458752
    -
@@ -9909,7 +10307,7 @@ class :
      procedure_id : 1854077273698485285
      type_code : 12
      code : |1+
-      procédure ActiverCurseur(actif est boolean)
+      procÃ©dure ActiverCurseur(actif est boolean)
       
       curseurActif = actif
       chartarea:CursorY:IsUserEnabled	= actif
@@ -9919,7 +10317,7 @@ class :
      procedure_id : 1854077492741868568
      type_code : 12
      code : |1+
-      procédure SetModeCurseur(mode est ModeCurseur)
+      procÃ©dure SetModeCurseur(mode est ModeCurseur)
       
       _modeCurseur = mode
       
@@ -9935,7 +10333,7 @@ class :
      procedure_id : 1854077973778317892
      type_code : 12
      code : |1+
-      procédure OnMouseMove(yPixel est entier)
+      procÃ©dure OnMouseMove(yPixel est entier)
       
       si NOT curseurActif OR modeCurseur <> ModeCurseur.Ligne alors RETOUR
       
@@ -9951,7 +10349,7 @@ class :
      procedure_id : 1854078205706605126
      type_code : 12
      code : |1+
-      procédure MoveCurseur(delta is real)
+      procÃ©dure MoveCurseur(delta is real)
       
       si modeCurseur <> ModeCurseur.Ligne alors RETOUR
       
@@ -9967,11 +10365,11 @@ class :
      procedure_id : 1854078356030496033
      type_code : 12
      code : |1+
-      // Résumé : <indiquez ici ce que fait la procédure>
+      // RÃ©sumÃ© : <indiquez ici ce que fait la procÃ©dure>
       // Syntaxe :
       // MajCurseurLigne ()
       //
-      // Paramètres :
+      // ParamÃ¨tres :
       //	Aucun
       // Valeur de retour :
       // 	Aucune
@@ -9979,7 +10377,7 @@ class :
       // Exemple :
       // <Indiquez ici un exemple d'utilisation>
       //
-      procédure MajCurseurLigne(y is real)
+      procÃ©dure MajCurseurLigne(y is real)
       
       args is STC_CurseurEventArgs
       
@@ -9997,7 +10395,7 @@ class :
      procedure_id : 1854078493469547135
      type_code : 12
      code : |1+
-      procédure MajCurseurZone(y1 is real, y2 is real)
+      procÃ©dure MajCurseurZone(y1 is real, y2 is real)
       
       args is STC_CurseurEventArgs
       
@@ -10023,7 +10421,7 @@ class :
      procedure_id : 1854078622318595405
      type_code : 12
      code : |1+
-      procédure Interpoler(s is object dynamic, y is real)
+      procÃ©dure Interpoler(s is object dynamic, y is real)
       
       n is int = s:Points:Count
       si n < 2 alors renvoyer Null
@@ -10057,7 +10455,7 @@ class :
      procedure_id : 1854078845657012318
      type_code : 12
      code : |1+
-      procédure GetStat(s is 'System.Windows.Forms.DataVisualization.Charting'.Series dynamic, yMin is real, yMax is real, isMin is boolean)
+      procÃ©dure GetStat(s is 'System.Windows.Forms.DataVisualization.Charting'.Series dynamic, yMin is real, yMax is real, isMin is boolean)
       
       first	is boolean	= True
       val		is real
@@ -10095,7 +10493,7 @@ class :
      procedure_id : 1854078961621156872
      type_code : 12
      code : |1+
-      procédure GetMoyenne(s is object dynamic, yMin is real, yMax is real)
+      procÃ©dure GetMoyenne(s is object dynamic, yMin is real, yMax is real)
       
       sum		is real	= 0
       count	is int	= 0
@@ -10130,4 +10528,5 @@ resources :
   internal_properties : CAAAAAgAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
 custom_note :
  internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
+```
 
