@@ -6413,7 +6413,7 @@ class :
       FIN
       
       	procÃ©dure interne M(var)
-      		renvoyer ChaÃ®neConstruit("{%1}{%2}{%3}",var,:canalSocket,:ip)
+      		renvoyer ChaÃ®neConstruit("(%1)(%2)(%3)",var,:canalSocket,:ip)
       	FIN
       
       	procÃ©dure interne gestion_deconnexion()
