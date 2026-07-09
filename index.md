@@ -3048,7 +3048,7 @@
 
 ```wlanguage
       procÃ©dure privee M(var)
-      RENVOYER ChaÃ®neConstruit("{%1}{%2}{%3}",var,trTmp:canalSocket,trTmp:ip)
+      RENVOYER ChaÃ®neConstruit("%1%2%3",var,trTmp:canalSocket,trTmp:ip)
 ```
 
 **Nom :** gestion_deconnexion
