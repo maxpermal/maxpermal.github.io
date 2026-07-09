@@ -4740,7 +4740,7 @@
       FIN
       
       	PROCÃ‰DURE INTERNE M(var)
-      		RENVOYER ChaÃ®neConstruit("{%1}{%2}{%3}",var,:canalSocket,:ip)
+      		RENVOYER ChaÃ®neConstruit("%1%2%3",var,:canalSocket,:ip)
       	FIN
       
       	PROCÃ‰DURE INTERNE gestion_deconnexion()
